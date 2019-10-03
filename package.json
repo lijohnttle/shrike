@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel --presets @babel/preset-env -d dist/ ./src/server && webpack --config webpack.dev.config.js",
+    "build-prod": "npm run build && webpack -p --config webpack.prod.config.js",
     "start": "babel-node --presets @babel/preset-env ./src/server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
