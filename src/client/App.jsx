@@ -1,8 +1,9 @@
 import React from 'react';
-import { Container, MuiThemeProvider, Box, Typography } from '@material-ui/core';
+import { MuiThemeProvider, Box } from '@material-ui/core';
 import theme from './theme';
 import { Header } from './components/Header';
-import { GoodReadsBookListWidget } from './widgets/GoodReadsBookListWidget';
+import { Footer } from './components/Footer';
+import { BooksSection } from './components/home/BooksSection';
 import data from './data';
 
 class App extends React.Component {
@@ -13,20 +14,9 @@ class App extends React.Component {
                     <Header />
                 </Box>
 
-                <Container>
-                    <a name="books">
-                        <Typography variant="h2" gutterBottom={true}>
-                            Books
-                        </Typography>
-                    </a>
+                <BooksSection userId={data.goodReads.userId} />
 
-                    <Box mb={2}>
-                        <GoodReadsBookListWidget title="Currently Reading" userId={data.goodReads.userId} shelf="currently-reading" count={20} />
-                    </Box>
-                    <Box mb={2}>
-                        <GoodReadsBookListWidget title="Read" shelf="read" userId={data.goodReads.userId} count={20} />
-                    </Box>
-                </Container>
+                <Footer />
             </MuiThemeProvider>
         );
     }
