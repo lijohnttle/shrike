@@ -47,7 +47,7 @@ class GoodReadsBookListWidget extends React.Component {
 
     componentDidMount() {
         const script = document.createElement('script');
-        script.src = `https://www.goodreads.com/review/grid_widget/82436176.Ivan's%20bookshelf:%20read?cover_size=medium&hide_link=&hide_title=&num_books=${this.props.count}&order=d&shelf=${this.props.shelf}&sort=date_added&widget_id=${this.props.shelf}`;
+        script.src = `https://www.goodreads.com/review/grid_widget/${this.props.userId}?cover_size=medium&hide_link=&hide_title=&num_books=${this.props.count}&order=d&shelf=${this.props.shelf}&sort=date_added&widget_id=${this.props.shelf}`;
         script.async = true;
         script.innerHTML = '';
         script.onload = this.handleBooksLoaded;
@@ -62,7 +62,7 @@ class GoodReadsBookListWidget extends React.Component {
                         {`${this.props.count} ${this.props.title}  `}
                     </Typography>
 
-                    <Link href={`https://www.goodreads.com/review/list/82436176-ivan-cherkasov?shelf=${this.props.shelf}`} target="_blank">
+                    <Link href={`https://www.goodreads.com/review/list/${this.props.userId}?shelf=${this.props.shelf}`} target="_blank">
                         <Typography variant="h6" display="inline">
                             {`(see all)`}
                         </Typography>
@@ -80,7 +80,8 @@ class GoodReadsBookListWidget extends React.Component {
 GoodReadsBookListWidget.propTypes = {
     title: PropTypes.string.isRequired,
     shelf: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired
+    count: PropTypes.number.isRequired,
+    userId: PropTypes.string.isRequired
 };
 
 export { GoodReadsBookListWidget };

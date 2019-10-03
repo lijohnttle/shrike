@@ -3,6 +3,7 @@ import { Container, MuiThemeProvider, Box, Typography } from '@material-ui/core'
 import theme from './theme';
 import { Header } from './components/Header';
 import { GoodReadsBookListWidget } from './widgets/GoodReadsBookListWidget';
+import data from './data';
 
 class App extends React.Component {
     render() {
@@ -20,10 +21,10 @@ class App extends React.Component {
                     </a>
 
                     <Box mb={2}>
-                        <GoodReadsBookListWidget title="Currently Reading" shelf="currently-reading" count={20} />
+                        <GoodReadsBookListWidget title="Currently Reading" userId={data.goodReads.userId} shelf="currently-reading" count={20} />
                     </Box>
                     <Box mb={2}>
-                        <GoodReadsBookListWidget title="Read" shelf="read" count={20} />
+                        <GoodReadsBookListWidget title="Read" shelf="read" userId={data.goodReads.userId} count={20} />
                     </Box>
                 </Container>
             </MuiThemeProvider>
