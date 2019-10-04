@@ -1,13 +1,12 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
-import { SectionContainer } from './SectionContainer';
+import { Container, Box, Typography } from '@material-ui/core';
 import { GoodReadsBookListWidget } from '../widgets/GoodReadsBookListWidget';
 
 const BooksSection = ({ userId }) => {
     return (
-        <SectionContainer>
+        <Container>
             <a name="books">
-                <Typography variant="h2" gutterBottom={true}>
+                <Typography variant="h1" gutterBottom={true}>
                     Books
                 </Typography>
             </a>
@@ -18,7 +17,7 @@ const BooksSection = ({ userId }) => {
             <Box mb={2}>
                 <GoodReadsBookListWidget title="Read" shelf="read" userId={userId} count={20} />
             </Box>
-        </SectionContainer>
+        </Container>
     );
 };
 
