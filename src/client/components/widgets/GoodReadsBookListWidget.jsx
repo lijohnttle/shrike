@@ -58,12 +58,12 @@ class GoodReadsBookListWidget extends React.Component {
         return (
             <div ref={this._rootRef}>
                 <Box mb={2}>
-                    <Typography variant="h4" display="inline">
+                    <Typography variant="h2" display="inline">
                         {`${this.props.count} ${this.props.title}  `}
                     </Typography>
 
                     <Link href={`https://www.goodreads.com/review/list/${this.props.userId}?shelf=${this.props.shelf}`} target="_blank">
-                        <Typography variant="h6" display="inline">
+                        <Typography variant="h3" display="inline">
                             {`(see all)`}
                         </Typography>
                     </Link>
