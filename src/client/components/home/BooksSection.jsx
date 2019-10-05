@@ -15,7 +15,7 @@ const BooksSection = ({ userId }) => {
                 <GoodReadsBookListWidget title="Currently Reading" userId={userId} shelf="currently-reading" count={20} />
             </Box>
             <Box mb={2}>
-                <GoodReadsBookListWidget title="Read" shelf="read" userId={userId} count={20} />
+                <GoodReadsBookListWidget title="Recently Read" shelf="read" userId={userId} count={10} />
             </Box>
         </Container>
     );
