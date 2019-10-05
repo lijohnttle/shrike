@@ -1,10 +1,12 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
-import { Element as ScrollTarget, scroller } from 'react-scroll';
+import { animateScroll } from 'react-scroll';
 import { Header } from '../Header';
 import { HomeTopContainer } from './HomeTopContainer';
-import { AboutSection } from './AboutSection';
+import { Sectioncontainer } from './SectionContainer';
+import { HeaderSection } from './HeaderSection';
 import { BooksSection } from './BooksSection';
+import { AboutSection } from './AboutSection';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
 
@@ -16,25 +18,27 @@ class HomePage extends React.Component {
     }
 
     gotoBooksSection() {
-        scroller.scrollTo('HomePage-BooksSection', smoothScrollOptions);
+        animateScroll.scrollTo(window.innerHeight, smoothScrollOptions);
     }
 
     render() {
         return (
             <React.Fragment>
-                <Box mb={8}>
+                <Box mb={12}>
                     <HomeTopContainer>
                         <Header />
 
-                        <AboutSection contacts={data.contacts} gotoNextSection={this.gotoBooksSection} />
+                        <HeaderSection contacts={data.contacts} gotoNextSection={this.gotoBooksSection} />
                     </HomeTopContainer>
                 </Box>
 
-                <Box mb={8}>
-                    <ScrollTarget name="HomePage-BooksSection">
-                        <BooksSection userId={data.goodReads.userId} />
-                    </ScrollTarget>
-                </Box>
+                <Sectioncontainer>
+                    <AboutSection />
+                </Sectioncontainer>
+
+                <Sectioncontainer>
+                    <BooksSection userId={data.goodReads.userId} />
+                </Sectioncontainer>
             </React.Fragment>
         );
     }
