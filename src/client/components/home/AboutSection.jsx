@@ -5,13 +5,10 @@ import { Facebook, LinkedIn, Email, Instagram } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        backgroundImage: 'url(\'/images/amsterdam.jpg\')',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundColor: 'transparent',
-        paddingTop: theme.spacing(16),
-        paddingBottom: theme.spacing(8),
-        boxShadow: theme.shadows[3]
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        flexGrow: 1
     },
     contactsContainer: {
         display: 'inline-block',
@@ -63,28 +60,30 @@ const AboutSection = ({ contacts }) => {
     return (
         <div className={classes.root}>
             <Container>
-                <Typography paragraph variant="h1" align="center">
-                    Welcome!
-                </Typography>
-                <Typography paragraph variant="h2" align="center">
-                    My name is Ivan Cherkasov
-                </Typography>
-                <Typography paragraph variant="h3" align="center">
-                    I am a software engineer
-                </Typography>
+                <Box display="flex" flexDirection="column" justifyContent="center">
+                    <Typography paragraph variant="h1" align="center">
+                        Welcome!
+                    </Typography>
+                    <Typography paragraph variant="h2" align="center">
+                        My name is Ivan Cherkasov
+                    </Typography>
+                    <Typography paragraph variant="h3" align="center">
+                        I am a software engineer
+                    </Typography>
 
-                <Typography paragraph variant="h1" align="center">
-                    <Box className={classes.contactsContainer}>
-                        {contacts.map(contact => (
-                            <Link
-                                key={contact.vendor}
-                                href={buildHRefByVendor(contact.vendor, contact.value)}
-                                color="textPrimary"
-                                target="_blank">
-                                {createIconByVendor(contact.vendor)}
-                            </Link>))}
-                    </Box>
-                </Typography>
+                    <Typography component="div" variant="h1" align="center">
+                        <Box className={classes.contactsContainer}>
+                            {contacts.map(contact => (
+                                <Link
+                                    key={contact.vendor}
+                                    href={buildHRefByVendor(contact.vendor, contact.value)}
+                                    color="textPrimary"
+                                    target="_blank">
+                                    {createIconByVendor(contact.vendor)}
+                                </Link>))}
+                        </Box>
+                    </Typography>
+                </Box>
             </Container>
         </div>
     );

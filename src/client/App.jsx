@@ -6,6 +6,7 @@ import { Footer } from './components/Footer';
 import { BooksSection } from './components/home/BooksSection';
 import data from './data';
 import { AboutSection } from './components/home/AboutSection';
+import { HomeTopContainer } from './components/home/HomeTopContainer';
 
 class App extends React.Component {
     render() {
@@ -13,10 +14,12 @@ class App extends React.Component {
             <MuiThemeProvider theme={defaultTheme}>
                 <CssBaseline />
 
-                <Header />
-
                 <Box mb={8}>
-                    <AboutSection contacts={data.contacts} />
+                    <HomeTopContainer>
+                        <Header />
+
+                        <AboutSection contacts={data.contacts} />
+                    </HomeTopContainer>
                 </Box>
 
                 <Box mb={8}>
