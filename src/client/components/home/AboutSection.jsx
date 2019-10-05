@@ -13,7 +13,7 @@ const AboutSection = () => {
             </Typography>
 
             <Typography paragraph>
-                I am a Software Engineer with more than 5 years of experience. I graduated from Saint Petersburg State Technological Institute (Technical Univetsity) in Russia with a master degree in computer science. Currently I work in a bank developing financial services that are used by customer from around the world and I am using technologies like C#, .NET, JavaScript, React.js, Oracle Database.
+                I am a Software Engineer with more than 5 years of experience. I graduated from Saint Petersburg State Technological Institute (Technical Univetsity) in Russia with a master degree in computer science. Currently I work in a bank developing financial services that are used by customers from around the world and I am using technologies like C#, .NET, JavaScript, React.js, Oracle Database.
             </Typography>
 
             <Typography paragraph>
