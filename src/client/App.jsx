@@ -15,7 +15,7 @@ class App extends React.Component {
 
                 <Header />
 
-                <Box mt={16} mb={8}>
+                <Box mb={8}>
                     <AboutSection contacts={data.contacts} />
                 </Box>
 

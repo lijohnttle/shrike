@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Link, Typography, Box } from '@material-ui/core';
+import { Container, Link, Typography, Box, makeStyles } from '@material-ui/core';
 import { Facebook, LinkedIn, Email, Instagram } from '@material-ui/icons'
 
 function getIconByVendor(vendor) {
@@ -27,32 +27,45 @@ function getHRefByVendor(vendor, value) {
     }
 }
 
-const AboutSection = ({ contacts }) => {
-    return (
-        <Container>
-            <Typography paragraph variant="h1" align="center">
-                Welcome!
-            </Typography>
-            <Typography paragraph variant="h2" align="center">
-                My name is Ivan Cherkasov
-            </Typography>
-            <Typography paragraph variant="h3" align="center">
-                I am a software engineer
-            </Typography>
+const useStyles = makeStyles({
+    root: {
+        backgroundImage: 'url(\'/images/amsterdam.jpg\')',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundColor: 'transparent'
+    }
+});
 
-            <Box mt={8}>
+const AboutSection = ({ contacts }) => {
+    const classes = useStyles();
+
+    return (
+        <Box className={classes.root} pt={16} pb={8} boxShadow={3}>
+            <Container>
                 <Typography paragraph variant="h1" align="center">
-                    {contacts.map(contact => (
-                        <Link
-                            key={contact.vendor}
-                            href={getHRefByVendor(contact.vendor, contact.value)}
-                            color="textPrimary"
-                            target="_blank">
-                            {getIconByVendor(contact.vendor)}
-                        </Link>))}
+                    Welcome!
                 </Typography>
-            </Box>
-        </Container>
+                <Typography paragraph variant="h2" align="center">
+                    My name is Ivan Cherkasov
+                </Typography>
+                <Typography paragraph variant="h3" align="center">
+                    I am a software engineer
+                </Typography>
+
+                <Box mt={8}>
+                    <Typography paragraph variant="h1" align="center">
+                        {contacts.map(contact => (
+                            <Link
+                                key={contact.vendor}
+                                href={getHRefByVendor(contact.vendor, contact.value)}
+                                color="textPrimary"
+                                target="_blank">
+                                {getIconByVendor(contact.vendor)}
+                            </Link>))}
+                    </Typography>
+                </Box>
+            </Container>
+        </Box>
     );
 };
 
