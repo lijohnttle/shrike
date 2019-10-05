@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel --presets @babel/preset-env -d dist/ ./src/server && webpack --config webpack.dev.config.js",
-    "build-prod": "babel --presets @babel/preset-env -d dist/ ./src/server && webpack -p --config webpack.prod.config.js",
+    "build-prod": "set NODE_ENV=production && babel --presets @babel/preset-env -d dist/ ./src/server && webpack -p --config webpack.prod.config.js",
     "start": "babel-node --presets @babel/preset-env ./src/server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,7 +26,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
-    "react-router": "^5.1.1"
+    "react-router": "^5.1.1",
+    "react-scroll": "^1.7.14"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",

@@ -5,11 +5,9 @@ import { GoodReadsBookListWidget } from '../widgets/GoodReadsBookListWidget';
 const BooksSection = ({ userId }) => {
     return (
         <Container>
-            <a name="books">
-                <Typography variant="h1" gutterBottom={true}>
-                    Books
-                </Typography>
-            </a>
+            <Typography variant="h1" gutterBottom={true}>
+                Books
+            </Typography>
 
             <Box mb={4}>
                 <GoodReadsBookListWidget title="Currently Reading" userId={userId} shelf="currently-reading" count={20} />

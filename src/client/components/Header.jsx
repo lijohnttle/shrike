@@ -6,9 +6,6 @@ const useStyles = makeStyles({
     appBarTransparent: {
         background: 'transparent',
         boxShadow: 'none'
-    },
-    title: {
-        flexGrow: 1
     }
 });
 
@@ -24,12 +21,6 @@ const RenderHeader = ({ hasBackground }) => {
                         LIJOHNTTLE
                     </Typography>
                 </Button>
-
-                <Typography className={classes.title}>
-
-                </Typography>
-
-                <Button color="inherit" href="/#books">Books</Button>
             </Toolbar>
         </AppBar>
     );
