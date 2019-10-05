@@ -5,7 +5,7 @@ const AboutSection = () => {
     return (
         <React.Fragment>
             <Typography paragraph variant="h1">
-                About me...
+                About me
             </Typography>
 
             <Typography paragraph>
