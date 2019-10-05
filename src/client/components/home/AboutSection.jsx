@@ -3,7 +3,32 @@ import PropTypes from 'prop-types';
 import { Container, Link, Typography, Box, makeStyles } from '@material-ui/core';
 import { Facebook, LinkedIn, Email, Instagram } from '@material-ui/icons'
 
-function getIconByVendor(vendor) {
+const useStyles = makeStyles((theme) => ({
+    root: {
+        backgroundImage: 'url(\'/images/amsterdam.jpg\')',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundColor: 'transparent',
+        paddingTop: theme.spacing(16),
+        paddingBottom: theme.spacing(8),
+        boxShadow: theme.shadows[3]
+    },
+    contactsContainer: {
+        display: 'inline-block',
+        marginTop: theme.spacing(4),
+        paddingTop: theme.spacing(2),
+        borderTopColor: theme.palette.text.primary,
+        borderTopWidth: '1px',
+        borderTopStyle: 'solid'
+    }
+}));
+
+/**
+ * Creates an icon element according to the vendor's name.
+ * @param {String} vendor Vendor's name.
+ * @returns {import('react').ReactElement} 
+ */
+function createIconByVendor(vendor) {
     switch (vendor) {
         case 'facebook':
             return <Facebook fontSize="inherit" />
@@ -18,7 +43,12 @@ function getIconByVendor(vendor) {
     }
 }
 
-function getHRefByVendor(vendor, value) {
+/**
+ * Builds a final link according to vendor's name.
+ * @param {String} vendor Vendor's name.
+ * @param {String} value Original link.
+ */
+function buildHRefByVendor(vendor, value) {
     switch (vendor) {
         case 'email':
             return `mailto:${value}`;
@@ -27,20 +57,11 @@ function getHRefByVendor(vendor, value) {
     }
 }
 
-const useStyles = makeStyles({
-    root: {
-        backgroundImage: 'url(\'/images/amsterdam.jpg\')',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundColor: 'transparent'
-    }
-});
-
 const AboutSection = ({ contacts }) => {
     const classes = useStyles();
 
     return (
-        <Box className={classes.root} pt={16} pb={8} boxShadow={3}>
+        <div className={classes.root}>
             <Container>
                 <Typography paragraph variant="h1" align="center">
                     Welcome!
@@ -52,20 +73,20 @@ const AboutSection = ({ contacts }) => {
                     I am a software engineer
                 </Typography>
 
-                <Box mt={8}>
-                    <Typography paragraph variant="h1" align="center">
+                <Typography paragraph variant="h1" align="center">
+                    <Box className={classes.contactsContainer}>
                         {contacts.map(contact => (
                             <Link
                                 key={contact.vendor}
-                                href={getHRefByVendor(contact.vendor, contact.value)}
+                                href={buildHRefByVendor(contact.vendor, contact.value)}
                                 color="textPrimary"
                                 target="_blank">
-                                {getIconByVendor(contact.vendor)}
+                                {createIconByVendor(contact.vendor)}
                             </Link>))}
-                    </Typography>
-                </Box>
+                    </Box>
+                </Typography>
             </Container>
-        </Box>
+        </div>
     );
 };
 
