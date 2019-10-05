@@ -1,9 +1,9 @@
 import React from 'react';
-import { Typography, Container } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 const AboutSection = () => {
     return (
-        <Container>
+        <React.Fragment>
             <Typography paragraph variant="h1">
                 About me...
             </Typography>
@@ -19,7 +19,7 @@ const AboutSection = () => {
             <Typography paragraph>
                 Previously I lived in Russia, but recently I moved to Wroclaw, Poland. One of my next big goals is moving to Canada.
             </Typography>
-        </Container>
+        </React.Fragment>
     );
 };
 

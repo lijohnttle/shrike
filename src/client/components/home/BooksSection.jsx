@@ -1,10 +1,10 @@
 import React from 'react';
-import { Container, Box, Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { GoodReadsBookListWidget } from '../widgets/GoodReadsBookListWidget';
 
 const BooksSection = ({ userId }) => {
     return (
-        <Container>
+        <React.Fragment>
             <Typography variant="h1" gutterBottom={true}>
                 Books
             </Typography>
@@ -15,7 +15,7 @@ const BooksSection = ({ userId }) => {
             <Box mb={4}>
                 <GoodReadsBookListWidget title="Recently Read" shelf="read" userId={userId} count={10} />
             </Box>
-        </Container>
+        </React.Fragment>
     );
 };
 

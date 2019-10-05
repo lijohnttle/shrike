@@ -24,7 +24,7 @@ class HomePage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Box mb={12}>
+                <Box mb={8}>
                     <HomeTopContainer>
                         <Header />
 

@@ -1,12 +1,18 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Paper, Container } from '@material-ui/core';
 import { Fade } from 'react-reveal';
 
 const Sectioncontainer = ({ children }) => {
     return (
-        <Box mb={12}>
+        <Box mb={4}>
             <Fade>
-                {children}
+                <Container>
+                    <Paper>
+                        <Box px={2} py={4}>
+                            {children}
+                        </Box>
+                    </Paper>
+                </Container>
             </Fade>
         </Box>
     );

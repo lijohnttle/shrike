@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, Typography, Box, Link, CircularProgress, Grid, Paper } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     hiddenWidgetRoot: {
         display: 'none'
     },
     listPaper: {
+        background: theme.palette.background.light,
         padding: theme.spacing(1)
     },
     list: {

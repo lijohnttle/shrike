@@ -13,7 +13,8 @@ let defaultTheme = createMuiTheme({
         },
         background: {
             default: '#181818',
-            paper: '#303030'
+            paper: '#303030',
+            light: '#404040'
         }
     },
     typography: {
