@@ -11,10 +11,10 @@ const BooksSection = ({ userId }) => {
                 </Typography>
             </a>
 
-            <Box mb={2}>
+            <Box mb={4}>
                 <GoodReadsBookListWidget title="Currently Reading" userId={userId} shelf="currently-reading" count={20} />
             </Box>
-            <Box mb={2}>
+            <Box mb={4}>
                 <GoodReadsBookListWidget title="Recently Read" shelf="read" userId={userId} count={10} />
             </Box>
         </Container>
