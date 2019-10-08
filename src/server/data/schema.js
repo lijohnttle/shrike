@@ -11,11 +11,16 @@ const schema = buildSchema(`
         urlSlug: String
     }
 
-    type Query {
+    type Blog {
+        getPosts: [BlogPost]
         getBlogPostPreview(id: ID!): BlogPost
         getBlogPostPreviewByUrl(urlSlug: String!): BlogPost
         getBlogPost(id: ID!): BlogPost
         getBlogPostByUrl(urlSlug: String!): BlogPost
+    }
+
+    type Query {
+        getBlog: Blog
     }
 `);
 

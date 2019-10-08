@@ -1,10 +1,13 @@
-import postStorage from './storage/PostStorage';
+import PostRepository from './repositories/BlogRepository';
 
 const resolvers = {
-    getBlogPostPreview: async ({ id }) => await postStorage.getPostPreview(id),
-    getBlogPostPreviewByUrl: async ({ urlSlug }) => await postStorage.getPostPreviewByUrl(urlSlug),
-    getBlogPost: async ({ id }) => await postStorage.getPost(id),
-    getBlogPostByUrl: async ({ urlSlug }) => await postStorage.getPostByUrl(urlSlug)
+    getBlog: () => ({
+        getPosts: async () => await PostRepository.getPosts(),
+        getBlogPostPreview: async ({ id }) => await PostRepository.getPostPreview(id),
+        getBlogPostPreviewByUrl: async ({ urlSlug }) => await PostRepository.getPostPreviewByUrl(urlSlug),
+        getBlogPost: async ({ id }) => await PostRepository.getPost(id),
+        getBlogPostByUrl: async ({ urlSlug }) => await PostRepository.getPostByUrl(urlSlug)
+    })
 };
 
 export { resolvers };
