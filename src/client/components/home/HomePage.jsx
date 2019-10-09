@@ -3,10 +3,11 @@ import { Box } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
 import { Header } from '../Header';
 import { HomeTopContainer } from './HomeTopContainer';
-import { Sectioncontainer } from './SectionContainer';
+import { SectionContainer } from './SectionContainer';
 import { HeaderSection } from './HeaderSection';
 import { BooksSection } from './BooksSection';
 import { AboutSection } from './AboutSection';
+import { BlogSection } from './BlogSection';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
 
@@ -32,13 +33,17 @@ class HomePage extends React.Component {
                     </HomeTopContainer>
                 </Box>
 
-                <Sectioncontainer>
+                <SectionContainer>
                     <AboutSection />
-                </Sectioncontainer>
+                </SectionContainer>
 
-                <Sectioncontainer>
+                <SectionContainer>
+                    <BlogSection />
+                </SectionContainer>
+
+                <SectionContainer>
                     <BooksSection userId={data.goodReads.userId} />
-                </Sectioncontainer>
+                </SectionContainer>
             </React.Fragment>
         );
     }

@@ -25,7 +25,7 @@ async function getPosts() {
 
     posts.sort((a, b) => a.publishedOn - b.publishedOn);
 
-    return posts;
+    return posts.filter(t => t.isVisible);
 }
 
 async function findBlogPost(selector, includeContent = false) {

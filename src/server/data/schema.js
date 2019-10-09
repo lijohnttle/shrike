@@ -9,14 +9,15 @@ const schema = buildSchema(`
         publishedOn: String
         isVisible: Boolean
         urlSlug: String
+        tags: [String]
     }
 
     type Blog {
         getPosts: [BlogPost]
-        getBlogPostPreview(id: ID!): BlogPost
-        getBlogPostPreviewByUrl(urlSlug: String!): BlogPost
-        getBlogPost(id: ID!): BlogPost
-        getBlogPostByUrl(urlSlug: String!): BlogPost
+        getPostPreview(id: ID!): BlogPost
+        getPostPreviewByUrl(urlSlug: String!): BlogPost
+        getPost(id: ID!): BlogPost
+        getPostByUrl(urlSlug: String!): BlogPost
     }
 
     type Query {
