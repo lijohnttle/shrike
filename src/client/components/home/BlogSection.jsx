@@ -1,6 +1,7 @@
 import React from 'react';
+import { CircularProgress, Typography } from '@material-ui/core';
 import * as blogService from '../../services/blogService';
-import { CircularProgress, Typography, Card, CardHeader, CardContent, makeStyles } from '@material-ui/core';
+import { BlogPostPreview } from './BlogPostPreview';
 
 class BlogSection extends React.Component {
     constructor(props) {
@@ -31,25 +32,11 @@ class BlogSection extends React.Component {
                     Blog
                 </Typography>
 
-                {this.state.isLoading ? <CircularProgress /> : this.renderPosts() }
+                {this.state.isLoading
+                    ? <CircularProgress />
+                    : this.state.posts.map((post) => <BlogPostPreview key={post.id} post={post} />) }
             </div>
         );
-    }
-
-    renderPosts() {
-        return this.state.posts.map((post) => {
-            return (
-                <Card>
-                    <CardHeader
-                        title={post.title} />
-                    <CardContent>
-                        <Typography variant="body2" paragraph>
-                            {post.description}
-                        </Typography>
-                    </CardContent>
-                </Card>
-            );
-        });
     }
 }
 
