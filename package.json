@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel --presets @babel/preset-env -d dist/ ./src/server && webpack --config webpack.dev.config.js",
-    "build-prod": "set NODE_ENV=production && babel --presets @babel/preset-env -d dist/ ./src/server && webpack -p --config webpack.prod.config.js",
-    "start": "babel-node --presets @babel/preset-env ./src/server/index.js",
+    "build-server": "babel --presets @babel/preset-env -d dist/ ./src/server",
+    "build-client": "webpack --config webpack.dev.config.js",
+    "build": "npm run build-server && npm run build-client",
+    "build-server-prod": "set NODE_ENV=production && babel --presets @babel/preset-env -d dist/ ./src/server",
+    "build-client-prod": "webpack -p --config webpack.prod.config.js",
+    "build-prod": "npm run build-server-prod && npm run build-client-prod",
+    "start": "node ./dist/index.js",
+    "restart": "npm run build-server && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,9 +25,14 @@
   },
   "homepage": "https://github.com/lijohnttle/shrike#readme",
   "dependencies": {
+    "@babel/polyfill": "^7.6.0",
     "@material-ui/core": "^4.4.3",
     "@material-ui/icons": "^4.4.3",
+    "axios": "^0.19.0",
+    "core-js": "^3.2.1",
     "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^14.5.8",
     "prop-types": "^15.7.2",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",

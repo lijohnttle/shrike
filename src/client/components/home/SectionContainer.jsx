@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Paper, Container } from '@material-ui/core';
 import { Fade } from 'react-reveal';
 
-const Sectioncontainer = ({ children }) => {
+const SectionContainer = ({ children }) => {
     return (
         <Box mb={4}>
             <Fade>
@@ -18,4 +18,4 @@ const Sectioncontainer = ({ children }) => {
     );
 };
 
-export { Sectioncontainer };
+export { SectionContainer };

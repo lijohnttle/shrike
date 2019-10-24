@@ -7,7 +7,7 @@ let defaultTheme = createMuiTheme({
         secondary: red,
         text: {
             primary: '#e0e0e0',
-            secondary: '#e0e0e0',
+            secondary: '#a0a0a0',
             hint: '#e0e0e0',
             disabled: '#808080'
         },
