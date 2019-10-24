@@ -34,7 +34,23 @@ class BlogSection extends React.Component {
 
                 {this.state.isLoading
                     ? <CircularProgress />
-                    : this.state.posts.map((post) => <BlogPostPreview key={post.id} post={post} />) }
+                    : this.renderBlogPostPreviews() }
+            </div>
+        );
+    }
+
+    renderBlogPostPreviews() {
+        if (this.state.posts.length === 0) {
+            return (
+                <Typography variant="body1" gutterBottom={true}>
+                    There are no blog posts yet
+                </Typography>
+            );
+        }
+
+        return (
+            <div>
+                {this.state.posts.map((post) => <BlogPostPreview key={post.id} post={post} />)}
             </div>
         );
     }

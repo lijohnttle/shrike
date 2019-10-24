@@ -3,10 +3,10 @@ import path from 'path';
 import { BlogPost } from '../models/BlogPost';
 
 const postRefs = [
-    {
-        id: "1",
-        urlSlug: "test-blog-post"
-    }
+    // {
+    //     id: "1",
+    //     urlSlug: "test-blog-post"
+    // }
 ];
 
 const postCache = { };
@@ -35,7 +35,7 @@ async function findBlogPost(selector, includeContent = false) {
         return null;
     }
 
-    return await loadBlogPost(blogPostRef.urlSlug);
+    return await loadBlogPost(blogPostRef.urlSlug, includeContent);
 }
 
 async function loadBlogPost(urlSlug, includeContent = false) {
