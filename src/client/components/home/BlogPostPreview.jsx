@@ -1,18 +1,11 @@
 import React from 'react';
 import { Card, CardHeader, CardContent, Typography, makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        background: theme.palette.background.light
-    }
-}));
-
 const BlogPostPreview = ({ post }) => {
-    const classes = useStyles();
     const publishedOn = post.publishedOn ? new Date(Date.parse(post.publishedOn)).toLocaleString() : '';
 
     return (
-        <Card className={classes.root}>
+        <Card>
             <CardHeader
                 title={post.title}
                 subheader={publishedOn} />

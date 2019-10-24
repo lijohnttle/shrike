@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
-        flexGrow: 1
+        flexGrow: 1,
+        color: theme.palette.primary.contrastText
     },
     contactsContainer: {
         display: 'flex',
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         marginTop: theme.spacing(4),
         paddingTop: theme.spacing(2),
-        borderTopColor: theme.palette.text.primary,
+        borderTopColor: theme.palette.primary.contrastText,
         borderTopWidth: '1px',
         borderTopStyle: 'solid'
     }
@@ -81,8 +82,8 @@ const HeaderSection = ({ contacts, gotoNextSection }) => {
                         <Link
                             key={contact.vendor}
                             href={buildHRefByVendor(contact.vendor, contact.value)}
-                            color="textPrimary"
                             variant="h1"
+                            color="inherit"
                             target="_blank">
                             {createIconByVendor(contact.vendor)}
                         </Link>))}
@@ -90,7 +91,7 @@ const HeaderSection = ({ contacts, gotoNextSection }) => {
             </Box>
 
             <Box flex="1 1 auto" display="flex" justifyContent="center" alignItems="center">
-                <Button variant="text" onClick={gotoNextSection}>
+                <Button variant="text" onClick={gotoNextSection} color="inherit">
                     <Typography variant="h1" align="center">
                         <ArrowDownwardRounded fontSize="inherit" />
                     </Typography>

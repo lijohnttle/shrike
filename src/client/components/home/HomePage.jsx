@@ -1,12 +1,11 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
+import { Fade } from 'react-reveal';
 import { Header } from '../Header';
 import { HomeTopContainer } from './HomeTopContainer';
-import { SectionContainer } from './SectionContainer';
 import { HeaderSection } from './HeaderSection';
 import { BooksSection } from './BooksSection';
-import { AboutSection } from './AboutSection';
 import { BlogSection } from './BlogSection';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
@@ -33,17 +32,26 @@ class HomePage extends React.Component {
                     </HomeTopContainer>
                 </Box>
 
-                <SectionContainer>
-                    <AboutSection />
-                </SectionContainer>
-
-                <SectionContainer>
-                    <BlogSection />
-                </SectionContainer>
-
-                <SectionContainer>
+                {this.renderSections([
+                    <BlogSection />,
                     <BooksSection userId={data.goodReads.userId} />
-                </SectionContainer>
+                ])}
+            </React.Fragment>
+        );
+    }
+
+    renderSections(sections) {
+        return (
+            <React.Fragment>
+                {sections.map((section, index) => (
+                    <Box key={index} mb={4}>
+                        <Fade>
+                            <Container>
+                                {section}
+                            </Container>
+                        </Fade>
+                    </Box>
+                ))}
             </React.Fragment>
         );
     }

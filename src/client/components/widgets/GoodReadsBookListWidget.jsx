@@ -6,12 +6,9 @@ const useStyles = makeStyles((theme) => ({
     hiddenWidgetRoot: {
         display: 'none'
     },
-    listPaper: {
-        background: theme.palette.background.light,
-        padding: theme.spacing(1)
-    },
     list: {
-        overflow: 'hidden'
+        overflow: 'hidden',
+        padding: theme.spacing(1)
     },
     card: {
         display: 'block',
@@ -47,17 +44,15 @@ const RenderBooks = ({ shelf }) => {
     const links = Array.prototype.slice.call(loadedWidget.querySelectorAll('.gr_grid_book_container>a'));
 
     return (
-        <Paper className={classes.listPaper}>
-            <Grid container className={classes.list}>
-                {links.map(a => (
-                    <Grid item key={a.href}>
-                        <Link href={a.href} title={a.title} rel={a.rel} className={classes.card}>
-                            <img alt={a.title} border={0} src={a.firstChild.src}></img>
-                        </Link>
-                    </Grid>
-                ))}
-            </Grid>
-        </Paper>
+        <Grid container className={classes.list}>
+            {links.map(a => (
+                <Grid item key={a.href}>
+                    <Link href={a.href} title={a.title} rel={a.rel} className={classes.card}>
+                        <img alt={a.title} border={0} src={a.firstChild.src}></img>
+                    </Link>
+                </Grid>
+            ))}
+        </Grid>
     );
 };
 

@@ -5,16 +5,9 @@ let defaultTheme = createMuiTheme({
     palette: {
         primary: deepOrange,
         secondary: red,
-        text: {
-            primary: '#e0e0e0',
-            secondary: '#a0a0a0',
-            hint: '#e0e0e0',
-            disabled: '#808080'
-        },
         background: {
-            default: '#181818',
-            paper: '#303030',
-            light: '#404040'
+            default: '#f0f0f0',
+            paper: '#ffffff'
         }
     },
     typography: {
