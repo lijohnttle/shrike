@@ -11,6 +11,7 @@ let defaultTheme = createMuiTheme({
         }
     },
     typography: {
+        fontFamily: [ 'Roboto', 'Arial Narrow', 'Arial', 'Helvetica' ],
         h1: {
             fontSize: '4rem'
         },

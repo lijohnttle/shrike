@@ -2,11 +2,12 @@ import React from 'react';
 import { Box, Container } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
 import { Fade } from 'react-reveal';
-import { Header } from '../Header';
+import { Header } from './Header';
 import { HomeTopContainer } from './HomeTopContainer';
 import { HeaderSection } from './HeaderSection';
 import { BooksSection } from './BooksSection';
 import { BlogSection } from './BlogSection';
+import { Footer } from '../Footer';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
 
@@ -36,6 +37,8 @@ class HomePage extends React.Component {
                     <BlogSection />,
                     <BooksSection userId={data.goodReads.userId} />
                 ])}
+
+                <Footer />
             </React.Fragment>
         );
     }

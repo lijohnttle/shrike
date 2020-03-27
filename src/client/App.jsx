@@ -1,8 +1,9 @@
 import React from 'react';
-import { MuiThemeProvider, Box, CssBaseline } from '@material-ui/core';
+import { Switch, Route } from 'react-router-dom';
+import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
 import { defaultTheme } from './themes';
-import { Footer } from './components/Footer';
 import { HomePage } from './components/home/HomePage';
+import { CvPage } from './components/cv/CvPage';
 
 class App extends React.Component {
     render() {
@@ -10,9 +11,15 @@ class App extends React.Component {
             <MuiThemeProvider theme={defaultTheme}>
                 <CssBaseline />
 
-                <HomePage />
+                <Switch>
+                    <Route path="/cv">
+                        <CvPage />
+                    </Route>
 
-                <Footer />
+                    <Route path="/">
+                        <HomePage />
+                    </Route>
+                </Switch>
             </MuiThemeProvider>
         );
     }

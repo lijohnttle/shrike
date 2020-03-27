@@ -11,10 +11,13 @@ const app = express();
 
 app.use(express.static(path.resolve(rootPath, 'public')));
 
-app.get('/', (req, res) => {
+const indexPageGetHandler = (_, res) => {
     res.setHeader('content-type', 'text/html');
     res.sendFile(path.resolve(rootPath, 'public/index.html'));
-});
+};
+
+app.get('/', indexPageGetHandler);
+app.get('/cv', indexPageGetHandler);
 
 app.use('/graphql', graphqlHTTP({
     schema: schema,
