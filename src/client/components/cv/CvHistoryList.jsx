@@ -4,13 +4,13 @@ import { CvHistoryItem } from './CvHistoryItem';
 const CvHistoryList = ({ children }) => {
     return (
         <div>
-            {children && React.Children.map(children, child => (
-                <div>
+            {children && React.Children.map(children, (child, index) => (
+                <CvHistoryItem isHistoryLastItem={index == 0}>
                     {child}
-                </div>
+                </CvHistoryItem>
             ))}
 
-            <CvHistoryItem isStartMark={true} />
+            <CvHistoryItem isHistoryStartMark={true} />
         </div>
     );
 };
