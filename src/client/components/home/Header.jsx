@@ -48,7 +48,7 @@ class Header extends React.Component {
             showBackground = this.checkNeedShowBackground();
         }
 
-        return <HeaderBar hasBackground={showBackground} />;
+        return <HeaderBar hasBackground={showBackground} hasFixedPosition={true} />;
     }
 }
 
