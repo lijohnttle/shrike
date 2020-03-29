@@ -9,8 +9,10 @@ const CvHistoryList = ({ children }) => {
                     {child}
                 </CvHistoryItem>
             ))}
-
-            <CvHistoryItem isHistoryStartMark={true} />
+            
+            {React.Children.count(children) > 0
+                ? <CvHistoryItem isHistoryStartMark={true} />
+                : null}
         </div>
     );
 };

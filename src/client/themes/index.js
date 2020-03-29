@@ -31,6 +31,13 @@ let defaultTheme = createMuiTheme({
             fontSize: '1rem',
             fontWeight: 'bold'
         }
+    },
+    overrides: {
+        MuiSkeleton: {
+            root: {
+                backgroundColor: 'rgba(0, 0, 0, 0.1)'
+            }
+        }
     }
 });
 

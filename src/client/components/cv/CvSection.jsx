@@ -10,7 +10,7 @@ const CvSection = ({ title, titleBackground, children }) => {
                 </Typography>
             </Box>
 
-            <Box ml={6}>
+            <Box ml={6} mr={6}>
                 {children}
             </Box>
         </React.Fragment>

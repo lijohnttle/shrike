@@ -20,8 +20,32 @@ const schema = buildSchema(`
         getPostByUrl(urlSlug: String!): BlogPost
     }
 
+    type CvExperience {
+        position: String
+        employer: String
+        date: String
+        location: String
+        accomplishments: [String]
+        tools: [String]
+        technologies: [String]
+    }
+
+    type CvEducation {
+        title: String
+        description: String
+        date: String
+        location: String
+    }
+
+    type Cv {
+        summary: String
+        experience: [CvExperience]
+        education: [CvEducation]
+    }
+
     type Query {
         getBlog: Blog
+        getCv: Cv
     }
 `);
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import { withStyles, Box, Container, Paper, Typography, List } from '@material-ui/core';
+import { withStyles, Box, Container, Paper, Typography } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 import { HeaderBar } from '../common/HeaderBar';
 import { Footer } from '../Footer';
 import { CvSection } from './CvSection';
@@ -7,6 +8,8 @@ import { CvSectionParagraph } from './CvSectionParagraph';
 import { CvHistoryList } from './CvHistoryList';
 import { CvEducationDataPresenter } from './CvEducationDataPresenter';
 import { CvExperienceDataPresenter } from './CvExperienceDataPresenter';
+import { CvEmptyDataPresenter } from './CvEmptyDataPresenter';
+import * as cvService from '../../services/cvService';
 
 const useStyles = () => ({
     root: {
@@ -28,64 +31,26 @@ const useStyles = () => ({
     }
 });
 
-const cv = {
-    summary: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vitae orci nec velit elementum ullamcorper id at nunc. Nunc volutpat facilisis ultrices. Morbi porttitor egestas ultricies. Nunc aliquet molestie facilisis. Sed vitae bibendum eros. Nullam dapibus ex tortor, sed commodo elit suscipit at. Nullam eu ultricies lectus. Morbi aliquet laoreet consequat. Morbi dignissim varius ligula a dapibus.',
-    experience: [
-        {
-            position: 'Job Position 3',
-            employer: 'Company',
-            date: '01.01.1001-01.01.1002',
-            location: 'City of Lights, Neverland',
-            accomplishments: [
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                'In quis nisi nec lorem mattis porttitor id eu est.',
-                'Aenean id lectus a erat pretium suscipit.',
-                'Integer nec erat et turpis tempor accumsan.',
-            ],
-            tools: [ 'Tool1', 'Tool2', 'Tool3' ],
-            technologies: [ 'Tech1', 'Tech2', 'Tech3' ]
-        },
-        {
-            position: 'Job Position 2',
-            employer: 'Company',
-            date: '01.01.1001-01.01.1002',
-            location: 'City of Lights, Neverland',
-            accomplishments: [
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                'In quis nisi nec lorem mattis porttitor id eu est.',
-                'Aenean id lectus a erat pretium suscipit.',
-                'Integer nec erat et turpis tempor accumsan.',
-            ],
-            tools: [ 'Tool1', 'Tool2', 'Tool3' ],
-            technologies: [ 'Tech1', 'Tech2', 'Tech3' ]
-        },
-        {
-            position: 'Job Position 1',
-            employer: 'Company',
-            date: '01.01.1001-01.01.1002',
-            location: 'City of Lights, Neverland',
-            accomplishments: [
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                'In quis nisi nec lorem mattis porttitor id eu est.',
-                'Aenean id lectus a erat pretium suscipit.',
-                'Integer nec erat et turpis tempor accumsan.',
-            ],
-            tools: [ 'Tool1', 'Tool2', 'Tool3' ],
-            technologies: [ 'Tech1', 'Tech2', 'Tech3' ]
-        }
-    ],
-    education: [
-        {
-            title: 'Name of the University',
-            description: 'Degree, Description',
-            date: '01.01.1001-01.01.1002',
-            location: 'City of Lights, Neverland'
-        }
-    ]
-};
-
 class CvPage extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            cv: null,
+            error: null
+        };
+    }
+
+    componentDidMount() {
+        cvService
+            .getCv()
+            .then(cv => this.setState({ cv: cv }))
+            .catch(error => this.setState({ error: error }));
+    }
+
     render() {
+        const { cv } = this.state;
+
         return (
             <Box className={this.props.classes.root}>
                 <HeaderBar hasBackground={true} hasFixedPosition={false} />
@@ -101,19 +66,25 @@ class CvPage extends React.Component {
                             
                             <CvSection title="Summary" titleBackground="transparent">
                                 <CvSectionParagraph>
-                                    {cv.summary}
+                                    {cv === null
+                                        ? <Skeleton variant="rect" height="6rem" />
+                                        : cv.summary}
                                 </CvSectionParagraph>
                             </CvSection>
 
                             <CvSection title="Experience" titleBackground="#ffbb00">
                                 <CvHistoryList>
-                                    {cv.experience.map((data, i) => <CvExperienceDataPresenter key={i} data={data} />)}
+                                    {cv === null
+                                        ? <CvEmptyDataPresenter />
+                                        : cv.experience.map((data, i) => <CvExperienceDataPresenter key={i} data={data} />)}
                                 </CvHistoryList>
                             </CvSection>
 
                             <CvSection title="Education" titleBackground="#0098ff">
                                 <CvHistoryList>
-                                    {cv.education.map((data, i) => <CvEducationDataPresenter key={i} data={data} />)}
+                                    {cv == null
+                                        ? <CvEmptyDataPresenter />
+                                        : cv.education.map((data, i) => <CvEducationDataPresenter key={i} data={data} />)}
                                 </CvHistoryList>
                             </CvSection>
                         </Box>
