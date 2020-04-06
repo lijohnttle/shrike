@@ -2,11 +2,12 @@ import React from 'react';
 import { Box, Container } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
 import { Fade } from 'react-reveal';
-import { Header } from './Header';
+import { Header } from './sections/header/Header';
 import { HomeTopContainer } from './HomeTopContainer';
-import { HeaderSection } from './HeaderSection';
-import { BooksSection } from './BooksSection';
-import { BlogSection } from './BlogSection';
+import { HeaderSection } from './sections/header/HeaderSection';
+import { BooksSection } from './sections/books/BooksSection';
+import { BlogSection } from './sections/blog/BlogSection';
+import { LinksSection } from './sections/links/LinksSection';
 import { Footer } from '../Footer';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
@@ -34,6 +35,7 @@ class HomePage extends React.Component {
                 </Box>
 
                 {this.renderSections([
+                    <LinksSection />,
                     <BlogSection />,
                     <BooksSection userId={data.goodReads.userId} />
                 ])}

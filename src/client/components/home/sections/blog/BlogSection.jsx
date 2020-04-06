@@ -1,6 +1,6 @@
 import React from 'react';
 import { CircularProgress, Typography, Card, CardHeader, CardContent } from '@material-ui/core';
-import * as blogService from '../../services/blogService';
+import * as blogService from '../../../../services/blogService';
 import { BlogPostPreview } from './BlogPostPreview';
 
 class BlogSection extends React.Component {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Card, CardHeader, CardContent } from '@material-ui/core';
-import { GoodReadsBookListWidget } from '../widgets/GoodReadsBookListWidget';
+import { GoodReadsBookListWidget } from '../../../widgets/GoodReadsBookListWidget';
 
 const BooksSection = ({ userId }) => {
     return (

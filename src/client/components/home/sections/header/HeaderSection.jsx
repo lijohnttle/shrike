@@ -74,7 +74,7 @@ const HeaderSection = ({ contacts, gotoNextSection }) => {
                     My name is Ivan Cherkasov
                 </Typography>
                 <Typography paragraph variant="h3" align="center">
-                    I am a software engineer
+                    I am a Software Engineer
                 </Typography>
 
                 <Box className={classes.contactsContainer}>

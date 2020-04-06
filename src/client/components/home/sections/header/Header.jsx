@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeaderBar } from '../common/HeaderBar';
+import { HeaderBar } from '../../../common/HeaderBar';
 
 class Header extends React.Component {
     constructor(props) {

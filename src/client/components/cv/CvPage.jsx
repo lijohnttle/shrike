@@ -97,6 +97,6 @@ class CvPage extends React.Component {
     }
 }
 
-const PageExport = withStyles(useStyles)(CvPage);
+const CvPageExport = withStyles(useStyles)(CvPage);
 
-export { PageExport as CvPage };
+export { CvPageExport as CvPage };
