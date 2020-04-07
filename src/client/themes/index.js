@@ -11,6 +11,7 @@ let defaultTheme = createMuiTheme({
         }
     },
     typography: {
+        fontFamily: [ 'Roboto', 'Arial Narrow', 'Arial', 'Helvetica' ],
         h1: {
             fontSize: '4rem'
         },
@@ -29,6 +30,13 @@ let defaultTheme = createMuiTheme({
         h6: {
             fontSize: '1rem',
             fontWeight: 'bold'
+        }
+    },
+    overrides: {
+        MuiSkeleton: {
+            root: {
+                backgroundColor: 'rgba(0, 0, 0, 0.1)'
+            }
         }
     }
 });

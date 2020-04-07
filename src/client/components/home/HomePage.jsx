@@ -1,14 +1,23 @@
 import React from 'react';
-import { Box, Container } from '@material-ui/core';
+import { Box, Container, withStyles, Paper } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
-import { Fade } from 'react-reveal';
-import { Header } from '../Header';
+import { Spring } from "react-spring/renderprops";
+import VisibilitySensor from "react-visibility-sensor";
+import { Header } from './sections/header/Header';
 import { HomeTopContainer } from './HomeTopContainer';
-import { HeaderSection } from './HeaderSection';
-import { BooksSection } from './BooksSection';
-import { BlogSection } from './BlogSection';
+import { HeaderSection } from './sections/header/HeaderSection';
+import { BooksSection } from './sections/books/BooksSection';
+import { CvPageSection } from '../cv/CvPageSection';
+import { Footer } from '../Footer';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
+
+const useStyles = () => ({
+    contentPaper: {
+        display: 'flex',
+        flexDirection: 'column'
+    }
+});
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -24,7 +33,7 @@ class HomePage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Box mb={8}>
+                <Box>
                     <HomeTopContainer>
                         <Header />
 
@@ -32,10 +41,17 @@ class HomePage extends React.Component {
                     </HomeTopContainer>
                 </Box>
 
-                {this.renderSections([
-                    <BlogSection />,
-                    <BooksSection userId={data.goodReads.userId} />
-                ])}
+                <Container>
+                    <Paper className={this.props.classes.contentPaper} square>
+                        {this.renderSections([
+                            // <BlogSection />,
+                            <CvPageSection isExpandable={true} />,
+                            <BooksSection userId={data.goodReads.userId} />
+                        ])}
+
+                        <Footer />
+                    </Paper>
+                </Container>
             </React.Fragment>
         );
     }
@@ -44,17 +60,21 @@ class HomePage extends React.Component {
         return (
             <React.Fragment>
                 {sections.map((section, index) => (
-                    <Box key={index} mb={4}>
-                        <Fade>
-                            <Container>
-                                {section}
-                            </Container>
-                        </Fade>
-                    </Box>
+                    <VisibilitySensor key={index} partialVisibility minTopValue={24}>
+                        {
+                            ({ isVisible }) => (
+                                <Spring delay={200} to={{ opacity: isVisible ? 1 : 0 }}>
+                                    {({ opacity }) => <div style={{ opacity }}>{section}</div>}
+                                </Spring>
+                            )
+                        }
+                    </VisibilitySensor>
                 ))}
             </React.Fragment>
         );
     }
 }
 
-export { HomePage };
+const HomePageExport = withStyles(useStyles)(HomePage);
+
+export { HomePageExport as HomePage };

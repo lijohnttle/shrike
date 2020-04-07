@@ -1,30 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-
-const useStyles = makeStyles({
-    appBarTransparent: {
-        background: 'transparent',
-        boxShadow: 'none'
-    }
-});
-
-const RenderHeader = ({ hasBackground }) => {
-    const classes = useStyles();
-    const appBarClassName = hasBackground ? '' : classes.appBarTransparent;
-
-    return (
-        <AppBar className={appBarClassName} position="fixed">
-            <Toolbar variant="dense">
-                <Button color="inherit" href="/">
-                    <Typography variant="h6">
-                        LIJOHNTTLE
-                    </Typography>
-                </Button>
-            </Toolbar>
-        </AppBar>
-    );
-};
+import { HeaderBar } from '../../../common/HeaderBar';
 
 class Header extends React.Component {
     constructor(props) {
@@ -73,7 +48,7 @@ class Header extends React.Component {
             showBackground = this.checkNeedShowBackground();
         }
 
-        return <RenderHeader hasBackground={showBackground} />;
+        return <HeaderBar hasBackground={showBackground} hasFixedPosition={true} />;
     }
 }
 

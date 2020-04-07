@@ -1,18 +1,27 @@
 import React from 'react';
-import { MuiThemeProvider, Box, CssBaseline } from '@material-ui/core';
+import { Switch, Route } from 'react-router-dom';
+import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
 import { defaultTheme } from './themes';
-import { Footer } from './components/Footer';
 import { HomePage } from './components/home/HomePage';
+import { CvPage } from './components/cv/CvPage';
+import ScrollToTopOnRouteChanged from './components/common/ScrollToTopOnRouteChanged';
 
 class App extends React.Component {
     render() {
         return (
             <MuiThemeProvider theme={defaultTheme}>
                 <CssBaseline />
+                <ScrollToTopOnRouteChanged />
 
-                <HomePage />
+                <Switch>
+                    <Route path="/cv">
+                        <CvPage />
+                    </Route>
 
-                <Footer />
+                    <Route path="/">
+                        <HomePage />
+                    </Route>
+                </Switch>
             </MuiThemeProvider>
         );
     }
