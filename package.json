@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-server": "webpack --config webpack.server.dev.config.js",
-    "build-client": "webpack --config webpack.client.dev.config.js",
+    "build-server": "webpack --config build/webpack.server.dev.config.js",
+    "build-client": "webpack --config build/webpack.client.dev.config.js",
     "build": "npm run build-server && npm run build-client",
-    "build-server-prod": "webpack -p --config webpack.server.prod.config.js",
-    "build-client-prod": "webpack -p --config webpack.client.prod.config.js",
+    "build-server-prod": "webpack -p --config build/webpack.server.prod.config.js",
+    "build-client-prod": "webpack -p --config build/webpack.client.prod.config.js",
     "build-prod": "npm run build-server-prod && npm run build-client-prod",
-    "start": "node ./dist/index.js",
+    "start": "node ./dist/server/index.js",
     "restart": "npm run build-server && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

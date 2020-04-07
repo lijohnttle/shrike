@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
     mode: 'production',
     entry: './src/server/index.js',
@@ -19,7 +21,7 @@ module.exports = {
         extensions: ['*', '.mjs', '.js', '.vue', '.json', '.gql', '.graphql']
     },
     output: {
-        path: __dirname + '/dist',
+        path: path.resolve(__dirname, '../dist/server'),
         publicPath: '/',
         filename: 'index.js'
     },

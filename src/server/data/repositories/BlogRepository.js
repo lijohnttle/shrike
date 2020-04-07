@@ -12,11 +12,11 @@ const postRefs = [
 const postCache = { };
 
 function getPostFileName(urlSlug) {
-    return path.resolve(process.cwd(), `data/blog/posts/${urlSlug}.json`);
+    return path.resolve(process.cwd(), `dist/data/blog/posts/${urlSlug}.json`);
 }
 
 function getPostContentFileName(urlSlug) {
-    return path.resolve(process.cwd(), `data/blog/posts/${urlSlug}.content.txt`);
+    return path.resolve(process.cwd(), `dist/data/blog/posts/${urlSlug}.content.txt`);
 }
 
 async function getPosts() {

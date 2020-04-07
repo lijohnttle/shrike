@@ -3,7 +3,7 @@ import fs from 'fs';
 
 async function getCv() {
     const cvDataRaw = await new Promise((resolve, reject) => {
-        const fileName = path.resolve(process.cwd(), `data/cv/cv.json`);
+        const fileName = path.resolve(process.cwd(), `dist/data/cv/cv.json`);
 
         fs.readFile(fileName, (err, data) => {
             if (err) {

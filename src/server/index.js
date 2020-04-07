@@ -9,11 +9,11 @@ import graphqlHTTP from 'express-graphql';
 const rootPath = process.cwd(); // path.resolve(__dirname, '../../');
 const app = express();
 
-app.use(express.static(path.resolve(rootPath, 'public')));
+app.use(express.static(path.resolve(rootPath, 'dist/public')));
 
 const indexPageGetHandler = (_, res) => {
     res.setHeader('content-type', 'text/html');
-    res.sendFile(path.resolve(rootPath, 'public/index.html'));
+    res.sendFile(path.resolve(rootPath, 'dist/public/index.html'));
 };
 
 app.get('/', indexPageGetHandler);
