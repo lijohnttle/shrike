@@ -25,14 +25,12 @@ const CvExperienceDataPresenter = ({ data }) => {
                 {data.tools.map((t, i) => (
                     <span key={i}>{i == 0 ? '' : ', '}{t}</span>
                 ))}
-                Tools: Tool1, Tool2, Tool3
             </Typography>
             <Typography>
                 Technologies:&nbsp;
                 {data.technologies.map((t, i) => (
                     <span key={i}>{i == 0 ? '' : ', '}{t}</span>
                 ))}
-                Tools: Tool1, Tool2, Tool3
             </Typography>
         </Box>
     );
