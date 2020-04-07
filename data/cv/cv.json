@@ -2,40 +2,52 @@
     "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vitae orci nec velit elementum ullamcorper id at nunc. Nunc volutpat facilisis ultrices. Morbi porttitor egestas ultricies. Nunc aliquet molestie facilisis. Sed vitae bibendum eros. Nullam dapibus ex tortor, sed commodo elit suscipit at. Nullam eu ultricies lectus. Morbi aliquet laoreet consequat. Morbi dignissim varius ligula a dapibus.",
     "experience": [
         {
-            "position": "Job Position 2",
-            "employer": "Company",
-            "date": "01.01.1001-01.01.1002",
-            "location": "City of Lights, Neverland",
+            "position": "Software Engineer",
+            "employer": "EPAM Systems",
+            "date": "02.2019-present",
+            "location": "Wroclaw, Poland",
             "accomplishments": [
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "In quis nisi nec lorem mattis porttitor id eu est.",
-                "Aenean id lectus a erat pretium suscipit.",
-                "Integer nec erat et turpis tempor accumsan."
+                "Worked as an outsourcing software engineer for a multinational investment bank and financial services company.",
+                "Developed currency exchange services that are used by traders from around the world.",
+                "Configuered build/deployment pipelines"
             ],
-            "tools": [ "Tool1", "Tool2", "Tool3" ],
-            "technologies": [ "Tech1", "Tech2", "Tech3" ]
+            "tools": [ "Visual Studio", "PLSQL Developer", "IIS Manager", "TeamCity", "Jira", "NUnit", "SpecFlow" ],
+            "technologies": [ ".NET", "C#", "WPF", "WinForms", "Win32 API", "COM Interop", "WCF", "ASP.NET", "SignalR", "Entity Framework", "JavaScript", "React.js", "Redux", "D3.js" ]
         },
         {
-            "position": "Job Position 1",
-            "employer": "Company",
-            "date": "01.01.1001-01.01.1002",
-            "location": "City of Lights, Neverland",
+            "position": "Software Developer",
+            "employer": "Speech Technology Center",
+            "date": "04.2014-01.2019",
+            "location": "Saint Petersburg, Russia",
             "accomplishments": [
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "In quis nisi nec lorem mattis porttitor id eu est.",
-                "Aenean id lectus a erat pretium suscipit.",
-                "Integer nec erat et turpis tempor accumsan."
+                "Developed and maintained a user controls library, created a brand new modern user-friendly interface of desktop applications using WPF.",
+                "Created various types of desktop applications, that solve such problems as converting speech to text, analyzing transcripts of customer calls, etc.",
+                "Developed a client-server video surveillance system with biometric face recognition, that allows to find and catch criminals or can be used as an access control system.",
+                "Developed a web-application of reporting system using modern web technologies.",
+                "Coached new team members."
             ],
-            "tools": [ "Tool1", "Tool2", "Tool3" ],
-            "technologies": [ "Tech1", "Tech2", "Tech3" ]
+            "tools": [ "Visual Studio", "MS SQL Management Studio", "TeamCity", "Jira", "NUnit", "Adobe Photoshop", "Adobe Illustrator" ],
+            "technologies": [ ".NET", "C#", "WPF", "WinForms", "Win32 API", "COM Interop", "WCF", "ASP.NET", "SignalR", "Entity Framework", "JavaScript", "React.js", "Redux", "D3.js" ]
+        },
+        {
+            "position": "Software Developer",
+            "employer": "KLÖCKNER PENTAPLAST",
+            "date": "03.2013-02.2014",
+            "location": "Saint Petersburg, Russia",
+            "accomplishments": [
+                "Created an application for building and customizing 3D models of pharmaceutical blister pack configurations for further computing of gas and vapor permeability properties.",
+                "Developed mathematical models for further computing of gas and vapor permeability properties."
+            ],
+            "tools": [ "Visual Studio", "Mathcad", "NUnit" ],
+            "technologies": [ ".NET", "C#", "WPF", "Silverlight" ]
         }
     ],
     "education": [
         {
-            "title": "Name of the University",
-            "description": "Degree, Description",
-            "date": "01.01.1001-01.01.1002",
-            "location": "City of Lights, Neverland"
+            "title": "Saint Petersburg State Institute of Technology (Technical University)",
+            "description": "Specialist, Automated systems of information processing and management",
+            "date": "2009-2014",
+            "location": "Saint Petersburg, Russia"
         }
     ]
 }
