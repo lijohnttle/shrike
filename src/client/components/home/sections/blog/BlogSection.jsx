@@ -1,5 +1,5 @@
 import React from 'react';
-import { CircularProgress, Typography, Card, CardHeader, CardContent } from '@material-ui/core';
+import { CircularProgress, Typography, Box } from '@material-ui/core';
 import * as blogService from '../../../../services/blogService';
 import { BlogPostPreview } from './BlogPostPreview';
 
@@ -27,14 +27,17 @@ class BlogSection extends React.Component {
 
     render() {
         return (
-            <Card>
-                <CardHeader title="Blog" titleTypographyProps={{ variant: "h1" }} />
-                <CardContent>
-                    {this.state.isLoading
-                        ? <CircularProgress />
-                        : this.renderBlogPostPreviews() }
-                </CardContent>
-            </Card>
+            <Box p={6}>
+                <Box pb={2}>
+                    <Typography variant="h1">
+                        Blog
+                    </Typography>
+                </Box>
+
+                {this.state.isLoading
+                    ? <CircularProgress />
+                    : this.renderBlogPostPreviews() }
+            </Box>
         );
     }
 

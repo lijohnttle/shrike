@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 
-const CvSectionParagraph = ({ children }) => {
+const CvBlockParagraph = ({ children }) => {
     return (
         <Typography variant="body1" paragraph>
             {children}
@@ -9,4 +9,4 @@ const CvSectionParagraph = ({ children }) => {
     );
 };
 
-export { CvSectionParagraph };
+export { CvBlockParagraph };

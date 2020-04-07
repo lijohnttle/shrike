@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 
-const CvSection = ({ title, titleBackground, children }) => {
+const CvBlock = ({ title, titleBackground, children }) => {
     return (
         <React.Fragment>
             <Box ml={4} mt={6} mb={2} pl={2} pt={1} pb={1} style={{ background: titleBackground }}>
@@ -17,4 +17,4 @@ const CvSection = ({ title, titleBackground, children }) => {
     );
 };
 
-export { CvSection };
+export { CvBlock };
