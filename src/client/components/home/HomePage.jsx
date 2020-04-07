@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box, Container, withStyles, Paper } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
-import { Fade } from 'react-reveal';
+import { Spring } from "react-spring/renderprops";
+import VisibilitySensor from "react-visibility-sensor";
 import { Header } from './sections/header/Header';
 import { HomeTopContainer } from './HomeTopContainer';
 import { HeaderSection } from './sections/header/HeaderSection';
 import { BooksSection } from './sections/books/BooksSection';
-import { BlogSection } from './sections/blog/BlogSection';
 import { CvPageSection } from '../cv/CvPageSection';
 import { Footer } from '../Footer';
 import { smoothScrollOptions } from '../../utils/scrolling'
@@ -60,11 +60,15 @@ class HomePage extends React.Component {
         return (
             <React.Fragment>
                 {sections.map((section, index) => (
-                    <Box key={index} mb={4}>
-                        <Fade>
-                            {section}
-                        </Fade>
-                    </Box>
+                    <VisibilitySensor key={index} partialVisibility minTopValue={24}>
+                        {
+                            ({ isVisible }) => (
+                                <Spring delay={200} to={{ opacity: isVisible ? 1 : 0 }}>
+                                    {({ opacity }) => <div style={{ opacity }}>{section}</div>}
+                                </Spring>
+                            )
+                        }
+                    </VisibilitySensor>
                 ))}
             </React.Fragment>
         );

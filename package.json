@@ -37,10 +37,11 @@
     "prop-types": "^15.7.2",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
-    "react-reveal": "^1.2.2",
     "react-router": "^5.1.1",
     "react-router-dom": "^5.1.2",
-    "react-scroll": "^1.7.14"
+    "react-scroll": "^1.7.14",
+    "react-spring": "^8.0.27",
+    "react-visibility-sensor": "^5.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",
