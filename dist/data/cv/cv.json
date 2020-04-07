@@ -12,7 +12,7 @@
                 "Configuered build/deployment pipelines"
             ],
             "tools": [ "Visual Studio", "PLSQL Developer", "IIS Manager", "TeamCity", "Jira", "NUnit", "SpecFlow" ],
-            "technologies": [ ".NET", "C#", "WPF", "WinForms", "Win32 API", "COM Interop", "WCF", "ASP.NET", "SignalR", "Entity Framework", "JavaScript", "React.js", "Redux", "D3.js" ]
+            "technologies": [ ".NET", "C#", "WPF", "WinForms", "WCF", "ASP.NET", "Oracle Database" ]
         },
         {
             "position": "Software Developer",
