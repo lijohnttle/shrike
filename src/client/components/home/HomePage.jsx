@@ -44,14 +44,14 @@ class HomePage extends React.Component {
                 <Container>
                     <Paper className={this.props.classes.contentPaper} square>
                         {this.renderSections([
-                            <BlogSection />,
+                            // <BlogSection />,
                             <CvPageSection isExpandable={true} />,
                             <BooksSection userId={data.goodReads.userId} />
                         ])}
+
+                        <Footer />
                     </Paper>
                 </Container>
-
-                <Footer />
             </React.Fragment>
         );
     }
