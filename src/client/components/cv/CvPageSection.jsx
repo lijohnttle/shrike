@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { withStyles, Box, Typography, Link } from '@material-ui/core';
-import LinkIcon from '@material-ui/icons/Link';
+import { withStyles, Box, Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
+import { PageTitle } from '../common/page/PageTitle';
 import { CvBlock } from './CvBlock';
 import { CvBlockParagraph } from './CvBlockParagraph';
 import { CvHistoryList } from './CvHistoryList';
@@ -16,20 +15,8 @@ const useStyles = () => ({
         background: '#436c8a',
         color: 'white'
     },
-    educationSectionTitle: {
-        background: '#0098ff'
-    },
     collapsed: {
         display: 'none'
-    },
-    linkIcon: {
-        position: 'relative',
-        top: '0.125em',
-        left: '0.2em',
-        opacity: 0.1,
-        'a:hover &': {
-            opacity: 0.5
-        }
     }
 });
 
@@ -56,12 +43,7 @@ class CvPageSection extends React.Component {
         return (
             <Box className={this.props.classes.section} pb={6}>
                 <Box pl={6} pt={6}>
-                    <Typography variant="h1">
-                        <Link component={RouterLink} to='/cv' style={{ color: 'inherit' }}>
-                            CV
-                            <LinkIcon fontSize="inherit" className={this.props.classes.linkIcon} />
-                        </Link>
-                    </Typography>
+                    <PageTitle title="CV" to="/cv" />
                 </Box>
 
                 <CvBlock title="Summary" titleBackground="transparent">

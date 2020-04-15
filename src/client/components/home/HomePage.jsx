@@ -8,6 +8,7 @@ import { HomeTopContainer } from './HomeTopContainer';
 import { HeaderSection } from './sections/header/HeaderSection';
 import { BooksSection } from './sections/books/BooksSection';
 import { CvPageSection } from '../cv/CvPageSection';
+import { ProjectsPageSection } from '../projects/ProjectsPageSection';
 import { Footer } from '../Footer';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
@@ -45,6 +46,7 @@ class HomePage extends React.Component {
                     <Paper className={this.props.classes.contentPaper} square>
                         {this.renderSections([
                             // <BlogSection />,
+                            <ProjectsPageSection />,
                             <CvPageSection isExpandable={true} />,
                             <BooksSection userId={data.goodReads.userId} />
                         ])}
