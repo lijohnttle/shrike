@@ -18,12 +18,20 @@ const useStyles = makeStyles(() => ({
 const ArticleTitle = ({ title, to }) => {
     const classses = useStyles();
 
+    if (to) {
+        return (
+            <Typography variant="h1">
+                <Link component={RouterLink} to={to} style={{ color: 'inherit' }}>
+                    {title}
+                    <LinkIcon fontSize="inherit" className={classses.linkIcon} />
+                </Link>
+            </Typography>
+        );
+    }
+
     return (
         <Typography variant="h1">
-            <Link component={RouterLink} to={to} style={{ color: 'inherit' }}>
-                {title}
-                <LinkIcon fontSize="inherit" className={classses.linkIcon} />
-            </Link>
+            {title}
         </Typography>
     );
 };
