@@ -99,13 +99,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Project = ({ project, even, isSelected, onSelect, onClose }) => {
+const Project = ({ project, even, isSelected, onSelect, onUnselect }) => {
     const classes = useStyles();
 
     return (
         <div
             className={`${classes.root} ${even ? classes.evenRoot : classes.oddRoot} ${isSelected ? classes.selected : ''}`}
-            onClick={() => isSelected ? onClose() : onSelect(project)}>
+            onClick={() => isSelected ? onUnselect() : onSelect(project)}>
             <div className={classes.picture}>
                 <HttpsIcon fontSize="inherit" style={{ opacity: 0.1 }} />
             </div>

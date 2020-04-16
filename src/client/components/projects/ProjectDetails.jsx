@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ProjectSelection = ({ project, onClose }) => {
+const ProjectDetails = ({ project, onClose }) => {
     const classes = useStyles();
 
     return (
@@ -67,4 +67,4 @@ const ProjectSelection = ({ project, onClose }) => {
     );
 };
 
-export { ProjectSelection };
+export { ProjectDetails };

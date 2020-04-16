@@ -1,9 +1,6 @@
 import React from 'react';
-import { withWidth, isWidthUp } from '@material-ui/core';
 import { ArticleTitle } from '../common/article/ArticleTitle';
 import { Category } from './Category';
-import { Project } from './Project';
-import { ProjectSelection } from './ProjectSelection';
 import { Article } from '../common/article/Article';
 
 const data = {
@@ -50,17 +47,17 @@ class ProjectsPageSection extends React.Component {
             error: null
         };
 
-        this.selectProject = this.selectProject.bind(this);
-        this.resetSelection = this.resetSelection.bind(this);
+        this.handleSelectProject = this.handleSelectProject.bind(this);
+        this.handleResetSelection = this.handleResetSelection.bind(this);
     }
 
-    selectProject(project) {
+    handleSelectProject(project) {
         this.setState({
             selectedProject: project
         });
     }
 
-    resetSelection() {
+    handleResetSelection() {
         this.setState({
             selectedProject: null
         });
@@ -99,66 +96,17 @@ class ProjectsPageSection extends React.Component {
         return (
             <React.Fragment>
                 {Object.getOwnPropertyNames(projectsByCategory).map((category) => (
-                    <Category key={category} category={category}>
-                        {this.renderProjects(projectsByCategory[category])}
-                    </Category>
+                    <Category
+                        key={category}
+                        category={category}
+                        projects={projectsByCategory[category]}
+                        selectedProject={this.state.selectedProject}
+                        onSelect={this.handleSelectProject}
+                        onResetSelection={this.handleResetSelection} />
                 ))}
             </React.Fragment>
         );
     }
-
-    renderProjects(projects) {
-        const uiData = projects.reduce((result, project, index) => {
-            result.elements.push(
-                <Project
-                    key={project.id}
-                    project={project}
-                    even={!result.selectionInserted ? index % 2 === 0 : (index + 1 % 2 === 0)}
-                    isSelected={this.state.selectedProject === project}
-                    onSelect={this.selectProject}
-                    onClose={this.resetSelection} />
-            );
-
-            if (project === this.state.selectedProject) {
-                result.selectedIndex = index;
-                result.selectedProject = project;
-            }
-
-            if (this.isProjectLastInRowWithSelectedOne(index, result.selectedIndex)) {
-                result.elements.push(
-                    <ProjectSelection key={-1} project={result.selectedProject} onClose={this.resetSelection} />
-                );
-            }
-
-            return result;
-        }, { elements: [], selectedIndex: -1, selectedProject: null, selectionInserted: false });
-
-        return uiData.elements;
-    }
-
-    isProjectLastInRowWithSelectedOne(currentIndex, selectedIndex) {
-        let lastInARow = false;
-
-        if (selectedIndex >= 0) {
-            if (!isWidthUp('lg', this.props.width)) {
-                // if all items in one column then insert selection element after selected project
-                lastInARow = currentIndex === selectedIndex;
-            }
-            else {
-                // when projects are in two columns
-                const projectInTheSecondColumn = currentIndex % 2 === 1;
-                
-                if (projectInTheSecondColumn) {
-                    // if project is the last one in a row with selected one then insert selection element
-                    lastInARow = currentIndex === selectedIndex || currentIndex === selectedIndex + 1;
-                }
-            }
-        }
-
-        return lastInARow;
-    }
 }
 
-const ProjectsPageSectionExport = withWidth()(ProjectsPageSection);
-
-export { ProjectsPageSectionExport as ProjectsPageSection };
+export { ProjectsPageSection };
