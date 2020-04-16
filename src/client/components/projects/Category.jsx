@@ -21,7 +21,7 @@ const Category = ({ category, children }) => {
     const classes = useStyles();
     
     return (
-        <Box pl={6} pt={6} pr={6}>
+        <Box pt={6}>
             <Box className={classes.titleBar}>
                 <Typography variant="h3">
                     {category}

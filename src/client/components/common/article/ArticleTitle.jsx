@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const PageTitle = ({ title, to }) => {
+const ArticleTitle = ({ title, to }) => {
     const classses = useStyles();
 
     return (
@@ -28,4 +28,4 @@ const PageTitle = ({ title, to }) => {
     );
 };
 
-export { PageTitle };
+export { ArticleTitle };

@@ -13,7 +13,13 @@ import { Footer } from '../Footer';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
 
-const useStyles = () => ({
+const useStyles = (theme) => ({
+    sectionContainer: {
+        [theme.breakpoints.down('sm')]: {
+            paddingLeft: 0,
+            paddingRight: 0
+        }
+    },
     contentPaper: {
         display: 'flex',
         flexDirection: 'column'
@@ -42,7 +48,7 @@ class HomePage extends React.Component {
                     </HomeTopContainer>
                 </Box>
 
-                <Container>
+                <Container className={this.props.classes.sectionContainer}>
                     <Paper className={this.props.classes.contentPaper} square>
                         {this.renderSections([
                             // <BlogSection />,

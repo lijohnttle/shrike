@@ -1,7 +1,8 @@
 import React from 'react';
 import { withStyles, Box, Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
-import { PageTitle } from '../common/page/PageTitle';
+import { ArticleTitle } from '../common/article/ArticleTitle';
+import { Article } from '../common/article/Article';
 import { CvBlock } from './CvBlock';
 import { CvBlockParagraph } from './CvBlockParagraph';
 import { CvHistoryList } from './CvHistoryList';
@@ -10,11 +11,7 @@ import { CvExperienceDataPresenter } from './CvExperienceDataPresenter';
 import { CvEmptyDataPresenter } from './CvEmptyDataPresenter';
 import * as cvService from '../../services/cvService';
 
-const useStyles = () => ({
-    section: {
-        background: '#436c8a',
-        color: 'white'
-    },
+const useStyles = (theme) => ({
     collapsed: {
         display: 'none'
     }
@@ -41,10 +38,8 @@ class CvPageSection extends React.Component {
         const { cv } = this.state;
 
         return (
-            <Box className={this.props.classes.section} pb={6}>
-                <Box pl={6} pt={6}>
-                    <PageTitle title="CV" to="/cv" />
-                </Box>
+            <Article background="#436c8a" color="white">
+                <ArticleTitle title="CV" to="/cv" />
 
                 <CvBlock title="Summary" titleBackground="transparent">
                     <CvBlockParagraph>
@@ -69,7 +64,7 @@ class CvPageSection extends React.Component {
                             : cv.education.map((data, i) => <CvEducationDataPresenter key={i} data={data} />)}
                     </CvHistoryList>
                 </CvBlock>
-            </Box>
+            </Article>
         );
     }
 }

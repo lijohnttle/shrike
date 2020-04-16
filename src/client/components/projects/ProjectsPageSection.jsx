@@ -1,9 +1,10 @@
 import React from 'react';
-import { withStyles, Box, withWidth, isWidthUp } from '@material-ui/core';
-import { PageTitle } from '../common/page/PageTitle';
+import { withWidth, isWidthUp } from '@material-ui/core';
+import { ArticleTitle } from '../common/article/ArticleTitle';
 import { Category } from './Category';
 import { Project } from './Project';
 import { ProjectSelection } from './ProjectSelection';
+import { Article } from '../common/article/Article';
 
 const data = {
     projects: [
@@ -37,13 +38,6 @@ const data = {
         }
     ]
 };
-
-const useStyles = () => ({
-    section: {
-        background: '#313131',
-        color: 'white'
-    }
-});
 
 class ProjectsPageSection extends React.Component {
     constructor(props) {
@@ -87,17 +81,15 @@ class ProjectsPageSection extends React.Component {
 
     render() {
         return (
-            <Box className={this.props.classes.section} pb={6}>
-                <Box pl={6} pt={6}>
-                    <PageTitle title="Projects" to="/projects" />
-                </Box>
+            <Article background="#313131" color="white">
+                <ArticleTitle title="Projects" to="/projects" />
 
-                {this.renderCategory()}
-            </Box>
+                {this.renderCategories()}
+            </Article>
         );
     }
 
-    renderCategory() {
+    renderCategories() {
         if (!this.state.projectsByCategory) {
             return null;
         }
@@ -167,6 +159,6 @@ class ProjectsPageSection extends React.Component {
     }
 }
 
-const ProjectsPageSectionExport = withWidth()(withStyles(useStyles)(ProjectsPageSection));
+const ProjectsPageSectionExport = withWidth()(ProjectsPageSection);
 
 export { ProjectsPageSectionExport as ProjectsPageSection };
