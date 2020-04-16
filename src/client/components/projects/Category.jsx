@@ -6,10 +6,18 @@ const useStyles = makeStyles((theme) => ({
         background: '#5b5c5c',
         padding: theme.spacing(1),
         paddingLeft: theme.spacing(3)
+    },
+    projectList: {
+        display: 'flex',
+        flexFlow: 'column nowrap',
+
+        [theme.breakpoints.up('lg')]: {
+            flexFlow: 'row wrap'
+        }
     }
 }));
 
-const ProjectsCategory = ({ category, children }) => {
+const Category = ({ category, children }) => {
     const classes = useStyles();
     
     return (
@@ -20,9 +28,11 @@ const ProjectsCategory = ({ category, children }) => {
                 </Typography>
             </Box>
 
-            {children}
+            <div className={classes.projectList}>
+                {children}
+            </div>
         </Box>
     );
 };
 
-export { ProjectsCategory };
+export { Category };
