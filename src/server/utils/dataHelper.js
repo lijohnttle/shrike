@@ -1,9 +1,9 @@
 import path from 'path';
 import fs from 'fs';
 
-async function getCv() {
-    const cvDataRaw = await new Promise((resolve, reject) => {
-        const fileName = path.resolve(process.cwd(), `dist/data/cv/cv.json`);
+async function parseDataJson(relativePath) {
+    const rowData = await new Promise((resolve, reject) => {
+        const fileName = path.resolve(process.cwd(), 'dist/data/', relativePath);
 
         fs.readFile(fileName, (err, data) => {
             if (err) {
@@ -18,9 +18,9 @@ async function getCv() {
         })
     });
     
-    return JSON.parse(cvDataRaw);
+    return JSON.parse(rowData);
 }
 
 export default {
-    getCv
+    parseDataJson
 };

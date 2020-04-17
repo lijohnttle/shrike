@@ -1,5 +1,5 @@
 import BlogRepository from './repositories/blogRepository';
-import CvRepository from './repositories/cvRepository';
+import ProfileRepository from './repositories/profileRepository';
 
 const resolvers = {
     getBlog: () => ({
@@ -9,7 +9,8 @@ const resolvers = {
         getPost: async ({ id }) => await BlogRepository.getPost(id),
         getPostByUrl: async ({ urlSlug }) => await BlogRepository.getPostByUrl(urlSlug)
     }),
-    getCv: async () => await CvRepository.getCv()
+    getCv: async () => await ProfileRepository.getCv(),
+    getProjects: async () => await ProfileRepository.getProjects()
 };
 
 export { resolvers };

@@ -9,7 +9,7 @@ import { CvHistoryList } from './CvHistoryList';
 import { CvEducationDataPresenter } from './CvEducationDataPresenter';
 import { CvExperienceDataPresenter } from './CvExperienceDataPresenter';
 import { CvEmptyDataPresenter } from './CvEmptyDataPresenter';
-import * as cvService from '../../services/cvService';
+import ProfileService from '../../services/profileService';
 
 const useStyles = (theme) => ({
     collapsed: {
@@ -27,11 +27,17 @@ class CvPageSection extends React.Component {
         };
     }
 
-    componentDidMount() {
-        cvService
-            .getCv()
-            .then(cv => this.setState({ cv: cv }))
-            .catch(error => this.setState({ error: error }));
+    async componentDidMount() {
+        try {
+            const cv = await ProfileService.getCv();
+            
+            this.setState({ cv });
+        }
+        catch (error) {
+            console.log(error);
+
+            this.setState({ error });
+        }
     }
 
     render() {

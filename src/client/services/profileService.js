@@ -1,4 +1,4 @@
-import { graphqlApi } from './api';
+import { queryData } from './api';
 
 const GET_CV = `
     {
@@ -23,10 +23,22 @@ const GET_CV = `
     }
 `;
 
-async function getCv() {
-    const response = await graphqlApi.post('', { query: GET_CV });
-    const cv = response.data.data.getCv;
-    return cv;
-}
+const GET_PROJECTS = `
+    {
+        getProjects {
+            id
+            title
+            category
+            shortDescription
+            description
+        }
+    }
+`;
 
-export { getCv };
+const getCv = async () => (await queryData(GET_CV)).getCv;
+const getProjects = async () => (await queryData(GET_PROJECTS)).getProjects;
+
+export default {
+    getCv,
+    getProjects
+};
