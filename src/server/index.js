@@ -6,7 +6,7 @@ import config from './config';
 import { schema, resolvers } from './data';
 import graphqlHTTP from 'express-graphql';
 
-const rootPath = process.cwd(); // path.resolve(__dirname, '../../');
+const rootPath = process.cwd();
 const app = express();
 
 app.use(express.static(path.resolve(rootPath, 'dist/public')));
@@ -16,8 +16,11 @@ const indexPageGetHandler = (_, res) => {
     res.sendFile(path.resolve(rootPath, 'dist/public/index.html'));
 };
 
-app.get('/', indexPageGetHandler);
-app.get('/cv', indexPageGetHandler);
+[
+    '/',
+    '/cv',
+    '/projects'
+].forEach(url => app.get(url, indexPageGetHandler))
 
 app.use('/graphql', graphqlHTTP({
     schema: schema,
