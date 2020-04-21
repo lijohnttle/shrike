@@ -4,9 +4,9 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     root: {
         paddingLeft: theme.spacing(6),
-        paddingTop: theme.spacing(6),
+        paddingTop: theme.spacing(12),
         paddingRight: theme.spacing(6),
-        paddingBottom: theme.spacing(12),
+        paddingBottom: theme.spacing(18),
 
         [theme.breakpoints.down('sm')]: {
             paddingLeft: theme.spacing(4),
@@ -17,14 +17,19 @@ const useStyles = makeStyles(theme => ({
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2)
         }
+    },
+    bottomSeparator: {
+        borderBottomStyle: 'solid',
+        borderBottomWidth: '4px',
+        borderBottomColor: 'white',
     }
 }));
 
-const Article = ({ background, color, children }) => {
+const Article = ({ background, color, bottomSeparator, children }) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.root} style={{ background, color }}>
+        <div className={`${classes.root} ${bottomSeparator ? classes.bottomSeparator : ''}`} style={{ background, color }}>
             {children}
         </div>
     );

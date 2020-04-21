@@ -17,8 +17,7 @@ const useStyles = () => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        background: '#436c8a',
-        color: 'white'
+        background: 'white'
     }
 });
 

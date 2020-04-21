@@ -51,8 +51,8 @@ class HomePage extends React.Component {
                     <Paper className={this.props.classes.contentPaper} square>
                         {this.renderSections([
                             // <BlogSection />,
-                            <ProjectsPageSection />,
                             <CvPageSection isExpandable={true} />,
+                            <ProjectsPageSection />,
                             <BooksSection userId={data.goodReads.userId} />
                         ])}
 

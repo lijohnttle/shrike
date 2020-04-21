@@ -44,7 +44,7 @@ class CvPageSection extends React.Component {
         const { cv } = this.state;
 
         return (
-            <Article background="#436c8a" color="white">
+            <Article background="white">
                 <ArticleTitle title="CV" to="/cv" />
 
                 <CvBlock title="Summary" titleBackground="transparent">
@@ -55,7 +55,7 @@ class CvPageSection extends React.Component {
                     </CvBlockParagraph>
                 </CvBlock>
 
-                <CvBlock title="Experience" titleBackground="#ffbb00">
+                <CvBlock title="Experience" titleBackground="#ffbb00" titleColor="white">
                     <CvHistoryList>
                         {cv === null
                             ? <CvEmptyDataPresenter />
@@ -63,7 +63,7 @@ class CvPageSection extends React.Component {
                     </CvHistoryList>
                 </CvBlock>
 
-                <CvBlock title="Education" titleBackground="#0098ff">
+                <CvBlock title="Education" titleBackground="#0098ff" titleColor="white">
                     <CvHistoryList>
                         {cv == null
                             ? <CvEmptyDataPresenter />

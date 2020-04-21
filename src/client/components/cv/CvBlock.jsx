@@ -29,12 +29,12 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const CvBlock = ({ title, titleBackground, children }) => {
+const CvBlock = ({ title, titleBackground, titleColor, children }) => {
     const classes = useStyles();
 
     return (
         <React.Fragment>
-            <div className={classes.title} style={{ background: titleBackground }}>
+            <div className={classes.title} style={{ background: titleBackground, color: titleColor || "inherit" }}>
                 <Typography variant="h2">
                     {title}
                 </Typography>
