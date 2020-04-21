@@ -33,7 +33,7 @@ const Category = ({ category, projects, selectedProject, onSelect, onResetSelect
     );
 };
 
-function determineIfProjectIsLastInRowWithSelectedOne(currentIndex, selectedIndex, width) {
+function determineIfProjectIsLastInRowWithSelectedOne(currentIndex, selectedIndex, count, width) {
     let lastInARow = false;
 
     if (selectedIndex >= 0) {
@@ -42,10 +42,16 @@ function determineIfProjectIsLastInRowWithSelectedOne(currentIndex, selectedInde
             lastInARow = currentIndex === selectedIndex;
         }
         else {
+            const isLastItem = selectedIndex === count - 1;
+
+            if (isLastItem) {
+                return true;
+            }
+
             // when projects are in two columns
             const projectInTheSecondColumn = currentIndex % 2 === 1;
-            
-            if (projectInTheSecondColumn) {
+
+            if (isLastItem || projectInTheSecondColumn) {
                 // if project is the last one in a row with selected one then insert selection element
                 lastInARow = currentIndex === selectedIndex || currentIndex === selectedIndex + 1;
             }
@@ -72,7 +78,7 @@ function renderProjects(projects, selectedProject, onSelect, onResetSelection, w
             result.selectedProject = project;
         }
 
-        if (determineIfProjectIsLastInRowWithSelectedOne(index, result.selectedIndex, width)) {
+        if (determineIfProjectIsLastInRowWithSelectedOne(index, result.selectedIndex, projects.length, width)) {
             result.elements.push(
                 <ProjectDetails key={-1} project={result.selectedProject} onClose={onResetSelection} />
             );
