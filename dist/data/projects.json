@@ -2,31 +2,38 @@
     "projects": [
         {
             "id": 1,
-            "title": "Software Project 1",
+            "title": "3D Blister Configurations Editor",
             "category": "Software",
-            "shortDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut lectus efficitur, dapibus enim ac, viverra justo.",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut lectus efficitur, dapibus enim ac, viverra justo. Cras posuere, arcu in euismod pellentesque, leo dolor ullamcorper velit, a auctor diam quam eget massa. Mauris luctus porttitor urna et commodo. Integer aliquam lacinia orci vitae vehicula. Ut pharetra eros eget orci dignissim, ut mattis dolor ullamcorper. Suspendisse vestibulum ex id nibh efficitur lobortis. Suspendisse orci sem, venenatis in velit eu, molestie rutrum metus. In odio felis, lobortis a congue sed, efficitur viverra ex. Nam sagittis id eros ut pellentesque. Sed in enim justo. Sed leo lacus, lacinia quis enim ut, vehicula suscipit nibh. Mauris vel quam a nisi aliquet imperdiet. Quisque commodo pharetra purus, at egestas diam finibus eu. Curabitur rhoncus dolor sit amet tincidunt dapibus. Sed condimentum aliquam purus eu semper. Nunc id augue neque. Phasellus sed pulvinar leo, ut convallis velit. Morbi et lacus sed nibh varius luctus. Mauris sit amet orci non sapien ullamcorper tincidunt sit amet sit amet leo. Morbi convallis ligula nulla, vel euismod diam ultricies at. Nullam id sem at nunc bibendum consectetur. Nulla placerat leo non ligula varius, quis porta sem viverra. Praesent hendrerit nisi leo. Curabitur eget ante pharetra, posuere ligula a, porttitor ipsum. Nullam sit amet lacus dui."
+            "shortDescription": "An application for building and customizing 3D models of pharmaceutical blister pack configurations",
+            "description": "A WPF application for building and customizing 3D models of pharmaceutical blister pack configurations, including mathematical models for computing of gas and vapor permeability properties. It is a part of a partnership between Saint Petersburg State Institute of Technology (Technical University) and Klöckner Pentaplast Group."
         },
         {
             "id": 2,
-            "title": "Software Project 2",
+            "title": "WPF Controls Library",
             "category": "Software",
-            "shortDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut lectus efficitur, dapibus enim ac, viverra justo.",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut lectus efficitur, dapibus enim ac, viverra justo. Cras posuere, arcu in euismod pellentesque, leo dolor ullamcorper velit, a auctor diam quam eget massa. Mauris luctus porttitor urna et commodo. Integer aliquam lacinia orci vitae vehicula. Ut pharetra eros eget orci dignissim, ut mattis dolor ullamcorper. Suspendisse vestibulum ex id nibh efficitur lobortis. Suspendisse orci sem, venenatis in velit eu, molestie rutrum metus. In odio felis, lobortis a congue sed, efficitur viverra ex. Nam sagittis id eros ut pellentesque. Sed in enim justo. Sed leo lacus, lacinia quis enim ut, vehicula suscipit nibh. Mauris vel quam a nisi aliquet imperdiet. Quisque commodo pharetra purus, at egestas diam finibus eu. Curabitur rhoncus dolor sit amet tincidunt dapibus. Sed condimentum aliquam purus eu semper. Nunc id augue neque. Phasellus sed pulvinar leo, ut convallis velit. Morbi et lacus sed nibh varius luctus. Mauris sit amet orci non sapien ullamcorper tincidunt sit amet sit amet leo. Morbi convallis ligula nulla, vel euismod diam ultricies at. Nullam id sem at nunc bibendum consectetur. Nulla placerat leo non ligula varius, quis porta sem viverra. Praesent hendrerit nisi leo. Curabitur eget ante pharetra, posuere ligula a, porttitor ipsum. Nullam sit amet lacus dui."
+            "shortDescription": "WPF library of controls, styles and themes",
+            "description": "A library of controls, styles and themes for WPF applications developed within a company."
         },
         {
             "id": 3,
-            "title": "Software Project 3",
+            "title": "Multi-Channel Сall and Screen Recording System",
             "category": "Software",
-            "shortDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut lectus efficitur, dapibus enim ac, viverra justo.",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut lectus efficitur, dapibus enim ac, viverra justo. Cras posuere, arcu in euismod pellentesque, leo dolor ullamcorper velit, a auctor diam quam eget massa. Mauris luctus porttitor urna et commodo. Integer aliquam lacinia orci vitae vehicula. Ut pharetra eros eget orci dignissim, ut mattis dolor ullamcorper. Suspendisse vestibulum ex id nibh efficitur lobortis. Suspendisse orci sem, venenatis in velit eu, molestie rutrum metus. In odio felis, lobortis a congue sed, efficitur viverra ex. Nam sagittis id eros ut pellentesque. Sed in enim justo. Sed leo lacus, lacinia quis enim ut, vehicula suscipit nibh. Mauris vel quam a nisi aliquet imperdiet. Quisque commodo pharetra purus, at egestas diam finibus eu. Curabitur rhoncus dolor sit amet tincidunt dapibus. Sed condimentum aliquam purus eu semper. Nunc id augue neque. Phasellus sed pulvinar leo, ut convallis velit. Morbi et lacus sed nibh varius luctus. Mauris sit amet orci non sapien ullamcorper tincidunt sit amet sit amet leo. Morbi convallis ligula nulla, vel euismod diam ultricies at. Nullam id sem at nunc bibendum consectetur. Nulla placerat leo non ligula varius, quis porta sem viverra. Praesent hendrerit nisi leo. Curabitur eget ante pharetra, posuere ligula a, porttitor ipsum. Nullam sit amet lacus dui."
+            "shortDescription": "An application for analyzing audio records transcripts",
+            "description": "Reliable and flexible call and screen recording solution that helps to manage performance of front office staff, increase service level and improve the quality of customer care. It allows solving any practical tasks for call recording in areas of public safety, security, business and in industrial, transport and energy enterprises."
         },
         {
             "id": 4,
-            "title": "Software Project 4",
+            "title": "Video surveillance system with biometric face recognition",
             "category": "Software",
-            "shortDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut lectus efficitur, dapibus enim ac, viverra justo.",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut lectus efficitur, dapibus enim ac, viverra justo. Cras posuere, arcu in euismod pellentesque, leo dolor ullamcorper velit, a auctor diam quam eget massa. Mauris luctus porttitor urna et commodo. Integer aliquam lacinia orci vitae vehicula. Ut pharetra eros eget orci dignissim, ut mattis dolor ullamcorper. Suspendisse vestibulum ex id nibh efficitur lobortis. Suspendisse orci sem, venenatis in velit eu, molestie rutrum metus. In odio felis, lobortis a congue sed, efficitur viverra ex. Nam sagittis id eros ut pellentesque. Sed in enim justo. Sed leo lacus, lacinia quis enim ut, vehicula suscipit nibh. Mauris vel quam a nisi aliquet imperdiet. Quisque commodo pharetra purus, at egestas diam finibus eu. Curabitur rhoncus dolor sit amet tincidunt dapibus. Sed condimentum aliquam purus eu semper. Nunc id augue neque. Phasellus sed pulvinar leo, ut convallis velit. Morbi et lacus sed nibh varius luctus. Mauris sit amet orci non sapien ullamcorper tincidunt sit amet sit amet leo. Morbi convallis ligula nulla, vel euismod diam ultricies at. Nullam id sem at nunc bibendum consectetur. Nulla placerat leo non ligula varius, quis porta sem viverra. Praesent hendrerit nisi leo. Curabitur eget ante pharetra, posuere ligula a, porttitor ipsum. Nullam sit amet lacus dui."
+            "shortDescription": "Biometric solution designed for real-time face detection and recognition",
+            "description": "A state-of-the-art biometric solution designed for real-time face detection and recognition. Deep learning neural networks algorithms underlying in the principles of the software operation boost security at crowded areas. The application performs the facial recognition process by comparing facial features from given face image with face images within a database. Face images can be previously uploaded to the database from any source: photographs, video recordings, scanners, web cameras, photo cameras, CCTV cameras, etc. Biometric search can be performed both in real time and on request."
+        },
+        {
+            "id": 5,
+            "title": "FX Services",
+            "category": "Software",
+            "shortDescription": "Foreign currency exchange services",
+            "description": "Foreign currency exchange services that are used by traders from around the world."
         }
     ]
 }
