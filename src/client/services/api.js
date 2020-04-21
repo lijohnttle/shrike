@@ -4,4 +4,12 @@ const graphqlApi = axios.create({
     baseURL: '/graphql'
 });
 
-export { graphqlApi };
+const queryData = async (query) => {
+    const response = await graphqlApi.post('', { query });
+    return response.data.data;
+}
+
+export { 
+    graphqlApi,
+    queryData
+};

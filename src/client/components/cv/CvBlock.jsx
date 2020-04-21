@@ -1,18 +1,46 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Box, Typography, makeStyles } from '@material-ui/core';
 
-const CvBlock = ({ title, titleBackground, children }) => {
+const useStyles = makeStyles(theme => ({
+    title: {
+        marginTop: theme.spacing(6),
+        marginBottom: theme.spacing(2),
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+
+        marginLeft: theme.spacing(-3),
+        marginRight: theme.spacing(-6),
+        paddingLeft: theme.spacing(3),
+        paddingRight: theme.spacing(3),
+        
+        [theme.breakpoints.down('sm')]: {
+            marginLeft: theme.spacing(-2),
+            marginRight: theme.spacing(-4),
+            paddingLeft: theme.spacing(2),
+            paddingRight: theme.spacing(2)
+        },
+
+        [theme.breakpoints.down('xs')]: {
+            marginLeft: theme.spacing(-1),
+            marginRight: theme.spacing(-2),
+            paddingLeft: theme.spacing(1),
+            paddingRight: theme.spacing(1)
+        }
+    }
+}));
+
+const CvBlock = ({ title, titleBackground, titleColor, children }) => {
+    const classes = useStyles();
+
     return (
         <React.Fragment>
-            <Box ml={4} mt={6} mb={2} pl={2} pt={1} pb={1} style={{ background: titleBackground }}>
+            <div className={classes.title} style={{ background: titleBackground, color: titleColor || "inherit" }}>
                 <Typography variant="h2">
                     {title}
                 </Typography>
-            </Box>
+            </div>
 
-            <Box ml={6} mr={6}>
-                {children}
-            </Box>
+            {children}
         </React.Fragment>
     );
 };

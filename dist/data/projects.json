@@ -1,0 +1,39 @@
+{
+    "projects": [
+        {
+            "id": 1,
+            "title": "3D Blister Configurations Editor",
+            "category": "Software",
+            "shortDescription": "An application for building and customizing 3D models of pharmaceutical blister pack configurations",
+            "description": "A WPF application for building and customizing 3D models of pharmaceutical blister pack configurations, including mathematical models for computing of gas and vapor permeability properties. It is a part of a partnership between Saint Petersburg State Institute of Technology (Technical University) and Klöckner Pentaplast Group."
+        },
+        {
+            "id": 2,
+            "title": "WPF Controls Library",
+            "category": "Software",
+            "shortDescription": "WPF library of controls, styles and themes",
+            "description": "A library of controls, styles and themes for WPF applications developed within a company."
+        },
+        {
+            "id": 3,
+            "title": "Multi-Channel Сall and Screen Recording System",
+            "category": "Software",
+            "shortDescription": "An application for analyzing audio records transcripts",
+            "description": "Reliable and flexible call and screen recording solution that helps to manage performance of front office staff, increase service level and improve the quality of customer care. It allows solving any practical tasks for call recording in areas of public safety, security, business and in industrial, transport and energy enterprises."
+        },
+        {
+            "id": 4,
+            "title": "Video surveillance system with biometric face recognition",
+            "category": "Software",
+            "shortDescription": "Biometric solution designed for real-time face detection and recognition",
+            "description": "A state-of-the-art biometric solution designed for real-time face detection and recognition. Deep learning neural networks algorithms underlying in the principles of the software operation boost security at crowded areas. The application performs the facial recognition process by comparing facial features from given face image with face images within a database. Face images can be previously uploaded to the database from any source: photographs, video recordings, scanners, web cameras, photo cameras, CCTV cameras, etc. Biometric search can be performed both in real time and on request."
+        },
+        {
+            "id": 5,
+            "title": "FX Services",
+            "category": "Software",
+            "shortDescription": "Foreign currency exchange services",
+            "description": "Foreign currency exchange services that are used by traders from around the world."
+        }
+    ]
+}

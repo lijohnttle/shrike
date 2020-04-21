@@ -1,18 +1,24 @@
 import React from 'react';
 import { Box, Container, withStyles, Paper } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
-import { Spring } from "react-spring/renderprops";
-import VisibilitySensor from "react-visibility-sensor";
 import { Header } from './sections/header/Header';
 import { HomeTopContainer } from './HomeTopContainer';
 import { HeaderSection } from './sections/header/HeaderSection';
 import { BooksSection } from './sections/books/BooksSection';
 import { CvPageSection } from '../cv/CvPageSection';
+import { ProjectsPageSection } from '../projects/ProjectsPageSection';
 import { Footer } from '../Footer';
+import { Fade } from '../common/animation/Fade';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
 
-const useStyles = () => ({
+const useStyles = (theme) => ({
+    sectionContainer: {
+        [theme.breakpoints.down('sm')]: {
+            paddingLeft: 0,
+            paddingRight: 0
+        }
+    },
     contentPaper: {
         display: 'flex',
         flexDirection: 'column'
@@ -41,11 +47,12 @@ class HomePage extends React.Component {
                     </HomeTopContainer>
                 </Box>
 
-                <Container>
+                <Container className={this.props.classes.sectionContainer}>
                     <Paper className={this.props.classes.contentPaper} square>
                         {this.renderSections([
                             // <BlogSection />,
                             <CvPageSection isExpandable={true} />,
+                            <ProjectsPageSection />,
                             <BooksSection userId={data.goodReads.userId} />
                         ])}
 
@@ -60,15 +67,9 @@ class HomePage extends React.Component {
         return (
             <React.Fragment>
                 {sections.map((section, index) => (
-                    <VisibilitySensor key={index} partialVisibility minTopValue={24}>
-                        {
-                            ({ isVisible }) => (
-                                <Spring delay={200} to={{ opacity: isVisible ? 1 : 0 }}>
-                                    {({ opacity }) => <div style={{ opacity }}>{section}</div>}
-                                </Spring>
-                            )
-                        }
-                    </VisibilitySensor>
+                    <Fade key={index}>
+                        {section}
+                    </Fade>
                 ))}
             </React.Fragment>
         );

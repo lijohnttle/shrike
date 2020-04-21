@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles, Container, Paper } from '@material-ui/core';
 import { HeaderBar } from '../common/HeaderBar';
 import { Footer } from '../Footer';
-import { CvPageSection } from './CvPageSection';
+import { ProjectsPageSection } from './ProjectsPageSection';
 
 const useStyles = () => ({
     root: {
@@ -17,11 +17,12 @@ const useStyles = () => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        background: 'white'
+        background: '#313131',
+        color: 'white'
     }
 });
 
-class CvPage extends React.Component {
+class ProjectsPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -43,7 +44,7 @@ class CvPage extends React.Component {
 
                 <Container className={this.props.classes.contentContainer}>
                     <Paper className={this.props.classes.contentPaper} square>
-                        <CvPageSection />
+                        <ProjectsPageSection />
 
                         <Footer />
                     </Paper>
@@ -53,6 +54,6 @@ class CvPage extends React.Component {
     }
 }
 
-const CvPageExport = withStyles(useStyles)(CvPage);
+const ProjectsPageExport = withStyles(useStyles)(ProjectsPage);
 
-export { CvPageExport as CvPage };
+export { ProjectsPageExport as ProjectsPage };

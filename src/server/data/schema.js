@@ -43,9 +43,18 @@ const schema = buildSchema(`
         education: [CvEducation]
     }
 
+    type Project {
+        id: Int
+        title: String
+        category: String
+        shortDescription: String
+        description: String
+    }
+
     type Query {
         getBlog: Blog
         getCv: Cv
+        getProjects: [Project]
     }
 `);
 

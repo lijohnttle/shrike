@@ -1,35 +1,19 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { withStyles, Box, Typography, Link } from '@material-ui/core';
-import LinkIcon from '@material-ui/icons/Link';
+import { withStyles, Box, Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
+import { ArticleTitle } from '../common/article/ArticleTitle';
+import { Article } from '../common/article/Article';
 import { CvBlock } from './CvBlock';
 import { CvBlockParagraph } from './CvBlockParagraph';
 import { CvHistoryList } from './CvHistoryList';
 import { CvEducationDataPresenter } from './CvEducationDataPresenter';
 import { CvExperienceDataPresenter } from './CvExperienceDataPresenter';
 import { CvEmptyDataPresenter } from './CvEmptyDataPresenter';
-import * as cvService from '../../services/cvService';
+import ProfileService from '../../services/profileService';
 
-const useStyles = () => ({
-    section: {
-        background: '#436c8a',
-        color: 'white'
-    },
-    educationSectionTitle: {
-        background: '#0098ff'
-    },
+const useStyles = (theme) => ({
     collapsed: {
         display: 'none'
-    },
-    linkIcon: {
-        position: 'relative',
-        top: '0.125em',
-        left: '0.2em',
-        opacity: 0.1,
-        'a:hover &': {
-            opacity: 0.5
-        }
     }
 });
 
@@ -43,26 +27,25 @@ class CvPageSection extends React.Component {
         };
     }
 
-    componentDidMount() {
-        cvService
-            .getCv()
-            .then(cv => this.setState({ cv: cv }))
-            .catch(error => this.setState({ error: error }));
+    async componentDidMount() {
+        try {
+            const cv = await ProfileService.getCv();
+            
+            this.setState({ cv });
+        }
+        catch (error) {
+            console.log(error);
+
+            this.setState({ error });
+        }
     }
 
     render() {
         const { cv } = this.state;
 
         return (
-            <Box className={this.props.classes.section} pb={6}>
-                <Box pl={6} pt={6}>
-                    <Typography variant="h1">
-                        <Link component={RouterLink} to='/cv' style={{ color: 'inherit' }}>
-                            CV
-                            <LinkIcon fontSize="inherit" className={this.props.classes.linkIcon} />
-                        </Link>
-                    </Typography>
-                </Box>
+            <Article background="white">
+                <ArticleTitle title="CV" to="/cv" />
 
                 <CvBlock title="Summary" titleBackground="transparent">
                     <CvBlockParagraph>
@@ -72,7 +55,7 @@ class CvPageSection extends React.Component {
                     </CvBlockParagraph>
                 </CvBlock>
 
-                <CvBlock title="Experience" titleBackground="#ffbb00">
+                <CvBlock title="Experience" titleBackground="#ffbb00" titleColor="white">
                     <CvHistoryList>
                         {cv === null
                             ? <CvEmptyDataPresenter />
@@ -80,14 +63,14 @@ class CvPageSection extends React.Component {
                     </CvHistoryList>
                 </CvBlock>
 
-                <CvBlock title="Education" titleBackground="#0098ff">
+                <CvBlock title="Education" titleBackground="#0098ff" titleColor="white">
                     <CvHistoryList>
                         {cv == null
                             ? <CvEmptyDataPresenter />
                             : cv.education.map((data, i) => <CvEducationDataPresenter key={i} data={data} />)}
                     </CvHistoryList>
                 </CvBlock>
-            </Box>
+            </Article>
         );
     }
 }
