@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         width: '128px',
         height: '128px',
         marginRight: '24px',
-        background: '#5b5c5c',
+        background: '#1f1f1f',
         fontSize: '64px',
 
         [theme.breakpoints.down('sm')]: {
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
         width: '34px',
         height: '34px',
         marginRight: '16px',
-        background: '#5b5c5c',
+        background: '#1f1f1f',
         border: 'solid 1px #313131',
         fontSize: '24px',
 
@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
         flexFlow: 'column nowrap',
         flexGrow: 1,
         minHeight: '128px',
-        background: '#5b5c5c',
+        background: '#1f1f1f',
         
         '$selected &': {
             background: '#393939'
