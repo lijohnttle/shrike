@@ -39,38 +39,30 @@ class HomePage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Box>
+                <div>
                     <HomeTopContainer>
                         <Header />
 
                         <HeaderSection contacts={data.contacts} gotoNextSection={this.gotoBooksSection} />
                     </HomeTopContainer>
-                </Box>
+                </div>
 
                 <Container className={this.props.classes.sectionContainer}>
                     <Paper className={this.props.classes.contentPaper} square>
-                        {this.renderSections([
+                        {[
                             // <BlogSection />,
                             <CvPageSection isExpandable={true} />,
                             <ProjectsPageSection />,
                             <BooksSection userId={data.goodReads.userId} />
-                        ])}
+                        ].map((section, index) => (
+                            <Fade key={index}>
+                                {section}
+                            </Fade>
+                        ))}
 
                         <Footer />
                     </Paper>
                 </Container>
-            </React.Fragment>
-        );
-    }
-
-    renderSections(sections) {
-        return (
-            <React.Fragment>
-                {sections.map((section, index) => (
-                    <Fade key={index}>
-                        {section}
-                    </Fade>
-                ))}
             </React.Fragment>
         );
     }
