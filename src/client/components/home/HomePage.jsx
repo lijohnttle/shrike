@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, withStyles, Paper } from '@material-ui/core';
+import { Container, withStyles, Paper } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
 import { Header } from './sections/header/Header';
 import { HomeTopContainer } from './HomeTopContainer';
@@ -7,8 +7,7 @@ import { HeaderSection } from './sections/header/HeaderSection';
 import { BooksSection } from './sections/books/BooksSection';
 import { CvPageSection } from '../cv/CvPageSection';
 import { ProjectsPageSection } from '../projects/ProjectsPageSection';
-import { Footer } from '../Footer';
-import { Fade } from '../common/animation/Fade';
+import { Footer } from '../common/Footer';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
 
@@ -49,16 +48,13 @@ class HomePage extends React.Component {
 
                 <Container className={this.props.classes.sectionContainer}>
                     <Paper className={this.props.classes.contentPaper} square>
-                        {[
-                            // <BlogSection />,
-                            <CvPageSection isExpandable={true} />,
-                            <ProjectsPageSection />,
-                            <BooksSection userId={data.goodReads.userId} />
-                        ].map((section, index) => (
-                            <Fade key={index}>
-                                {section}
-                            </Fade>
-                        ))}
+                        {/* <BlogSection /> */}
+
+                        <CvPageSection isExpandable={true} />
+
+                        <ProjectsPageSection />
+
+                        <BooksSection userId={data.goodReads.userId} />
 
                         <Footer />
                     </Paper>
