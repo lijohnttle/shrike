@@ -44,15 +44,17 @@ class ArticlePage extends React.Component {
         return (
             <div
                 className={this.props.classes.root}
-                style={{
-                    minHeight: this.state.minHeight,
-                    background: this.props.background || "inherit",
-                    color: this.props.color || "inherit"
-                }}>
+                style={{ minHeight: this.state.minHeight }}>
                 <HeaderBar hasBackground={true} hasFixedPosition={false} />
 
                 <Container className={this.props.classes.contentContainer}>
-                    <Paper className={this.props.classes.contentPaper} square>
+                    <Paper
+                        className={this.props.classes.contentPaper}
+                        square
+                        style={{
+                            background: this.props.background || "inherit",
+                            color: this.props.color || "inherit"
+                        }}>
                         {this.props.children}
 
                         <Footer />
