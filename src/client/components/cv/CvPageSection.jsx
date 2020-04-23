@@ -7,7 +7,7 @@ import { CvBlock } from './CvBlock';
 import { CvBlockParagraph } from './CvBlockParagraph';
 import { CvHistoryList } from './CvHistoryList';
 import { CvEducationDataPresenter } from './CvEducationDataPresenter';
-import { CvExperienceDataPresenter } from './CvExperienceDataPresenter';
+import { Experience } from './experience/Experience';
 import { CvEmptyDataPresenter } from './CvEmptyDataPresenter';
 import ProfileService from '../../services/profileService';
 
@@ -59,7 +59,7 @@ class CvPageSection extends React.Component {
                     <CvHistoryList>
                         {cv === null
                             ? <CvEmptyDataPresenter />
-                            : cv.experience.map((data, i) => <CvExperienceDataPresenter key={i} data={data} />)}
+                            : cv.experience.map((data, i) => <Experience key={i} data={data} />)}
                     </CvHistoryList>
                 </CvBlock>
 

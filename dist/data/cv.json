@@ -9,7 +9,7 @@
             "accomplishments": [
                 "Worked as an outsourcing software engineer for a multinational investment bank and financial services company.",
                 "Developed currency exchange services that are used by traders from around the world.",
-                "Configuered build/deployment pipelines"
+                "Configuered build/deployment pipelines."
             ],
             "tools": [ "Visual Studio", "PLSQL Developer", "IIS Manager", "TeamCity", "Jira", "NUnit", "SpecFlow" ],
             "technologies": [ ".NET", "C#", "WPF", "WinForms", "WCF", "ASP.NET", "Oracle Database" ]
@@ -31,7 +31,7 @@
         },
         {
             "position": "Software Developer",
-            "employer": "KLÖCKNER PENTAPLAST",
+            "employer": "Klöckner Pentaplast",
             "date": "03.2013-02.2014",
             "location": "Saint Petersburg, Russia",
             "accomplishments": [
