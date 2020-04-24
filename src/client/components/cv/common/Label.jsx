@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'inline-block',
-        background: '#e6e6e6',
+        background: '#2c77ff',
+        color: 'white',
         paddingLeft: theme.spacing(0.5),
         paddingRight: theme.spacing(0.5),
         marginTop: theme.spacing(0.5),

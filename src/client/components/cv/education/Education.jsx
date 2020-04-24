@@ -1,20 +1,20 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
-const CvEducationDataPresenter = ({ data }) => {
+const Education = ({ data }) => {
     return (
-        <Box>
+        <div>
             <Typography variant="h3">
                 {data.title}
             </Typography>
             <Typography>
                 {data.description}
             </Typography>
-            <Typography style={{ opacity: 0.66 }}>
+            <Typography variant="caption">
                 {data.date}, {data.location}
             </Typography>
-        </Box>
+        </div>
     );
 };
 
-export { CvEducationDataPresenter };
+export { Education };

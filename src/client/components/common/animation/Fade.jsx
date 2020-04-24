@@ -14,17 +14,19 @@ class Fade extends React.Component {
     }
 
     handleVisibilityChange(isVisible) {
-        if (isVisible && !this.state.isVisible) {
-            this.setState({
-                isVisible
-            });
+        if (this.props.once && this.state.isVisible) {
+            return;
         }
+
+        this.setState({
+            isVisible
+        });
     }
 
     render() {
         return (
             <VisibilitySensor partialVisibility minTopValue={24} onChange={this.handleVisibilityChange}>
-                <Spring delay={200} to={{ opacity: this.state.isVisible ? 1 : 0 }}>
+                <Spring to={{ opacity: this.state.isVisible ? 1 : 0 }} >
                     {({ opacity }) => <div style={{ opacity }}>{this.props.children}</div>}
                 </Spring>
             </VisibilitySensor>

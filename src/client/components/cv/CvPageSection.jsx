@@ -1,14 +1,13 @@
 import React from 'react';
-import { withStyles, Box, Typography } from '@material-ui/core';
+import { withStyles, Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { ArticleTitle } from '../common/article/ArticleTitle';
 import { Article } from '../common/article/Article';
-import { CvBlock } from './CvBlock';
-import { CvBlockParagraph } from './CvBlockParagraph';
-import { CvHistoryList } from './CvHistoryList';
-import { CvEducationDataPresenter } from './CvEducationDataPresenter';
+import { Block } from './Block';
+import { HistoryList } from './common/historyTrack/HistoryList';
+import { HistoryItem } from './common/historyTrack/HistoryItem';
+import { Education } from './education/Education';
 import { Experience } from './experience/Experience';
-import { CvEmptyDataPresenter } from './CvEmptyDataPresenter';
 import ProfileService from '../../services/profileService';
 
 const useStyles = (theme) => ({
@@ -47,29 +46,29 @@ class CvPageSection extends React.Component {
             <Article background="white">
                 <ArticleTitle title="CV" to="/cv" />
 
-                <CvBlock title="Summary" titleBackground="transparent">
-                    <CvBlockParagraph>
+                <Block title="Summary" titleBackground="transparent">
+                    <Typography paragraph>
                         {cv === null
                             ? <Skeleton variant="rect" height="6rem" />
                             : cv.summary}
-                    </CvBlockParagraph>
-                </CvBlock>
+                    </Typography>
+                </Block>
 
-                <CvBlock title="Experience" titleBackground="#ffbb00" titleColor="white">
-                    <CvHistoryList>
+                <Block title="Experience" titleBackground="#ffbb00" titleColor="white">
+                    <HistoryList>
                         {cv === null
-                            ? <CvEmptyDataPresenter />
-                            : cv.experience.map((data, i) => <Experience key={i} data={data} />)}
-                    </CvHistoryList>
-                </CvBlock>
+                            ? <HistoryItem />
+                            : cv.experience.map((data, i) => <HistoryItem key={i}><Experience data={data} /></HistoryItem>)}
+                    </HistoryList>
+                </Block>
 
-                <CvBlock title="Education" titleBackground="#0098ff" titleColor="white">
-                    <CvHistoryList>
+                <Block title="Education" titleBackground="#0098ff" titleColor="white">
+                    <HistoryList>
                         {cv == null
-                            ? <CvEmptyDataPresenter />
-                            : cv.education.map((data, i) => <CvEducationDataPresenter key={i} data={data} />)}
-                    </CvHistoryList>
-                </CvBlock>
+                            ? <HistoryItem />
+                            : cv.education.map((data, i) => <HistoryItem key={i}><Education data={data} /></HistoryItem>)}
+                    </HistoryList>
+                </Block>
             </Article>
         );
     }

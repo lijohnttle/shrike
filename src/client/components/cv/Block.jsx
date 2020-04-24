@@ -1,8 +1,11 @@
 import React from 'react';
-import { Box, Typography, makeStyles } from '@material-ui/core';
+import { Typography, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     title: {
+        background: props => props.titleBackground,
+        color: props => props.titleColor || "inherit",
+
         marginTop: theme.spacing(6),
         marginBottom: theme.spacing(2),
         paddingTop: theme.spacing(1),
@@ -29,12 +32,12 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const CvBlock = ({ title, titleBackground, titleColor, children }) => {
-    const classes = useStyles();
+const Block = ({ title, titleBackground, titleColor, children }) => {
+    const classes = useStyles({ titleBackground, titleColor });
 
     return (
         <React.Fragment>
-            <div className={classes.title} style={{ background: titleBackground, color: titleColor || "inherit" }}>
+            <div className={classes.title}>
                 <Typography variant="h2">
                     {title}
                 </Typography>
@@ -45,4 +48,4 @@ const CvBlock = ({ title, titleBackground, titleColor, children }) => {
     );
 };
 
-export { CvBlock };
+export { Block };

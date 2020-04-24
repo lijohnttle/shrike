@@ -3,18 +3,24 @@ import { ToolList } from './ToolList';
 import { TechnologyList } from './TechnologyList';
 import { AccomplishmentList } from './AccomplishmentList';
 import { Header } from './Header';
+import { Expander } from '../common/expander/Expander';
+import { ExpanderHeader } from '../common/expander/ExpanderHeader';
+import { ExpanderContent } from '../common/expander/ExpanderContent';
 
 const Experience = ({ data }) => {
     return (
-        <div>
-            <Header position={data.position} employer={data.employer} date={data.date} location={data.location} />
+        <Expander>
+            <ExpanderHeader>
+                <Header position={data.position} employer={data.employer} date={data.date} location={data.location} />
+            </ExpanderHeader>
+            <ExpanderContent>
+                <AccomplishmentList accomplishments={data.accomplishments} />
 
-            <AccomplishmentList accomplishments={data.accomplishments} />
+                <ToolList tools={data.tools} />
 
-            <ToolList tools={data.tools} />
-
-            <TechnologyList technologies={data.technologies} />
-        </div>
+                <TechnologyList technologies={data.technologies} />
+            </ExpanderContent>
+        </Expander>
     );
 };
 

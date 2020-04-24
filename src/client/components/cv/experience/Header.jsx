@@ -1,17 +1,9 @@
 import React from 'react';
-import { Typography, makeStyles } from '@material-ui/core';
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        marginBottom: theme.spacing(2)
-    }
-}));
+import { Typography } from '@material-ui/core';
 
 const Header = ({ position, employer, date, location }) => {
-    const classes = useStyles();
-
     return (
-        <div className={classes.root}>
+        <div>
             <Typography>
                 <Typography variant="h3" component="span">
                     {position}&nbsp;
