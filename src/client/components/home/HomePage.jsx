@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container, withStyles, Paper } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
-import { Header } from './sections/header/Header';
+import { HeaderBar } from '../common/HeaderBar';
 import { HomeTopContainer } from './HomeTopContainer';
-import { HeaderSection } from './sections/header/HeaderSection';
-import { BooksSection } from './sections/books/BooksSection';
-import { CvPageSection } from '../cv/CvPageSection';
-import { ProjectsPageSection } from '../projects/ProjectsPageSection';
+import { HeaderSection } from './header/HeaderSection';
+import { BookLibraryArticle } from '../bookLibrary/BookLibraryArticle';
+import { CvArticle } from '../cv/CvArticle';
+import { ProjectsArticle } from '../projects/ProjectsArticle';
 import { Footer } from '../common/Footer';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
@@ -40,7 +40,7 @@ class HomePage extends React.Component {
             <React.Fragment>
                 <div>
                     <HomeTopContainer>
-                        <Header />
+                        <HeaderBar showBackgroundOnScroll={true} hasFixedPosition={true} />
 
                         <HeaderSection contacts={data.contacts} gotoNextSection={this.gotoBooksSection} />
                     </HomeTopContainer>
@@ -50,11 +50,11 @@ class HomePage extends React.Component {
                     <Paper className={this.props.classes.contentPaper} square>
                         {/* <BlogSection /> */}
 
-                        <CvPageSection isExpandable={true} />
+                        <CvArticle />
 
-                        <ProjectsPageSection />
+                        <ProjectsArticle />
 
-                        <BooksSection userId={data.goodReads.userId} />
+                        <BookLibraryArticle userId={data.goodReads.userId} />
 
                         <Footer />
                     </Paper>

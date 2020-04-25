@@ -16,7 +16,7 @@ const useStyles = (theme) => ({
     }
 });
 
-class CvPageSection extends React.Component {
+class CvArticle extends React.Component {
     constructor(props) {
         super(props);
 
@@ -74,6 +74,6 @@ class CvPageSection extends React.Component {
     }
 }
 
-const CvPageSectionExport = withStyles(useStyles)(CvPageSection);
+const CvArticleExport = withStyles(useStyles)(CvArticle);
 
-export { CvPageSectionExport as CvPageSection };
+export { CvArticleExport as CvArticle };

@@ -42,10 +42,8 @@ class ArticlePage extends React.Component {
 
     render() {
         return (
-            <div
-                className={this.props.classes.root}
-                style={{ minHeight: this.state.minHeight }}>
-                <HeaderBar hasBackground={true} hasFixedPosition={false} />
+            <div className={this.props.classes.root} style={{ minHeight: this.state.minHeight }}>
+                <HeaderBar hasFixedPosition={false} />
 
                 <Container className={this.props.classes.contentContainer}>
                     <Paper

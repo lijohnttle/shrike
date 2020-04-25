@@ -1,10 +1,10 @@
 import React from 'react';
-import { CvPageSection } from './CvPageSection';
+import { CvArticle } from './CvArticle';
 import { ArticlePage } from '../common/article/ArticlePage';
 
 const CvPage = () => (
     <ArticlePage background="white">
-        <CvPageSection />
+        <CvArticle />
     </ArticlePage>
 );
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
-import { GoodReadsBookListWidget } from '../../../widgets/GoodReadsBookListWidget';
-import { Article } from '../../../common/article/Article';
-import { ArticleTitle } from '../../../common/article/ArticleTitle';
+import { Box } from '@material-ui/core';
+import { GoodReadsBookListWidget } from '../widgets/GoodReadsBookListWidget';
+import { Article } from '../common/article/Article';
+import { ArticleTitle } from '../common/article/ArticleTitle';
 
-const BooksSection = ({ userId }) => {
+const BookLibraryArticle = ({ userId }) => {
     return (
         <Article>
             <ArticleTitle title="Book Library" />
@@ -19,4 +19,4 @@ const BooksSection = ({ userId }) => {
     );
 };
 
-export { BooksSection };
+export { BookLibraryArticle };

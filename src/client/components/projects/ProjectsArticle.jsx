@@ -4,7 +4,7 @@ import { Category } from './Category';
 import { Article } from '../common/article/Article';
 import ProfileService from '../../services/profileService';
 
-class ProjectsPageSection extends React.Component {
+class ProjectsArticle extends React.Component {
     constructor(props) {
         super(props);
 
@@ -84,4 +84,4 @@ class ProjectsPageSection extends React.Component {
     }
 }
 
-export { ProjectsPageSection };
+export { ProjectsArticle };
