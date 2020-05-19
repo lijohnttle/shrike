@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Typography, withWidth, isWidthUp } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import { Project } from './Project';
 import { ProjectDetails } from './ProjectDetails';
 
@@ -7,17 +7,12 @@ const useStyles = makeStyles((theme) => ({
     root: {
         paddingTop: theme.spacing(6),
     },
-    projectList: {
-        display: 'flex',
-        flexFlow: 'column nowrap',
-
-        [theme.breakpoints.up('lg')]: {
-            flexFlow: 'row wrap'
-        }
-    }
+    projectsList: {
+        marginTop: theme.spacing(4),
+    },
 }));
 
-const Category = ({ category, projects, selectedProject, onSelect, onResetSelection, width }) => {
+const Category = ({ category, projects, selectedProject, onSelect, onResetSelection }) => {
     const classes = useStyles();
     
     return (
@@ -26,48 +21,19 @@ const Category = ({ category, projects, selectedProject, onSelect, onResetSelect
                 {category}
             </Typography>
 
-            <div className={classes.projectList}>
-                {renderProjects(projects, selectedProject, onSelect, onResetSelection, width)}
+            <div className={classes.projectsList}>
+                {renderProjects(projects, selectedProject, onSelect, onResetSelection)}
             </div>
         </div>
     );
 };
 
-function determineIfProjectIsLastInRowWithSelectedOne(currentIndex, selectedIndex, count, width) {
-    let lastInARow = false;
-
-    if (selectedIndex >= 0) {
-        if (!isWidthUp('lg', width)) {
-            // if all items in one column then insert selection element after selected project
-            lastInARow = currentIndex === selectedIndex;
-        }
-        else {
-            const isLastItem = selectedIndex === count - 1;
-
-            if (isLastItem) {
-                return true;
-            }
-
-            // when projects are in two columns
-            const projectInTheSecondColumn = currentIndex % 2 === 1;
-
-            if (isLastItem || projectInTheSecondColumn) {
-                // if project is the last one in a row with selected one then insert selection element
-                lastInARow = currentIndex === selectedIndex || currentIndex === selectedIndex + 1;
-            }
-        }
-    }
-
-    return lastInARow;
-}
-
-function renderProjects(projects, selectedProject, onSelect, onResetSelection, width) {
+function renderProjects(projects, selectedProject, onSelect, onResetSelection) {
     const uiData = projects.reduce((result, project, index) => {
         result.elements.push(
             <Project
                 key={project.id}
                 project={project}
-                even={!result.selectionInserted ? index % 2 === 0 : (index + 1 % 2 === 0)}
                 isSelected={selectedProject === project}
                 onSelect={onSelect}
                 onUnselect={onResetSelection} />
@@ -78,9 +44,9 @@ function renderProjects(projects, selectedProject, onSelect, onResetSelection, w
             result.selectedProject = project;
         }
 
-        if (determineIfProjectIsLastInRowWithSelectedOne(index, result.selectedIndex, projects.length, width)) {
+        if (index === result.selectedIndex) {
             result.elements.push(
-                <ProjectDetails key={-1} project={result.selectedProject} onClose={onResetSelection} />
+                <ProjectDetails key={-1} project={result.selectedProject} />
             );
         }
 
@@ -90,6 +56,4 @@ function renderProjects(projects, selectedProject, onSelect, onResetSelection, w
     return uiData.elements;
 }
 
-const CategoryExport = withWidth()(Category);
-
-export { CategoryExport as Category };
+export { Category };

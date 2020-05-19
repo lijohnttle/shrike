@@ -3,6 +3,7 @@ import { ArticleTitle } from '../common/article/ArticleTitle';
 import { Category } from './Category';
 import { Article } from '../common/article/Article';
 import ProfileService from '../../services/profileService';
+import Colors from './Colors';
 
 class ProjectsArticle extends React.Component {
     constructor(props) {
@@ -53,7 +54,7 @@ class ProjectsArticle extends React.Component {
 
     render() {
         return (
-            <Article background="#313131" color="white">
+            <Article background={Colors.background} color="white">
                 <ArticleTitle title="Projects" to="/projects" />
 
                 {this.renderCategories()}

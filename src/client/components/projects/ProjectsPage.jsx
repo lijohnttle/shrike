@@ -1,10 +1,11 @@
 import React from 'react';
 import { ProjectsArticle } from './ProjectsArticle';
 import { ArticlePage } from '../common/article/ArticlePage';
+import Colors from './Colors';
 
 const ProjectsPage = () => {
     return (
-        <ArticlePage background="#313131" color="white">
+        <ArticlePage background={Colors.background} color={Colors.color}>
             <ProjectsArticle />
         </ArticlePage>
     );
