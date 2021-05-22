@@ -1,4 +1,4 @@
-import BlogRepository from './repositories/blogRepository';
+import BlogRepository from './repositories/BlogRepository';
 import ProfileRepository from './repositories/profileRepository';
 
 const resolvers = {
