@@ -59,7 +59,7 @@ function buildHRefByVendor(vendor, value) {
     }
 }
 
-const HeaderSection = ({ contacts, gotoNextSection }) => {
+const WelcomeSection = ({ contacts, gotoNextSection }) => {
     const classes = useStyles();
 
     return (
@@ -101,7 +101,7 @@ const HeaderSection = ({ contacts, gotoNextSection }) => {
     );
 };
 
-HeaderSection.propTypes = {
+WelcomeSection.propTypes = {
     contacts: PropTypes.arrayOf(PropTypes.shape({
         vendor: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired
@@ -109,4 +109,4 @@ HeaderSection.propTypes = {
     gotoNextSection: PropTypes.func.isRequired
 };
 
-export { HeaderSection };
+export default WelcomeSection;

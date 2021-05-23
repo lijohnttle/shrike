@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, withStyles, Paper } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
-import { HeaderBar } from '../common/HeaderBar';
-import { HomeTopContainer } from './HomeTopContainer';
-import { HeaderSection } from './header/HeaderSection';
+import HeaderBar from '../common/HeaderBar';
+import WelcomeSectionContainer from './sections/welcome/WelcomeSectionContainer';
+import WelcomeSection from './sections/welcome/WelcomeSection';
 import { BookLibraryArticle } from '../bookLibrary/BookLibraryArticle';
 import { CvArticle } from '../cv/CvArticle';
 import { ProjectsArticle } from '../projects/ProjectsArticle';
@@ -12,7 +12,13 @@ import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
 
 const useStyles = (theme) => ({
+    welcomeSectionContainer: {
+        position: "relative",
+        zIndex: 1,
+    },
     sectionContainer: {
+        position: "relative",
+        zIndex: 0,
         [theme.breakpoints.down('sm')]: {
             paddingLeft: 0,
             paddingRight: 0
@@ -38,12 +44,14 @@ class HomePage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div>
-                    <HomeTopContainer>
+                <div className={this.props.classes.welcomeSectionContainer}>
+                    <WelcomeSectionContainer>
                         <HeaderBar showBackgroundOnScroll={true} hasFixedPosition={true} />
 
-                        <HeaderSection contacts={data.contacts} gotoNextSection={this.gotoBooksSection} />
-                    </HomeTopContainer>
+                        <WelcomeSection
+                            contacts={data.contacts}
+                            gotoNextSection={this.gotoBooksSection} />
+                    </WelcomeSectionContainer>
                 </div>
 
                 <Container className={this.props.classes.sectionContainer}>

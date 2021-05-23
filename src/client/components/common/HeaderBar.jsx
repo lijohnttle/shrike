@@ -4,9 +4,12 @@ import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 
 const useStyles = () => ({
+    appBar: {
+        background: 'black',
+    },
     appBarTransparent: {
         background: 'transparent',
-        boxShadow: 'none'
+        boxShadow: 'none',
     }
 });
 
@@ -63,8 +66,9 @@ class HeaderBar extends React.Component {
             showBackground = scrolled;
         }
 
-
-        const appBarClassName = showBackground ? '' : this.props.classes.appBarTransparent;
+        const appBarClassName = showBackground
+            ? this.props.classes.appBar
+            : this.props.classes.appBarTransparent;
         const position = this.props.hasFixedPosition ? 'fixed' : 'relative';
     
         return (
@@ -86,6 +90,4 @@ HeaderBar.propTypes = {
     showBackgroundOnScroll: PropTypes.bool
 };
 
-const HeaderBarExport = withStyles(useStyles)(HeaderBar);
-
-export { HeaderBarExport as HeaderBar };
+export default withStyles(useStyles)(HeaderBar);
