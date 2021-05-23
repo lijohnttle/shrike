@@ -1,29 +1,32 @@
 {
-  "name": "lijohnttle-web-site",
+  "name": "personal-website",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-server": "webpack --config build/webpack.server.dev.config.js",
-    "build-client": "webpack --config build/webpack.client.dev.config.js",
-    "build": "npm run build-server && npm run build-client",
-    "build-server-prod": "webpack -p --config build/webpack.server.prod.config.js",
-    "build-client-prod": "webpack -p --config build/webpack.client.prod.config.js",
+    "build-server-dev": "webpack --config build/server/webpack.config.js --mode development --env.ROOT_PATH=$PWD",
+    "build-client-dev": "webpack --config build/client/webpack.config.js --mode development --env.ROOT_PATH=$PWD",
+    "build-dev": "npm run build-server && npm run build-client",
+    "build-server-prod": "webpack -p --config build/server/webpack.config.js --mode production --env.ROOT_PATH=$PWD",
+    "build-client-prod": "webpack -p --config build/client/webpack.config.js --mode production --env.ROOT_PATH=$PWD",
     "build-prod": "npm run build-server-prod && npm run build-client-prod",
+    "build-server": "npm run build-server-dev",
+    "build-client": "npm run build-client-dev",
+    "build": "npm run build-dev",
     "start": "node ./dist/server/index.js",
     "restart": "npm run build-server && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lijohnttle/lijohnttle-web-site.git"
+    "url": "git+https://github.com/lijohnttle/personal-website.git"
   },
   "author": "Ivan Cherkasov",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lijohnttle/lijohnttle-web-site/issues"
+    "url": "https://github.com/lijohnttle/personal-website/issues"
   },
-  "homepage": "https://github.com/lijohnttle/lijohnttle-web-site#readme",
+  "homepage": "https://github.com/lijohnttle/personal-website#readme",
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
     "@material-ui/core": "^4.4.3",
