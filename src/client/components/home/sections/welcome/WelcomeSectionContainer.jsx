@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-    root: ({windowHeight}) => ({
+    root: ({screenHeight}) => ({
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: 'white',
         boxShadow: theme.shadows[3],
-        minHeight: `${windowHeight}px`
+        minHeight: `${screenHeight}px`
     }),
     backgroundContainer: {
         position: 'absolute',
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         opacity: 0,
-        animation: '$fadeInFromNone 1000ms ease-in 1500ms forwards'
+        animation: '$fadeInFromNone 1000ms ease-in 2500ms forwards'
     },
     '@keyframes fadeInFromNone': {
         '0%': {
@@ -34,68 +34,95 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const generateAnimatedBoxStyle = (delay, duration, width, height) => {
-    return makeStyles(() => ({
-        root: {
-            position: 'absolute',
-            width: `${width}%`,
-            height: `${height}%`,
-            background: '#5e98be',
+const useAnimatedBoxStyle = makeStyles(() => ({
+    root: {
+        position: 'absolute',
+        background: 'CornflowerBlue',
+    },
+    animatedBox0: {
+        opacity: 0,
+        transform: 'scale(0, 0)',
+        animation: '$boxAnimation 1000ms ease-in 0ms forwards',
+    },
+    animatedBox1: {
+        opacity: 0,
+        transform: 'scale(0, 0)',
+        animation: '$boxAnimation 1000ms ease-in 250ms forwards',
+    },
+    animatedBox2: {
+        opacity: 0,
+        transform: 'scale(0, 0)',
+        animation: '$boxAnimation 1000ms ease-in 500ms forwards',
+    },
+    animatedBox3: {
+        opacity: 0,
+        transform: 'scale(0, 0)',
+        animation: '$boxAnimation 1000ms ease-in 750ms forwards',
+    },
+    animatedBox4: {
+        opacity: 0,
+        transform: 'scale(0, 0)',
+        animation: '$boxAnimation 1000ms ease-in 1000ms forwards',
+    },
+    '@keyframes boxAnimation': {
+        '0%': {
             opacity: 0,
             transform: 'scale(0, 0)',
-            animationName: '$fadeInFromNone',
-            animationDelay: `${delay}ms`,
-            animationDuration: `${duration}ms`,
-            animationFillMode: 'forwards',
-            animationTimingFunction: 'ease-in',
         },
-        '@keyframes fadeInFromNone': {
-            '0%': {
-                opacity: 0,
-                transform: 'scale(0, 0)',
-            },
-            '100%': {
-                opacity: 1,
-                transform: 'scale(1, 1)',
-            }
-        },
-    }));
-};
+        '100%': {
+            opacity: 1,
+            transform: 'scale(1, 1)',
+        }
+    },
+}));
 
-const RenderAnimatedBox = ({column, row, columnLength, rowLength}) => {
-    const boxWidth = 100 / rowLength;
-    const boxHeight = 100 / columnLength;
-    const x = column * boxWidth;
-    const y = row * boxHeight;
-    const maxDuration = 1000;
-    const duration = maxDuration / 2;
-    const delay = Math.round(Math.random() * (maxDuration - duration));
+const RenderAnimatedBox = ({left, top, width, height}) => {
+    const boxAnimationIndex = Math.floor(Math.random() * 5);
+    const boxAnimationClassName = `animatedBox${boxAnimationIndex}`;
 
-    const classes = generateAnimatedBoxStyle(delay, duration, boxWidth, boxHeight)();
+    const classes = useAnimatedBoxStyle();
 
     return (
-        <div className={classes.root} style={{ left: `${x}%`, top: `${y}%` }}>
+        <div
+            className={`${classes.root} ${classes[boxAnimationClassName]}`}
+            style={{
+                left: `${left}%`,
+                top: `${top}%`,
+                width: `${width}%`,
+                height: `${height}%`,
+            }} >
         </div>
     );
 };
 
-const RenderAnimatedBoxes = () => {
-    let rowLength = Math.ceil(window.innerWidth / 64);
-    let columnLength = Math.ceil(window.innerHeight / 64);
-    const lineMaxLength = 10;
-    const currentLineMaxLength = Math.max(rowLength, columnLength);
-
-    if (currentLineMaxLength > lineMaxLength) {
-        const factor = currentLineMaxLength / lineMaxLength;
-        rowLength = Math.ceil(rowLength / factor);
-        columnLength = Math.ceil(columnLength / factor);
+const RenderAnimatedBoxes = ({ maxBoxesInLine, minBoxSize, screenWidth, screenHeight }) => {
+    if (!screenWidth || !screenHeight) {
+        return null;
     }
+    
+    const maxDimension = Math.max(screenWidth, screenHeight);
 
-    const animatedBoxes = [0];
+    // the max number of boes in column/row accounting the minimum size of one box
+    const coercedMaxBoxedInLine = Math.min(maxBoxesInLine, Math.floor(maxDimension / minBoxSize));
+    
+    // stretched minimum size of one box in order for all boxes to fill the whole screen
+    const coercedMinBoxSize = maxDimension / coercedMaxBoxedInLine;
+
+    const boxSize = Math.max(coercedMinBoxSize, maxDimension / maxBoxesInLine);
+    const rowLength = Math.round(screenWidth / boxSize);
+    const columnLength = Math.round(screenHeight / boxSize);
+    const boxWidth = 100 / rowLength;
+    const boxHeight = 100 / columnLength;
+
+    const animatedBoxes = [];
 
     for (let column = 0; column < rowLength; column++) {
         for (let row = 0; row < columnLength; row++) {
-            animatedBoxes.push({ column, row });
+            animatedBoxes.push({
+                key: row * rowLength + column,
+                left: column * boxWidth,
+                top: row * boxHeight
+            });
         }
     }
 
@@ -103,23 +130,35 @@ const RenderAnimatedBoxes = () => {
         <React.Fragment>
             {animatedBoxes.map(box => (
                 <RenderAnimatedBox
-                    key={box.row * rowLength + box.column}
-                    column={box.column}
-                    row={box.row}
-                    columnLength={columnLength}
-                    rowLength={rowLength} />
+                    key={box.key}
+                    left={box.left}
+                    top={box.top}
+                    width={boxWidth}
+                    height={boxHeight} />
             ))}
         </React.Fragment>
     );
 };
 
 const WelcomeSectionContainer = ({ children }) => {
-    const classes = useStyles({ windowHeight: window.innerHeight });
+    const [screenWidth, setScreenWidth] = useState(0);
+    const [screenHeight, setScreenHeight] = useState(0);
+
+    useEffect(() => {
+        setScreenWidth(window.innerWidth);
+        setScreenHeight(window.innerHeight);
+    }, []);
+
+    const classes = useStyles({ screenHeight });
 
     return (
         <div className={classes.root}>
             <div className={classes.backgroundContainer}>
-                <RenderAnimatedBoxes />
+                <RenderAnimatedBoxes
+                    maxBoxesInLine={10}
+                    minBoxSize={64}
+                    screenWidth={screenWidth}
+                    screenHeight={screenHeight} />
             </div>
 
             <div className={classes.childrenContainer}>
