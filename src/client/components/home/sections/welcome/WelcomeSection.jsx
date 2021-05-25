@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, Typography, Box, makeStyles, Button } from '@material-ui/core';
+import { Typography, Box, makeStyles, Button, IconButton } from '@material-ui/core';
 import { Facebook, LinkedIn, Email, Instagram, ArrowDownwardRounded } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
@@ -17,11 +17,11 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: theme.spacing(4),
-        paddingTop: theme.spacing(2),
-        borderTopColor: theme.palette.primary.contrastText,
-        borderTopWidth: '1px',
-        borderTopStyle: 'solid'
+        marginTop: theme.spacing(8),
+    },
+    contactIcon: {
+        width: theme.typography.h1.fontSize,
+        height: theme.typography.h1.fontSize,
     }
 }));
 
@@ -30,16 +30,16 @@ const useStyles = makeStyles((theme) => ({
  * @param {String} vendor Vendor's name.
  * @returns {import('react').ReactElement} 
  */
-function createIconByVendor(vendor) {
+function createIconByVendor(vendor, className) {
     switch (vendor) {
         case 'facebook':
-            return <Facebook fontSize="inherit" />
+            return <Facebook fontSize="inherit" className={className} />
         case 'instagram':
-            return <Instagram fontSize="inherit" />
+            return <Instagram fontSize="inherit" className={className} />
         case 'linkedin':
-            return <LinkedIn fontSize="inherit" />
+            return <LinkedIn fontSize="inherit" className={className} />
         case 'email':
-            return <Email fontSize="inherit" />
+            return <Email fontSize="inherit" className={className} />
         default:
             return null;
     }
@@ -79,14 +79,14 @@ const WelcomeSection = ({ contacts, gotoNextSection }) => {
 
                 <Box className={classes.contactsContainer}>
                     {contacts.map(contact => (
-                        <Link
+                        <IconButton
                             key={contact.vendor}
                             href={buildHRefByVendor(contact.vendor, contact.value)}
-                            variant="h1"
                             color="inherit"
                             target="_blank">
-                            {createIconByVendor(contact.vendor)}
-                        </Link>))}
+                            {createIconByVendor(contact.vendor, classes.contactIcon)}
+                        </IconButton>
+                    ))}
                 </Box>
             </Box>
 
