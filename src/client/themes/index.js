@@ -6,7 +6,7 @@ let defaultTheme = createMuiTheme({
         primary: deepOrange,
         secondary: red,
         background: {
-            default: '#f0f0f0',
+            default: '#ffffff',
             paper: '#ffffff'
         }
     },

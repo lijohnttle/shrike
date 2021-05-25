@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, withStyles, Paper } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
 import HeaderBar from '../common/HeaderBar';
-import WelcomeSectionContainer from './sections/welcome/WelcomeSectionContainer';
 import WelcomeSection from './sections/welcome/WelcomeSection';
 import { BookLibraryArticle } from '../bookLibrary/BookLibraryArticle';
 import { CvArticle } from '../cv/CvArticle';
@@ -19,21 +18,24 @@ const useStyles = (theme) => ({
     sectionContainer: {
         position: "relative",
         zIndex: 0,
+        display: 'flex',
+        flexDirection: 'column',
         [theme.breakpoints.down('sm')]: {
             paddingLeft: 0,
             paddingRight: 0
         }
     },
-    contentPaper: {
-        display: 'flex',
-        flexDirection: 'column'
-    }
 });
 
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            showHeader: false,
+        };
+
+        this.handleWindowScroll = this.handleWindowScroll.bind(this);
         this.gotoBooksSection = this.gotoBooksSection.bind(this);
     }
 
@@ -41,31 +43,47 @@ class HomePage extends React.Component {
         animateScroll.scrollTo(window.innerHeight, smoothScrollOptions);
     }
 
+    handleWindowScroll() {
+        this.setState({
+            showHeader: window.pageYOffset >= window.innerHeight
+        });
+    }
+
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleWindowScroll);
+
+        this.setState({
+            showHeader: window.pageYOffset >= window.innerHeight
+        });
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleWindowScroll);
+    }
+
     render() {
         return (
             <React.Fragment>
-                <div className={this.props.classes.welcomeSectionContainer}>
-                    <WelcomeSectionContainer>
-                        <HeaderBar showBackgroundOnScroll={true} hasFixedPosition={true} />
+                <div style={{ visibility: (this.state.showHeader ? "visible" : "hidden") }}>
+                    <HeaderBar hasFixedPosition={true} />
+                </div>
 
-                        <WelcomeSection
-                            contacts={data.contacts}
-                            gotoNextSection={this.gotoBooksSection} />
-                    </WelcomeSectionContainer>
+                <div className={this.props.classes.welcomeSectionContainer}>
+                    <WelcomeSection
+                        contacts={data.contacts}
+                        gotoNextSection={this.gotoBooksSection} />
                 </div>
 
                 <Container className={this.props.classes.sectionContainer}>
-                    <Paper className={this.props.classes.contentPaper} square>
-                        {/* <BlogSection /> */}
+                    {/* <BlogSection /> */}
 
-                        <CvArticle />
+                    <CvArticle />
 
-                        <ProjectsArticle />
+                    <ProjectsArticle />
 
-                        <BookLibraryArticle userId={data.goodReads.userId} />
+                    <BookLibraryArticle userId={data.goodReads.userId} />
 
-                        <Footer />
-                    </Paper>
+                    <Footer />
                 </Container>
             </React.Fragment>
         );
