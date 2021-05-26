@@ -22,7 +22,19 @@ const useStyles = makeStyles((theme) => ({
     contactIcon: {
         width: theme.typography.h1.fontSize,
         height: theme.typography.h1.fontSize,
-    }
+        [theme.breakpoints.down('sm')]: {
+            width: theme.typography.h2.fontSize,
+            width: theme.typography.h2.fontSize,
+        }
+    },
+    goNextSectionIcon: {
+        width: theme.typography.h1.fontSize,
+        height: theme.typography.h1.fontSize,
+        [theme.breakpoints.down('sm')]: {
+            width: theme.typography.h2.fontSize,
+            width: theme.typography.h2.fontSize,
+        }
+    },
 }));
 
 /**
@@ -91,11 +103,9 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
             </Box>
 
             <Box flex="1 1 auto" display="flex" justifyContent="center" alignItems="center">
-                <Button variant="text" onClick={gotoNextSection} color="inherit">
-                    <Typography variant="h1" align="center">
-                        <ArrowDownwardRounded fontSize="inherit" />
-                    </Typography>
-                </Button>
+                <IconButton onClick={gotoNextSection} color="inherit">
+                    <ArrowDownwardRounded className={classes.goNextSectionIcon} />
+                </IconButton>
             </Box>
         </div>
     );

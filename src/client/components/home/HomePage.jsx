@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, withStyles, Paper } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Container, makeStyles } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
 import HeaderBar from '../common/HeaderBar';
 import WelcomeSection from './sections/welcome/WelcomeSection';
@@ -10,7 +10,7 @@ import { Footer } from '../common/Footer';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
 
-const useStyles = (theme) => ({
+const useStyles = makeStyles(theme => ({
     welcomeSectionContainer: {
         position: "relative",
         zIndex: 1,
@@ -25,71 +25,57 @@ const useStyles = (theme) => ({
             paddingRight: 0
         }
     },
-});
+}));
 
-class HomePage extends React.Component {
-    constructor(props) {
-        super(props);
+const HomePage = () => {
+    const [showHeader, setShowHeader] = useState(false);
+    const classes = useStyles();
 
-        this.state = {
-            showHeader: false,
+    useEffect(() => {
+        window.addEventListener('scroll', scrollHandler);
+
+        setShowHeader(window.scrollY >= window.innerHeight);
+
+        return () => {
+            window.removeEventListener('scroll', scrollHandler);
         };
+    }, []);
 
-        this.handleWindowScroll = this.handleWindowScroll.bind(this);
-        this.gotoBooksSection = this.gotoBooksSection.bind(this);
-    }
+    const scrollHandler = () => {
+        setShowHeader(window.scrollY >= window.innerHeight);
+    };
 
-    gotoBooksSection() {
+    const gotoBooksSection = () => {
         animateScroll.scrollTo(window.innerHeight, smoothScrollOptions);
     }
 
-    handleWindowScroll() {
-        this.setState({
-            showHeader: window.pageYOffset >= window.innerHeight
-        });
-    }
+    console.log('Render...');
 
-    componentDidMount() {
-        window.addEventListener('scroll', this.handleWindowScroll);
+    return (
+        <React.Fragment>
+            <div style={{ visibility: (showHeader ? "visible" : "hidden") }}>
+                <HeaderBar hasFixedPosition={true} />
+            </div>
 
-        this.setState({
-            showHeader: window.pageYOffset >= window.innerHeight
-        });
-    }
+            <div className={classes.welcomeSectionContainer}>
+                <WelcomeSection
+                    contacts={data.contacts}
+                    gotoNextSection={gotoBooksSection} />
+            </div>
 
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleWindowScroll);
-    }
+            <Container className={classes.sectionContainer}>
+                {/* <BlogSection /> */}
 
-    render() {
-        return (
-            <React.Fragment>
-                <div style={{ visibility: (this.state.showHeader ? "visible" : "hidden") }}>
-                    <HeaderBar hasFixedPosition={true} />
-                </div>
+                <CvArticle />
 
-                <div className={this.props.classes.welcomeSectionContainer}>
-                    <WelcomeSection
-                        contacts={data.contacts}
-                        gotoNextSection={this.gotoBooksSection} />
-                </div>
+                <ProjectsArticle />
 
-                <Container className={this.props.classes.sectionContainer}>
-                    {/* <BlogSection /> */}
+                <BookLibraryArticle userId={data.goodReads.userId} />
 
-                    <CvArticle />
-
-                    <ProjectsArticle />
-
-                    <BookLibraryArticle userId={data.goodReads.userId} />
-
-                    <Footer />
-                </Container>
-            </React.Fragment>
-        );
-    }
+                <Footer />
+            </Container>
+        </React.Fragment>
+    );
 }
 
-const HomePageExport = withStyles(useStyles)(HomePage);
-
-export { HomePageExport as HomePage };
+export default HomePage;

@@ -142,8 +142,8 @@ const RenderAnimatedBoxes = ({ maxBoxesInLine, minBoxSize, screenWidth, screenHe
 };
 
 const WelcomeSection = ({ contacts, gotoNextSection }) => {
-    const [screenWidth, setScreenWidth] = useState(0);
-    const [screenHeight, setScreenHeight] = useState(0);
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    const [screenHeight, setScreenHeight] = useState(window.innerHeight);
 
     useEffect(() => {
         setScreenWidth(window.innerWidth);
