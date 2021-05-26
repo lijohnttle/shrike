@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Button, makeStyles } from '@material-ui/co
 
 const useStyles = makeStyles(() => ({
     appBar: {
-        background: 'CornflowerBlue',
+        background: 'black',
     }
 }));
 

@@ -49,8 +49,6 @@ const HomePage = () => {
         animateScroll.scrollTo(window.innerHeight, smoothScrollOptions);
     }
 
-    console.log('Render...');
-
     return (
         <React.Fragment>
             <div style={{ visibility: (showHeader ? "visible" : "hidden") }}>
