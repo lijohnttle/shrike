@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
 import HeaderBar from '../common/HeaderBar';
 import WelcomeSection from './sections/welcome/WelcomeSection';
@@ -7,40 +7,35 @@ import BooksLibrarySection from './sections/books/BooksLibrarySection';
 import { Footer } from '../common/Footer';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
+import SectionContentContainer from './sections/SectionContentContainer';
 
 const useStyles = makeStyles(theme => ({
     welcomeSectionContainer: {
         position: "relative",
     },
-    sectionContainer: {
-        position: "relative",
-        display: 'flex',
-        flexDirection: 'column',
-        paddingTop: theme.spacing(2),
-        [theme.breakpoints.down('sm')]: {
-            paddingLeft: 0,
-            paddingRight: 0
-        }
-    },
 }));
 
 const HomePage = () => {
     const [showHeader, setShowHeader] = useState(false);
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    const [screenHeight, setScreenHeight] = useState(window.innerHeight);
     const classes = useStyles();
 
     useEffect(() => {
-        window.addEventListener('scroll', scrollHandler);
+        // window.addEventListener('scroll', scrollHandler);
+        
+        setScreenWidth(window.innerWidth);
+        setScreenHeight(window.innerHeight);
+        // setShowHeader(window.scrollY >= window.innerHeight);
 
-        setShowHeader(window.scrollY >= window.innerHeight);
-
-        return () => {
-            window.removeEventListener('scroll', scrollHandler);
-        };
+        // return () => {
+        //     window.removeEventListener('scroll', scrollHandler);
+        // };
     }, []);
 
-    const scrollHandler = () => {
-        setShowHeader(window.scrollY >= window.innerHeight);
-    };
+    // const scrollHandler = () => {
+    //     setShowHeader(window.scrollY >= window.innerHeight);
+    // };
 
     const gotoBooksSection = () => {
         animateScroll.scrollTo(window.innerHeight, smoothScrollOptions);
@@ -55,24 +50,16 @@ const HomePage = () => {
             <div className={classes.welcomeSectionContainer}>
                 <WelcomeSection
                     contacts={data.contacts}
-                    gotoNextSection={gotoBooksSection} />
+                    gotoNextSection={gotoBooksSection}
+                    screenWidth={screenWidth}
+                    screenHeight={screenHeight} />
             </div>
 
-            {/* <Container className={classes.sectionContainer}>
-                <CvArticle />
-            </Container>
+            <BooksLibrarySection goodreadsData={data.goodreads} screenHeight={screenHeight} />
 
-            <Container className={classes.sectionContainer}>
-                <ProjectsArticle />
-            </Container> */}
-
-            <Container className={classes.sectionContainer}>
-                <BooksLibrarySection data={data} />
-            </Container>
-
-            <Container className={classes.sectionContainer}>
+            <SectionContentContainer>
                 <Footer />
-            </Container>
+            </SectionContentContainer>
         </React.Fragment>
     );
 }
