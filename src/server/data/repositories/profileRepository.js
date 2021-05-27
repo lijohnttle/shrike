@@ -1,4 +1,4 @@
-import DataHelper from '../../utils/dataHelper';
+import DataHelper from '../../utils/dataHelper.js';
 
 export default {
     getCv: async () => await DataHelper.parseDataJson('cv.json'),

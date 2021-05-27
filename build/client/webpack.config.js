@@ -1,8 +1,8 @@
-const sharedConfig = require('./configs/shared.config');
-const devConfig = require('./configs/dev.config');
-const prodConfig = require('./configs/prod.config');
+import sharedConfig from './configs/shared.config.js';
+import devConfig from './configs/dev.config.js';
+import prodConfig from './configs/prod.config.js';
 
-const combineConfigs = (env, options) => {
+export default (env, options) => {
     const config = sharedConfig(env, options);
 
     const envConfig = options.mode == 'production'
@@ -11,5 +11,3 @@ const combineConfigs = (env, options) => {
 
     return { ...config, ...envConfig };
 };
-
-module.exports = combineConfigs;

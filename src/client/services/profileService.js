@@ -1,4 +1,4 @@
-import { queryData } from './api';
+import { queryData } from './api.js';
 
 const GET_CV = `
     {

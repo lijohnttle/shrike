@@ -3,9 +3,7 @@ import { Container, makeStyles } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
 import HeaderBar from '../common/HeaderBar';
 import WelcomeSection from './sections/welcome/WelcomeSection';
-import { BookLibraryArticle } from '../bookLibrary/BookLibraryArticle';
-import { CvArticle } from '../cv/CvArticle';
-import { ProjectsArticle } from '../projects/ProjectsArticle';
+import BooksLibrarySection from './sections/books/BooksLibrarySection';
 import { Footer } from '../common/Footer';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
@@ -13,13 +11,12 @@ import data from '../../data';
 const useStyles = makeStyles(theme => ({
     welcomeSectionContainer: {
         position: "relative",
-        zIndex: 1,
     },
     sectionContainer: {
         position: "relative",
-        zIndex: 0,
         display: 'flex',
         flexDirection: 'column',
+        paddingTop: theme.spacing(2),
         [theme.breakpoints.down('sm')]: {
             paddingLeft: 0,
             paddingRight: 0
@@ -61,15 +58,19 @@ const HomePage = () => {
                     gotoNextSection={gotoBooksSection} />
             </div>
 
-            <Container className={classes.sectionContainer}>
-                {/* <BlogSection /> */}
-
+            {/* <Container className={classes.sectionContainer}>
                 <CvArticle />
+            </Container>
 
+            <Container className={classes.sectionContainer}>
                 <ProjectsArticle />
+            </Container> */}
 
-                <BookLibraryArticle userId={data.goodReads.userId} />
+            <Container className={classes.sectionContainer}>
+                <BooksLibrarySection data={data} />
+            </Container>
 
+            <Container className={classes.sectionContainer}>
                 <Footer />
             </Container>
         </React.Fragment>
