@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         opacity: 0,
-        animation: '$fadeInFromNone ease-in 2500ms forwards',
+        animation: '$fadeInFromNone ease-in 1000ms forwards',
     },
     '@keyframes fadeInFromNone': {
         '0%': {
