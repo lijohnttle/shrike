@@ -1,7 +1,7 @@
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core';
-import { deepOrange, red } from '@material-ui/core/colors';
+import { createTheme, responsiveFontSizes } from '@material-ui/core/index.js';
+import { deepOrange, red } from '@material-ui/core/colors/index.js';
 
-let defaultTheme = createMuiTheme({
+let defaultTheme = createTheme({
     palette: {
         primary: deepOrange,
         secondary: red,

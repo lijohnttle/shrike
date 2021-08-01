@@ -1,5 +1,5 @@
 export default {
-    goodReads: {
+    goodreads: {
         userId: "82436176"
     },
     contacts: [

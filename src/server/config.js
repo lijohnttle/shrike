@@ -1,3 +1,4 @@
 export default {
-    PORT: 3000
+    port: 3000,
+    goodreads_user_id: '82436176',
 };

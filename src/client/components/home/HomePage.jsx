@@ -1,49 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import { Container, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
 import HeaderBar from '../common/HeaderBar';
 import WelcomeSection from './sections/welcome/WelcomeSection';
-import { BookLibraryArticle } from '../bookLibrary/BookLibraryArticle';
-import { CvArticle } from '../cv/CvArticle';
-import { ProjectsArticle } from '../projects/ProjectsArticle';
+import BooksLibrarySection from './sections/books/BooksLibrarySection';
 import { Footer } from '../common/Footer';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
+import SectionContentContainer from './sections/SectionContentContainer';
 
 const useStyles = makeStyles(theme => ({
     welcomeSectionContainer: {
         position: "relative",
-        zIndex: 1,
-    },
-    sectionContainer: {
-        position: "relative",
-        zIndex: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        [theme.breakpoints.down('sm')]: {
-            paddingLeft: 0,
-            paddingRight: 0
-        }
     },
 }));
 
 const HomePage = () => {
     const [showHeader, setShowHeader] = useState(false);
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    const [screenHeight, setScreenHeight] = useState(window.innerHeight);
     const classes = useStyles();
 
     useEffect(() => {
-        window.addEventListener('scroll', scrollHandler);
+        // window.addEventListener('scroll', scrollHandler);
+        
+        setScreenWidth(window.innerWidth);
+        setScreenHeight(window.innerHeight);
+        // setShowHeader(window.scrollY >= window.innerHeight);
 
-        setShowHeader(window.scrollY >= window.innerHeight);
-
-        return () => {
-            window.removeEventListener('scroll', scrollHandler);
-        };
+        // return () => {
+        //     window.removeEventListener('scroll', scrollHandler);
+        // };
     }, []);
 
-    const scrollHandler = () => {
-        setShowHeader(window.scrollY >= window.innerHeight);
-    };
+    // const scrollHandler = () => {
+    //     setShowHeader(window.scrollY >= window.innerHeight);
+    // };
 
     const gotoBooksSection = () => {
         animateScroll.scrollTo(window.innerHeight, smoothScrollOptions);
@@ -58,20 +50,15 @@ const HomePage = () => {
             <div className={classes.welcomeSectionContainer}>
                 <WelcomeSection
                     contacts={data.contacts}
-                    gotoNextSection={gotoBooksSection} />
+                    gotoNextSection={gotoBooksSection}
+                    screenHeight={screenHeight} />
             </div>
 
-            <Container className={classes.sectionContainer}>
-                {/* <BlogSection /> */}
+            <BooksLibrarySection goodreadsData={data.goodreads} screenHeight={screenHeight} />
 
-                <CvArticle />
-
-                <ProjectsArticle />
-
-                <BookLibraryArticle userId={data.goodReads.userId} />
-
+            <SectionContentContainer>
                 <Footer />
-            </Container>
+            </SectionContentContainer>
         </React.Fragment>
     );
 }

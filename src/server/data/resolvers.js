@@ -1,5 +1,5 @@
-import BlogRepository from './repositories/BlogRepository';
-import ProfileRepository from './repositories/profileRepository';
+import BlogRepository from './repositories/BlogRepository.js';
+import ProfileRepository from './repositories/profileRepository.js';
 
 const resolvers = {
     getBlog: () => ({

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { BlogPost } from '../models/BlogPost';
+import { BlogPost } from '../models/BlogPost.js';
 
 const postRefs = [
     // {
