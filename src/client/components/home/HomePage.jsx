@@ -51,7 +51,6 @@ const HomePage = () => {
                 <WelcomeSection
                     contacts={data.contacts}
                     gotoNextSection={gotoBooksSection}
-                    screenWidth={screenWidth}
                     screenHeight={screenHeight} />
             </div>
 

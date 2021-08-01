@@ -12,12 +12,24 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         color: theme.palette.primary.contrastText
     },
+    messageContainer: {
+        background: '#00000096',
+        boxShadow: '0px 0px 7px #191919',
+        paddingTop: theme.spacing(8),
+        paddingRight: theme.spacing(4),
+        paddingBottom: theme.spacing(8),
+        paddingLeft: theme.spacing(4),
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        flex: '0 0 auto'
+    },
     contactsContainer: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(6),
     },
     contactIcon: {
         width: theme.typography.h1.fontSize,
@@ -27,7 +39,20 @@ const useStyles = makeStyles((theme) => ({
             width: theme.typography.h2.fontSize,
         }
     },
-    goNextSectionIcon: {
+    iconButton: {
+        background: '#00000096',
+        boxShadow: '0px 0px 7px #191919',
+        '&:hover': {
+            background: '#59595996',
+        }
+    },
+    gotoNextSectionButtonContainer: {
+        flex: '1 1 auto',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    gotoNextSectionIcon: {
         width: theme.typography.h1.fontSize,
         height: theme.typography.h1.fontSize,
         [theme.breakpoints.down('sm')]: {
@@ -78,7 +103,7 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
         <div className={classes.root}>
             <Box flex="1 1 auto"></Box>
 
-            <Box display="flex" flexDirection="column" justifyContent="center" flex="0 0 auto">
+            <div className={classes.messageContainer}>
                 <Typography paragraph variant="h1" align="center">
                     Welcome!
                 </Typography>
@@ -93,6 +118,7 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
                     {contacts.map(contact => (
                         <IconButton
                             key={contact.vendor}
+                            className={classes.iconButton}
                             href={buildHRefByVendor(contact.vendor, contact.value)}
                             color="inherit"
                             target="_blank">
@@ -100,13 +126,13 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
                         </IconButton>
                     ))}
                 </Box>
-            </Box>
+            </div>
 
-            <Box flex="1 1 auto" display="flex" justifyContent="center" alignItems="center">
-                <IconButton onClick={gotoNextSection} color="inherit">
-                    <ArrowDownwardRounded className={classes.goNextSectionIcon} />
+            <div className={classes.gotoNextSectionButtonContainer}>
+                <IconButton className={classes.iconButton} onClick={gotoNextSection} color="inherit">
+                    <ArrowDownwardRounded className={classes.gotoNextSectionIcon} />
                 </IconButton>
-            </Box>
+            </div>
         </div>
     );
 };
