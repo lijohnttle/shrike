@@ -2,12 +2,14 @@ import axios from 'axios';
 import { JSDOM } from 'jsdom';
 
 function parseWidget(widgetContent) {
-    const startHtmlIndex = widgetContent.indexOf('\'') + 1;
-    const endHtmlIndex = widgetContent.indexOf('\'', startHtmlIndex + 1);
-    const html = widgetContent
+    let content = widgetContent.split('\n')[0];
+    const startHtmlIndex = content.indexOf('\'') + 1;
+    const endHtmlIndex = content.lastIndexOf('\'');
+    const html = content
         .slice(startHtmlIndex, endHtmlIndex)
         .trim()
         .replaceAll('\\"', '"')
+        .replaceAll('\\\'', '\'')
         .replaceAll('\\n', '\n')
         .replaceAll('\\/', '/');
 

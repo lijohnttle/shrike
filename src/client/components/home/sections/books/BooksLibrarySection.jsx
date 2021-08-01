@@ -7,8 +7,8 @@ import { loadBooks } from '../../../../services/goodReadsService';
 
 const useStyles = makeStyles(theme => ({
     root: ({ screenHeight }) => ({
-        background: 'brown',
-        color: 'white',
+        background: 'white',
+        color: 'black',
         justifyContent: 'center',
         minHeight: `${screenHeight}px`,
         paddingTop: theme.spacing(12),
@@ -19,23 +19,25 @@ const useStyles = makeStyles(theme => ({
             paddingBottom: theme.spacing(4)
         }
     }),
-    currentBooksContainer: {
+    booksContainer: {
         display: 'flex',
         flexFlow: 'row wrap',
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '160px',
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(4),
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(8),
     },
 }));
 
 const BooksLibrarySection = ({ goodreadsData, screenHeight }) => {
     const [isBooksLoading, setIsBooksLoading] = useState(true);
+    const [isReadBooksLoading, setIsReadBooksLoading] = useState(true);
     const [books, setBooks] = useState([]);
+    const [readBooks, setReadBooks] = useState([]);
 
     useEffect(() => {
-        loadBooks(10, 'currently-reading')
+        loadBooks(7, 'currently-reading')
             .then(data => {
                 setBooks(data);
             })
@@ -44,6 +46,16 @@ const BooksLibrarySection = ({ goodreadsData, screenHeight }) => {
                 setBooks([]);
             })
             .finally(() => setIsBooksLoading(false));
+
+        loadBooks(7, 'read')
+            .then(data => {
+                setReadBooks(data);
+            })
+            .catch(error => {
+                console.log(error);
+                setReadBooks([]);
+            })
+            .finally(() => setIsReadBooksLoading(false));
     }, []);
 
     const classes = useStyles({ screenHeight });
@@ -62,10 +74,22 @@ const BooksLibrarySection = ({ goodreadsData, screenHeight }) => {
                 </Typography>
             </Box>
 
-            <div className={classes.currentBooksContainer}>
+            <div className={classes.booksContainer}>
                 {isBooksLoading
                     ? <CircularProgress />
                     : <BookList books={books} />}
+            </div>
+
+            <Box mb={2}>
+                <Typography variant="h4" align="center">
+                    Shelf "Read"
+                </Typography>
+            </Box>
+
+            <div className={classes.booksContainer}>
+                {isReadBooksLoading
+                    ? <CircularProgress />
+                    : <BookList books={readBooks} />}
             </div>
 
             <Box alignSelf="center" mt={4}>
