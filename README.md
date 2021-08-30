@@ -4,7 +4,7 @@
 
 This is my personal web-site project.
 
-http://www.lijohnttle.com/
+http://lijohnttle.com/
 
 ## Tools and technologies
 
