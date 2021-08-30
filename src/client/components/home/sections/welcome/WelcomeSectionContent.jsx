@@ -6,6 +6,7 @@ import { Facebook, LinkedIn, Email, Instagram, ArrowDownwardRounded } from '@mat
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
+        background: '#000000af',
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -13,16 +14,22 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.primary.contrastText
     },
     messageContainer: {
-        background: '#00000096',
-        boxShadow: '0px 0px 7px #191919',
         paddingTop: theme.spacing(8),
-        paddingRight: theme.spacing(4),
+        paddingRight: theme.spacing(16),
         paddingBottom: theme.spacing(8),
-        paddingLeft: theme.spacing(4),
+        paddingLeft: theme.spacing(16),
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        flex: '0 0 auto'
+        flex: '0 0 auto',
+        [theme.breakpoints.down('md')]: {
+            paddingRight: theme.spacing(8),
+            paddingLeft: theme.spacing(8),
+        },
+        [theme.breakpoints.down('sm')]: {
+            paddingRight: theme.spacing(4),
+            paddingLeft: theme.spacing(4),
+        }
     },
     contactsContainer: {
         display: 'flex',
@@ -40,8 +47,6 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     iconButton: {
-        background: '#00000096',
-        boxShadow: '0px 0px 7px #191919',
         '&:hover': {
             background: '#59595996',
         }
