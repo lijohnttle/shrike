@@ -1,9 +1,0 @@
-{
-    "id": "1",
-    "title": "My test blog post",
-    "description": "The description of my test blog post",
-    "publishedOn": "2019-10-01T15:00:00.000Z",
-    "isVisible": true,
-    "urlSlug": "test-blog-post",
-    "tags": ["tag1", "tag2"]
-}
