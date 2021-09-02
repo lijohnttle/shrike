@@ -13,6 +13,7 @@ const register = (app, appContext) => {
 
     [
         '/',
+        '/about',
     ].forEach(url => app.get(url, getIndexHandler));
 };
 
