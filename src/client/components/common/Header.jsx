@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const HeaderBar = ({ hasFixedPosition }) => {
+const Header = ({ hasFixedPosition }) => {
     const position = hasFixedPosition ? 'fixed' : 'relative';
 
     const classes = useStyles();
@@ -25,4 +25,4 @@ const HeaderBar = ({ hasFixedPosition }) => {
     );
 };
 
-export default HeaderBar;
+export default Header;

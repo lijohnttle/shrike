@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
-import HeaderBar from '../common/HeaderBar';
+import Header from '../common/Header';
 import WelcomeSection from './sections/welcome/WelcomeSection';
 import BooksLibrarySection from './sections/books/BooksLibrarySection';
 import { Footer } from '../common/Footer';
@@ -22,20 +22,9 @@ const HomePage = () => {
     const classes = useStyles();
 
     useEffect(() => {
-        // window.addEventListener('scroll', scrollHandler);
-        
         setScreenWidth(window.innerWidth);
         setScreenHeight(window.innerHeight);
-        // setShowHeader(window.scrollY >= window.innerHeight);
-
-        // return () => {
-        //     window.removeEventListener('scroll', scrollHandler);
-        // };
     }, []);
-
-    // const scrollHandler = () => {
-    //     setShowHeader(window.scrollY >= window.innerHeight);
-    // };
 
     const gotoBooksSection = () => {
         animateScroll.scrollTo(window.innerHeight, smoothScrollOptions);
@@ -44,7 +33,7 @@ const HomePage = () => {
     return (
         <React.Fragment>
             <div style={{ visibility: (showHeader ? "visible" : "hidden") }}>
-                <HeaderBar hasFixedPosition={true} />
+                <Header hasFixedPosition={true} />
             </div>
 
             <div className={classes.welcomeSectionContainer}>
