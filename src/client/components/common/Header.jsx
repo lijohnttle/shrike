@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Drawer, isWidthUp, makeStyles, withWidth, IconButton, Container } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
@@ -151,7 +152,7 @@ const Header = ({ transparent, darkTheme, lightTheme, width }) => {
     if (isWidthUp('sm', width)) {
         navigationMenu = (
             <ul className={classes.navigationMenu}>
-                {navigationLinks.map((link) => <li key={link.href}><a href={link.href}>{link.title}</a></li>)}
+                {navigationLinks.map((link) => <li key={link.href}><Link to={link.href}>{link.title}</Link></li>)}
             </ul>
         );
     }
@@ -169,7 +170,7 @@ const Header = ({ transparent, darkTheme, lightTheme, width }) => {
 
                 <Drawer anchor="right" open={isMenuOpen} className={classes.drawer} classes={{ paper: classes.drawerPaper }} onClose={() => setIsMenuopen(false)}>
                     <ul className={classes.navigationVerticalMenu}>
-                        {navigationLinks.map((link) => <li key={link.href}><a href={link.href}>{link.title}</a></li>)}
+                        {navigationLinks.map((link) => <li key={link.href}><Link to={link.href}>{link.title}</Link></li>)}
                     </ul>
                 </Drawer>
             </div>
@@ -179,9 +180,9 @@ const Header = ({ transparent, darkTheme, lightTheme, width }) => {
     return (
         <div className={classes.root}>
             <Container className={classes.content} maxWidth="lg">
-                <a className={classes.logo} href="/">
+                <Link className={classes.logo} to="/">
                     LIJOHNTTLE
-                </a>
+                </Link>
 
                 <div>
                     {navigationMenu}
