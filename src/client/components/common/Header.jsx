@@ -44,6 +44,45 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             fontSize: '24px',
         },
+    },
+    navigationMenu: {
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        alignItems: 'stretch',
+        listStyleType: 'none',
+        height: '100%',
+        padding: 0,
+        margin: 0,
+        fontSize: '24px',
+        textTransform: 'capitalize',
+
+        '& li': {
+            display: 'flex',
+            flexFlow: 'row nowrap',
+            alignItems: 'stretch',
+        },
+
+        '& li a': {
+            display: 'flex',
+            alignItems: 'center',
+            color: 'inherit',
+            textDecoration: 'none',
+            paddingLeft: theme.spacing(2),
+            paddingRight: theme.spacing(2),
+
+            '&:hover': {
+                textDecoration: 'none',
+            },
+        },
+
+        '&:hover': {
+            color: 'black',
+            background: 'white',
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '16px',
+        },
     }
 }));
 
@@ -56,6 +95,14 @@ const Header = ({ transparent }) => {
                 <a className={classes.logo} href="/">
                     LIJOHNTTLE
                 </a>
+
+                <div>
+                    <ul className={classes.navigationMenu}>
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     );
