@@ -66,7 +66,7 @@ const AboutPage = () => {
                         </Typography>
 
                         <Typography align="justify" gutterBottom paragraph>
-                            My first language that I studied was C++, and it was not easy. Bun in the year 2005 I learned about .NET and C# and decided to give it a try, and now, for the last <b>{new Date().getFullYear() - 2013}+ years of my professional career</b>, they are the main technologies that I work with. 
+                            My first language that I studied was C++. But in the year 2005 I learned about .NET and C# and decided to give it a try. And now, for the last <b>{new Date().getFullYear() - 2013}+ years of my professional career</b>, they are the main technologies I work with. 
                         </Typography>
 
                         <Typography align="justify" gutterBottom paragraph>
