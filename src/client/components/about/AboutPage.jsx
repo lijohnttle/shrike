@@ -62,15 +62,15 @@ const AboutPage = () => {
                         </Typography>
 
                         <Typography align="justify" gutterBottom paragraph>
-                            Since I was a kid, I have been passionate about writing code. I remember the day I found Visual Basic code listings in one of my books that my dad bought me, and that strong feeling of curiosity I experienced at that moment.
+                            Since I was a kid, I have been passionate about software development. I remember the day I found Visual Basic code listings in one of my books that my dad bought me, and the curiosity I felt at that moment.
                         </Typography>
 
                         <Typography align="justify" gutterBottom paragraph>
-                            My first language that I studied was C++. But in the year 2005 I learned about .NET and C# and decided to give it a try. And now, for the last <b>{new Date().getFullYear() - 2013}+ years of my professional career</b>, they are the main technologies I work with. 
+                            My first language that I studied was C++. In 2005 I learned about .NET and C# and decided to give it a try. And now, for the last <b>{new Date().getFullYear() - 2013}+ years of my professional career</b>, they are the main technologies I work with. 
                         </Typography>
 
                         <Typography align="justify" gutterBottom paragraph>
-                            I have an experience of creating Windows desktop applications, web services and web API, web front-end. I worked with relational DBMS as well as with object-oriented DBMS. I performed migration of the monolithic on-premise web application to the cloud-based microservices. 
+                            I have experience of creating Windows desktop applications, web services and web API, web front-end. I worked with relational DBMS as well as with object-oriented DBMS. I performed migration of the monolithic on-premise web application to the cloud-based microservices. 
                         </Typography>
                     </div>
                 </div>
