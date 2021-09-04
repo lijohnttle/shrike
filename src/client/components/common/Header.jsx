@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Drawer, isWidthUp, makeStyles, withWidth, IconButton } from '@material-ui/core';
+import { Drawer, isWidthUp, makeStyles, withWidth, IconButton, Container } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,15 +14,9 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'stretch',
         position: 'relative',
         height: '64px',
-        width: '900px',
-        marginLeft: 'auto',
-        marginRight: 'auto',
 
         [theme.breakpoints.down('sm')]: {
             height: '48px',
-            width: 'unset',
-            marginLeft: '0',
-            marginRight: '0',
         },
     },
     logo: {
@@ -184,7 +178,7 @@ const Header = ({ transparent, darkTheme, lightTheme, width }) => {
 
     return (
         <div className={classes.root}>
-            <div className={classes.content}>
+            <Container className={classes.content} maxWidth="lg">
                 <a className={classes.logo} href="/">
                     LIJOHNTTLE
                 </a>
@@ -192,7 +186,7 @@ const Header = ({ transparent, darkTheme, lightTheme, width }) => {
                 <div>
                     {navigationMenu}
                 </div>
-            </div>
+            </Container>
         </div>
     );
 };

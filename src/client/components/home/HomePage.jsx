@@ -4,7 +4,7 @@ import { animateScroll } from 'react-scroll';
 import Header from '../common/Header';
 import WelcomeSection from './sections/welcome/WelcomeSection';
 import BooksLibrarySection from './sections/books/BooksLibrarySection';
-import { Footer } from '../common/Footer';
+import Footer from '../common/Footer';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
 import SectionContentContainer from './sections/SectionContentContainer';
