@@ -3,7 +3,7 @@ import { Container, Typography } from '@material-ui/core';
 
 const Footer = () => {
     return (
-        <Container>
+        <Container maxWidth="lg">
             <Typography variant="caption" align="center" paragraph={true}>
                 {`​© ${new Date().getFullYear()} by Ivan Cherkasov`}
             </Typography>
@@ -11,4 +11,4 @@ const Footer = () => {
     );
 };
 
-export { Footer };
+export default Footer;
