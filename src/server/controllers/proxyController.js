@@ -1,13 +1,14 @@
 import express from 'express';
 import { fetchBooks } from '../services/goodReadsService.js';
 
-export default (config) => {
+const register = (app, appContext) => {
+
     const proxyRouter = express.Router();
 
     proxyRouter
         .route('/goodreads/:shelf')
         .get(async (req, res) => {
-            const userId = config.goodreads_user_id;
+            const userId = appContext.config.goodreads_user_id;
             const shelf = req.params.shelf;
             const count = req.query.count;
 
@@ -24,6 +25,12 @@ export default (config) => {
                 res.send(exception);
             };
         });
-    
-    return proxyRouter;
-}; 
+
+    app.use('/proxy', proxyRouter);
+
+    appContext.allowCorsOrigin('https://www.goodreads.com/');
+};
+
+export default {
+    register
+};
