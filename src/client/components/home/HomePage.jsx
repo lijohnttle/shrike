@@ -9,14 +9,21 @@ import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
 import SectionContentContainer from './sections/SectionContentContainer';
 
+const PAGE_TITLE = 'lijohnttle - Home';
+
 const useStyles = makeStyles(theme => ({
+    headerContainer: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        right: 0,
+    },
     welcomeSectionContainer: {
         position: "relative",
     },
 }));
 
 const HomePage = () => {
-    const [showHeader, setShowHeader] = useState(false);
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
     const classes = useStyles();
@@ -24,6 +31,8 @@ const HomePage = () => {
     useEffect(() => {
         setScreenWidth(window.innerWidth);
         setScreenHeight(window.innerHeight);
+
+        document.title = PAGE_TITLE;
     }, []);
 
     const gotoBooksSection = () => {
@@ -32,15 +41,15 @@ const HomePage = () => {
 
     return (
         <React.Fragment>
-            <div style={{ visibility: (showHeader ? "visible" : "hidden") }}>
-                <Header hasFixedPosition={true} />
-            </div>
-
             <div className={classes.welcomeSectionContainer}>
                 <WelcomeSection
                     contacts={data.contacts}
                     gotoNextSection={gotoBooksSection}
                     screenHeight={screenHeight} />
+            </div>
+
+            <div className={classes.headerContainer}>
+                <Header transparent darkTheme />
             </div>
 
             <BooksLibrarySection goodreadsData={data.goodreads} screenHeight={screenHeight} />
