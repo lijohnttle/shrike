@@ -1,5 +1,7 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Drawer, isWidthUp, makeStyles, withWidth } from '@material-ui/core';
+import { ToggleButton } from '@material-ui/lab';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,12 +56,18 @@ const useStyles = makeStyles((theme) => ({
         padding: 0,
         margin: 0,
         fontSize: '24px',
-        textTransform: 'capitalize',
+        textTransform: 'uppercase',
 
         '& li': {
             display: 'flex',
             flexFlow: 'row nowrap',
             alignItems: 'stretch',
+            background: 'transparent',
+
+            '&:hover': {
+                color: 'black',
+                background: 'white',
+            },
         },
 
         '& li a': {
@@ -75,19 +83,108 @@ const useStyles = makeStyles((theme) => ({
             },
         },
 
-        '&:hover': {
-            color: 'black',
-            background: 'white',
-        },
-
         [theme.breakpoints.down('sm')]: {
             fontSize: '16px',
         },
-    }
+    },
+    toggleMenuButtonContainer: {
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        alignItems: 'stretch',
+        height: '100%',
+        color: 'white',
+    },
+    drawer: {
+        width: '240px',
+        maxWidth: "75%",
+    },
+    drawerPaper: {
+        width: '240px',
+        maxWidth: "75%",
+    },
+    navigationVerticalMenu: {
+        display: 'flex',
+        flexFlow: 'column nowrap',
+        alignItems: 'stretch',
+        listStyleType: 'none',
+        position: 'absolute',
+        top: '50%',
+        transform: 'translate(0, -50%)',
+        width: '100%',
+        padding: 0,
+        margin: 0,
+        fontSize: '24px',
+        textTransform: 'uppercase',
+        color: 'black',
+
+        '& li': {
+            display: 'flex',
+            flexFlow: 'column nowrap',
+            alignItems: 'stretch',
+            justifyContent: 'center',
+            background: 'transparent',
+
+            '&:hover': {
+                background: 'silver',
+            },
+        },
+
+        '& li a': {
+            display: 'flex',
+            alignItems: 'center',
+            color: 'inherit',
+            textDecoration: 'none',
+            paddingLeft: theme.spacing(2),
+            paddingRight: theme.spacing(2),
+            paddingTop: theme.spacing(2),
+            paddingBottom: theme.spacing(2),
+
+            '&:hover': {
+                textDecoration: 'none',
+            },
+        },
+    },
 }));
 
-const Header = ({ transparent }) => {
-    const classes = useStyles({ transparent });
+const navigationLinks = [
+    { title: 'about', href: '/about' }
+];
+
+const Header = ({ transparent, width }) => {
+    const [isMenuOpen, setIsMenuopen] = useState(false);
+    const classes = useStyles({ transparent, width });
+
+    let navigationMenu;
+
+    if (isWidthUp('sm', width)) {
+        navigationMenu = (
+            <ul className={classes.navigationMenu}>
+                {navigationLinks.map((link) => <li key={link.href}><a href={link.href}>{link.title}</a></li>)}
+            </ul>
+        );
+    }
+    else {
+        navigationMenu = (
+            <div>
+                <div className={classes.toggleMenuButtonContainer}>
+                    <ToggleButton
+                        value="check"
+                        selected={isMenuOpen}
+                        onChange={() => {
+                            setIsMenuopen(!isMenuOpen);
+                        }}>
+                        <MenuIcon style={{ color: "white" }}/>
+                    </ToggleButton>
+                </div>
+
+                <Drawer anchor="right" open={isMenuOpen} className={classes.drawer} classes={{ paper: classes.drawerPaper }} onClose={() => setIsMenuopen(false)}>
+                    <ul className={classes.navigationVerticalMenu}>
+                        {navigationLinks.map((link) => <li key={link.href}><a href={link.href}>{link.title}</a></li>)}
+                    </ul>
+                </Drawer>
+            </div>
+        );
+    }
 
     return (
         <div className={classes.root}>
@@ -97,15 +194,11 @@ const Header = ({ transparent }) => {
                 </a>
 
                 <div>
-                    <ul className={classes.navigationMenu}>
-                        <li>
-                            <a href="/about">About</a>
-                        </li>
-                    </ul>
+                    {navigationMenu}
                 </div>
             </div>
         </div>
     );
 };
 
-export default Header;
+export default withWidth()(Header);
