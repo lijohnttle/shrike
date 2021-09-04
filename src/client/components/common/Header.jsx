@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Drawer, isWidthUp, makeStyles, withWidth } from '@material-ui/core';
-import { ToggleButton } from '@material-ui/lab';
+import { Drawer, isWidthUp, makeStyles, withWidth, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        color: 'white',
-        background: ({ transparent }) => transparent ? 'transparent' : '#000',
+        color: ({ lightTheme }) =>  lightTheme ? 'black' : 'white',
+        background: ({ transparent, lightTheme }) => transparent ? 'transparent' : lightTheme  ? 'white' : 'black',
     },
     content: {
         display: 'flex',
@@ -31,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
         flexFlow: 'row nowrap',
         justifyContent: 'center',
         alignItems: 'center',
-        color: 'inherit',
-        background: 'crimson',
+        color: ({ lightTheme }) => lightTheme ? 'black' : 'inherit',
+        background: ({ lightTheme }) => lightTheme ? 'white' : 'crimson',
         textDecoration: 'none',
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
@@ -55,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         padding: 0,
         margin: 0,
-        fontSize: '24px',
+        fontSize: '18px',
         textTransform: 'uppercase',
 
         '& li': {
@@ -65,8 +64,8 @@ const useStyles = makeStyles((theme) => ({
             background: 'transparent',
 
             '&:hover': {
-                color: 'black',
-                background: 'white',
+                color: ({ lightTheme }) =>  lightTheme ? 'white' : 'black',
+                background: ({ lightTheme }) => lightTheme ? 'black' : 'white',
             },
         },
 
@@ -81,10 +80,6 @@ const useStyles = makeStyles((theme) => ({
             '&:hover': {
                 textDecoration: 'none',
             },
-        },
-
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '16px',
         },
     },
     toggleMenuButtonContainer: {
@@ -102,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
         width: '240px',
         maxWidth: "75%",
     },
-    navigationVerticalMenu: {
+    navigationVerticalMenu: ({ lightTheme }) => ({
         display: 'flex',
         flexFlow: 'column nowrap',
         alignItems: 'stretch',
@@ -113,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         padding: 0,
         margin: 0,
-        fontSize: '24px',
+        fontSize: '18px',
         textTransform: 'uppercase',
         color: 'black',
 
@@ -143,16 +138,19 @@ const useStyles = makeStyles((theme) => ({
                 textDecoration: 'none',
             },
         },
-    },
+    }),
+    menuIcon: {
+        color: ({ lightTheme }) => lightTheme ? 'black' : 'white'
+    }
 }));
 
 const navigationLinks = [
     { title: 'about', href: '/about' }
 ];
 
-const Header = ({ transparent, width }) => {
+const Header = ({ transparent, darkTheme, lightTheme, width }) => {
     const [isMenuOpen, setIsMenuopen] = useState(false);
-    const classes = useStyles({ transparent, width });
+    const classes = useStyles({ transparent, lightTheme: lightTheme });
 
     let navigationMenu;
 
@@ -167,14 +165,12 @@ const Header = ({ transparent, width }) => {
         navigationMenu = (
             <div>
                 <div className={classes.toggleMenuButtonContainer}>
-                    <ToggleButton
-                        value="check"
-                        selected={isMenuOpen}
-                        onChange={() => {
+                    <IconButton
+                        onClick={() => {
                             setIsMenuopen(!isMenuOpen);
                         }}>
-                        <MenuIcon style={{ color: "white" }}/>
-                    </ToggleButton>
+                        <MenuIcon className={classes.menuIcon} />
+                    </IconButton>
                 </div>
 
                 <Drawer anchor="right" open={isMenuOpen} className={classes.drawer} classes={{ paper: classes.drawerPaper }} onClose={() => setIsMenuopen(false)}>

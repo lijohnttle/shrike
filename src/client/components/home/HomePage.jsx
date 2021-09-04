@@ -9,6 +9,8 @@ import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
 import SectionContentContainer from './sections/SectionContentContainer';
 
+const PAGE_TITLE = 'lijohnttle - Home';
+
 const useStyles = makeStyles(theme => ({
     headerContainer: {
         position: 'absolute',
@@ -29,6 +31,8 @@ const HomePage = () => {
     useEffect(() => {
         setScreenWidth(window.innerWidth);
         setScreenHeight(window.innerHeight);
+
+        document.title = PAGE_TITLE;
     }, []);
 
     const gotoBooksSection = () => {
@@ -45,7 +49,7 @@ const HomePage = () => {
             </div>
 
             <div className={classes.headerContainer}>
-                <Header transparent />
+                <Header transparent darkTheme />
             </div>
 
             <BooksLibrarySection goodreadsData={data.goodreads} screenHeight={screenHeight} />
