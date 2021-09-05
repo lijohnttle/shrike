@@ -54,6 +54,10 @@ const AboutPage = ({ data }) => {
                     <Typography variant="h1" align="center" >
                         ABOUT ME
                     </Typography>
+
+                    <Typography variant="caption" align="center" color="textSecondary" gutterBottom paragraph>
+                        (Updated on <b>September 05, 2021</b>)
+                    </Typography>
                 </div>
 
                 <div className={classes.section}>
