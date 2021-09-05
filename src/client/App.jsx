@@ -2,9 +2,16 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
 import { defaultTheme } from './themes';
+import ReactGA from 'react-ga';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
 import ScrollToTopOnRouteChanged from './components/common/behaviours/ScrollToTopOnRouteChanged';
+
+// if (process.env.NODE_ENV === 'production') {
+//     ReactGA.initialize('G-24ET7FFQTH');
+// }
+
+ReactGA.initialize('UA-206773204-1');
 
 class App extends React.Component {
     render() {
@@ -27,4 +34,4 @@ class App extends React.Component {
     }
 }
 
-export { App };
+export default App;

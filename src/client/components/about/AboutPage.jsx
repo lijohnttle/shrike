@@ -2,6 +2,7 @@ import { Container, makeStyles, Typography } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import Footer from '../common/Footer';
 import Header from '../common/Header';
+import withTracker from '../common/analytics/withTracker';
 
 const PAGE_TITLE = 'lijohnttle - About';
 
@@ -81,4 +82,4 @@ const AboutPage = () => {
     );
 };
 
-export default AboutPage;
+export default withTracker()(AboutPage);
