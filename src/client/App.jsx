@@ -7,11 +7,9 @@ import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
 import ScrollToTopOnRouteChanged from './components/common/behaviours/ScrollToTopOnRouteChanged';
 
-// if (process.env.NODE_ENV === 'production') {
-//     ReactGA.initialize('G-24ET7FFQTH');
-// }
-
-ReactGA.initialize('UA-206773204-1');
+if (process.env.NODE_ENV === 'production') {
+    ReactGA.initialize('UA-206773204-1');
+}
 
 class App extends React.Component {
     render() {
