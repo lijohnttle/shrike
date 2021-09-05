@@ -43,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         marginTop: theme.spacing(6),
     },
+    buttonDarkTheme: {
+        '&:hover': {
+            background: '#59595996',
+        }
+    },
     contactIcon: {
         width: theme.typography.h1.fontSize,
         height: theme.typography.h1.fontSize,
@@ -97,7 +102,7 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
             </div>
 
             <div className={classes.gotoNextSectionButtonContainer}>
-                <IconButton className={classes.iconButton} onClick={gotoNextSection} color="inherit">
+                <IconButton className={classes.buttonDarkTheme} onClick={gotoNextSection} color="inherit">
                     <ArrowDownwardRounded className={classes.gotoNextSectionIcon} />
                 </IconButton>
             </div>
