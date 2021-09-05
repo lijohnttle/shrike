@@ -5,7 +5,7 @@ import { defaultTheme } from './themes';
 import ReactGA from 'react-ga';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
-import ScrollToTopOnRouteChanged from './components/common/behaviours/ScrollToTopOnRouteChanged';
+import { withResettableNavigation } from './components/core';
 
 if (process.env.NODE_ENV === 'production') {
     ReactGA.initialize('UA-206773204-1');
@@ -16,7 +16,6 @@ class App extends React.Component {
         return (
             <MuiThemeProvider theme={defaultTheme}>
                 <CssBaseline />
-                <ScrollToTopOnRouteChanged />
 
                 <Switch>
                     <Route path="/about">
@@ -32,4 +31,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default withResettableNavigation(App);
