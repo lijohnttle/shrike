@@ -1,10 +1,11 @@
 import { Container, makeStyles, Typography } from '@material-ui/core';
 import React, { useEffect } from 'react';
-import Footer from '../common/Footer';
-import Header from '../common/Header';
-import withTracker from '../common/analytics/withTracker';
+import { Footer, Header } from '../common';
+import { asPage, withData } from '../core';
 
-const PAGE_TITLE = 'lijohnttle - About';
+const pageOptions = {
+    title: 'About'
+};
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -14,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(8),
         marginBottom: theme.spacing(8),
     },
-    introduction: {
+    section: {
+        paddingBottom: theme.spacing(8),
         overflow: 'hidden',
     },
     pictureContainer: {
@@ -34,12 +36,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AboutPage = () => {
+const AboutPage = ({ data }) => {
     const classes = useStyles();
-
-    useEffect(() => {
-        document.title = PAGE_TITLE;
-    }, []);
+    const email = data.contacts.find(contact => contact.vendor === 'email').value;
 
     return (
         <React.Fragment>
@@ -52,7 +51,7 @@ const AboutPage = () => {
                     </Typography>
                 </div>
 
-                <div className={classes.introduction}>
+                <div className={classes.section}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />
                     </div>
@@ -75,6 +74,16 @@ const AboutPage = () => {
                         </Typography>
                     </div>
                 </div>
+
+                <div className={classes.section}>
+                    <Typography variant="h2" align="center" gutterBottom paragraph>
+                        Contact me
+                    </Typography>
+
+                    <Typography align="justify" gutterBottom paragraph>
+                        Want to get in touch with me? Feel free to contact me via e-mail <a href={`mailto:${email}`}>{email}</a>.
+                    </Typography>
+                </div>
             </Container>
 
             <Footer />
@@ -82,4 +91,7 @@ const AboutPage = () => {
     );
 };
 
-export default withTracker()(AboutPage);
+let ResultComponent = withData(AboutPage);
+ResultComponent = asPage(ResultComponent, pageOptions);
+
+export default ResultComponent;

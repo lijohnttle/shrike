@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography, makeStyles, IconButton } from '@material-ui/core';
 import { Facebook, LinkedIn, Email, Instagram, ArrowDownwardRounded } from '@material-ui/icons'
-import Header from '../../../common/Header';
+import { Header } from '../../../common';
 
 const useStyles = makeStyles((theme) => ({
     root: {

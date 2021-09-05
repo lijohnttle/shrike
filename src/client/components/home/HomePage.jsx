@@ -3,13 +3,14 @@ import { makeStyles } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
 import WelcomeSection from './sections/welcome/WelcomeSection';
 import BooksLibrarySection from './sections/books/BooksLibrarySection';
-import Footer from '../common/Footer';
+import { Footer } from '../common';
 import { smoothScrollOptions } from '../../utils/scrolling'
-import data from '../../data';
 import SectionContentContainer from './sections/SectionContentContainer';
-import withTracker from '../common/analytics/withTracker';
+import { asPage, withData } from '../core';
 
-const PAGE_TITLE = 'lijohnttle - Home';
+const pageOptions = {
+    title: 'Home'
+};
 
 const useStyles = makeStyles(theme => ({
     welcomeSectionContainer: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const HomePage = () => {
+const HomePage = ({ data }) => {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
     const classes = useStyles();
@@ -25,8 +26,6 @@ const HomePage = () => {
     useEffect(() => {
         setScreenWidth(window.innerWidth);
         setScreenHeight(window.innerHeight);
-
-        document.title = PAGE_TITLE;
     }, []);
 
     const gotoBooksSection = () => {
@@ -51,4 +50,7 @@ const HomePage = () => {
     );
 }
 
-export default withTracker()(HomePage);
+let ResultComponent = withData(HomePage);
+ResultComponent = asPage(ResultComponent, pageOptions);
+
+export default ResultComponent;
