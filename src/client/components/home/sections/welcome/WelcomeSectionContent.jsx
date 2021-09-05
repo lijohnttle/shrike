@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Box, makeStyles, Button, IconButton } from '@material-ui/core';
+import { Typography, makeStyles, IconButton } from '@material-ui/core';
 import { Facebook, LinkedIn, Email, Instagram, ArrowDownwardRounded } from '@material-ui/icons'
+import Header from '../../../common/Header';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -12,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         flexGrow: 1,
         color: theme.palette.primary.contrastText
+    },
+    headerContainer: {
+        flex: '1 1 auto',
+        alignSelf: 'stretch',
     },
     messageContainer: {
         paddingTop: theme.spacing(8),
@@ -106,7 +111,9 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
 
     return (
         <div className={classes.root}>
-            <Box flex="1 1 auto"></Box>
+            <div className={classes.headerContainer}>
+                <Header transparent darkTheme />
+            </div>
 
             <div className={classes.messageContainer}>
                 <Typography paragraph variant="h1" align="center">
@@ -119,7 +126,7 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
                     I am a Software Engineer
                 </Typography>
 
-                <Box className={classes.contactsContainer}>
+                <div className={classes.contactsContainer}>
                     {contacts.map(contact => (
                         <IconButton
                             key={contact.vendor}
@@ -130,7 +137,7 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
                             {createIconByVendor(contact.vendor, classes.contactIcon)}
                         </IconButton>
                     ))}
-                </Box>
+                </div>
             </div>
 
             <div className={classes.gotoNextSectionButtonContainer}>

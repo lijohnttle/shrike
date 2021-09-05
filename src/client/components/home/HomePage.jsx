@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
-import Header from '../common/Header';
 import WelcomeSection from './sections/welcome/WelcomeSection';
 import BooksLibrarySection from './sections/books/BooksLibrarySection';
 import Footer from '../common/Footer';
@@ -13,12 +12,6 @@ import withTracker from '../common/analytics/withTracker';
 const PAGE_TITLE = 'lijohnttle - Home';
 
 const useStyles = makeStyles(theme => ({
-    headerContainer: {
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        right: 0,
-    },
     welcomeSectionContainer: {
         position: "relative",
     },
@@ -47,10 +40,6 @@ const HomePage = () => {
                     contacts={data.contacts}
                     gotoNextSection={gotoBooksSection}
                     screenHeight={screenHeight} />
-            </div>
-
-            <div className={classes.headerContainer}>
-                <Header transparent darkTheme />
             </div>
 
             <BooksLibrarySection goodreadsData={data.goodreads} screenHeight={screenHeight} />
