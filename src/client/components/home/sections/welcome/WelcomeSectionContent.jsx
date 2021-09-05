@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Box, makeStyles, Button, IconButton } from '@material-ui/core';
-import { Facebook, LinkedIn, Email, Instagram, ArrowDownwardRounded } from '@material-ui/icons'
+import { Typography, makeStyles, IconButton } from '@material-ui/core';
+import { ArrowDownwardRounded } from '@material-ui/icons'
+import { Header, ContactLink } from '../../../common';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -12,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         flexGrow: 1,
         color: theme.palette.primary.contrastText
+    },
+    headerContainer: {
+        flex: '1 1 auto',
+        alignSelf: 'stretch',
     },
     messageContainer: {
         paddingTop: theme.spacing(8),
@@ -41,14 +46,10 @@ const useStyles = makeStyles((theme) => ({
     contactIcon: {
         width: theme.typography.h1.fontSize,
         height: theme.typography.h1.fontSize,
+
         [theme.breakpoints.down('sm')]: {
             width: theme.typography.h2.fontSize,
             width: theme.typography.h2.fontSize,
-        }
-    },
-    iconButton: {
-        '&:hover': {
-            background: '#59595996',
         }
     },
     gotoNextSectionButtonContainer: {
@@ -60,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
     gotoNextSectionIcon: {
         width: theme.typography.h1.fontSize,
         height: theme.typography.h1.fontSize,
+
         [theme.breakpoints.down('sm')]: {
             width: theme.typography.h2.fontSize,
             width: theme.typography.h2.fontSize,
@@ -67,46 +69,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-/**
- * Creates an icon element according to the vendor's name.
- * @param {String} vendor Vendor's name.
- * @returns {import('react').ReactElement} 
- */
-function createIconByVendor(vendor, className) {
-    switch (vendor) {
-        case 'facebook':
-            return <Facebook fontSize="inherit" className={className} />
-        case 'instagram':
-            return <Instagram fontSize="inherit" className={className} />
-        case 'linkedin':
-            return <LinkedIn fontSize="inherit" className={className} />
-        case 'email':
-            return <Email fontSize="inherit" className={className} />
-        default:
-            return null;
-    }
-}
-
-/**
- * Builds a final link according to vendor's name.
- * @param {String} vendor Vendor's name.
- * @param {String} value Original link.
- */
-function buildHRefByVendor(vendor, value) {
-    switch (vendor) {
-        case 'email':
-            return `mailto:${value}`;
-        default:
-            return value;
-    }
-}
-
 const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
-            <Box flex="1 1 auto"></Box>
+            <div className={classes.headerContainer}>
+                <Header transparent darkTheme />
+            </div>
 
             <div className={classes.messageContainer}>
                 <Typography paragraph variant="h1" align="center">
@@ -119,18 +89,11 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
                     I am a Software Engineer
                 </Typography>
 
-                <Box className={classes.contactsContainer}>
+                <div className={classes.contactsContainer}>
                     {contacts.map(contact => (
-                        <IconButton
-                            key={contact.vendor}
-                            className={classes.iconButton}
-                            href={buildHRefByVendor(contact.vendor, contact.value)}
-                            color="inherit"
-                            target="_blank">
-                            {createIconByVendor(contact.vendor, classes.contactIcon)}
-                        </IconButton>
+                        <ContactLink key={contact.vendor} contact={contact} darkTheme iconClassName={classes.contactIcon} />
                     ))}
-                </Box>
+                </div>
             </div>
 
             <div className={classes.gotoNextSectionButtonContainer}>

@@ -1,21 +1,21 @@
+import React from 'react';
 import { Container, makeStyles, Typography } from '@material-ui/core';
-import React, { useEffect } from 'react';
-import Footer from '../common/Footer';
-import Header from '../common/Header';
-import withTracker from '../common/analytics/withTracker';
+import { Article, ArticleContentBlock, Footer, Header } from '../common';
+import { asPage, withData } from '../core';
 
-const PAGE_TITLE = 'lijohnttle - About';
+const pageOptions = {
+    title: 'About'
+};
 
 const useStyles = makeStyles((theme) => ({
-    title: {
-        marginBottom: theme.spacing(4)
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
     },
-    content: {
-        marginTop: theme.spacing(8),
-        marginBottom: theme.spacing(8),
-    },
-    introduction: {
-        overflow: 'hidden',
+    introductionBlock: {
+        background: 'lightslategray',
+        color: 'white',
     },
     pictureContainer: {
         width: '50%',
@@ -34,32 +34,25 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AboutPage = () => {
+const AboutPage = ({ data }) => {
     const classes = useStyles();
-
-    useEffect(() => {
-        document.title = PAGE_TITLE;
-    }, []);
+    const email = data.contacts.find(contact => contact.vendor === 'email').value;
 
     return (
-        <React.Fragment>
+        <div className={classes.root}>
             <Header lightTheme />
 
-            <Container className={classes.content} maxWidth="lg">
-                <div className={classes.title}>
-                    <Typography variant="h1" align="center" >
-                        ABOUT ME
-                    </Typography>
-                </div>
+            <div>
+                <Article title="ABOUT ME" updatedOn="September 05, 2021" />
 
-                <div className={classes.introduction}>
+                <ArticleContentBlock className={classes.introductionBlock}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />
                     </div>
 
                     <div>
                         <Typography variant="h2" align="justify" gutterBottom paragraph>
-                            Hi, I am Ivan Cherkasov
+                            Hi, I'm Ivan Cherkasov
                         </Typography>
 
                         <Typography align="justify" gutterBottom paragraph>
@@ -74,12 +67,35 @@ const AboutPage = () => {
                             I have experience of creating Windows desktop applications, web services and web API, web front-end. I worked with relational DBMS as well as with object-oriented DBMS. I performed migration of the monolithic on-premise web application to the cloud-based microservices. 
                         </Typography>
                     </div>
-                </div>
-            </Container>
+                </ArticleContentBlock>
+                
+                {/* <ArticleContentBlock>
+                    <Typography variant="h2" align="center" gutterBottom paragraph>
+                        What I Am Doing Now
+                    </Typography>
+
+                    <Typography align="justify" gutterBottom paragraph>
+                        Want to get in touch with me? Feel free to contact me via e-mail <a href={`mailto:${email}`}>{email}</a>.
+                    </Typography>
+                </ArticleContentBlock> */}
+
+                <ArticleContentBlock>
+                    <Typography variant="h2" align="center" gutterBottom paragraph>
+                        Contact Me
+                    </Typography>
+
+                    <Typography align="justify" gutterBottom paragraph>
+                        Want to get in touch with me? Feel free to contact me via e-mail <a href={`mailto:${email}`}>{email}</a>.
+                    </Typography>
+                </ArticleContentBlock>
+            </div>
 
             <Footer />
-        </React.Fragment>
+        </div>
     );
 };
 
-export default withTracker()(AboutPage);
+let ResultComponent = withData(AboutPage);
+ResultComponent = asPage(ResultComponent, pageOptions);
+
+export default ResultComponent;

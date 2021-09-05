@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
-import Header from '../common/Header';
 import WelcomeSection from './sections/welcome/WelcomeSection';
 import BooksLibrarySection from './sections/books/BooksLibrarySection';
-import Footer from '../common/Footer';
+import { Footer } from '../common';
 import { smoothScrollOptions } from '../../utils/scrolling'
-import data from '../../data';
 import SectionContentContainer from './sections/SectionContentContainer';
-import withTracker from '../common/analytics/withTracker';
+import { asPage, withData } from '../core';
 
-const PAGE_TITLE = 'lijohnttle - Home';
+const pageOptions = {
+    title: 'Home'
+};
 
-const useStyles = makeStyles(theme => ({
-    headerContainer: {
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        right: 0,
+const useStyles = makeStyles(() => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
     },
     welcomeSectionContainer: {
         position: "relative",
     },
 }));
 
-const HomePage = () => {
+const HomePage = ({ data }) => {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
     const classes = useStyles();
@@ -32,8 +31,6 @@ const HomePage = () => {
     useEffect(() => {
         setScreenWidth(window.innerWidth);
         setScreenHeight(window.innerHeight);
-
-        document.title = PAGE_TITLE;
     }, []);
 
     const gotoBooksSection = () => {
@@ -41,7 +38,7 @@ const HomePage = () => {
     }
 
     return (
-        <React.Fragment>
+        <div className={classes.root}>
             <div className={classes.welcomeSectionContainer}>
                 <WelcomeSection
                     contacts={data.contacts}
@@ -49,17 +46,14 @@ const HomePage = () => {
                     screenHeight={screenHeight} />
             </div>
 
-            <div className={classes.headerContainer}>
-                <Header transparent darkTheme />
-            </div>
-
             <BooksLibrarySection goodreadsData={data.goodreads} screenHeight={screenHeight} />
 
-            <SectionContentContainer>
-                <Footer />
-            </SectionContentContainer>
-        </React.Fragment>
+            <Footer />
+        </div>
     );
 }
 
-export default withTracker()(HomePage);
+let ResultComponent = withData(HomePage);
+ResultComponent = asPage(ResultComponent, pageOptions);
+
+export default ResultComponent;
