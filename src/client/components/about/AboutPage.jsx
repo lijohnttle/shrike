@@ -42,9 +42,7 @@ const AboutPage = ({ data }) => {
         <div className={classes.root}>
             <Header lightTheme />
 
-            <div>
-                <Article title="ABOUT ME" updatedOn="September 05, 2021" />
-
+            <Article title="ABOUT ME" updatedOn="September 05, 2021">
                 <ArticleContentBlock className={classes.introductionBlock}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />
@@ -84,11 +82,11 @@ const AboutPage = ({ data }) => {
                         Contact Me
                     </Typography>
 
-                    <Typography align="justify" gutterBottom paragraph>
+                    <Typography align="center" gutterBottom paragraph>
                         Want to get in touch with me? Feel free to contact me via e-mail <a href={`mailto:${email}`}>{email}</a>.
                     </Typography>
                 </ArticleContentBlock>
-            </div>
+            </Article>
 
             <Footer />
         </div>
