@@ -66,16 +66,6 @@ const AboutPage = ({ data }) => {
                         </Typography>
                     </div>
                 </ArticleContentBlock>
-                
-                {/* <ArticleContentBlock>
-                    <Typography variant="h2" align="center" gutterBottom paragraph>
-                        What I Am Doing Now
-                    </Typography>
-
-                    <Typography align="justify" gutterBottom paragraph>
-                        Want to get in touch with me? Feel free to contact me via e-mail <a href={`mailto:${email}`}>{email}</a>.
-                    </Typography>
-                </ArticleContentBlock> */}
 
                 <ArticleContentBlock>
                     <Typography variant="h2" align="center" gutterBottom paragraph>
