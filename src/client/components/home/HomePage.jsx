@@ -12,7 +12,12 @@ const pageOptions = {
     title: 'Home'
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+    },
     welcomeSectionContainer: {
         position: "relative",
     },
@@ -33,7 +38,7 @@ const HomePage = ({ data }) => {
     }
 
     return (
-        <React.Fragment>
+        <div className={classes.root}>
             <div className={classes.welcomeSectionContainer}>
                 <WelcomeSection
                     contacts={data.contacts}
@@ -43,10 +48,8 @@ const HomePage = ({ data }) => {
 
             <BooksLibrarySection goodreadsData={data.goodreads} screenHeight={screenHeight} />
 
-            <SectionContentContainer>
-                <Footer />
-            </SectionContentContainer>
-        </React.Fragment>
+            <Footer />
+        </div>
     );
 }
 

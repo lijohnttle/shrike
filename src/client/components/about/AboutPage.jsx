@@ -1,5 +1,5 @@
+import React from 'react';
 import { Container, makeStyles, Typography } from '@material-ui/core';
-import React, { useEffect } from 'react';
 import { Footer, Header } from '../common';
 import { asPage, withData } from '../core';
 
@@ -8,6 +8,11 @@ const pageOptions = {
 };
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+    },
     title: {
         marginBottom: theme.spacing(4)
     },
@@ -41,7 +46,7 @@ const AboutPage = ({ data }) => {
     const email = data.contacts.find(contact => contact.vendor === 'email').value;
 
     return (
-        <React.Fragment>
+        <div className={classes.root}>
             <Header lightTheme />
 
             <Container className={classes.content} maxWidth="lg">
@@ -87,7 +92,7 @@ const AboutPage = ({ data }) => {
             </Container>
 
             <Footer />
-        </React.Fragment>
+        </div>
     );
 };
 

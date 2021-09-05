@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography, makeStyles, IconButton } from '@material-ui/core';
-import { Facebook, LinkedIn, Email, Instagram, ArrowDownwardRounded } from '@material-ui/icons'
-import { Header } from '../../../common';
+import { ArrowDownwardRounded } from '@material-ui/icons'
+import { Header, ContactLink } from '../../../common';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,14 +46,10 @@ const useStyles = makeStyles((theme) => ({
     contactIcon: {
         width: theme.typography.h1.fontSize,
         height: theme.typography.h1.fontSize,
+
         [theme.breakpoints.down('sm')]: {
             width: theme.typography.h2.fontSize,
             width: theme.typography.h2.fontSize,
-        }
-    },
-    iconButton: {
-        '&:hover': {
-            background: '#59595996',
         }
     },
     gotoNextSectionButtonContainer: {
@@ -65,46 +61,13 @@ const useStyles = makeStyles((theme) => ({
     gotoNextSectionIcon: {
         width: theme.typography.h1.fontSize,
         height: theme.typography.h1.fontSize,
+
         [theme.breakpoints.down('sm')]: {
             width: theme.typography.h2.fontSize,
             width: theme.typography.h2.fontSize,
         }
     },
 }));
-
-/**
- * Creates an icon element according to the vendor's name.
- * @param {String} vendor Vendor's name.
- * @returns {import('react').ReactElement} 
- */
-function createIconByVendor(vendor, className) {
-    switch (vendor) {
-        case 'facebook':
-            return <Facebook fontSize="inherit" className={className} />
-        case 'instagram':
-            return <Instagram fontSize="inherit" className={className} />
-        case 'linkedin':
-            return <LinkedIn fontSize="inherit" className={className} />
-        case 'email':
-            return <Email fontSize="inherit" className={className} />
-        default:
-            return null;
-    }
-}
-
-/**
- * Builds a final link according to vendor's name.
- * @param {String} vendor Vendor's name.
- * @param {String} value Original link.
- */
-function buildHRefByVendor(vendor, value) {
-    switch (vendor) {
-        case 'email':
-            return `mailto:${value}`;
-        default:
-            return value;
-    }
-}
 
 const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
     const classes = useStyles();
@@ -128,14 +91,7 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
 
                 <div className={classes.contactsContainer}>
                     {contacts.map(contact => (
-                        <IconButton
-                            key={contact.vendor}
-                            className={classes.iconButton}
-                            href={buildHRefByVendor(contact.vendor, contact.value)}
-                            color="inherit"
-                            target="_blank">
-                            {createIconByVendor(contact.vendor, classes.contactIcon)}
-                        </IconButton>
+                        <ContactLink key={contact.vendor} contact={contact} darkTheme iconClassName={classes.contactIcon} />
                     ))}
                 </div>
             </div>

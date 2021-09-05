@@ -1,14 +1,45 @@
 import React from 'react';
-import { Container, Typography } from '@material-ui/core';
+import { Container, makeStyles, Typography } from '@material-ui/core';
+import { withData } from '../core';
+import ContactLink from './ContactLink';
 
-const Footer = () => {
+const useStyles = makeStyles((theme) => ({
+    root: {
+        background: '#313131',
+        color: 'white',
+        marginTop: 'auto',
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+    },
+    content: {
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+    },
+    contactList: {
+        display: 'flex',
+        flexFlow: 'row wrap',
+        alignItems: 'center',
+    },
+}));
+
+const Footer = ({ data }) => {
+    const classes = useStyles();
+
     return (
-        <Container maxWidth="lg">
-            <Typography variant="caption" align="center" paragraph={true}>
-                {`​© ${new Date().getFullYear()} by Ivan Cherkasov`}
-            </Typography>
-        </Container>
+        <div className={classes.root}>
+            <Container className={classes.content} maxWidth="lg">
+                <Typography variant="caption" align="center">
+                    {`​© ${new Date().getFullYear()} by Ivan Cherkasov`}
+                </Typography>
+
+                <div className={classes.contactList}>
+                    {data.contacts.map((contact) => <ContactLink key={contact.vendor} contact={contact} darkTheme />)}
+                </div>
+            </Container>
+        </div>
     );
 };
 
-export default Footer;
+export default withData(Footer);
