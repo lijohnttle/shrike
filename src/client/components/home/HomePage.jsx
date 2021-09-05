@@ -8,6 +8,7 @@ import Footer from '../common/Footer';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import data from '../../data';
 import SectionContentContainer from './sections/SectionContentContainer';
+import withTracker from '../common/analytics/withTracker';
 
 const PAGE_TITLE = 'lijohnttle - Home';
 
@@ -61,4 +62,4 @@ const HomePage = () => {
     );
 }
 
-export default HomePage;
+export default withTracker()(HomePage);
