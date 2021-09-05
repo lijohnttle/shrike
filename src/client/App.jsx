@@ -11,7 +11,7 @@ import ScrollToTopOnRouteChanged from './components/common/behaviours/ScrollToTo
 //     ReactGA.initialize('G-24ET7FFQTH');
 // }
 
-ReactGA.initialize('G-24ET7FFQTH');
+ReactGA.initialize('UA-206773204-1');
 
 class App extends React.Component {
     render() {
