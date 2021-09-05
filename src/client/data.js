@@ -2,6 +2,7 @@ export default {
     goodreads: {
         userId: "82436176"
     },
+    cv: "https://docs.google.com/document/d/189hRBF0yRDpwgQSfW_188R7XdUmh1YgioFxCcAhex50/edit?usp=sharing",
     contacts: [
         {
             vendor: "email",

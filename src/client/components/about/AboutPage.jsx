@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container, makeStyles, Typography } from '@material-ui/core';
-import { Article, ArticleContentBlock, Footer, Header } from '../common';
+import { Container, Link, makeStyles, Typography } from '@material-ui/core';
+import { Article, ArticleContentBlock, ContactLink, Footer, Header } from '../common';
 import { asPage, withData } from '../core';
 
 const pageOptions = {
@@ -32,17 +32,26 @@ const useStyles = makeStyles((theme) => ({
     picture: {
         width: '100%',
     },
+    contactList: {
+        display: 'flex',
+        flexFlow: 'row wrap',
+        justifyContent: 'center',
+    },
+    contactIcon: {
+        width: 48,
+        height: 48,
+    },
 }));
 
 const AboutPage = ({ data }) => {
     const classes = useStyles();
-    const email = data.contacts.find(contact => contact.vendor === 'email').value;
+    const linkedin = data.contacts.find(contact => contact.vendor === 'linkedin').value;
 
     return (
         <div className={classes.root}>
             <Header lightTheme />
 
-            <Article title="ABOUT ME" updatedOn="September 05, 2021">
+            <Article title="ABOUT ME" updatedOn="September 06, 2021">
                 <ArticleContentBlock className={classes.introductionBlock}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />
@@ -69,12 +78,53 @@ const AboutPage = ({ data }) => {
 
                 <ArticleContentBlock>
                     <Typography variant="h2" align="center" gutterBottom paragraph>
+                        What I'm Doing Now
+                    </Typography>
+
+                    <ul>
+                        <li>
+                            <Typography align="justify" gutterBottom paragraph>
+                                <b>I am based in Wroclaw, Poland.</b> I moved here from Saint Petersburg, Russia in February, 2019.
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography align="justify" gutterBottom paragraph>
+                                <b>Looking for a job in Canada or Australia.</b> One of my goals is to move to Canada or Australia,
+                                therefore I would be glad to consider any job opportunity in these countries.
+                                You can check my LinkedIn <Link href={linkedin} target="_blank">profile</Link> or
+                                my <Link href={data.cv} target="_blank">CV</Link>.
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography align="justify" gutterBottom paragraph>
+                                <b>Travel.</b> I try to travel as much as I can, and Europe provides with a lot of interesting places to visit.
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography align="justify" gutterBottom paragraph>
+                                <b>Relex SMILE surgery.</b> I am about to undergo an eye surgery to correct my eyesight and, hopefully, forget about wearing glasses in the near future.
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography align="justify" gutterBottom paragraph>
+                                <b>Visit my girlfriend in Australia.</b> Covid-19 negatevely affected lives of too many people. My girlfriend currently lives in Australia, and I am waiting when the borders get open to visit her.
+                            </Typography>
+                        </li>
+                    </ul>
+                </ArticleContentBlock>
+
+                <ArticleContentBlock>
+                    <Typography variant="h2" align="center" gutterBottom paragraph>
                         Contact Me
                     </Typography>
 
                     <Typography align="center" gutterBottom paragraph>
-                        Want to get in touch with me? Feel free to contact me via e-mail <a href={`mailto:${email}`}>{email}</a>.
+                        Want to get in touch with me? Feel free to contact me via e-mail or any other social media:
                     </Typography>
+
+                    <div className={classes.contactList}>
+                        {data.contacts.map(contact => <ContactLink key={contact.vendor} contact={contact} iconClassName={classes.contactIcon} />)}
+                    </div>
                 </ArticleContentBlock>
             </Article>
 
