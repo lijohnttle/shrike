@@ -4,9 +4,7 @@ import ExtCookieConsent from 'react-cookie-consent';
 const CookieConsent = () => {
     return (
         <ExtCookieConsent>
-            <div>
-                This website uses cookies to enhance the user experience.
-            </div>
+            This website uses cookies to enhance the user experience.
         </ExtCookieConsent>
     );
 };
