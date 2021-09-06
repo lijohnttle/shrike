@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Link, makeStyles, Typography } from '@material-ui/core';
+import { Link, makeStyles, Typography } from '@material-ui/core';
 import { Article, ArticleContentBlock, ContactLink, Footer, Header } from '../common';
 import { asPage, withData } from '../core';
 
@@ -78,7 +78,7 @@ const AboutPage = ({ data }) => {
 
                 <ArticleContentBlock>
                     <Typography variant="h2" align="center" gutterBottom paragraph>
-                        What I'm Doing Now
+                        What I'm doing now
                     </Typography>
 
                     <ul>
@@ -89,15 +89,34 @@ const AboutPage = ({ data }) => {
                         </li>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Looking for a job in Canada or Australia.</b> One of my goals is to move to Canada or Australia,
-                                therefore I would be glad to consider any job opportunity in these countries.
-                                You can check my LinkedIn <Link href={linkedin} target="_blank">profile</Link> or
-                                my <Link href={data.cv} target="_blank">CV</Link>.
+                                <b>Working</b> as a Senior Software Engineer in a Swiss multinational bank.
                             </Typography>
                         </li>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Travel.</b> I try to travel as much as I can, and Europe provides with a lot of interesting places to visit.
+                                <b>Trading stocks</b> as an additional income stream.
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography align="justify" gutterBottom paragraph>
+                                <b>Travelling.</b> I try to travel as much as I can, and Europe provides with a lot of interesting places to visit.
+                            </Typography>
+                        </li>
+                    </ul>
+                </ArticleContentBlock>
+
+                <ArticleContentBlock>
+                    <Typography variant="h2" align="center" gutterBottom paragraph>
+                        My plans
+                    </Typography>
+
+                    <ul>
+                        <li>
+                            <Typography align="justify" gutterBottom paragraph>
+                                <b>Relocate to Canada or Australia.</b> One of my and my girlfriend's goals is to move to Canada or Australia,
+                                therefore I would be glad to consider job opportunities in these countries.
+                                You can check my LinkedIn <Link href={linkedin} target="_blank">profile</Link> or
+                                my <Link href={data.cv} target="_blank">CV</Link>.
                             </Typography>
                         </li>
                         <li>
@@ -107,7 +126,7 @@ const AboutPage = ({ data }) => {
                         </li>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Visit my girlfriend in Australia.</b> Covid-19 negatevely affected lives of too many people. My girlfriend currently lives in Australia, and I am waiting when the borders get open to visit her.
+                                <b>Visit my girlfriend in Australia.</b> Covid-19 negatevely affected lives of too many people. My girlfriend is currently living in Australia, and I am waiting when the borders will get open to visit her.
                             </Typography>
                         </li>
                     </ul>
