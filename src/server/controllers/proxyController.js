@@ -8,7 +8,7 @@ const register = (app, appContext) => {
     proxyRouter
         .route('/goodreads/:shelf')
         .get(async (req, res) => {
-            const userId = appContext.config.goodreads_user_id;
+            const userId = appContext.data.goodreads_user_id;
             const shelf = req.params.shelf;
             const count = req.query.count;
 
