@@ -2,8 +2,15 @@ import "core-js/stable/index.js";
 import "regenerator-runtime/runtime.js";
 import express from 'express';
 import cors from 'cors';
-import config from './config.js';
+import { config } from 'dotenv';
+import data from './data.js';
 import { registerControllers } from './controllers/index.js';
+
+const isDevelopment = !process.env.PORT;
+
+if (isDevelopment) {
+    config({ path: process.cwd() + '/.env' });
+}
 
 const allowedCorsOrigins = [];
 const app = express();
@@ -26,11 +33,11 @@ app.use(cors({
 
 registerControllers(app, {
     rootPath: process.cwd(),
-    config,
+    data,
     allowCorsOrigin: (origin) => allowedCorsOrigins.push(origin)
 });
 
 
-app.listen(config.port, () => {
-    console.log(`Server is listening on port ${config.port}`);
+app.listen(data.port, () => {
+    console.log(`Server is listening on port ${data.port}`);
 });
