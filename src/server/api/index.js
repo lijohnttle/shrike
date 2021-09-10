@@ -2,7 +2,7 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import {
     typeDef as accountTypeDef,
     mutationResolvers as accountMutationResolvers
- } from './account/schema.js';
+ } from './accountSchema.js';
 
 const Query = `
     type Query {

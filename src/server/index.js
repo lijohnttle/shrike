@@ -42,6 +42,6 @@ registerControllers(app, {
 });
 
 
-app.listen(data.port, () => {
-    console.log(`Server is listening on port ${data.port}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Server is listening on port ${process.env.PORT}`);
 });

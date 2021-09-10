@@ -1,4 +1,4 @@
-import AuthenticationResult from './AuthenticationResult.js';
+import { authenticate } from '../services/authenticationService.js';
 
 export const typeDef = `
     extend type Mutation {
@@ -19,11 +19,5 @@ export const typeDef = `
 `;
 
 export const mutationResolvers = {
-    authenticate: (_, { credentials }) => { 
-        return new AuthenticationResult({
-            username: credentials.username,
-            authenticated: true,
-            token: 'token'
-        });
-    }
+    authenticate: (_, { credentials }) => authenticate(credentials.username, credentials.password)
 };
