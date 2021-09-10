@@ -5,8 +5,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        color: ({ lightTheme }) =>  lightTheme ? 'black' : 'white',
-        background: ({ transparent, lightTheme }) => transparent ? 'transparent' : lightTheme  ? 'white' : 'black',
+        color: ({ light }) =>  light ? 'black' : 'white',
+        background: ({ transparent, light }) => transparent ? 'transparent' : light  ? 'white' : 'black',
     },
     content: {
         display: 'flex',
@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
         flexFlow: 'row nowrap',
         justifyContent: 'center',
         alignItems: 'center',
-        color: ({ lightTheme }) => lightTheme ? 'black' : 'inherit',
-        background: ({ lightTheme }) => lightTheme ? 'white' : 'crimson',
+        color: ({ light }) => light ? 'black' : 'inherit',
+        background: ({ light }) => light ? 'white' : 'crimson',
         textDecoration: 'none',
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
@@ -59,8 +59,8 @@ const useStyles = makeStyles((theme) => ({
             background: 'transparent',
 
             '&:hover': {
-                color: ({ lightTheme }) =>  lightTheme ? 'white' : 'black',
-                background: ({ lightTheme }) => lightTheme ? 'black' : 'white',
+                color: ({ light }) =>  light ? 'white' : 'black',
+                background: ({ light }) => light ? 'black' : 'white',
             },
         },
 
@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
         width: '240px',
         maxWidth: "75%",
     },
-    navigationVerticalMenu: ({ lightTheme }) => ({
+    navigationVerticalMenu: ({ light }) => ({
         display: 'flex',
         flexFlow: 'column nowrap',
         alignItems: 'stretch',
@@ -135,7 +135,7 @@ const useStyles = makeStyles((theme) => ({
         },
     }),
     menuIcon: {
-        color: ({ lightTheme }) => lightTheme ? 'black' : 'white'
+        color: ({ light }) => light ? 'black' : 'white'
     }
 }));
 
@@ -143,9 +143,9 @@ const navigationLinks = [
     { title: 'about', href: '/about' }
 ];
 
-const Header = ({ transparent, darkTheme, lightTheme, width }) => {
+const Header = ({ transparent, darkTheme, light, width }) => {
     const [isMenuOpen, setIsMenuopen] = useState(false);
-    const classes = useStyles({ transparent, lightTheme: lightTheme });
+    const classes = useStyles({ transparent, light: light });
 
     let navigationMenu;
 

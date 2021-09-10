@@ -21,6 +21,10 @@ app.use(cors({
             return callback(null, true);
         }
 
+        if (origin.endsWith(`localhost:${process.env.PORT}`)) {
+            return callback(null, true);
+        }
+
         if (allowedCorsOrigins.indexOf(origin) === -1) {
             return callback(
                 new Error('The CORS policy for this site does not allow access from the specified Origin.'),

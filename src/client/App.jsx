@@ -5,6 +5,7 @@ import { defaultTheme } from './themes';
 import ReactGA from 'react-ga';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
+import SignInPage from './components/account/SignInPage';
 import { withResettableNavigation } from './components/core';
 import { CookieConsent } from './components/common';
 
@@ -22,6 +23,10 @@ class App extends React.Component {
                 <Switch>
                     <Route path="/about">
                         <AboutPage />
+                    </Route>
+
+                    <Route path="/account/signin">
+                        <SignInPage />
                     </Route>
 
                     <Route path="/">

@@ -49,7 +49,7 @@ const AboutPage = ({ data }) => {
 
     return (
         <div className={classes.root}>
-            <Header lightTheme />
+            <Header light />
 
             <Article title="ABOUT ME" updatedOn="September 06, 2021">
                 <ArticleContentBlock className={classes.introductionBlock}>
