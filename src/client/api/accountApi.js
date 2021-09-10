@@ -1,19 +1,18 @@
 import { queryData } from "../services/api.js";
 
-export const authenticate = async (username, password) => {
+export const signIn = async (username, password) => {
     const response = await queryData(`
         mutation {
-            authenticate(credentials: {
+            signIn(credentials: {
                     username: "${username}",
                     password: "${password}"
                     }) {
                 username
-                authenticated
                 token
                 message
             }
         }
     `);
 
-    return response.authenticate;
+    return response.signIn;
 };

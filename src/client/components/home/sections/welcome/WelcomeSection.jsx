@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: 'black',
-        background: 'url("assets/images/welcome-background.jpg")',
+        background: 'url("/assets/images/welcome-background.jpg")',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         minHeight: `${screenHeight}px`

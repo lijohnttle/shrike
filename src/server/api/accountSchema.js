@@ -1,8 +1,9 @@
-import { authenticate } from '../services/authenticationService.js';
+import { signIn, signOut } from '../services/authenticationService.js';
 
 export const typeDef = `
     extend type Mutation {
-        authenticate(credentials: CredentialsInput!): AuthenticationResult
+        signIn(credentials: CredentialsInput!): AuthenticationResult
+        signOut(session: SessionInput!): Boolean
     }
 
     input CredentialsInput {
@@ -12,12 +13,17 @@ export const typeDef = `
 
     type AuthenticationResult {
         username: String,
-        authenticated: Boolean!
         token: String
         message: String
+    }
+
+    input SessionInput {
+        username: String!
+        token: String!
     }
 `;
 
 export const mutationResolvers = {
-    authenticate: (_, { credentials }) => authenticate(credentials.username, credentials.password)
+    signIn: (_, { credentials }) => signIn(credentials.username, credentials.password),
+    signOut: (_, { session }) => signOut(session.username, session.token),
 };

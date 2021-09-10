@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 import { Button, Container, FormControl, Input, InputLabel, makeStyles, Typography } from '@material-ui/core';
 import { Footer, Header } from '../common';
 import { asPage } from '../core';
-import { authenticate } from '../../api/accountApi.js';
+import { signIn } from '../../api/accountApi.js';
 import cookieKeys from '../../cookieKeys.js';
 import { Redirect } from 'react-router';
 
@@ -44,9 +44,9 @@ const SignInPage = () => {
         e?.preventDefault();
 
         try {
-            const data = await authenticate(username, password);
+            const data = await signIn(username, password);
 
-            if (data.authenticated) {
+            if (data.token) {
                 const username = data.username;
                 const token = data.token;
 
@@ -56,11 +56,11 @@ const SignInPage = () => {
             else {
                 const errorMessage = data.message;
 
-                console.log(errorMessage);
+                console.error(errorMessage);
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     };
 
