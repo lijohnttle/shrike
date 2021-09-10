@@ -39,7 +39,7 @@ const Footer = ({ data }) => {
                 </Typography>
 
                 <div className={classes.contactList}>
-                    {data.contacts.map((contact) => <ContactLink key={contact.vendor} contact={contact} darkTheme />)}
+                    {data.contacts.map((contact) => <ContactLink key={contact.vendor} contact={contact} dark />)}
                 </div>
             </Container>
         </div>

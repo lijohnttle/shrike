@@ -24,6 +24,22 @@ export const typeDef = `
 `;
 
 export const mutationResolvers = {
-    signIn: (_, { credentials }) => signIn(credentials.username, credentials.password),
-    signOut: (_, { session }) => signOut(session.username, session.token),
+    signIn: (_, { credentials }) => {
+        try {
+            return signIn(credentials.username, credentials.password);
+        }
+        catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+    signOut: (_, { session }) => {
+        try {
+            return signOut(session.username, session.token);            
+        }
+        catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
 };

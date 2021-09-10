@@ -16,3 +16,16 @@ export const signIn = async (username, password) => {
 
     return response.signIn;
 };
+
+export const signOut = async (username, token) => {
+    const response = await queryData(`
+        mutation {
+            signOut(session: {
+                    username: "${username}",
+                    token: "${token}"
+                    })
+        }
+    `);
+
+    return response.signOut;
+};

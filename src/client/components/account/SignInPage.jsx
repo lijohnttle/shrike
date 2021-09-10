@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 const SignInPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [cookies, setCookie] = useCookies([cookieKeys.authUsername, cookieKeys.authToken]);
+    const [cookies, setCookie] = useCookies([cookieKeys.AUTH_USERNAME, cookieKeys.AUTH_TOKEN]);
     const classes = useStyles();
 
     const submitHandler = async (e) => {
@@ -46,12 +46,12 @@ const SignInPage = () => {
         try {
             const data = await signIn(username, password);
 
-            if (data.token) {
+            if (data?.token) {
                 const username = data.username;
                 const token = data.token;
 
-                setCookie(cookieKeys.authUsername, username, { path: '/' });
-                setCookie(cookieKeys.authToken, token, { path: '/' });
+                setCookie(cookieKeys.AUTH_USERNAME, username, { path: '/' });
+                setCookie(cookieKeys.AUTH_TOKEN, token, { path: '/' });
             }
             else {
                 const errorMessage = data.message;
@@ -64,7 +64,7 @@ const SignInPage = () => {
         }
     };
 
-    if (cookies[cookieKeys.authUsername] && cookies[cookieKeys.authToken]) {
+    if (cookies[cookieKeys.AUTH_USERNAME] && cookies[cookieKeys.AUTH_TOKEN]) {
         return <Redirect to="/account/management" />;
     }
 

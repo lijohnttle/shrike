@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Drawer, isWidthUp, makeStyles, withWidth, IconButton, Container } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import { useCookies } from 'react-cookie';
+import cookieKeys from '../../cookieKeys';
+import { signOut } from '../../api/accountApi.js';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -143,9 +146,35 @@ const navigationLinks = [
     { title: 'about', href: '/about' }
 ];
 
-const Header = ({ transparent, darkTheme, light, width }) => {
+const Header = ({ transparent, dark, light, width }) => {
     const [isMenuOpen, setIsMenuopen] = useState(false);
+    const [cookies, setCookie, removeCookie] = useCookies([cookieKeys.AUTH_USERNAME, cookieKeys.AUTH_TOKEN]);
+    const history = useHistory();
     const classes = useStyles({ transparent, light: light });
+
+    const signOutClickHandler = async (e) => {
+        e?.preventDefault();
+
+        try {
+            const username = cookies[cookieKeys.AUTH_USERNAME]
+            const token = cookies[cookieKeys.AUTH_TOKEN];
+
+            if (username && token) {
+                await signOut(username, token);
+
+                try {
+                    removeCookie(cookieKeys.AUTH_USERNAME, { path: '/' });
+                    removeCookie(cookieKeys.AUTH_TOKEN, { path: '/' });
+                }
+                catch { }
+
+                history.push('/');
+            }
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
 
     let navigationMenu;
 
@@ -153,6 +182,12 @@ const Header = ({ transparent, darkTheme, light, width }) => {
         navigationMenu = (
             <ul className={classes.navigationMenu}>
                 {navigationLinks.map((link) => <li key={link.href}><Link to={link.href}>{link.title}</Link></li>)}
+
+                {cookies[cookieKeys.AUTH_USERNAME] && cookies[cookieKeys.AUTH_TOKEN]
+                    ? <li>
+                        <Link to="#" onClick={signOutClickHandler}>Sign Out</Link>
+                    </li>
+                    : null}
             </ul>
         );
     }

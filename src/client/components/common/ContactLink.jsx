@@ -44,13 +44,13 @@ function buildHRefByVendor(vendor, value) {
     }
 }
 
-const ContactLink = ({ contact, darkTheme, iconClassName }) => {
+const ContactLink = ({ contact, dark, iconClassName }) => {
     const classes = useStyles();
 
     return (
         <div>
             <IconButton
-                className={darkTheme ? classes.buttonDarkTheme : ''}
+                className={dark ? classes.buttonDarkTheme : ''}
                 href={buildHRefByVendor(contact.vendor, contact.value)}
                 color="inherit"
                 target="_blank">

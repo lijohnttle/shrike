@@ -1,4 +1,4 @@
 export default {
-    authToken: 'auth-token',
-    authUsername: 'auth-username',
+    AUTH_TOKEN: 'auth-token',
+    AUTH_USERNAME: 'auth-username',
 };

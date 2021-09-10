@@ -110,15 +110,24 @@ export const deleteSession = (username, token) => {
 
     cleanUpSessions();
 
-    const sessionBucket = sessions[username];
+    let sessionBucket = sessions[username];
     let session = null;
 
     if (sessionBucket) {
         for (let i = 0; i < sessionBucket.length; i++) {
-            const session = sessionBucket[i];
+            const existingSession = sessionBucket[i];
 
-            if (session.token === token) {
-                sessions[username] = sessionBucket.splice(i, 1);
+            if (existingSession.token === token) {
+                sessionBucket = sessionBucket.splice(i, 1);
+
+                if (sessionBucket.length == 0) {
+                    delete sessions[username];
+                }
+                else {
+                    sessions[username] = sessionBucket;
+                }
+                
+                session = existingSession;
                 break;
             }
         }
