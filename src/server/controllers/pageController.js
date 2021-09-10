@@ -1,4 +1,3 @@
-import { Router } from 'express';
 import path from 'path';
 
 const register = (app, appContext) => {
@@ -16,6 +15,7 @@ const register = (app, appContext) => {
         '/',
         '/about',
         '/account/signin',
+        '/account/management',
     ].forEach(url => app.get(url, getIndexHandler));
 };
 

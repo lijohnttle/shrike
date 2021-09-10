@@ -16,6 +16,16 @@ const useStyles = makeStyles((theme) => ({
 const Article = ({ title, updatedOn, children }) => {
     const classes = useStyles();
 
+    const updateOnElement = null;
+
+    if (updatedOn) {
+        updateOnElement = (
+            <Typography variant="caption" align="center" color="textSecondary" gutterBottom paragraph>
+                (Updated on <b>{updatedOn}</b>)
+            </Typography>
+        );
+    }
+
     return (
         <div className={classes.root}>
             <Container maxWidth="lg">
@@ -24,9 +34,7 @@ const Article = ({ title, updatedOn, children }) => {
                         {title}
                     </Typography>
 
-                    <Typography variant="caption" align="center" color="textSecondary" gutterBottom paragraph>
-                        (Updated on <b>{updatedOn}</b>)
-                    </Typography>
+                    {updateOnElement}
                 </div>
             </Container>
 
