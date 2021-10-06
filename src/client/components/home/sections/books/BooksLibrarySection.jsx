@@ -4,6 +4,7 @@ import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import SectionContentContainer from '../SectionContentContainer';
 import BookList from './BookList';
 import { loadBooks } from '../../../../services/goodReadsService';
+import { queryData } from '../../../../services/api';
 
 const useStyles = makeStyles(theme => ({
     root: ({ screenHeight }) => ({
@@ -32,13 +33,30 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const BooksLibrarySection = ({ goodreadsData, screenHeight }) => {
+const BooksLibrarySection = ({ screenHeight }) => {
+    const [goodReadsUserId, setGoodReadsUserId] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     const [isBooksLoading, setIsBooksLoading] = useState(true);
     const [isReadBooksLoading, setIsReadBooksLoading] = useState(true);
     const [books, setBooks] = useState([]);
     const [readBooks, setReadBooks] = useState([]);
 
     useEffect(() => {
+        queryData(`
+                query {
+                    userProfile {
+                        goodReadsUserId
+                    }
+                }
+            `)
+            .then((response) => {
+                if (response.userProfile) {
+                    setGoodReadsUserId(response.userProfile.goodReadsUserId);
+                }
+            })
+            .catch((error) => console.error(error))
+            .finally(() => setIsLoading(false));
+
         loadBooks(7, 'currently-reading')
             .then(data => {
                 setBooks(data);
@@ -62,14 +80,8 @@ const BooksLibrarySection = ({ goodreadsData, screenHeight }) => {
 
     const classes = useStyles({ screenHeight });
 
-    return (
-        <SectionContentContainer rootClassName={classes.root}>
-            <Box mb={4}>
-                <Typography variant="h1" align="center">
-                    Book Library
-                </Typography>
-            </Box>
-
+    const shelvesContent = (
+        <React.Fragment>
             <Box mb={2}>
                 <Typography variant="h4" align="center">
                     Shelf "Currently Reading"
@@ -98,12 +110,24 @@ const BooksLibrarySection = ({ goodreadsData, screenHeight }) => {
                 <Button
                     variant="contained"
                     color="primary"
-                    href={`https://www.goodreads.com/review/list/${goodreadsData.userId}?shelf=ALL`}
+                    href={`https://www.goodreads.com/review/list/${goodReadsUserId}?shelf=ALL`}
                     target="blank"
                     startIcon={<LibraryBooksIcon />}>
                     See all books
                 </Button>
             </Box>
+        </React.Fragment>
+    );
+
+    return (
+        <SectionContentContainer rootClassName={classes.root}>
+            <Box mb={4}>
+                <Typography variant="h1" align="center">
+                    Book Library
+                </Typography>
+            </Box>
+
+            {isLoading ? <CircularProgress /> : shelvesContent}
         </SectionContentContainer>
     );
 };

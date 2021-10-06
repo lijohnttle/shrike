@@ -41,7 +41,7 @@ const cleanUpSessionBucket = (username) => {
 };
 
 export const cleanUpSessions = () => {
-    console.log(`Cleaning up expired sessions...`);
+    console.log(`Cleaning up expired user sessions...`);
 
     let expiredSessionsCount = 0;
 
@@ -50,10 +50,10 @@ export const cleanUpSessions = () => {
     }
 
     if (expiredSessionsCount > 0) {
-        console.log(`Removed ${expiredSessionsCount} expired sessions`);
+        console.log(`Removed ${expiredSessionsCount} expired user sessions`);
     }
     else {
-        console.log(`No expired sessions found`);
+        console.log(`No expired user sessions found`);
     }
 };
 
@@ -76,7 +76,7 @@ export const generateToken = () => {
 };
 
 export const persistSession = (username, token) => {
-    console.log(`Preparing to persist session...`);
+    console.log(`Preparing to persist user session...`);
 
     cleanUpSessions();
 
@@ -98,10 +98,10 @@ export const persistSession = (username, token) => {
 
         sessionBucket.push(session);
 
-        console.log(`New session has been created`);
+        console.log(`New user session has been created`);
     }
     else {
-        console.log(`Exising session has been prolonged`);
+        console.log(`Exising user session has been prolonged`);
     }
 };
 

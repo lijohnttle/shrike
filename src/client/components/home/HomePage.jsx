@@ -5,7 +5,6 @@ import WelcomeSection from './sections/welcome/WelcomeSection';
 import BooksLibrarySection from './sections/books/BooksLibrarySection';
 import { Footer } from '../common';
 import { smoothScrollOptions } from '../../utils/scrolling'
-import SectionContentContainer from './sections/SectionContentContainer';
 import { asPage, withData } from '../core';
 
 const pageOptions = {
@@ -46,7 +45,7 @@ const HomePage = ({ data }) => {
                     screenHeight={screenHeight} />
             </div>
 
-            <BooksLibrarySection goodreadsData={data.goodreads} screenHeight={screenHeight} />
+            <BooksLibrarySection screenHeight={screenHeight} />
 
             <Footer />
         </div>

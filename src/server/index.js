@@ -3,7 +3,6 @@ import "regenerator-runtime/runtime.js";
 import express from 'express';
 import cors from 'cors';
 import { config } from 'dotenv';
-import data from './data.js';
 import { registerControllers } from './controllers/index.js';
 
 const isDevelopment = !process.env.PORT;
@@ -39,7 +38,6 @@ async function main() {
 
     registerControllers(app, {
         rootPath: process.cwd(),
-        data,
         allowCorsOrigin: (origin) => allowedCorsOrigins.push(origin)
     });
 

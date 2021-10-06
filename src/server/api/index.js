@@ -3,6 +3,10 @@ import {
     typeDef as accountTypeDef,
     mutationResolvers as accountMutationResolvers
  } from './accountSchema.js';
+ import {
+    typeDef as userProfileTypeDef,
+    queryResolvers as userProfileQueryResolvers
+ } from './userProfileSchema.js';
 
 const Query = `
     type Query {
@@ -19,10 +23,12 @@ const schema = makeExecutableSchema({
         Query,
         Mutation,
         accountTypeDef,
+        userProfileTypeDef,
     ],
     resolvers: {
         Query: {
             getVersion: () => "v1",
+            ...userProfileQueryResolvers,
         },
         Mutation: {
             ...accountMutationResolvers,

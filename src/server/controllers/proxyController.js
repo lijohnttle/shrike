@@ -1,5 +1,6 @@
 import express from 'express';
 import { fetchBooks } from '../services/goodReadsService.js';
+import { getGoodReadsUserId } from '../persistence/profileRepository.js';
 
 const getName = () => 'Proxy Controller';
 
@@ -12,11 +13,12 @@ const register = (app, appContext) => {
     proxyRouter
         .route('/goodreads/:shelf')
         .get(async (req, res) => {
-            const userId = appContext.data.goodreads_user_id;
             const shelf = req.params.shelf;
             const count = req.query.count;
 
             try {
+                const userId = await getGoodReadsUserId();
+
                 const data = await fetchBooks(
                     userId,
                     count,
