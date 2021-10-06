@@ -5,8 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build-dev": "webpack --config build/client/webpack.config.js --mode development --env ROOT_PATH=$PWD",
-    "build-prod": "webpack --config build/client/webpack.config.js --mode production --env ROOT_PATH=$PWD",
+    "echo1": "echo %INIT_CWD%",
+    "echo": "echo %CWD%",
+    "build-dev": "webpack --config build/client/webpack.config.js --mode development",
+    "build-prod": "webpack --config build/client/webpack.config.js --mode production",
     "build": "npm run build-dev",
     "start": "node ./src/server/index.js",
     "restart": "npm run build && npm start",

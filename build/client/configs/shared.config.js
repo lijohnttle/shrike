@@ -1,9 +1,11 @@
 import path from 'path';
 
 export default (env, options) => {
+    const rootPath = process.env.INIT_CWD;
+
     return {
         mode: options.mode || 'development',
-        entry: path.resolve(env.ROOT_PATH, 'src/client/index.jsx'),
+        entry: path.resolve(rootPath, 'src/client/index.jsx'),
         module: {
             rules: [
                 {
@@ -17,7 +19,7 @@ export default (env, options) => {
             extensions: ['*', '.js', '.jsx']
         },
         output: {
-            path: path.resolve(env.ROOT_PATH, 'dist/public/assets'),
+            path: path.resolve(rootPath, 'dist/public/assets'),
             publicPath: '/assets/',
             filename: 'scripts/bundle.js'
         },

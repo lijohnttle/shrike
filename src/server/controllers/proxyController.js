@@ -1,7 +1,11 @@
 import express from 'express';
 import { fetchBooks } from '../services/goodReadsService.js';
 
+const getName = () => 'Proxy Controller';
+
 const register = (app, appContext) => {
+
+    console.log(`Registering ${getName()}...`);
 
     const proxyRouter = express.Router();
 
@@ -29,8 +33,12 @@ const register = (app, appContext) => {
     app.use('/proxy', proxyRouter);
 
     appContext.allowCorsOrigin('https://www.goodreads.com/');
+
+    console.log('Proxies are available at /proxy');
+    console.log(`Registered ${getName()}`);
 };
 
 export default {
+    getName,
     register
 };
