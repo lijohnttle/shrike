@@ -51,7 +51,7 @@ const AboutPage = ({ data }) => {
         <div className={classes.root}>
             <Header lightTheme />
 
-            <Article title="ABOUT ME" updatedOn="September 30, 2021">
+            <Article title="ABOUT ME" updatedOn="October 13, 2021">
                 <ArticleContentBlock className={classes.introductionBlock}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />
@@ -113,10 +113,15 @@ const AboutPage = ({ data }) => {
                     <ul>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Relocate to Canada or Australia.</b> One of my goals is to move to Canada or Australia,
+                                <b>Relocate to Canada or Australia.</b> One of my and my girlfriend's goals is to move to Canada or Australia,
                                 therefore I would be glad to consider job opportunities in these countries.
                                 You can check my LinkedIn <Link href={linkedin} target="_blank">profile</Link> or
                                 my <Link href={data.cv} target="_blank">CV</Link>.
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography align="justify" gutterBottom paragraph>
+                                <b>Visit my girlfriend in Australia.</b> Covid-19 negatevely affected lives of too many people. My girlfriend is currently living in Australia, and I am waiting when the borders will get open to visit her.
                             </Typography>
                         </li>
                     </ul>
