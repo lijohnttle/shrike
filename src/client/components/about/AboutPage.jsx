@@ -51,7 +51,7 @@ const AboutPage = ({ data }) => {
         <div className={classes.root}>
             <Header light />
 
-            <Article title="ABOUT ME" updatedOn="September 06, 2021">
+            <Article title="ABOUT ME" updatedOn="October 13, 2021">
                 <ArticleContentBlock className={classes.introductionBlock}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />
@@ -117,11 +117,6 @@ const AboutPage = ({ data }) => {
                                 therefore I would be glad to consider job opportunities in these countries.
                                 You can check my LinkedIn <Link href={linkedin} target="_blank">profile</Link> or
                                 my <Link href={data.cv} target="_blank">CV</Link>.
-                            </Typography>
-                        </li>
-                        <li>
-                            <Typography align="justify" gutterBottom paragraph>
-                                <b>Relex SMILE surgery.</b> I am about to undergo an eye surgery to correct my eyesight and, hopefully, forget about wearing glasses in the near future.
                             </Typography>
                         </li>
                         <li>
