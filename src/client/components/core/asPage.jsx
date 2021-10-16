@@ -1,21 +1,18 @@
+import { makeStyles } from '@material-ui/core';
 import React, { useEffect } from 'react';
-import ReactGA from 'react-ga';
-import { withRouter } from 'react-router';
-import { usePrevious } from './hooks';
+import { Footer, Header } from '../common';
+import { withGA } from './analytics';
+
+const useStyles = makeStyles(() => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+    }
+}));
 
 const asPage = (WrappedComponent, options) => {
-    const trackPage = (page) => {
-        if (process.env.NODE_ENV === 'production') {
-            ReactGA.pageview(page);
-        }
-    };
-
-    const AnalyticsTracker = (props) => {
-        const {
-            location: { pathname: currentPage }
-        } = props;
-        const previousPage =  usePrevious(currentPage);
-
+    const PageWrapper = (props) => {
         // Update page title
         if (options?.title) {
             useEffect(() => {
@@ -23,17 +20,33 @@ const asPage = (WrappedComponent, options) => {
             }, []);
         }
 
-        useEffect(() => {
-            // Track page view
-            if (previousPage !== currentPage) {
-                trackPage(currentPage);
-            }
-        }, [currentPage]);
+        const classes = useStyles();
 
-        return <WrappedComponent {...props} />;
+        let headerPlaceholder = null;
+        let footerPlaceholder = null;
+
+        if (options) {
+            if (options.showHeader !== false) {
+                headerPlaceholder = <Header light />
+            }
+    
+            if (options.showFooter !== false) {
+                footerPlaceholder = <Footer />
+            }
+        }
+
+        return (
+            <div className={classes.root}>
+                {headerPlaceholder}
+
+                <WrappedComponent {...props} />
+
+                {footerPlaceholder}
+            </div>
+        );
     };
 
-    return withRouter(AnalyticsTracker);
+    return withGA(PageWrapper);
 };
 
 export default asPage;

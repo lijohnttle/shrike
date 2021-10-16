@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Button, FormControl, Input, InputLabel, makeStyles } from '@material-ui/core';
-import { Footer, Header } from '../common';
 import { asPage } from '../core';
 import { signIn } from '../../api/accountApi.js';
 import cookieKeys from '../../cookieKeys.js';
@@ -12,11 +11,6 @@ const pageOptions = {
 };
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-    },
     form: {
         display: 'flex',
         flexDirection: 'column',
@@ -69,25 +63,19 @@ const SignInPage = () => {
     }
 
     return (
-        <div className={classes.root}>
-            <Header light />
+        <form className={classes.form} onSubmit={submitHandler}>
+            <FormControl>
+                <InputLabel htmlFor="username">Username</InputLabel>
+                <Input id="username" aria-describedby="Username" value={username} onChange={e => setUsername(e.target.value)} />
+            </FormControl>
 
-            <form className={classes.form} onSubmit={submitHandler}>
-                <FormControl>
-                    <InputLabel htmlFor="username">Username</InputLabel>
-                    <Input id="username" aria-describedby="Username" value={username} onChange={e => setUsername(e.target.value)} />
-                </FormControl>
+            <FormControl>
+                <InputLabel htmlFor="password">Password</InputLabel>
+                <Input id="password" aria-describedby="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+            </FormControl>
 
-                <FormControl>
-                    <InputLabel htmlFor="password">Password</InputLabel>
-                    <Input id="password" aria-describedby="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
-                </FormControl>
-
-                <Button color="primary" onClick={submitHandler}>Sign In</Button>
-            </form>
-
-            <Footer />
-        </div>
+            <Button color="primary" onClick={submitHandler}>Sign In</Button>
+        </form>
     );
 };
 

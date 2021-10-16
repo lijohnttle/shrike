@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { CircularProgress, makeStyles } from '@material-ui/core';
-import { Article, ArticleContentBlock, Footer, Header } from '../common';
+import { CircularProgress } from '@material-ui/core';
+import { Article, ArticleContentBlock } from '../common';
 import { asPage } from '../core';
 import { queryData } from '../../services/api';
-import UserProfileSection from './UserProfileSection';
+import AccountSectionUserProfile from './AccountSectionUserProfile';
 
 const pageOptions = {
     title: 'Account Management'
 };
 
-const useStyles = makeStyles(() => ({
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-    },
-}));
-
 const AccountManagementPage = () => {
-    const classes = useStyles();
-    const [data, setData] = useState(null);
+    const [userProfileData, setUserProfileData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -32,7 +23,7 @@ const AccountManagementPage = () => {
             `)
             .then((response) => {
                 if (response.userProfile) {
-                    setData(response.userProfile);
+                    setUserProfileData(response.userProfile);
                 }
             })
             .catch((error) => console.error(error))
@@ -40,19 +31,13 @@ const AccountManagementPage = () => {
     }, [])
 
     return (
-        <div className={classes.root}>
-            <Header light />
-
-            <Article title="ACCOUNT MANAGEMENT">
-                <ArticleContentBlock>
-                    {isLoading
-                        ? <CircularProgress />
-                        : <UserProfileSection data={data} /> }
-                </ArticleContentBlock>
-            </Article>
-
-            <Footer />
-        </div>
+        <Article title="ACCOUNT MANAGEMENT">
+            <ArticleContentBlock>
+                {isLoading
+                    ? <CircularProgress />
+                    : <AccountSectionUserProfile data={userProfileData} /> }
+            </ArticleContentBlock>
+        </Article>
     );
 };
 

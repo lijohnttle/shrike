@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 const Article = ({ title, updatedOn, children }) => {
     const classes = useStyles();
 
-    const updateOnElement = null;
+    let updateOnElement = null;
 
     if (updatedOn) {
         updateOnElement = (

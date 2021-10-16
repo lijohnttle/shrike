@@ -3,20 +3,15 @@ import { makeStyles } from '@material-ui/core';
 import { animateScroll } from 'react-scroll';
 import WelcomeSection from './sections/welcome/WelcomeSection';
 import BooksLibrarySection from './sections/books/BooksLibrarySection';
-import { Footer } from '../common';
 import { smoothScrollOptions } from '../../utils/scrolling'
 import { asPage, withData } from '../core';
 
 const pageOptions = {
-    title: 'Home'
+    title: 'Home',
+    showHeader: false,
 };
 
 const useStyles = makeStyles(() => ({
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-    },
     welcomeSectionContainer: {
         position: "relative",
     },
@@ -37,7 +32,7 @@ const HomePage = ({ data }) => {
     }
 
     return (
-        <div className={classes.root}>
+        <div>
             <div className={classes.welcomeSectionContainer}>
                 <WelcomeSection
                     contacts={data.contacts}
@@ -46,8 +41,6 @@ const HomePage = ({ data }) => {
             </div>
 
             <BooksLibrarySection screenHeight={screenHeight} />
-
-            <Footer />
         </div>
     );
 }
