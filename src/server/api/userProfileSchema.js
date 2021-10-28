@@ -24,7 +24,7 @@ export const queryResolvers = {
             const userProfile = await getUserProfile();
 
             return {
-                goodReadsUserId: userProfile?.goodReadsUserId
+                goodReadsUserId: userProfile.goodReadsUserId
             };
         }
         catch (error) {
