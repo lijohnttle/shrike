@@ -1,4 +1,4 @@
-import { signIn, signOut } from '../services/authenticationService.js';
+import { openSession, closeSessioon } from '../domain/services/userSessionManager.js';
 
 export const typeDef = `
     extend type Mutation {
@@ -26,7 +26,7 @@ export const typeDef = `
 export const mutationResolvers = {
     signIn: (_, { credentials }) => {
         try {
-            return signIn(credentials.username, credentials.password);
+            return openSession(credentials.username, credentials.password);
         }
         catch (error) {
             console.error(error);
@@ -35,7 +35,7 @@ export const mutationResolvers = {
     },
     signOut: (_, { session }) => {
         try {
-            return signOut(session.username, session.token);            
+            return closeSessioon(session.username, session.token);            
         }
         catch (error) {
             console.error(error);

@@ -11,21 +11,34 @@ const establishConnection = async () => {
 
     console.log('Connecting to the DB...');
 
-    const client = await mongoose.connect(databaseUrl, { useNewUrlParser: true });
+    const client = await mongoose.connect(databaseUrl, {
+        useNewUrlParser: true
+    });
 
     console.log('Successfully connected');
 
     client.connection.on('error', err => { logError(err); });
     client.connection.on('close', () => { console.log('-> DB: lost connection'); });
     client.connection.on('reconnect', () => { console.log('-> DB: reconnected'); });
-
-    return client.connection;
+    
+    return client;
 }
 
-export const useDb = async () => {
+const connect = async () => {
     if (!_db) {
         _db = await establishConnection();
     }
 
-    return _db;
+    return _db.connection;
+};
+
+const disconnect = async () => {
+    if (_db) {
+        await _db.disconnect();
+    }
+};
+
+export default {
+    connect,
+    disconnect
 };

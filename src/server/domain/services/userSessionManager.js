@@ -1,9 +1,9 @@
-import { generateUuidv4 } from '../../utils/uuidGenerator.js';
-import UserSession from '../models/UserSession.js';
+import AuthenticationResult from '../entities/AuthenticationResult.js';
+import UserSession from '../entities/UserSession.js';
+import { generateUuidv4 } from '../../../utils/uuidGenerator.js';
 
 const SESSIN_DURATION_MIN = 60 * 24;
 const sessions = { };
-
 
 const ensureSessionBucket = (username) => {
     let sessionBucket = sessions[username];
@@ -40,7 +40,7 @@ const cleanUpSessionBucket = (username) => {
     return expiredSessionsCount;
 };
 
-export const cleanUpSessions = () => {
+const cleanUpSessions = () => {
     console.log(`Cleaning up expired user sessions...`);
 
     let expiredSessionsCount = 0;
@@ -57,13 +57,12 @@ export const cleanUpSessions = () => {
     }
 };
 
-
-export const verifyCredentials = (username, password) => {
+const verifyCredentials = (username, password) => {
     const expectedUserName = process.env.ADMIN_USERNAME;
     const expectedPassword = process.env.ADMIN_PASSWORD;
 
     if (!expectedUserName || !expectedPassword) {
-        throw new Error('Admin username or password are not set up');
+        throw new Error('Admin username or password have not been set up');
     }
 
     if (username !== expectedUserName || password !== expectedPassword) {
@@ -71,11 +70,11 @@ export const verifyCredentials = (username, password) => {
     }
 };
 
-export const generateToken = () => {
+const generateToken = () => {
     return generateUuidv4();
 };
 
-export const persistSession = (username, token) => {
+const persistSession = (username, token) => {
     console.log(`Preparing to persist user session...`);
 
     cleanUpSessions();
@@ -105,7 +104,7 @@ export const persistSession = (username, token) => {
     }
 };
 
-export const deleteSession = (username, token) => {
+const deleteSession = (username, token) => {
     console.log(`Preparing to delete session...`);
 
     cleanUpSessions();
@@ -141,4 +140,36 @@ export const deleteSession = (username, token) => {
     }
 
     return !!session;
+};
+
+
+const openSession = (username, password) => {
+    try {
+        verifyCredentials(username, password);
+
+        const token = generateToken();
+    
+        persistSession(username, token);
+    
+        return new AuthenticationResult({
+            username: username,
+            token: token,
+        });
+    }
+    catch (error) {
+        return new AuthenticationResult({
+            username: username,
+            message: error.message,
+        });
+    }
+};
+
+const closeSessioon = (username, token) => {
+    return deleteSession(username, token);
+};
+
+export {
+    openSession,
+    closeSessioon,
+    sessions
 };

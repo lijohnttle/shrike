@@ -12,7 +12,7 @@
     "build": "npm run build-dev",
     "start": "node ./src/server/index.js",
     "restart": "npm run build && npm start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --testEnvironment=node --runInBand ./tests"
   },
   "repository": {
     "type": "git",
@@ -58,9 +58,11 @@
     "@babel/node": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
+    "@types/jest": "^27.0.2",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-commonjs": "^1.1.6",
     "jest": "^27.3.1",
+    "mongodb-memory-server": "^7.5.1",
     "webpack": "^5.47.1",
     "webpack-cli": "^4.7.2"
   }

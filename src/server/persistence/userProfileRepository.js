@@ -31,6 +31,7 @@ export const get = async () => {
 
     if (!userProfile) {
         userProfile = await loadFromDb();
+        
         saveToCache(userProfile);
     }
     

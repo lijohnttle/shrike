@@ -1,6 +1,6 @@
 import { ObjectId } from 'bson';
 import { connectToDb } from '../services/mongoUtil.js';
-import BlogPost from '../models/BlogPost.js';
+import BlogPost from '../api/models/BlogPost.js';
 
 
 const convertDocumentToBlogPost = (document) => {
