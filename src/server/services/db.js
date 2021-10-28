@@ -1,6 +1,19 @@
 import mongoose from 'mongoose';
+import fs from 'fs';
 
 let _db = null;
+
+const saveCertificate = async () => {
+    if (await fs.existsSync('ca-certificate.crt')) {
+        fs.unlinkSync('ca-certificate.crt');
+    }
+
+    const certificate = process.env.DATABASE_CERT;
+
+    if (certificate) {
+        await fs.writeFileSync('ca-certificate.crt', certificate);
+    }
+};
 
 const establishConnection = async () => {
     const databaseUrl = process.env.DATABASE_URL;
@@ -11,8 +24,12 @@ const establishConnection = async () => {
 
     console.log('Connecting to the DB...');
 
+    const certificateFileName = await fs.existsSync('ca-certificate.crt') ? 'ca-certificate.crt' : null;
+
     const client = await mongoose.connect(databaseUrl, {
-        useNewUrlParser: true
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        tlsCAFile: certificateFileName
     });
 
     console.log('Successfully connected');
@@ -26,6 +43,8 @@ const establishConnection = async () => {
 
 const connect = async () => {
     if (!_db) {
+        await saveCertificate();
+
         _db = await establishConnection();
     }
 
