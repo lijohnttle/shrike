@@ -35,8 +35,6 @@ const register = (app, appContext) => {
 
     app.use('/proxy', proxyRouter);
 
-    appContext.allowCorsOrigin('https://www.goodreads.com/');
-
     console.log('Proxies are available at /proxy');
     console.log(`Registered ${getName()}`);
 };

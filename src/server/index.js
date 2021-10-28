@@ -14,32 +14,12 @@ async function main() {
         config({ path: process.cwd() + '/dev.env' });
     }
 
-    const allowedCorsOrigins = [];
     const app = express();
 
-    app.use(cors({
-        origin: (origin, callback) => {
-            if (!origin) {
-                return callback(null, true);
-            }
-
-            if (origin.endsWith(`localhost:${process.env.PORT}`)) {
-                return callback(null, true);
-            }
-
-            if (allowedCorsOrigins.indexOf(origin) === -1) {
-                return callback(
-                    new Error('The CORS policy for this site does not allow access from the specified Origin.'),
-                    false);
-            }
-            
-            return callback(null, true);
-        },
-    }));
+    app.use(cors());
 
     registerControllers(app, {
-        rootPath: process.cwd(),
-        allowCorsOrigin: (origin) => allowedCorsOrigins.push(origin)
+        rootPath: process.cwd()
     });
 
     await db.connect();
