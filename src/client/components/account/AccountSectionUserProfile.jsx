@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
+import { queryData } from "../../services/api.js";
 
 const UserProfileSection = ({ data }) => {
-    const [goodReadsUserId, setGoodReadsUserId] = useState(data.goodReadsUserId);
+    const [goodReadsUserId, setGoodReadsUserId] = useState(data?.goodReadsUserId || '');
 
-    const saveChanges = () => {
-        
+    const saveChanges = async () => {
+        await queryData(`
+            mutation {
+                saveUserProfile(userProfile: {
+                    goodReadsUserId: "${goodReadsUserId}"
+                })
+            }`
+        );
     };
 
     return (

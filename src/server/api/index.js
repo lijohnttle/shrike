@@ -1,11 +1,14 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
+
 import {
     typeDef as accountTypeDef,
     mutationResolvers as accountMutationResolvers
  } from './accountSchema.js';
+
  import {
     typeDef as userProfileTypeDef,
-    queryResolvers as userProfileQueryResolvers
+    queryResolvers as userProfileQueryResolvers,
+    mutationResolvers as userProfileMutationResolvers
  } from './userProfileSchema.js';
 
 const Query = `
@@ -32,6 +35,7 @@ const schema = makeExecutableSchema({
         },
         Mutation: {
             ...accountMutationResolvers,
+            ...userProfileMutationResolvers,
         },
      }
 });

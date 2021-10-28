@@ -4,6 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import { config } from 'dotenv';
 import { registerControllers } from './controllers/index.js';
+import { useDb } from './services/databaseUtil.js';
 
 const isDevelopment = !process.env.PORT;
 
@@ -40,6 +41,8 @@ async function main() {
         rootPath: process.cwd(),
         allowCorsOrigin: (origin) => allowedCorsOrigins.push(origin)
     });
+
+    await useDb();
 
     app.listen(process.env.PORT, () => {
         console.log(`Server is listening on port ${process.env.PORT}`);

@@ -25,6 +25,10 @@ const useStyles = makeStyles(theme => ({
 export default ({ books }) => {
     const classes = useStyles();
 
+    if (!books) {
+        return <React.Fragment></React.Fragment>
+    }
+
     return (
         <React.Fragment>
             {books.map(book => (
