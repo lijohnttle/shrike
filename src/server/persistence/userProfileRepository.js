@@ -1,4 +1,5 @@
 import UserProfile from './models/UserProfile.js';
+import { verifyToken } from '../domain/services/userSessionManager.js';
 
 let cache = {
     userProfile: null
@@ -43,7 +44,11 @@ export const get = async () => {
  * @param {UserProfile} changes User profile.
  * @returns {Promise<UserProfile>} User profile.
  */
-export const save = async (changes) => {
+export const save = async (changes, token) => {
+    if (!verifyToken(token)) {
+        throw new Error('Authrorization error');
+    }
+
     if (!changes) {
         return;
     }
@@ -55,7 +60,7 @@ export const save = async (changes) => {
 
     const updateResult = await UserProfile.updateOne(query, update, options);
 
-    if (updateResult.modifiedCount > 1 || updateResult.upsertedCount > 1) {
+    if (updateResult.modifiedCount > 0 || updateResult.upsertedCount > 0) {
         // Update cache
         const userProfile = await loadFromDb();
 

@@ -168,8 +168,23 @@ const closeSessioon = (username, token) => {
     return deleteSession(username, token);
 };
 
+const verifyToken = (token) => {
+    for (const username in sessions) {
+        const userSessions = sessions[username];
+
+        for (const session of userSessions) {
+            if (session.token === token) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 export {
     openSession,
     closeSessioon,
-    sessions
+    sessions,
+    verifyToken
 };

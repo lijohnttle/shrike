@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
+import cookieKeys from '../../cookieKeys.js';
 import { queryData } from "../../services/api.js";
 
 const UserProfileSection = ({ data }) => {
+    const [cookies] = useCookies([cookieKeys.AUTH_TOKEN]);
     const [goodReadsUserId, setGoodReadsUserId] = useState(data?.goodReadsUserId || '');
 
     const saveChanges = async () => {
+        const token = cookies[cookieKeys.AUTH_TOKEN];
+
         await queryData(`
             mutation {
                 saveUserProfile(userProfile: {
                     goodReadsUserId: "${goodReadsUserId}"
-                })
+                }, token: "${token}")
             }`
         );
     };

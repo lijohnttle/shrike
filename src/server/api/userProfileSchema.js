@@ -6,7 +6,7 @@ export const typeDef = `
     }
 
     extend type Mutation {
-        saveUserProfile(userProfile: UserProfileInput): Boolean
+        saveUserProfile(userProfile: UserProfileInput, token: String): Boolean
     }
 
     type UserProfile {
@@ -36,9 +36,9 @@ export const queryResolvers = {
 };
 
 export const mutationResolvers = {
-    saveUserProfile: async (_, { userProfile }) => {
+    saveUserProfile: async (_, { userProfile, token }) => {
         try {
-            await save(userProfile);
+            await save(userProfile, token);
 
             return true;
         }
