@@ -7,6 +7,13 @@ class UserSessionCleaner {
      * @param {number} cleanUpInterval Session clean-up interval.
      */
     constructor(sessionStorage, cleanUpInterval) {
+        if (!sessionStorage) {
+            throw new Error('Parameter \'sessionStorage\' is not specified.');
+        }
+        if (!cleanUpInterval) {
+            throw new Error('Parameter \'cleanUpInterval\' is not specified.');
+        }
+
         this._sessionStorage = sessionStorage;
         this._cleanUpInterval = cleanUpInterval;
         this._timer = null;

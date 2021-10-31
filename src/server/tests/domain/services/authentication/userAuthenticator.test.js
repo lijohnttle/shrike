@@ -1,8 +1,14 @@
-import { signIn, signOut, signOutEveryone, findSessions } from '../../../../domain/services/authentication/userAuthenticator.js';
+import { configure, signIn, signOut, signOutEveryone, findSessions } from '../../../../domain/services/authentication/userAuthenticator.js';
 
 const username = 'testUser';
 const password = 'testPassword';
 
+beforeAll(() => {
+    configure({
+        sessionLifetime: 60 * 1000,
+        sessionCleanUpInterval: 60 * 1000
+    });
+});
 beforeEach(() => {
     process.env.ADMIN_USERNAME = username;
     process.env.ADMIN_PASSWORD = password;

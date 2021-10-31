@@ -24,7 +24,11 @@ class UserSessionStorage {
      * @param {number} sessionLifetime Session lifetime in milliseconds.
      */
     constructor(sessionLifetime) {
-        this._sessionLifetime = sessionLifetime || 60 * 60 * 1000;
+        if (!sessionLifetime) {
+            throw new Error('Parameter \'sessionLifetime\' is not specified.');
+        }
+
+        this._sessionLifetime = sessionLifetime;
         this._sessionsByUsername = { }; // the key is a username, the value is an array of UserSession objects
         this._sessionByToken = { }; // the key is token
         this._eventListeners = { };

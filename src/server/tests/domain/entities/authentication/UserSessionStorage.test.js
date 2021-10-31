@@ -2,10 +2,12 @@ import { UserSession } from '../../../../domain/entities/authentication/UserSess
 import { UserSessionStorage, EventNames } from '../../../../domain/entities/authentication/UserSessionStorage';
 import { UserSessionStorageTokenCollissionError } from '../../../../domain/entities/authentication/UserSessionStorageTokenCollissionError';
 
+const sessionLifetime = 10 * 60 * 1000;
+
 describe('Store session', () => {
     describe('when there are no other sessions', () => {
         it('then should persist session', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session = new UserSession('user', 'user_token');
 
             sessionStorage.store(session);
@@ -21,7 +23,7 @@ describe('Store session', () => {
 
     describe('when there is a session of another user', () => {
         it('then should keep both sessions', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session1 = new UserSession('user1', 'user_token1');
             const session2 = new UserSession('user2', 'user_token2');
 
@@ -42,7 +44,7 @@ describe('Store session', () => {
 
     describe('when there is a session of another user with the same token', () => {
         it('then should throw an exception', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session1 = new UserSession('user1', 'user_token');
             const session2 = new UserSession('user2', 'user_token');
 
@@ -54,7 +56,7 @@ describe('Store session', () => {
 
     describe('when there is a session of the same user with the same token', () => {
         it('then should override existing session', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session1 = new UserSession('user', 'user_token');
             const session2 = new UserSession('user', 'user_token');
 
@@ -72,7 +74,7 @@ describe('Store session', () => {
 
     describe('when there is a session of the same user', () => {
         it('then should keep both sessions', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session1 = new UserSession('user', 'user_token1');
             const session2 = new UserSession('user', 'user_token2');
 
@@ -94,7 +96,7 @@ describe('Store session', () => {
 describe('Find session', () => {
     describe('when session exists', () => {
         it('then session should be found by token', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session = new UserSession('user', 'user_token');
             sessionStorage.store(session);
 
@@ -105,7 +107,7 @@ describe('Find session', () => {
         });
 
         it('then all sessions should be found by username', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session1 = new UserSession('user', 'user_token1');
             const session2 = new UserSession('user', 'user_token2');
             sessionStorage.store(session1);
@@ -124,7 +126,7 @@ describe('Find session', () => {
         });
 
         it('then expired session found by token should has flag isExpired set to true', () => {
-            const sessionStorage = new UserSessionStorage(10 * 60 * 1000);
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session = new UserSession('user', 'user_token');
             sessionStorage.store(session);
 
@@ -139,7 +141,7 @@ describe('Find session', () => {
         });
 
         it('then all expired sessions found by username should has flag isExpired set to true', () => {
-            const sessionStorage = new UserSessionStorage(10 * 60 * 1000);
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session1 = new UserSession('user', 'user_token1');
             const session2 = new UserSession('user', 'user_token2');
             sessionStorage.store(session1);
@@ -165,7 +167,7 @@ describe('Find session', () => {
 
     describe('when session does not exist', () => {
         it('then session should not be found by token', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
 
             const foundSession = sessionStorage.findByToken('user_token');
 
@@ -173,7 +175,7 @@ describe('Find session', () => {
         });
 
         it('then all sessions should be found by username', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
 
             const foundSessions = sessionStorage.findByUsername('user');
 
@@ -185,7 +187,7 @@ describe('Find session', () => {
 describe('Clear sessions', () => {
     describe('when there are sessions', () => {
         it('then should delete all sessions', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session1 = new UserSession('user', 'user_token1');
             const session2 = new UserSession('user', 'user_token2');
             sessionStorage.store(session1);
@@ -202,7 +204,7 @@ describe('Clear sessions', () => {
 describe('Delete session', () => {
     describe('when there is no session with specific token', () => {
         it('then nothing should happen', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session = new UserSession('user', 'user_token');
             sessionStorage.store(session);
 
@@ -215,7 +217,7 @@ describe('Delete session', () => {
 
     describe('when there is a session', () => {
         it('then should delete the session', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session = new UserSession('user', 'user_token');
             sessionStorage.store(session);
 
@@ -226,7 +228,7 @@ describe('Delete session', () => {
         });
 
         it('then should delete the session and keep sessions of other users', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session1 = new UserSession('user1', 'user_token1');
             const session2 = new UserSession('user2', 'user_token2');
             sessionStorage.store(session1);
@@ -243,7 +245,7 @@ describe('Delete session', () => {
         });
 
         it('then should delete the session and keep other sessions of the same user', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session1 = new UserSession('user', 'user_token1');
             const session2 = new UserSession('user', 'user_token2');
             sessionStorage.store(session1);
@@ -338,7 +340,7 @@ describe('Delete expired sessions', () => {
 describe('Check there are sessions', () => {
     describe('when there are no sessions', () => {
         it('should return false', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
 
             expect(sessionStorage.hasSessions()).toBe(false);
         });
@@ -346,7 +348,7 @@ describe('Check there are sessions', () => {
 
     describe('when there are sessions', () => {
         it('should return true', () => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session = new UserSession('user', 'user_token');
             sessionStorage.store(session);
 
@@ -358,7 +360,7 @@ describe('Check there are sessions', () => {
 describe('Add event listener', () => {
     describe('when session added', () => {
         it('then event handler should be called', (done) => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session = new UserSession('user', 'user_token');
 
             for (const eventName in EventNames) {
@@ -379,7 +381,7 @@ describe('Add event listener', () => {
 
     describe('when session deleted', () => {
         it('then event handler should be called', (done) => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session = new UserSession('user', 'user_token');
 
             sessionStorage.store(session);
@@ -404,7 +406,7 @@ describe('Add event listener', () => {
 describe('Remove event listener', () => {
     describe('when session added', () => {
         it('then event handler should not be called', (done) => {
-            const sessionStorage = new UserSessionStorage();
+            const sessionStorage = new UserSessionStorage(sessionLifetime);
             const session = new UserSession('user', 'user_token');
 
             const handler = () => {

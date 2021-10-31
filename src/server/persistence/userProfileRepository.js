@@ -1,5 +1,5 @@
 import { UserProfile } from './models/UserProfile.js';
-import { verifyToken } from '../domain/services/authentication/userAuthenticator.js';
+import { findSession } from '../domain/services/authentication/userAuthenticator.js';
 
 let cache = {
     userProfile: null
