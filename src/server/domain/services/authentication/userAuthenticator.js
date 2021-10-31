@@ -114,5 +114,5 @@ class UserAuthenticator {
 
 export {
     Options,
-    UserAuthenticator
+    UserAuthenticator,
 };

@@ -1,6 +1,4 @@
-import {
-    UserAuthenticator,
-    Options as UserAuthenticatorOptions } from './services/authentication/UserAuthenticator.js';
+import { UserAuthenticator, Options as UserAuthenticatorOptions } from './services/authentication/UserAuthenticator.js';
 import { UserProfileCachedRepository, UserProfileRepository } from './services/users/UserProfileRepository.js';
 
 
