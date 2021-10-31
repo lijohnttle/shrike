@@ -11,7 +11,7 @@ const AboutPage = ({ data }) => {
 
     return (
         <Page title="About">
-            <Article title="ABOUT ME" updatedOn="October 13, 2021">
+            <Article title="ABOUT ME" updatedOn="October 31, 2021">
                 <ArticleContentBlock className={classes.introductionBlock}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />
@@ -23,7 +23,7 @@ const AboutPage = ({ data }) => {
                         </Typography>
 
                         <Typography align="justify" gutterBottom paragraph>
-                            Since I was a kid, I have been passionate about software development. I remember the day I found Visual Basic code listings in one of my books that my dad bought me, and the curiosity I felt at that moment.
+                            Since I was a kid, I have been passionate about software development. It started when I first time saw Visual Basic code listings in one of the books my dad bought me when I was a kid, and I got very curious about it at that moment.
                         </Typography>
 
                         <Typography align="justify" gutterBottom paragraph>
@@ -31,7 +31,7 @@ const AboutPage = ({ data }) => {
                         </Typography>
 
                         <Typography align="justify" gutterBottom paragraph>
-                            I have experience of creating Windows desktop applications, web services and web API, web front-end. I worked with relational DBMS as well as with object-oriented DBMS. I performed migration of the monolithic on-premise web application to the cloud-based microservices. 
+                            I have experience of creating Windows desktop applications, web services and API, front-end. I worked with relational DBMS as well as with object-oriented DBMS. I performed migration of the monolithic on-premise web application to the cloud-based microservices. 
                         </Typography>
                     </div>
                 </ArticleContentBlock>
@@ -44,7 +44,7 @@ const AboutPage = ({ data }) => {
                     <ul>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>I am based in Wroclaw, Poland.</b> I moved here from Saint Petersburg, Russia in February, 2019.
+                                <b>I am based in Wroclaw, Poland.</b> I moved here from Saint Petersburg, Russia in February 2019.
                             </Typography>
                         </li>
                         <li>
@@ -54,12 +54,24 @@ const AboutPage = ({ data }) => {
                         </li>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Trading stocks</b> as an additional income stream.
+                                <b>Trading stocks and other securities</b> as an additional income stream.
                             </Typography>
                         </li>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Travelling.</b> I try to travel as much as I can, and Europe provides with a lot of interesting places to visit.
+                                <b>Travelling.</b> One of the best ways to broaden your mind, and Europe is rich with interesting places and
+                                different cultures to visit.
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography align="justify" gutterBottom paragraph>
+                                <b>Working out.</b> "Mens sana in corpore sano" ("A healthy mind in a healthy body").
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography align="justify" gutterBottom paragraph>
+                                <b>Personal development.</b> Trying to get rid of bad habits and to acquire good ones. Improving my time management.
+                                Having a list of daily goals and trying to achieve them.
                             </Typography>
                         </li>
                     </ul>
@@ -73,15 +85,22 @@ const AboutPage = ({ data }) => {
                     <ul>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Relocate to Canada or Australia.</b> One of my and my girlfriend's goals is to move to Canada or Australia,
-                                therefore I would be glad to consider job opportunities in these countries.
-                                You can check my LinkedIn <Link href={linkedin} target="_blank">profile</Link> or
+                                <b>Relocate to Canada or Australia.</b> For the last few years I've been looking for a country to settle down,
+                                and recently I fell in love with these two. My girlfriend and I are planning on starting family soon, and we
+                                hope that we will be able to move to one of them. Therefore, I would be glad to consider job opportunities in any
+                                of these countries. You can check my <Link href={linkedin} target="_blank">LinkedIn profile</Link> or
                                 my <Link href={data.cv} target="_blank">CV</Link>.
                             </Typography>
                         </li>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Visit my girlfriend in Australia.</b> Covid-19 negatevely affected lives of too many people. My girlfriend is currently living in Australia, and I am waiting when the borders will get open to visit her.
+                                <b>Visit Australia.</b> Covid-19 negatively affected lives of too many people. My girlfriend is
+                                currently living in Australia, but I can't visit her yet because of closed borders.
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography align="justify" gutterBottom paragraph>
+                                <b>Learn Polish.</b> In case I will stay in Europe.
                             </Typography>
                         </li>
                     </ul>
