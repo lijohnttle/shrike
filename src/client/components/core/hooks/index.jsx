@@ -1,5 +1,7 @@
-import usePrevious from './usePrevious';
+import { usePrevious } from './usePrevious';
+import { useGA } from './useGA';
 
 export {
-    usePrevious
+    usePrevious,
+    useGA
 };

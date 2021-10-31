@@ -1,9 +1,9 @@
-import asPage from './asPage';
+import { Page } from './Page';
 import withData from './withData';
-import withResettableNavigation from './withResettableNavigation';
+import { withResettableScroll } from './withResettableScroll';
 
 export {
-    asPage,
+    Page,
     withData,
-    withResettableNavigation,
+    withResettableScroll,
 };

@@ -5,42 +5,32 @@ import { defaultTheme } from './themes';
 import ReactGA from 'react-ga';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
-import SignInPage from './components/account/SignInPage';
+import { SignInPage } from './components/account/SignInPage';
 import AccountManagementPage from './components/account/AccountManagementPage';
-import { withResettableNavigation } from './components/core';
+import { withResettableScroll } from './components/core';
 import { CookieConsent } from './components/common';
+import { useGA } from './components/core/hooks';
 
 if (process.env.NODE_ENV === 'production') {
     ReactGA.initialize('UA-206773204-1');
 }
 
-class App extends React.Component {
-    render() {
-        return (
-            <MuiThemeProvider theme={defaultTheme}>
-                <CssBaseline />
-                <CookieConsent />
+const App = () => {
+    useGA();
 
-                <Switch>
-                    <Route path="/about">
-                        <AboutPage />
-                    </Route>
+    return (
+        <MuiThemeProvider theme={defaultTheme}>
+            <CssBaseline />
+            <CookieConsent />
 
-                    <Route path="/account/signin">
-                        <SignInPage />
-                    </Route>
-
-                    <Route path="/account/management">
-                        <AccountManagementPage />
-                    </Route>
-
-                    <Route path="/">
-                        <HomePage />
-                    </Route>
-                </Switch>
-            </MuiThemeProvider>
-        );
-    }
+            <Switch>
+                <Route path="/about" component={AboutPage} />
+                <Route path="/account/signin" component={SignInPage} />
+                <Route path="/account/management" component={AccountManagementPage} />
+                <Route path="/" component={HomePage} />
+            </Switch>
+        </MuiThemeProvider>
+    );
 }
 
-export default withResettableNavigation(App);
+export default withResettableScroll(App);

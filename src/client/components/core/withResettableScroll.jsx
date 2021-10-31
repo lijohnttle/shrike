@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { usePrevious } from "./hooks";
 
-const withResettableNavigation = (WrappedComponent) => {
+const withResettableScroll = (WrappedComponent) => {
     const ResettableNavigationContainer = (props) => {
         const {
             location: { pathname: currentPage }
@@ -21,4 +21,6 @@ const withResettableNavigation = (WrappedComponent) => {
     return withRouter(ResettableNavigationContainer);
 }
 
-export default withResettableNavigation;
+export {
+    withResettableScroll
+};

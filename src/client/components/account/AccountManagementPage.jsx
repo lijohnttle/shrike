@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { CircularProgress } from '@material-ui/core';
 import { Article, ArticleContentBlock } from '../common';
-import { asPage } from '../core';
+import { Page } from '../core';
 import { queryData } from '../../services/api';
 import AccountSectionUserProfile from './AccountSectionUserProfile';
 
-const pageOptions = {
-    title: 'Account Management'
-};
 
 const AccountManagementPage = () => {
     const [userProfileData, setUserProfileData] = useState(null);
@@ -31,14 +28,16 @@ const AccountManagementPage = () => {
     }, [])
 
     return (
-        <Article title="ACCOUNT MANAGEMENT">
-            <ArticleContentBlock>
-                {isLoading
-                    ? <CircularProgress />
-                    : <AccountSectionUserProfile data={userProfileData} /> }
-            </ArticleContentBlock>
-        </Article>
+        <Page title="Account Management">
+            <Article title="ACCOUNT MANAGEMENT">
+                <ArticleContentBlock>
+                    {isLoading
+                        ? <CircularProgress />
+                        : <AccountSectionUserProfile data={userProfileData} /> }
+                </ArticleContentBlock>
+            </Article>
+        </Page>
     );
 };
 
-export default asPage(AccountManagementPage, pageOptions);
+export default AccountManagementPage;

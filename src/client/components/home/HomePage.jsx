@@ -4,12 +4,8 @@ import { animateScroll } from 'react-scroll';
 import WelcomeSection from './sections/welcome/WelcomeSection';
 import BooksLibrarySection from './sections/books/BooksLibrarySection';
 import { smoothScrollOptions } from '../../utils/scrolling'
-import { asPage, withData } from '../core';
+import { Page, withData } from '../core';
 
-const pageOptions = {
-    title: 'Home',
-    showHeader: false,
-};
 
 const useStyles = makeStyles(() => ({
     welcomeSectionContainer: {
@@ -32,20 +28,21 @@ const HomePage = ({ data }) => {
     }
 
     return (
-        <div>
-            <div className={classes.welcomeSectionContainer}>
-                <WelcomeSection
-                    contacts={data.contacts}
-                    gotoNextSection={gotoBooksSection}
-                    screenHeight={screenHeight} />
-            </div>
+        <Page title="Home" hideHeader>
+            <div>
+                <div className={classes.welcomeSectionContainer}>
+                    <WelcomeSection
+                        contacts={data.contacts}
+                        gotoNextSection={gotoBooksSection}
+                        screenHeight={screenHeight} />
+                </div>
 
-            <BooksLibrarySection screenHeight={screenHeight} />
-        </div>
+                <BooksLibrarySection screenHeight={screenHeight} />
+            </div>
+        </Page>
     );
 }
 
 let ResultComponent = withData(HomePage);
-ResultComponent = asPage(ResultComponent, pageOptions);
 
 export default ResultComponent;
