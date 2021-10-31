@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import { useCookies } from 'react-cookie';
 import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
 import { Page } from '../core';
 import { signIn } from '../../api/accountApi.js';
-import cookieKeys from '../../cookieKeys.js';
 import { Redirect } from 'react-router';
+import { useUserSession } from '../core/hooks';
 import { useStyles } from './SignInPage.styles';
 
 
 const SignInPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [cookies, setCookie] = useCookies([cookieKeys.AUTH_USERNAME, cookieKeys.AUTH_TOKEN]);
+    const [getUserSession, setUserSession] = useUserSession();
     const classes = useStyles();
 
     const submitHandler = async (e) => {
@@ -24,8 +23,7 @@ const SignInPage = () => {
                 const username = data.username;
                 const token = data.token;
 
-                setCookie(cookieKeys.AUTH_USERNAME, username, { path: '/' });
-                setCookie(cookieKeys.AUTH_TOKEN, token, { path: '/' });
+                setUserSession(username, token);
             }
             else {
                 const errorMessage = data.message;
@@ -38,7 +36,7 @@ const SignInPage = () => {
         }
     };
 
-    if (cookies[cookieKeys.AUTH_USERNAME] && cookies[cookieKeys.AUTH_TOKEN]) {
+    if (getUserSession()) {
         return <Redirect to="/account/management" />;
     }
 

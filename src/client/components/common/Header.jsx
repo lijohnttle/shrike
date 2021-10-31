@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Drawer, isWidthUp, makeStyles, withWidth, IconButton, Container } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { useCookies } from 'react-cookie';
-import cookieKeys from '../../cookieKeys';
+import { useUserSession } from '../core/hooks';
 import { signOut } from '../../api/accountApi.js';
 
 const useStyles = makeStyles((theme) => ({
@@ -148,7 +147,7 @@ const navigationLinks = [
 
 const Header = ({ transparent, dark, light, width }) => {
     const [isMenuOpen, setIsMenuopen] = useState(false);
-    const [cookies, setCookie, removeCookie] = useCookies([cookieKeys.AUTH_USERNAME, cookieKeys.AUTH_TOKEN]);
+    const [getUserSession, _, removeUserSession] = useUserSession();
     const history = useHistory();
     const classes = useStyles({ transparent, light: light });
 
@@ -156,17 +155,12 @@ const Header = ({ transparent, dark, light, width }) => {
         e?.preventDefault();
 
         try {
-            const username = cookies[cookieKeys.AUTH_USERNAME]
-            const token = cookies[cookieKeys.AUTH_TOKEN];
+            const userSession = getUserSession();
 
-            if (username && token) {
-                await signOut(username, token);
+            if (userSession) {
+                await signOut(userSession.username, userSession.token);
 
-                try {
-                    removeCookie(cookieKeys.AUTH_USERNAME, { path: '/' });
-                    removeCookie(cookieKeys.AUTH_TOKEN, { path: '/' });
-                }
-                catch { }
+                removeUserSession();
 
                 history.push('/');
             }
@@ -183,7 +177,7 @@ const Header = ({ transparent, dark, light, width }) => {
             <ul className={classes.navigationMenu}>
                 {navigationLinks.map((link) => <li key={link.href}><Link to={link.href}>{link.title}</Link></li>)}
 
-                {cookies[cookieKeys.AUTH_USERNAME] && cookies[cookieKeys.AUTH_TOKEN]
+                {getUserSession()
                     ? <li>
                         <Link to="#" onClick={signOutClickHandler}>Sign Out</Link>
                     </li>
