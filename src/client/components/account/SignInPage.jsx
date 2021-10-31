@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { Button, FormControl, Input, InputLabel, makeStyles } from '@material-ui/core';
+import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
 import { Page } from '../core';
 import { signIn } from '../../api/accountApi.js';
 import cookieKeys from '../../cookieKeys.js';
@@ -44,6 +44,8 @@ const SignInPage = () => {
 
     return (
         <Page title="Sign In">
+            <div className={classes.topSpace}></div>
+
             <form className={classes.form} onSubmit={submitHandler}>
                 <FormControl>
                     <InputLabel htmlFor="username">Username</InputLabel>
@@ -55,8 +57,10 @@ const SignInPage = () => {
                     <Input id="password" aria-describedby="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
                 </FormControl>
 
-                <Button color="primary" onClick={submitHandler}>Sign In</Button>
+                <Button type="submit" color="primary" onClick={submitHandler}>Sign In</Button>
             </form>
+
+            <div className={classes.bottomSpace}></div>
         </Page>
     );
 };

@@ -8,15 +8,23 @@ const useStyles = makeStyles((theme) => ({
         alignSelf: 'center',
         width: '300px',
         marginTop: theme.spacing(8),
+        marginBottom: theme.spacing(8),
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
 
         [theme.breakpoints.down('xs')]: {
             alignSelf: 'stretch',
             width: 'unset',
-            marginTop: theme.spacing(4),
+            marginTop: theme.spacing(2),
+            marginBottom: theme.spacing(2),
         },
     },
+    topSpace: {
+        flexGrow: 1,
+    },
+    bottomSpace: {
+        flexGrow: 2,
+    }
 }));
 
 

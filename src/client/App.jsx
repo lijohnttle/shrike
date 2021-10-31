@@ -7,9 +7,8 @@ import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
 import { SignInPage } from './components/account/SignInPage';
 import AccountManagementPage from './components/account/AccountManagementPage';
-import { withResettableScroll } from './components/core';
 import { CookieConsent } from './components/common';
-import { useGA } from './components/core/hooks';
+import { useGA, usePageScroll } from './components/core/hooks';
 
 if (process.env.NODE_ENV === 'production') {
     ReactGA.initialize('UA-206773204-1');
@@ -17,6 +16,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const App = () => {
     useGA();
+    usePageScroll();
 
     return (
         <MuiThemeProvider theme={defaultTheme}>
@@ -33,4 +33,4 @@ const App = () => {
     );
 }
 
-export default withResettableScroll(App);
+export default App;

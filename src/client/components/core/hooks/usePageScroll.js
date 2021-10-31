@@ -1,23 +1,20 @@
 import { useEffect } from "react";
-import ReactGA from 'react-ga';
 import { useLocation } from 'react-router';
 import { usePrevious } from './usePrevious.js';
 
 
-const useGA = () => {
+const usePageScroll = () => {
     const currentPage = useLocation().pathname;
     const previousPage = usePrevious(currentPage);
 
     useEffect(() => {
         if (previousPage !== currentPage) {
-            if (process.env.NODE_ENV === 'production') {
-                ReactGA.pageview(currentPage);
-            }
+            window.scrollTo(0, 0);
         }
     }, [currentPage]);
 }
 
 
 export {
-    useGA
+    usePageScroll
 };

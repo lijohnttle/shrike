@@ -25,7 +25,9 @@ const Page = ({ title, hideHeader, hideFooter, children }) => {
         <div className={classes.root}>
             {hideHeader !== true ? <Header light /> : null}
 
-            {children}
+            <div className={classes.pageContent}>
+                {children}
+            </div>
 
             {hideFooter !== true ? <Footer /> : null}
         </div>

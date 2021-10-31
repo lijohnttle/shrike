@@ -1,39 +1,9 @@
 import React from 'react';
-import { Link, makeStyles, Typography } from '@material-ui/core';
+import { Link, Typography } from '@material-ui/core';
 import { Article, ArticleContentBlock, ContactLink, Footer, Header } from '../common';
 import { Page, withData } from '../core';
+import { useStyles } from './AboutPage.styles';
 
-
-const useStyles = makeStyles((theme) => ({
-    introductionBlock: {
-        background: 'lightslategray',
-        color: 'white',
-    },
-    pictureContainer: {
-        width: '50%',
-        float: 'right',
-        paddingLeft: theme.spacing(4),
-
-        [theme.breakpoints.down('sm')]: {
-            float: 'none',
-            paddingLeft: 0,
-            width: '100%',
-            paddingBottom: theme.spacing(2),
-        },
-    },
-    picture: {
-        width: '100%',
-    },
-    contactList: {
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'center',
-    },
-    contactIcon: {
-        width: 48,
-        height: 48,
-    },
-}));
 
 const AboutPage = ({ data }) => {
     const classes = useStyles();
