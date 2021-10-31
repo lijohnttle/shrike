@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Typography } from '@material-ui/core';
-import { Article, ArticleContentBlock, ContactLink, Footer, Header } from '../common';
+import { Article, ArticleContentBlock, ContactLink } from '../common';
 import { Page, withData } from '../core';
 import { useStyles } from './AboutPage.styles';
 
