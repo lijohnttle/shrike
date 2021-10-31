@@ -1,5 +1,5 @@
-import UserProfile from './models/UserProfile.js';
-import { verifyToken } from '../domain/services/userSessionManager.js';
+import { UserProfile } from './models/UserProfile.js';
+import { verifyToken } from '../domain/services/authentication/userAuthenticator.js';
 
 let cache = {
     userProfile: null
@@ -45,7 +45,7 @@ export const get = async () => {
  * @returns {Promise<UserProfile>} User profile.
  */
 export const save = async (changes, token) => {
-    if (!verifyToken(token)) {
+    if (!findSession(token)) {
         throw new Error('Authrorization error');
     }
 

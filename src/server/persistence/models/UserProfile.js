@@ -4,4 +4,8 @@ const userProfileSchema = new mongoose.Schema({
     goodReadsUserId: String
 });
 
-export default mongoose.model('UserProfile', userProfileSchema);
+const UserProfile = mongoose.model('UserProfile', userProfileSchema);
+
+export {
+    UserProfile
+};
