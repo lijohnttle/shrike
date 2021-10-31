@@ -241,6 +241,12 @@ class UserSessionStorage {
         }
     }
 
+    clearListeners() {
+        for (const eventName in EventNames) {
+            this._eventListeners[eventName] = [];
+        }
+    }
+
     /**
      * Calls event.
      * @param {string} eventName Event name.

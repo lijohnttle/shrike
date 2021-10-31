@@ -69,6 +69,9 @@ const signOut = (token) => {
     return sessionStorage.delete(token);
 };
 
+/**
+ * Closes all existing sessions.
+ */
 const signOutEveryone = () => {
     sessionStorage.clear();
 };
