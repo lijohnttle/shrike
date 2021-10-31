@@ -10,6 +10,7 @@ class UserSessionStorageTokenCollissionError extends Error {
     }
 }
 
+
 export {
     UserSessionStorageTokenCollissionError
 };

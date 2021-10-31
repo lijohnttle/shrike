@@ -1,6 +1,6 @@
 import express from 'express';
 import { fetchBooks } from '../services/goodReadsService.js';
-import { get as getUserProfile } from '../persistence/userProfileRepository.js';
+import { getUserProfileRepository } from '../domain/index.js';
 
 const getName = () => 'Proxy Controller';
 
@@ -17,7 +17,7 @@ const register = (app, appContext) => {
             const count = req.query.count;
 
             try {
-                const userProfile = await getUserProfile();
+                const userProfile = await getUserProfileRepository().find();
                 const userId = userProfile.goodReadsUserId;
 
                 const data = await fetchBooks(

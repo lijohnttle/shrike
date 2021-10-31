@@ -4,6 +4,7 @@ import { UserSessionStorage } from '../../entities/authentication/UserSessionSto
 import { UserSessionCleaner } from '../../entities/authentication/UserSessionCleaner.js';
 import { generateUuidv4 } from '../../../../utils/uuidGenerator.js';
 
+
 const DEFAULT_SESSION_LIFETIME = 24 * 60 * 60 * 1000;    // 1 day
 const DEFAULT_SESSION_CLEANUP_INTERVAL = 60 * 60 * 1000; // 1 hour
 
@@ -106,11 +107,10 @@ class UserAuthenticator {
      * @returns {UserSession}
      */
     findSession(token) {
-        verifyConfiguration();
-
-        return sessionStorage.findByToken(token);
+        return this.sessionStorage.findByToken(token);
     };
 }
+
 
 export {
     Options,

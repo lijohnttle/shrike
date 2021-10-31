@@ -1,6 +1,7 @@
 import { UserSession } from './UserSession.js';
 import { UserSessionStorageTokenCollissionError } from './UserSessionStorageTokenCollissionError.js';
 
+
 /**
  * Throws UserSessionStorageTokenCollissionError error if there is another session of another user with the same token.
  * @param {UserSessionStorage} storage 
@@ -268,6 +269,7 @@ class UserSessionStorage {
         }
     }
 }
+
 
 export {
     UserSessionStorage,

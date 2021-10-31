@@ -1,4 +1,4 @@
-export default class BlogPost {
+class BlogPost {
     constructor({ id, title, description, content, createdOn, updatedOn, publishedOn }) {
         this.id = id;
         this.title = title;
@@ -8,4 +8,9 @@ export default class BlogPost {
         this.updatedOn = updatedOn;
         this.publishedOn = publishedOn;
     }
+};
+
+
+export {
+    BlogPost
 };

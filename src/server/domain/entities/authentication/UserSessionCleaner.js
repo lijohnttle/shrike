@@ -1,5 +1,6 @@
 import { UserSessionStorage, EventNames } from './UserSessionStorage.js';
 
+
 class UserSessionCleaner {
     /**
      * 
@@ -70,7 +71,8 @@ class UserSessionCleaner {
     _cleanUp() {
         this._sessionStorage.deleteExpired();
     }
-}
+};
+
 
 export {
     UserSessionCleaner
