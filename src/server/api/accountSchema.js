@@ -1,4 +1,4 @@
-import { signIn, signOut } from '../domain/services/authentication/userAuthenticator.js';
+import { getUserAuthenticator } from '../domain/index.js';
 
 export const typeDef = `
     extend type Mutation {
@@ -26,7 +26,7 @@ export const typeDef = `
 export const mutationResolvers = {
     signIn: (_, { credentials }) => {
         try {
-            return signIn(credentials.username, credentials.password);
+            return getUserAuthenticator().signIn(credentials.username, credentials.password);
         }
         catch (error) {
             console.error(error);
@@ -35,7 +35,7 @@ export const mutationResolvers = {
     },
     signOut: (_, { session }) => {
         try {
-            return signOut(session.token);            
+            return getUserAuthenticator().signOut(session.token);            
         }
         catch (error) {
             console.error(error);

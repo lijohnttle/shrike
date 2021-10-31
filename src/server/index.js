@@ -4,7 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import { config } from 'dotenv';
 import { registerControllers } from './controllers/index.js';
-import { configure as configureDomain } from './domain/configure.js';
+import { configure as configureDomain } from './domain/index.js';
 import db from './services/db.js';
 
 const isDevelopment = !process.env.PORT;

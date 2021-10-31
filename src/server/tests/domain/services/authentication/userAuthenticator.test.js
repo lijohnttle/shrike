@@ -1,14 +1,14 @@
-import { configure, signIn, signOut, signOutEveryone, findSessions } from '../../../../domain/services/authentication/userAuthenticator.js';
+import { UserAuthenticator } from '../../../../domain/services/authentication/UserAuthenticator.js';
 
 const username = 'testUser';
 const password = 'testPassword';
 
-beforeAll(() => {
-    configure({
-        sessionLifetime: 60 * 1000,
-        sessionCleanUpInterval: 60 * 1000
-    });
+/** @type {UserAuthenticator} */
+let userAuthenticator = new UserAuthenticator({
+    sessionLifetime: 60 * 1000,
+    sessionCleanUpInterval: 60 * 1000
 });
+
 beforeEach(() => {
     process.env.ADMIN_USERNAME = username;
     process.env.ADMIN_PASSWORD = password;
@@ -30,7 +30,7 @@ describe('Sign in', () => {
                 'username': username
             };
 
-            const actual = signIn(username, password);
+            const actual = userAuthenticator.signIn(username, password);
 
             expect(actual).toMatchObject(expected);
         });
@@ -45,7 +45,7 @@ describe('Sign in', () => {
                 'username': username
             };
 
-            const actual = signIn(username, password);
+            const actual = userAuthenticator.signIn(username, password);
 
             expect(actual).toMatchObject(expected);
         });
@@ -59,7 +59,7 @@ describe('Sign in', () => {
                 'username': wrongUsername
             };
 
-            const actual = signIn(wrongUsername, password);
+            const actual = userAuthenticator.signIn(wrongUsername, password);
 
             expect(actual).toMatchObject(expected);
         });
@@ -73,7 +73,7 @@ describe('Sign in', () => {
                 'username': username
             };
 
-            const actual = signIn(username, wrongPassword);
+            const actual = userAuthenticator.signIn(username, wrongPassword);
 
             expect(actual).toMatchObject(expected);
         });
@@ -86,8 +86,8 @@ describe('Sign in', () => {
                 'username': username
             };
 
-            const actual = signIn(username, password);
-            const currentUserSessions = findSessions(username);
+            const actual = userAuthenticator.signIn(username, password);
+            const currentUserSessions = userAuthenticator.findSessions(username);
 
             expect(actual).toEqual(expect.objectContaining(expected));
             expect(actual.token.length).not.toEqual(0);
@@ -106,11 +106,11 @@ describe('Sign in', () => {
 describe('Sign out', () => {
     describe('when token has been found', () => {
         it('then session should be removed', () => {
-            const authenticationResult = signIn(username, password);
+            const authenticationResult = userAuthenticator.signIn(username, password);
 
             expect(authenticationResult.token.length).not.toEqual(0);
 
-            const signedOut = signOut(authenticationResult.token);
+            const signedOut = userAuthenticator.signOut(authenticationResult.token);
 
             expect(signedOut).toBe(true);
         });
@@ -118,7 +118,7 @@ describe('Sign out', () => {
 
     describe('when token has not been found', () => {
         it('then nothing should happen', () => {
-            const signedOut = signOut('user_token');
+            const signedOut = userAuthenticator.signOut('user_token');
 
             expect(signedOut).toBe(false);
         });
@@ -128,13 +128,13 @@ describe('Sign out', () => {
 describe('Sign out everyone', () => {
     describe('when token has been found', () => {
         it('then session should be removed', () => {
-            const authenticationResult = signIn(username, password);
+            const authenticationResult = userAuthenticator.signIn(username, password);
 
             expect(authenticationResult.token.length).not.toEqual(0);
 
-            signOutEveryone();
+            userAuthenticator.signOutEveryone();
 
-            const foundSessions = findSessions(username);
+            const foundSessions = userAuthenticator.findSessions(username);
 
             expect(foundSessions.length).toBe(0);
         });

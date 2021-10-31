@@ -1,4 +1,4 @@
-import AuthenticationResult from '../../entities/AuthenticationResult.js';
+import { AuthenticationResult } from '../../entities/authentication/AuthenticationResult.js';
 import { UserSession } from '../../entities/authentication/UserSession.js';
 import { UserSessionStorage } from '../../entities/authentication/UserSessionStorage.js';
 import { UserSessionCleaner } from '../../entities/authentication/UserSessionCleaner.js';
@@ -7,17 +7,6 @@ import { generateUuidv4 } from '../../../../utils/uuidGenerator.js';
 const DEFAULT_SESSION_LIFETIME = 24 * 60 * 60 * 1000;    // 1 day
 const DEFAULT_SESSION_CLEANUP_INTERVAL = 60 * 60 * 1000; // 1 hour
 
-/** @type {UserSessionStorage} */
-let sessionStorage;
-/** @type {UserSessionCleaner} */
-let sessionCleaner;
-
-
-const verifyConfiguration = () => {
-    if (!sessionStorage) {
-        throw new Error('Service has not been configured.');
-    }
-};
 
 const verifyCredentials = (username, password) => {
     const expectedUserName = process.env.ADMIN_USERNAME;
@@ -44,98 +33,86 @@ class Options {
     }
 };
 
-/**
- * @param {Options} options Configuration options.
- */
-const configure = (options) => {
-    if (sessionStorage) {
-        throw new Error('Service has already been configured.');
+class UserAuthenticator {
+    /**
+     * @param {Options} options Configuration options.
+     */
+    constructor(options) {
+        /** @type {UserSessionStorage} */
+        this.sessionStorage = new UserSessionStorage(options.sessionLifetime ?? DEFAULT_SESSION_LIFETIME);;
+        /** @type {UserSessionCleaner} */
+        this.sessionCleaner = new UserSessionCleaner(this.sessionStorage, options.sessionCleanUpInterval ?? DEFAULT_SESSION_CLEANUP_INTERVAL);
+
+        this.sessionCleaner.start();
     }
 
-    sessionStorage = new UserSessionStorage(options.sessionLifetime ?? DEFAULT_SESSION_LIFETIME);
-    sessionCleaner = new UserSessionCleaner(sessionStorage, options.sessionCleanUpInterval ?? DEFAULT_SESSION_CLEANUP_INTERVAL);
+    /**
+     * Opens a new session or renews an existing one.
+     * @param {string} username Username.
+     * @param {string} password Password.
+     * @returns {AuthenticationResult}
+     */
+    signIn(username, password) {
+        try {
+            verifyCredentials(username, password);
 
-    sessionCleaner.start();
-};
+            const token = generateToken();
 
-/**
- * Opens a new session or renews an existing one.
- * @param {string} username Username.
- * @param {string} password Password.
- * @returns {AuthenticationResult}
- */
-const signIn = (username, password) => {
-    try {
-        verifyConfiguration();
-        verifyCredentials(username, password);
+            const userSession = new UserSession(username, token);
 
-        const token = generateToken();
+            this.sessionStorage.store(userSession);
+        
+            return new AuthenticationResult({
+                username: username,
+                token: token,
+            });
+        }
+        catch (error) {
+            return new AuthenticationResult({
+                username: username,
+                message: error.message,
+            });
+        }
+    };
 
-        const userSession = new UserSession(username, token);
+    /**
+     * Closes existing session.
+     * @param {string} token Access token.
+     * @returns {boolean}
+     */
+    signOut(token) {
+        return this.sessionStorage.delete(token);
+    };
 
-        sessionStorage.store(userSession);
+    /**
+     * Closes all existing sessions.
+     */
+    signOutEveryone() {
+        this.sessionStorage.clear();
+    };
+
+    /**
+     * Returns all user sessions.
+     * @param {*} username Username.
+     * @returns {Array<UserSession>} User sessions.
+     */
+    findSessions(username) {
+        return this.sessionStorage.findByUsername(username);
+    };
     
-        return new AuthenticationResult({
-            username: username,
-            token: token,
-        });
-    }
-    catch (error) {
-        return new AuthenticationResult({
-            username: username,
-            message: error.message,
-        });
-    }
-};
+    /**
+     * Returns a user session by token.
+     * @param {string} token Access token.
+     * @returns {UserSession}
+     */
+    findSession(token) {
+        verifyConfiguration();
 
-/**
- * Closes existing session.
- * @param {string} token Access token.
- * @returns {boolean}
- */
-const signOut = (token) => {
-    verifyConfiguration();
-
-    return sessionStorage.delete(token);
-};
-
-/**
- * Closes all existing sessions.
- */
-const signOutEveryone = () => {
-    verifyConfiguration();
-
-    sessionStorage.clear();
-};
-
-/**
- * Returns all user sessions.
- * @param {*} username Username.
- * @returns {Array<UserSession>} User sessions.
- */
-const findSessions = (username) => {
-    verifyConfiguration();
-
-    return sessionStorage.findByUsername(username);
-};
-
-/**
- * Returns a user session by token.
- * @param {string} token Access token.
- * @returns {UserSession}
- */
-const findSession = (token) => {
-    verifyConfiguration();
-
-    return sessionStorage.findByToken(token);
-};
+        return sessionStorage.findByToken(token);
+    };
+}
 
 export {
-    configure,
     Options,
-    signIn,
-    signOut,
-    signOutEveryone,
-    findSessions,
-    findSession
+    UserAuthenticator
 };
