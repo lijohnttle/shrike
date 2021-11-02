@@ -11,7 +11,7 @@ const AboutPage = ({ data }) => {
 
     return (
         <Page title="About">
-            <Article title="ABOUT ME" updatedOn="October 31, 2021">
+            <Article title="ABOUT ME" updatedOn="November 02, 2021">
                 <ArticleContentBlock className={classes.introductionBlock}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />
@@ -94,13 +94,7 @@ const AboutPage = ({ data }) => {
                         </li>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Visit Australia.</b> Covid-19 negatively affected lives of too many people. My girlfriend is
-                                currently living in Australia, but I can't visit her yet because of closed borders.
-                            </Typography>
-                        </li>
-                        <li>
-                            <Typography align="justify" gutterBottom paragraph>
-                                <b>Learn Polish.</b> In case I will stay in Europe.
+                                <b>Learn Polish.</b>
                             </Typography>
                         </li>
                     </ul>
