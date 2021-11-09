@@ -11,7 +11,7 @@ const AboutPage = ({ data }) => {
 
     return (
         <Page title="About">
-            <Article title="ABOUT ME" updatedOn="November 02, 2021">
+            <Article title="ABOUT ME" updatedOn="November 09, 2021">
                 <ArticleContentBlock className={classes.introductionBlock}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />
@@ -54,7 +54,7 @@ const AboutPage = ({ data }) => {
                         </li>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Trading stocks and other securities</b> as an additional income stream.
+                                <b>Investing and trading securities.</b>
                             </Typography>
                         </li>
                         <li>
