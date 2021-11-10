@@ -56,7 +56,7 @@ class UserVisitCounter {
     
         if (!aggregatedVisit) {
             aggregatedVisit = new UserVisit({
-                path: '',
+                path: '/*',
                 count: 0,
                 locations: null,
                 aggregated: true
@@ -66,17 +66,22 @@ class UserVisitCounter {
         aggregatedVisit.date = new Date(tillYear, tillMonth - 1);
     
         const visitsToAggregateFilter = {
-            aggregated: false,
+            $or:[
+                { aggregated: false },
+                { aggregated: { $exists: false } }
+            ],            
             date: {
-                $lt: new Date(tillYear, tillMonth)
+                $lte: new Date(tillYear, tillMonth)
             }
         };
-    
+
         for await (const userVisit of UserVisit.find(visitsToAggregateFilter).cursor()) {
             aggregatedVisit.count += userVisit.count;
         }
     
-        UserVisit.deleteMany(visitsToAggregateFilter);
+        await UserVisit.deleteMany(visitsToAggregateFilter).exec();
+
+        await aggregatedVisit.save();
     }
 }
 
