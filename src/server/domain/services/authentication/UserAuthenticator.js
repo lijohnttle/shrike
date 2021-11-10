@@ -32,7 +32,7 @@ class Options {
         this.sessionLifetime = null;
         this.sessionCleanUpInterval = null;
     }
-};
+}
 
 class UserAuthenticator {
     /**
