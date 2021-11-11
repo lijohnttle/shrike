@@ -1,4 +1,4 @@
-import { UserProfile } from '../../../data/models/UserProfile.js';
+import { UserProfile } from '../../../data/models/users/UserProfile.js';
 import { getUserAuthenticator } from '../../index.js';
 
 
@@ -8,7 +8,7 @@ class UserProfileRepository {
      * @returns {Promise<UserProfile>} User profile.
      */
     async find() {
-        return await UserProfile.findOne() || new UserProfile({ goodReadsUserId: '82436176' });
+        return await UserProfile.findOne().exec() || new UserProfile({ goodReadsUserId: '82436176' });
     }
 
     /**
@@ -30,10 +30,10 @@ class UserProfileRepository {
         const update = { $set: changes };
         const options = { upsert: true };
     
-        const updateResult = await UserProfile.updateOne(query, update, options);
+        const updateResult = await UserProfile.updateOne(query, update, options).exec();
     
         if (updateResult.modifiedCount > 0 || updateResult.upsertedCount > 0) {
-            return await this.find();
+            return await this.find().exec();
         }
 
         return null;

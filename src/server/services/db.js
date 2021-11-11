@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import fs from 'fs';
 
+/** @type {mongoose.Mongoose} */
 let _db = null;
 
 const saveCertificate = async () => {
@@ -41,6 +42,9 @@ const establishConnection = async () => {
     return client;
 }
 
+/**
+ * @returns {Promise<mongoose.Connection>}
+ */
 const connect = async () => {
     if (!_db) {
         await saveCertificate();
@@ -54,6 +58,8 @@ const connect = async () => {
 const disconnect = async () => {
     if (_db) {
         await _db.disconnect();
+
+        _db = null;
     }
 };
 

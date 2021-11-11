@@ -1,6 +1,6 @@
-import { UserSession } from '../../../../domain/entities/authentication/UserSession.js';
-import { UserSessionCleaner } from '../../../../domain/entities/authentication/UserSessionCleaner.js';
-import { UserSessionStorage, EventNames } from '../../../../domain/entities/authentication/UserSessionStorage.js';
+import { UserSession } from '../../../../../../src/server/domain/entities/authentication/UserSession.js';
+import { UserSessionCleaner } from '../../../../../../src/server/domain/entities/authentication/UserSessionCleaner.js';
+import { UserSessionStorage, EventNames } from '../../../../../../src/server/domain/entities/authentication/UserSessionStorage.js';
 
 describe('Clean up', () => {
     describe('when cleaner has been started', () => {

@@ -1,10 +1,10 @@
-import { UserAuthenticator } from '../../../../domain/services/authentication/UserAuthenticator.js';
+import { UserAuthenticator } from '../../../../../../src/server/domain/services/authentication/UserAuthenticator.js';
 
 const username = 'testUser';
 const password = 'testPassword';
 
 /** @type {UserAuthenticator} */
-let userAuthenticator = new UserAuthenticator({
+const userAuthenticator = new UserAuthenticator({
     sessionLifetime: 60 * 1000,
     sessionCleanUpInterval: 60 * 1000
 });
@@ -19,7 +19,7 @@ describe('Sign in', () => {
     const wrongUsername = 'testUser1';
     const wrongPassword = 'testPassword1';
 
-    describe('when there are no admin credentials configured ', () => {
+    describe('when there are no admin credentials configured', () => {
         it('then result should contain error message', async () => {
             delete process.env.ADMIN_USERNAME;
             delete process.env.ADMIN_PASSWORD;

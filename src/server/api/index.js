@@ -5,11 +5,18 @@ import {
     mutationResolvers as accountMutationResolvers
  } from './accountSchema.js';
 
- import {
+import {
     typeDef as userProfileTypeDef,
     queryResolvers as userProfileQueryResolvers,
     mutationResolvers as userProfileMutationResolvers
- } from './userProfileSchema.js';
+} from './userProfileSchema.js';
+
+import {
+    typeDef as diagnosticsSchemaTypeDef,
+    queryResolvers as diagnosticsSchemaQueryResolvers,
+    mutationResolvers as diagnosticsSchemaMutationResolvers
+} from './diagnosticsSchema.js';
+
 
 const Query = `
     type Query {
@@ -27,17 +34,21 @@ const schema = makeExecutableSchema({
         Mutation,
         accountTypeDef,
         userProfileTypeDef,
+        diagnosticsSchemaTypeDef,
     ],
     resolvers: {
         Query: {
             getVersion: () => "v1",
             ...userProfileQueryResolvers,
+            ...diagnosticsSchemaQueryResolvers,
         },
         Mutation: {
             ...accountMutationResolvers,
             ...userProfileMutationResolvers,
+            ...diagnosticsSchemaMutationResolvers,
         },
      }
 });
+
 
 export { schema };

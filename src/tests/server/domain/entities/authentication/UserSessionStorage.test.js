@@ -1,6 +1,6 @@
-import { UserSession } from '../../../../domain/entities/authentication/UserSession.js';
-import { UserSessionStorage, EventNames } from '../../../../domain/entities/authentication/UserSessionStorage.js';
-import { UserSessionStorageTokenCollissionError } from '../../../../domain/entities/authentication/UserSessionStorageTokenCollissionError.js';
+import { UserSession } from '../../../../../../src/server/domain/entities/authentication/UserSession.js';
+import { UserSessionStorage, EventNames } from '../../../../../../src/server/domain/entities/authentication/UserSessionStorage.js';
+import { UserSessionStorageTokenCollissionError } from '../../../../../../src/server/domain/entities/authentication/UserSessionStorageTokenCollissionError.js';
 
 const sessionLifetime = 10 * 60 * 1000;
 

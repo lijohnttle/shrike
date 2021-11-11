@@ -3,7 +3,8 @@ import { CircularProgress } from '@material-ui/core';
 import { Article, ArticleContentBlock } from '../common';
 import { Page } from '../core';
 import { queryData } from '../../services/api';
-import AccountSectionUserProfile from './AccountSectionUserProfile';
+import { AccountSectionUserProfile } from './AccountSectionUserProfile';
+import { AccountSectionDiagnostics } from './AccountSectionDiagnostics';
 
 
 const AccountManagementPage = () => {
@@ -34,6 +35,10 @@ const AccountManagementPage = () => {
                     {isLoading
                         ? <CircularProgress />
                         : <AccountSectionUserProfile data={userProfileData} /> }
+                </ArticleContentBlock>
+
+                <ArticleContentBlock>
+                    <AccountSectionDiagnostics />
                 </ArticleContentBlock>
             </Article>
         </Page>
