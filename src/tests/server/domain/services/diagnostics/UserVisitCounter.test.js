@@ -244,3 +244,75 @@ describe('Aggregate visits', () => {
         });
     });
 });
+
+describe('Get records', () => {
+    describe('when there are multiple uesr visits', () => {
+        it('then multiple user visits are returned', async () => {
+
+            const userVisitCounter = new UserVisitCounter({
+                dayVisitCountLimit: 5
+            });
+
+            const expected = [
+                {
+                    path: '/about',
+                    count: 1,
+                    locations: [
+                        {
+                            country: 'country1',
+                            city: 'city1'
+                        }
+                    ],
+                },
+                {
+                    path: '/',
+                    count: 1,
+                    locations: [
+                        {
+                            country: 'country1',
+                            city: 'city1'
+                        }
+                    ],
+                },
+            ];
+            
+            await userVisitCounter.recordVisit('/', 'country1', 'city1');
+            await userVisitCounter.recordVisit('/about', 'country1', 'city1');
+
+            const actual = await userVisitCounter.getVisits(2);
+
+            console.log(actual);
+
+            expect(actual).toMatchObject(expected);
+        });
+
+        it('then N last uesr visits are returned', async () => {
+
+            const userVisitCounter = new UserVisitCounter({
+                dayVisitCountLimit: 5
+            });
+
+            const expected = [
+                {
+                    path: '/about',
+                    count: 1,
+                    locations: [
+                        {
+                            country: 'country1',
+                            city: 'city1'
+                        }
+                    ],
+                },
+            ];
+            
+            await userVisitCounter.recordVisit('/', 'country1', 'city1');
+            await userVisitCounter.recordVisit('/about', 'country1', 'city1');
+
+            const actual = await userVisitCounter.getVisits(1);
+
+            console.log(actual);
+
+            expect(actual).toMatchObject(expected);
+        });
+    });
+});

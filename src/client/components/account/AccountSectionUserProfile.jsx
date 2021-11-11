@@ -3,7 +3,7 @@ import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
 import { queryData } from "../../services/api.js";
 import { useUserSession } from '../core/hooks';
 
-const UserProfileSection = ({ data }) => {
+const AccountSectionUserProfile = ({ data }) => {
     const [getUserSession] = useUserSession();
     const [goodReadsUserId, setGoodReadsUserId] = useState(data?.goodReadsUserId || '');
 
@@ -35,4 +35,6 @@ const UserProfileSection = ({ data }) => {
     );
 };
 
-export default UserProfileSection;
+export {
+    AccountSectionUserProfile
+};

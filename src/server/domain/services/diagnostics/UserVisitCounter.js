@@ -41,6 +41,32 @@ class UserVisitCounter {
     }
 
     /**
+     * Gets last visits. 
+     * @param {Number} numVisits 
+     */
+    async getVisits(numVisits) {
+        const filter = {
+            $or:[
+                { aggregated: false },
+                { aggregated: { $exists: false } }
+            ],
+        };
+
+        const visits = await UserVisit.find(filter).sort({ date: -1 }).limit(Math.min(numVisits, 1000)).exec();
+        const aggregatedVisit = await UserVisit.findOne({ aggregated: true }).exec();
+
+        const result = [];
+
+        if (aggregatedVisit) {
+            result.push(aggregatedVisit);
+        }
+
+        result.push(...visits);
+
+        return result;
+    }
+
+    /**
      * Saves a user's visit.
      * @param {String} path 
      * @param {String} country 
@@ -95,7 +121,7 @@ class UserVisitCounter {
                     $or:[
                         { aggregated: false },
                         { aggregated: { $exists: false } }
-                    ],            
+                    ],
                     date: {
                         $lte: new Date(Date.UTC(tillYear, tillMonth))
                     }

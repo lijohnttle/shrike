@@ -13,6 +13,7 @@ import {
 
 import {
     typeDef as diagnosticsSchemaTypeDef,
+    queryResolvers as diagnosticsSchemaQueryResolvers,
     mutationResolvers as diagnosticsSchemaMutationResolvers
 } from './diagnosticsSchema.js';
 
@@ -39,6 +40,7 @@ const schema = makeExecutableSchema({
         Query: {
             getVersion: () => "v1",
             ...userProfileQueryResolvers,
+            ...diagnosticsSchemaQueryResolvers,
         },
         Mutation: {
             ...accountMutationResolvers,

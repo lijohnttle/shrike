@@ -21,8 +21,8 @@ async function recordUserVisit(path, consentAccepted) {
                 city = locationResponse.data.city;
             }
         }
-        catch (error) {
-            console.error(error);
+        catch {
+            
         }
     }
 
