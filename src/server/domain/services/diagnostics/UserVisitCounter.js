@@ -53,11 +53,15 @@ class UserVisitCounter {
         if (todayVisitCount < this._dayVisitCountLimit) {
             const userVisit = new UserVisit({
                 path: path,
-                locations: [
-                    { country, city }
-                ],
+                locations: null,
                 date: date || new Date()
             });
+
+            if (country || city) {
+                userVisit.locations = [
+                    { country, city }
+                ];
+            }
             
             await userVisit.save();
         }

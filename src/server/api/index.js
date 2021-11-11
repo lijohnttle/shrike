@@ -33,6 +33,7 @@ const schema = makeExecutableSchema({
         Mutation,
         accountTypeDef,
         userProfileTypeDef,
+        diagnosticsSchemaTypeDef,
     ],
     resolvers: {
         Query: {

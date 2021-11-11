@@ -152,6 +152,27 @@ describe('Record visits', () => {
             expect(actual).toMatchObject(expected);
         });
     });
+
+    describe('when user visits a page without providing location', () => {
+        it('then visit should be persisted without location information', async () => {
+
+            const userVisitCounter = new UserVisitCounter({
+                dayVisitCountLimit: 5
+            });
+
+            const expected = {
+                path: '/',
+                count: 1,
+                locations: null,
+            };
+            
+            await userVisitCounter.recordVisit('/', '', '');
+
+            const actual = await UserVisit.findOne().exec();
+
+            expect(actual).toMatchObject(expected);
+        });
+    });
 });
 
 describe('Aggregate visits', () => {
