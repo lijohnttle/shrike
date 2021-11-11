@@ -9,8 +9,6 @@ class Options {
     constructor() {
         /** @type {Number} */
         this.dayVisitCountLimit = null;
-        /** @type {Number} */
-        this.numberOfMonthsBeforeAggregation = null;
     }
 }
 
@@ -21,7 +19,7 @@ class UserVisitCounter {
     constructor(options) {
         /** @type {Number} */
         this._dayVisitCountLimit = options.dayVisitCountLimit ?? DEFAULT_DAY_VISIT_COUNT_LIMIT;
-        this._scheduler = new UserVisitAggreationScheduler(this);
+        this._scheduler = new UserVisitAggreationScheduler(this, 2);
     }
 
     scheduleAggregation() {
