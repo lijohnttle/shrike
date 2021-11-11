@@ -40,11 +40,11 @@ class UserAuthenticator {
      */
     constructor(options) {
         /** @type {UserSessionStorage} */
-        this.sessionStorage = new UserSessionStorage(options.sessionLifetime ?? DEFAULT_SESSION_LIFETIME);;
+        this._sessionStorage = new UserSessionStorage(options.sessionLifetime ?? DEFAULT_SESSION_LIFETIME);;
         /** @type {UserSessionCleaner} */
-        this.sessionCleaner = new UserSessionCleaner(this.sessionStorage, options.sessionCleanUpInterval ?? DEFAULT_SESSION_CLEANUP_INTERVAL);
+        this._sessionCleaner = new UserSessionCleaner(this._sessionStorage, options.sessionCleanUpInterval ?? DEFAULT_SESSION_CLEANUP_INTERVAL);
 
-        this.sessionCleaner.start();
+        this._sessionCleaner.start();
     }
 
     /**
@@ -61,7 +61,7 @@ class UserAuthenticator {
 
             const userSession = new UserSession(username, token);
 
-            this.sessionStorage.store(userSession);
+            this._sessionStorage.store(userSession);
         
             return new AuthenticationResult({
                 username: username,
@@ -82,14 +82,14 @@ class UserAuthenticator {
      * @returns {boolean}
      */
     signOut(token) {
-        return this.sessionStorage.delete(token);
+        return this._sessionStorage.delete(token);
     };
 
     /**
      * Closes all existing sessions.
      */
     signOutEveryone() {
-        this.sessionStorage.clear();
+        this._sessionStorage.clear();
     };
 
     /**
@@ -98,7 +98,7 @@ class UserAuthenticator {
      * @returns {Array<UserSession>} User sessions.
      */
     findSessions(username) {
-        return this.sessionStorage.findByUsername(username);
+        return this._sessionStorage.findByUsername(username);
     };
     
     /**
@@ -107,7 +107,7 @@ class UserAuthenticator {
      * @returns {UserSession}
      */
     findSession(token) {
-        return this.sessionStorage.findByToken(token);
+        return this._sessionStorage.findByToken(token);
     };
 }
 

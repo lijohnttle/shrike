@@ -28,10 +28,14 @@ const configure = (options) => {
     userAuthenticator = new UserAuthenticator(options.userAuthenticatorOptions)
     userProfileRepository = new UserProfileCachedRepository(new UserProfileRepository());
     userVisitCounter = new UserVisitCounter(options.userVisitCounterOptions);
+
+    userVisitCounter.scheduleAggregation();
 };
 
 const getUserAuthenticator = () => userAuthenticator;
 const getUserProfileRepository = () => userProfileRepository;
+const getUserVisitCounter = () => userVisitCounter;
+
 
 export {
     Options,

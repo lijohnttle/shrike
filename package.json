@@ -43,6 +43,7 @@
     "graphql-tools": "^8.2.0",
     "jsdom": "^16.6.0",
     "mongoose": "^6.0.12",
+    "node-cron": "^3.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.10.1",
     "react-cookie": "^4.1.1",
