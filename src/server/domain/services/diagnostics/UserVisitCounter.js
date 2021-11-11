@@ -24,7 +24,7 @@ class UserVisitCounter {
      * @param {String} country 
      * @param {String} city 
      */
-    async recordVisit(path, country, city) {
+    async recordVisit(path, country, city, date) {
 
         const today = new Date();
         const todayVisitCount = await UserVisit.count({
@@ -38,7 +38,8 @@ class UserVisitCounter {
                 path: path,
                 locations: [
                     { country, city }
-                ]
+                ],
+                date: date
             });
             
             await userVisit.save();
@@ -63,7 +64,7 @@ class UserVisitCounter {
             });
         }
     
-        aggregatedVisit.date = new Date(tillYear, tillMonth - 1);
+        aggregatedVisit.date = new Date(Date.UTC(tillYear, tillMonth - 1));
     
         const visitsToAggregateFilter = {
             $or:[
@@ -71,7 +72,7 @@ class UserVisitCounter {
                 { aggregated: { $exists: false } }
             ],            
             date: {
-                $lte: new Date(tillYear, tillMonth)
+                $lte: new Date(Date.UTC(tillYear, tillMonth))
             }
         };
 
