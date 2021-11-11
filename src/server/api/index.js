@@ -5,11 +5,17 @@ import {
     mutationResolvers as accountMutationResolvers
  } from './accountSchema.js';
 
- import {
+import {
     typeDef as userProfileTypeDef,
     queryResolvers as userProfileQueryResolvers,
     mutationResolvers as userProfileMutationResolvers
- } from './userProfileSchema.js';
+} from './userProfileSchema.js';
+
+import {
+    typeDef as diagnosticsSchemaTypeDef,
+    mutationResolvers as diagnosticsSchemaMutationResolvers
+} from './diagnosticsSchema.js';
+
 
 const Query = `
     type Query {
@@ -36,8 +42,10 @@ const schema = makeExecutableSchema({
         Mutation: {
             ...accountMutationResolvers,
             ...userProfileMutationResolvers,
+            ...diagnosticsSchemaMutationResolvers,
         },
      }
 });
+
 
 export { schema };

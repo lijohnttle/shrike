@@ -42,4 +42,5 @@ export {
     configure,
     getUserAuthenticator,
     getUserProfileRepository,
+    getUserVisitCounter,
 };
