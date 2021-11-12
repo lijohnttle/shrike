@@ -9,6 +9,7 @@ import { SignInPage } from './components/account/SignInPage';
 import AccountManagementPage from './components/account/AccountManagementPage';
 import { CookieConsent } from './components/common';
 import { useUserVisitStatistics, usePageScroll } from './components/core/hooks';
+import { urlList } from './static.js';
 
 if (process.env.NODE_ENV === 'production') {
     ReactGA.initialize('UA-206773204-1');
@@ -24,10 +25,10 @@ const App = () => {
             <CookieConsent />
 
             <Switch>
-                <Route path="/about" component={AboutPage} />
-                <Route path="/account/signin" component={SignInPage} />
-                <Route path="/account/management" component={AccountManagementPage} />
-                <Route path="/" component={HomePage} />
+                <Route path={urlList.ABOUT} component={AboutPage} />
+                <Route path={urlList.SIGN_IN} component={SignInPage} />
+                <Route path={urlList.ACCOUNT_MANAGEMENT} component={AccountManagementPage} />
+                <Route path={urlList.HOME} component={HomePage} />
             </Switch>
         </MuiThemeProvider>
     );

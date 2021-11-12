@@ -29,7 +29,6 @@ async function loadUserVisits(setUserVisits, accessToken) {
             setUserVisits(data.userVisits || []);
         }
         else {
-            console.log(data.errorMessage);
             throw new Error(data.errorMessage);
         }
     }

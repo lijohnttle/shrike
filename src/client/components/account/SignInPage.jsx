@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
 import { Page } from '../core';
-import { signIn } from '../../api/accountApi.js';
+import { signIn } from '../../services/security.js';
 import { Redirect } from 'react-router';
 import { useUserSession } from '../core/hooks';
 import { useStyles } from './SignInPage.styles';
+import { urlList } from '../../static.js';
 
 
 const SignInPage = () => {
@@ -37,7 +38,7 @@ const SignInPage = () => {
     };
 
     if (getUserSession()) {
-        return <Redirect to="/account/management" />;
+        return <Redirect to={urlList.ACCOUNT_MANAGEMENT} />;
     }
 
     return (

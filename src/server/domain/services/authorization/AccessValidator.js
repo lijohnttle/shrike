@@ -9,7 +9,14 @@ class AccessValidator {
     }
 
     validateAdminAccess(token) {
-        return getUserAuthenticator().findSession(token);
+        try {
+            return !!getUserAuthenticator().findSession(token);
+        }
+        catch (error) {
+            console.error(error);
+
+            return false;
+        }
     }
 }
 

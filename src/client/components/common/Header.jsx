@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { Drawer, isWidthUp, makeStyles, withWidth, IconButton, Container } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useUserSession } from '../core/hooks';
-import { signOut } from '../../api/accountApi.js';
+import { signOut } from '../../services/security.js';
 
 const useStyles = makeStyles((theme) => ({
     root: {

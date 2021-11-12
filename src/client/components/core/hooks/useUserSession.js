@@ -1,5 +1,5 @@
 import { useCookies } from 'react-cookie';
-import cookieKeys from '../../../cookieKeys.js';
+import { cookieKeys } from '../../../static.js';
 
 
 /**

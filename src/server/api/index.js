@@ -2,6 +2,7 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 
 import {
     typeDef as accountTypeDef,
+    queryResolvers as accountQueryResolvers,
     mutationResolvers as accountMutationResolvers
  } from './accountSchema.js';
 
@@ -20,7 +21,7 @@ import {
 
 const Query = `
     type Query {
-        getVersion: String!
+        version: String!
     }
 `;
 
@@ -38,7 +39,8 @@ const schema = makeExecutableSchema({
     ],
     resolvers: {
         Query: {
-            getVersion: () => "v1",
+            version: () => "v1",
+            ...accountQueryResolvers,
             ...userProfileQueryResolvers,
             ...diagnosticsSchemaQueryResolvers,
         },
