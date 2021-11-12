@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, CircularProgress, makeStyles, Typography } from '@material-ui/core';
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import { LibraryBooks as LibraryBooksIcon } from '@mui/icons-material';
 import SectionContentContainer from '../SectionContentContainer';
 import BookList from './BookList';
 import { loadBooks } from '../../../../services/goodReadsService';

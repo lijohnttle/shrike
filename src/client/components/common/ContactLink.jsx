@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, LinkedIn, Email, Instagram } from '@material-ui/icons'
+import { Facebook, LinkedIn, Email, Instagram } from '@mui/icons-material'
 import { IconButton, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({

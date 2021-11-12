@@ -1,16 +1,18 @@
-import { Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { queryData } from '../../../services/api';
 import { useUserSession } from '../../../components/core/hooks';
 import { useStyles } from './styles';
+import { SectionHeader } from '../SectionHeader';
+import { Delete as DeleteIcon, Refresh as RefreshIcon, ClearAll as ClearAllIcon } from '@mui/icons-material';
 
 
-async function loadUserVisits(setUserVisits, accessToken) {
+async function loadUserVisits(count, setUserVisits, accessToken) {
     try {
         const response = await queryData(`
             query {
-                userVisits(numVisits: ${100}, accessToken: "${accessToken}") {
+                userVisits(numVisits: ${count}, accessToken: "${accessToken}") {
                     success
                     userVisits {
                         id
@@ -41,6 +43,7 @@ async function loadUserVisits(setUserVisits, accessToken) {
 
 const UserVisitsSection = () => {
     const [userVisits, setUserVisits] = useState([]);
+    const [pageSize, setPageSize] = useState(10);
     const [getUserSession] = useUserSession();
     const classes = useStyles();
 
@@ -48,15 +51,19 @@ const UserVisitsSection = () => {
         const session = getUserSession();
 
         if (session) {
-            loadUserVisits(setUserVisits, session.token);
+            loadUserVisits(100, setUserVisits, session.token);
         }
     }, [])
 
     return (
         <div>
-            <Typography variant="h2" gutterBottom>
-                User Visits
-            </Typography>
+            <SectionHeader text="User Visits" />
+
+            <div className={classes.toolbar}>
+                <Button startIcon={<DeleteIcon />} variant="text">Delete</Button>
+                <Button startIcon={<ClearAllIcon />} variant="text">Clear</Button>
+                <Button startIcon={<RefreshIcon />} variant="text">Refresh</Button>
+            </div>
 
             <div className={classes.tableContainer}>
                 <DataGrid
@@ -103,11 +110,12 @@ const UserVisitsSection = () => {
                         ]
                     }
                     rows={userVisits}
-                    pageSize={10}
+                    pageSize={pageSize}
                     rowsPerPageOptions={[10, 50, 100]}
                     checkboxSelection
-                    disableSelectionOnClick
-                />
+                    paginationMode="client"
+                    pagination
+                    onPageSizeChange={(pageSize) => setPageSize(pageSize)} />
             </div>
         </div>
     );

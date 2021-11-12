@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, CircularProgress, FormControl, Input, InputLabel, Typography } from '@material-ui/core';
 import { queryData } from "../../../services/api.js";
 import { useUserSession } from '../../../components/core/hooks';
+import { SectionHeader } from '../SectionHeader/index.jsx';
 
 
 async function loadUserProfile(setGoodReadsUserId) {
@@ -60,9 +61,7 @@ const UserProfileSection = () => {
 
     return (
         <div>
-            <Typography variant="h2" gutterBottom>
-                User Profile
-            </Typography>
+            <SectionHeader text="User Visits" />
 
             <FormControl>
                 <InputLabel htmlFor="goodreads_user_id">GoodReads Uesr Id</InputLabel>

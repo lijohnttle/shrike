@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography, makeStyles, IconButton } from '@material-ui/core';
-import { ArrowDownwardRounded } from '@material-ui/icons'
+import { ArrowDownwardRounded } from '@mui/icons-material'
 import { Header, ContactLink } from '../../../common';
 
 const useStyles = makeStyles((theme) => ({
