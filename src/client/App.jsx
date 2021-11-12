@@ -5,7 +5,7 @@ import { defaultTheme } from './themes';
 import ReactGA from 'react-ga';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
-import { SignInPage } from './components/account/SignInPage';
+import { SignInPage } from './views/SignIn';
 import { AccountManagementPage } from './views/AccountManagement/AccountManagementPage';
 import { CookieConsent } from './components/common';
 import { useUserVisitStatistics, usePageScroll } from './components/core/hooks';
