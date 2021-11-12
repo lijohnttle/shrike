@@ -6,7 +6,7 @@ import ReactGA from 'react-ga';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
 import { SignInPage } from './components/account/SignInPage';
-import AccountManagementPage from './components/account/AccountManagementPage';
+import { AccountManagementPage } from './views/Account/AccountManagementPage';
 import { CookieConsent } from './components/common';
 import { useUserVisitStatistics, usePageScroll } from './components/core/hooks';
 import { urlList } from './static.js';
