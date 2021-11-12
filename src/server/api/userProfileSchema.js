@@ -1,12 +1,18 @@
-import { getUserProfileRepository } from '../domain/index.js';
+import { getAccessValidator, getUserProfileRepository } from '../domain/index.js';
 
 export const typeDef = `
     extend type Query {
-        userProfile: UserProfile
+        userProfile: UserProfileResult
     }
 
     extend type Mutation {
-        saveUserProfile(userProfile: UserProfileInput, token: String): Boolean
+        saveUserProfile(userProfile: UserProfileInput!, accessToken: String!): Boolean
+    }
+
+    type UserProfileResult {
+        success: Boolean!
+        userProfile: UserProfile
+        errorMessage: String
     }
 
     type UserProfile {
@@ -24,21 +30,30 @@ export const queryResolvers = {
             const userProfile = await getUserProfileRepository().find();
 
             return {
-                goodReadsUserId: userProfile.goodReadsUserId
+                success: true,
+                userProfile: {
+                    goodReadsUserId: userProfile.goodReadsUserId
+                }
             };
         }
         catch (error) {
             console.error(error);
 
-            throw new Error('Error occured while retrieving the user profile');
+            return {
+                success: false,
+                errorMessage: 'Error occured while retrieving the user profile'
+            };
         }
     },
 };
 
 export const mutationResolvers = {
-    saveUserProfile: async (_, { userProfile, token }) => {
+    saveUserProfile: async (_, { userProfile, accessToken }) => {
+        
+        getAccessValidator().verifyAdminAccess(accessToken);
+
         try {
-            await getUserProfileRepository().save(userProfile, token);
+            await getUserProfileRepository().save(userProfile);
 
             return true;
         }

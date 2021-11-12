@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { getUserVisitCounter } from '../domain/index.js';
+import { getAccessValidator, getUserVisitCounter } from '../domain/index.js';
 
 export const typeDef = `
     extend type Query {
-        userVisits(numVisits: Int!): [UserVisit]
+        userVisits(numVisits: Int!, accessToken: String!): UserVisitsResult
     }
 
     extend type Mutation {
@@ -18,6 +18,12 @@ export const typeDef = `
         date: String
     }
 
+    type UserVisitsResult {
+        success: Boolean!
+        userVisits: [UserVisit]
+        errorMessage: String
+    }
+
     input UserVisitInput {
         path: String!
         country: String
@@ -27,33 +33,49 @@ export const typeDef = `
 `;
 
 export const queryResolvers = {
-    userVisits: async (_, { numVisits }) => {
+    userVisits: async (_, { numVisits, accessToken }) => {
+
         try {
-            const visits = await getUserVisitCounter().getVisits(numVisits);
+            getAccessValidator().verifyAdminAccess(accessToken);
 
-            return visits.map((source) => {
-                const result = {
-                    path: source.path,
-                    count: source.count,
-                    country: null,
-                    city: null,
-                    date: source.date.toUTCString()
+            try {
+                const rawUserVisits = await getUserVisitCounter().getVisits(numVisits);
+    
+                const userVisits = rawUserVisits.map((source) => {
+                    const result = {
+                        path: source.path,
+                        count: source.count,
+                        country: null,
+                        city: null,
+                        date: source.date.toUTCString()
+                    };
+    
+                    const locations = source.locations;
+                    
+                    if (locations && locations.length > 0) {
+                        result.country = locations[0].country;
+                        result.city = locations[0].city;
+                    }
+    
+                    return result;
+                });
+
+                return {
+                    success: true,
+                    userVisits: userVisits
                 };
-
-                const locations = source.locations;
-                
-                if (locations && locations.length > 0) {
-                    result.country = locations[0].country;
-                    result.city = locations[0].city;
-                }
-
-                return result;
-            });
+            }
+            catch (error) {
+                console.error(error);
+    
+                throw new Error('Error occured while retrieving the user profile');
+            }
         }
         catch (error) {
-            console.error(error);
-
-            throw new Error('Error occured while retrieving the user profile');
+            return {
+                success: false,
+                errorMessage: error.toString()
+            };
         }
     },
 };

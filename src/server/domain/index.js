@@ -1,6 +1,7 @@
 import { UserAuthenticator, Options as UserAuthenticatorOptions } from './services/authentication/UserAuthenticator.js';
 import { UserProfileCachedRepository, UserProfileRepository } from './services/users/UserProfileRepository.js';
 import { UserVisitCounter, Options as UserVisitCounterOptions } from './services/diagnostics/UserVisitCounter.js';
+import { AccessValidator } from './services/authorization/AccessValidator.js';
 
 
 /** @type {UserAuthenticator} */
@@ -9,6 +10,8 @@ let userAuthenticator;
 let userProfileRepository;
 /** @type {UserVisitCounter} */
 let userVisitCounter;
+/** @type {AccessValidator} */
+let accessValidator;
 
 class Options {
     /**
@@ -28,6 +31,7 @@ const configure = (options) => {
     userAuthenticator = new UserAuthenticator(options.userAuthenticatorOptions)
     userProfileRepository = new UserProfileCachedRepository(new UserProfileRepository());
     userVisitCounter = new UserVisitCounter(options.userVisitCounterOptions);
+    accessValidator = new AccessValidator();
 
     userVisitCounter.scheduleAggregation();
 };
@@ -35,6 +39,7 @@ const configure = (options) => {
 const getUserAuthenticator = () => userAuthenticator;
 const getUserProfileRepository = () => userProfileRepository;
 const getUserVisitCounter = () => userVisitCounter;
+const getAccessValidator = () => accessValidator;
 
 
 export {
@@ -43,4 +48,5 @@ export {
     getUserAuthenticator,
     getUserProfileRepository,
     getUserVisitCounter,
+    getAccessValidator,
 };

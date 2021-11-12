@@ -1,5 +1,4 @@
 import { UserProfile } from '../../../data/models/users/UserProfile.js';
-import { getUserAuthenticator } from '../../index.js';
 
 
 class UserProfileRepository {
@@ -16,11 +15,7 @@ class UserProfileRepository {
      * @param {UserProfile} changes User profile.
      * @returns {Promise<UserProfile>} User profile.
      */
-    async save(changes, token) {
-        if (!getUserAuthenticator().findSession(token)) {
-            throw new Error('Authrorization error');
-        }
-    
+    async save(changes) {
         if (!changes) {
             return null;
         }
@@ -70,8 +65,8 @@ class UserProfileCachedRepository {
      * @param {UserProfile} changes User profile.
      * @returns {Promise<UserProfile>} User profile.
      */
-    async save(changes, token) {
-        const userProfile = await this._userProfileRepository.save(changes, token);
+    async save(changes) {
+        const userProfile = await this._userProfileRepository.save(changes);
 
         if (userProfile) {
             this._userProfileCached = userProfile;

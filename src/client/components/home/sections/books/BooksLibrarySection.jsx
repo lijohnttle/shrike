@@ -45,14 +45,22 @@ const BooksLibrarySection = ({ screenHeight }) => {
         queryData(`
                 query {
                     userProfile {
-                        goodReadsUserId
+                        success
+                        userProfile {
+                            goodReadsUserId
+                        }
+                        errorMessage
                     }
                 }
             `)
             .then((response) => {
-                if (response.userProfile) {
-                    setGoodReadsUserId(response.userProfile.goodReadsUserId);
+                const data = response.userProfile;
+
+                if (!data.success) {
+                    throw new Error(data.errorMessage);
                 }
+
+                setGoodReadsUserId(data.userProfile.goodReadsUserId);
             })
             .catch((error) => console.error(error))
             .finally(() => setIsLoading(false));
