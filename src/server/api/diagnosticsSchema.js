@@ -11,6 +11,7 @@ export const typeDef = `
     }
 
     type UserVisit {
+        id: String!
         path: String!
         country: String
         city: String
@@ -43,6 +44,7 @@ export const queryResolvers = {
     
                 const userVisits = rawUserVisits.map((source) => {
                     const result = {
+                        id: source._id,
                         path: source.path,
                         count: source.count,
                         country: null,

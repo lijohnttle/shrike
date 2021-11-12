@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Button, CircularProgress, FormControl, Input, InputLabel } from '@material-ui/core';
-import { queryData } from "../../services/api.js";
-import { useUserSession } from '../core/hooks';
+import { Button, CircularProgress, FormControl, Input, InputLabel, Typography } from '@material-ui/core';
+import { queryData } from "../../../services/api.js";
+import { useUserSession } from '../../../components/core/hooks';
 
 
 async function loadUserProfile(setGoodReadsUserId) {
@@ -33,7 +33,7 @@ async function loadUserProfile(setGoodReadsUserId) {
     }
 }
 
-const AccountSectionUserProfile = () => {
+const UserProfileSection = () => {
     const [getUserSession] = useUserSession();
     const [isLoading, setIsLoading] = useState(true);
     const [goodReadsUserId, setGoodReadsUserId] = useState('');
@@ -60,6 +60,10 @@ const AccountSectionUserProfile = () => {
 
     return (
         <div>
+            <Typography variant="h2" gutterBottom>
+                User Profile
+            </Typography>
+
             <FormControl>
                 <InputLabel htmlFor="goodreads_user_id">GoodReads Uesr Id</InputLabel>
                 <Input
@@ -76,5 +80,5 @@ const AccountSectionUserProfile = () => {
 
 
 export {
-    AccountSectionUserProfile
+    UserProfileSection
 };

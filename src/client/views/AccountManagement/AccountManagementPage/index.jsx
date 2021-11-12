@@ -3,8 +3,8 @@ import { Redirect, useHistory } from 'react-router';
 import { Article, ArticleContentBlock } from '../../../components/common';
 import { Page } from '../../../components/core';
 import { useUserSession } from '../../../components/core/hooks';
-import { AccountSectionUserProfile } from '../../../components/account/AccountSectionUserProfile';
-import { AccountSectionDiagnostics } from '../../../components/account/AccountSectionDiagnostics';
+import { UserProfileSection } from '../UserProfileSection';
+import { UserVisitsSection } from '../UserVisitsSection';
 import { verifyAccessToken } from '../../../services/security.js';
 import { urlList } from '../../../static.js';
 import { useStyles } from './styles.js';
@@ -56,14 +56,14 @@ const AccountManagementPage = () => {
                                 isDefault />
                             <SectionsMenuItem
                                 id={SECTION_IDS.VISITS}
-                                header="Visits"
+                                header="User Visits"
                                 selection={selectedSectionId}
                                 selectionChanged={setSelectedSectionId} />
                         </SectionsMenu>
 
                         <div className={classes.sectionRoot}>
-                            {selectedSectionId === SECTION_IDS.USER_PROFILE ? <AccountSectionUserProfile /> : null}
-                            {selectedSectionId === SECTION_IDS.VISITS ? <AccountSectionDiagnostics /> : null}
+                            {selectedSectionId === SECTION_IDS.USER_PROFILE ? <UserProfileSection /> : null}
+                            {selectedSectionId === SECTION_IDS.VISITS ? <UserVisitsSection /> : null}
                         </div>
                     </div>
                 </ArticleContentBlock>
