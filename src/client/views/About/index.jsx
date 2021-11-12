@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link, Typography } from '@material-ui/core';
-import { Article, ArticleContentBlock, ContactLink } from '../common';
-import { Page, withData } from '../core';
-import { useStyles } from './AboutPage.styles';
+import { Article, ArticleContentBlock, ContactLink } from '../../components/common';
+import { Page, withData } from '../../components/core';
+import { useStyles } from './styles';
 
 
-const AboutPage = ({ data }) => {
+let AboutPage = ({ data }) => {
     const classes = useStyles();
     
     const linkedin = data.contacts.find(contact => contact.vendor === 'linkedin').value;
@@ -119,5 +119,9 @@ const AboutPage = ({ data }) => {
     );
 };
 
+AboutPage = withData(AboutPage);
 
-export default withData(AboutPage);
+
+export {
+    AboutPage
+};
