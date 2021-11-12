@@ -7,6 +7,7 @@ import { useStyles } from './AboutPage.styles';
 
 const AboutPage = ({ data }) => {
     const classes = useStyles();
+    
     const linkedin = data.contacts.find(contact => contact.vendor === 'linkedin').value;
 
     return (

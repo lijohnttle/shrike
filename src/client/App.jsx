@@ -8,14 +8,14 @@ import AboutPage from './components/about/AboutPage';
 import { SignInPage } from './components/account/SignInPage';
 import AccountManagementPage from './components/account/AccountManagementPage';
 import { CookieConsent } from './components/common';
-import { useGA, usePageScroll } from './components/core/hooks';
+import { useUserVisitStatistics, usePageScroll } from './components/core/hooks';
 
 if (process.env.NODE_ENV === 'production') {
     ReactGA.initialize('UA-206773204-1');
 }
 
 const App = () => {
-    useGA();
+    useUserVisitStatistics({ ignorePaths: ['/account'] });
     usePageScroll();
 
     return (
