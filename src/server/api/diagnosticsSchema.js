@@ -8,6 +8,8 @@ export const typeDef = `
 
     extend type Mutation {
         recordUserVisit(userVisit: UserVisitInput!): Boolean
+        clearAllUserVisits(accessToken: String!): Boolean
+        deleteUserVisits(userVisitIds: [String!]!, accessToken: String!): Boolean
     }
 
     type UserVisit {
@@ -70,7 +72,7 @@ export const queryResolvers = {
             catch (error) {
                 console.error(error);
     
-                throw new Error('Error occured while retrieving the user profile');
+                throw new Error('Error occured while retrieving user visits');
             }
         }
         catch (error) {
@@ -114,6 +116,38 @@ export const mutationResolvers = {
             console.error(error);
             
             throw new Error('Error occured while recording a user visit');
+        }
+    },
+    clearAllUserVisits: async (_, { accessToken }) => {
+        try {
+            getAccessValidator().verifyAdminAccess(accessToken);
+
+            await getUserVisitCounter().clearAll();
+
+            return true;
+        }
+        catch (error) {
+            console.error(error);
+
+            return false;
+        }
+    },
+    deleteUserVisits: async (_, { userVisitIds, accessToken }) => {
+        try {
+            getAccessValidator().verifyAdminAccess(accessToken);
+
+            if (userVisitIds.length === 0) {
+                return false;
+            }
+
+            await getUserVisitCounter().delete(userVisitIds);
+
+            return true;
+        }
+        catch (error) {
+            console.error(error);
+
+            return false;
         }
     },
 };

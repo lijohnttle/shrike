@@ -8,6 +8,8 @@ import { SectionHeader } from '../SectionHeader';
 import { Delete as DeleteIcon, Refresh as RefreshIcon, ClearAll as ClearAllIcon } from '@mui/icons-material';
 
 
+const USER_VISIT_COUNT = 100;
+
 async function loadUserVisits(count, setUserVisits, accessToken) {
     try {
         const response = await queryData(`
@@ -41,28 +43,95 @@ async function loadUserVisits(count, setUserVisits, accessToken) {
     }
 }
 
+async function clearAllUserVisits(accessToken) {
+    try {
+        const response = await queryData(`
+            mutation {
+                clearAllUserVisits(accessToken: "${accessToken}")
+            }
+        `);
+
+        return !!response.clearAllUserVisits;
+    }
+    catch (error) {
+        console.error(error);
+
+        return false;
+    }
+}
+
+async function deleteUserVisits(userVisitIds, accessToken) {
+    if (userVisitIds.lentgh === 0) {
+        return false;
+    }
+
+    try {
+        const response = await queryData(`
+            mutation {
+                deleteUserVisits(userVisitIds: [${userVisitIds.map(id => `"${id}"`).join()}], accessToken: "${accessToken}")
+            }
+        `);
+
+        return !!response.deleteUserVisits;
+    }
+    catch (error) {
+        console.error(error);
+
+        return false;
+    }
+}
+
 const UserVisitsSection = () => {
     const [userVisits, setUserVisits] = useState([]);
     const [pageSize, setPageSize] = useState(10);
+    const [selectedUserVisitIds, setSelectedUserVisitIds] = useState([]);
     const [getUserSession] = useUserSession();
     const classes = useStyles();
 
     useEffect(() => {
+        handleRefresh();
+    }, [])
+
+    const handleRefresh = async () => {
         const session = getUserSession();
 
         if (session) {
-            loadUserVisits(100, setUserVisits, session.token);
+            await loadUserVisits(USER_VISIT_COUNT, setUserVisits, session.token);
         }
-    }, [])
+    };
+
+    const handleDelete = async () => {
+        if (selectedUserVisitIds.length === 0) {
+            return;
+        }
+
+        const session = getUserSession();
+
+        if (session) {
+            if (await deleteUserVisits(selectedUserVisitIds, session.token)) {
+                await loadUserVisits(USER_VISIT_COUNT, setUserVisits, session.token);
+            }
+        }
+    };
+
+    const handleClear = async () => {
+        const session = getUserSession();
+
+        if (session) {
+            if (await clearAllUserVisits(session.token)) {
+                await loadUserVisits(USER_VISIT_COUNT, setUserVisits, session.token);
+            }
+        }
+    };
 
     return (
         <div>
             <SectionHeader text="User Visits" />
 
             <div className={classes.toolbar}>
-                <Button startIcon={<DeleteIcon />} variant="text">Delete</Button>
-                <Button startIcon={<ClearAllIcon />} variant="text">Clear</Button>
-                <Button startIcon={<RefreshIcon />} variant="text">Refresh</Button>
+                <Button startIcon={<DeleteIcon />} onClick={handleDelete}>Delete</Button>
+                <Button startIcon={<ClearAllIcon />} onClick={handleClear}>Clear All</Button>
+                <Button startIcon={<RefreshIcon />} onClick={handleRefresh}>Refresh</Button>
             </div>
 
             <div className={classes.tableContainer}>
@@ -115,7 +184,8 @@ const UserVisitsSection = () => {
                     checkboxSelection
                     paginationMode="client"
                     pagination
-                    onPageSizeChange={(pageSize) => setPageSize(pageSize)} />
+                    onPageSizeChange={(pageSize) => setPageSize(pageSize)}
+                    onSelectionModelChange={(selection) => setSelectedUserVisitIds(selection)} />
             </div>
         </div>
     );

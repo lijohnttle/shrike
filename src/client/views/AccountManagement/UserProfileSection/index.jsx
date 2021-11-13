@@ -5,7 +5,7 @@ import { useUserSession } from '../../../components/core/hooks';
 import { SectionHeader } from '../SectionHeader/index.jsx';
 
 
-async function loadUserProfile(setGoodReadsUserId) {
+async function loadUserProfile() {
     try {
         const response = await queryData(`
             query {
@@ -22,16 +22,17 @@ async function loadUserProfile(setGoodReadsUserId) {
         const data = response.userProfile;
 
         if (data.success) {
-            setGoodReadsUserId(data.userProfile.goodReadsUserId);
+            return data.userProfile;
         }
         else {
-            console.log(data.errorMessage);
             throw new Error(data.errorMessage);
         }
     }
     catch (error) {
         console.error(error);
     }
+
+    return null;
 }
 
 const UserProfileSection = () => {
@@ -40,7 +41,23 @@ const UserProfileSection = () => {
     const [goodReadsUserId, setGoodReadsUserId] = useState('');
 
     useEffect(() => {
-        loadUserProfile(setGoodReadsUserId).finally(() => setIsLoading(false));
+        let isMounted = true;
+
+        loadUserProfile(setGoodReadsUserId)
+            .then((data) => {
+                if (isMounted && data) {
+                    setGoodReadsUserId(data.goodReadsUserId);
+                }
+            })
+            .finally(() => {
+                if (isMounted) {
+                    setIsLoading(false)
+                }
+            });
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     const saveChanges = async () => {

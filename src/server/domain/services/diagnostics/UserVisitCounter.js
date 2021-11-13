@@ -140,6 +140,25 @@ class UserVisitCounter {
             session.endSession();
         }
     }
+
+    /**
+     * Deletes all user visits.
+     */
+    async clearAll() {
+        await UserVisit.deleteMany().exec();
+    }
+
+    /**
+     * Deletes specified user visits.
+     * @param {Array<Number>} userVisitIds 
+     */
+    async delete(userVisitIds) {
+        await UserVisit.deleteMany({
+            _id: {
+                $in: userVisitIds
+            }
+        }).exec();
+    }
 }
 
 
