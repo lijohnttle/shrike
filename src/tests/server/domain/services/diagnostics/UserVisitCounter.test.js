@@ -316,3 +316,43 @@ describe('Get records', () => {
         });
     });
 });
+
+describe('Delete visits', () => {
+    describe('when user clears visits', () => {
+        it('then there are no visits in the database', async () => {
+
+            const userVisitCounter = new UserVisitCounter({
+                dayVisitCountLimit: 5
+            });
+            
+            await userVisitCounter.recordVisit('/', 'country1', 'city1');
+            await userVisitCounter.recordVisit('/', 'country2', 'city2');
+            await userVisitCounter.recordVisit('/', 'country1', 'city1');
+            await userVisitCounter.recordVisit('/', 'country2', 'city2');
+
+            await userVisitCounter.clearAll();
+
+            const actual = await UserVisit.find().exec();
+
+            expect(actual.length).toBe(0);
+        });
+    });
+
+    describe('when user deletes a visit', () => {
+        it('then visit should be deleted from the database', async () => {
+
+            const userVisitCounter = new UserVisitCounter({
+                dayVisitCountLimit: 5
+            });
+            
+            await userVisitCounter.recordVisit('/', 'country1', 'city1');
+            const visit = await UserVisit.findOne().exec();
+
+            await userVisitCounter.delete(visit._id);
+
+            const actual = await UserVisit.find().exec();
+
+            expect(actual.length).toBe(0);
+        });
+    });
+});
