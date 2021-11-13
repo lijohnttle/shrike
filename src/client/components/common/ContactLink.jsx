@@ -1,6 +1,7 @@
 import React from 'react';
 import { Facebook, LinkedIn, Email, Instagram } from '@mui/icons-material'
-import { IconButton, makeStyles } from '@material-ui/core';
+import { IconButton } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(() => ({
     buttonDarkTheme: {

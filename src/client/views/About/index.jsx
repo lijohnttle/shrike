@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Typography } from '@material-ui/core';
+import { Link, Typography } from '@mui/material';
 import { Article, ArticleContentBlock, ContactLink } from '../../components/common';
 import { Page, withData } from '../../components/core';
 import { useStyles } from './styles';

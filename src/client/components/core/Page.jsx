@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Footer, Header } from '../common';
+import { Footer } from '../Footer';
+import { Header } from '../Header';
 import { useStyles } from './Page.styles';
 
 

@@ -6,7 +6,7 @@ import { useUserSession } from '../../../components/core/hooks';
 import { UserProfileSection } from '../UserProfileSection';
 import { UserVisitsSection } from '../UserVisitsSection';
 import { verifyAccessToken } from '../../../services/security.js';
-import { urlList } from '../../../static.js';
+import { urlList } from '../../../../static.js';
 import { useStyles } from './styles.js';
 import { SectionsMenu } from '../SectionsMenu';
 import { SectionsMenuItem } from '../SectionsMenuItem';

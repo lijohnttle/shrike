@@ -29,6 +29,7 @@ const blogPostSchema = new mongoose.Schema({
 });
 
 blogPostSchema.index({ publishedOn: 1 });
+blogPostSchema.index({ slug: 1 });
 
 const BlogPost = mongoose.model('BlogPost', blogPostSchema);
 

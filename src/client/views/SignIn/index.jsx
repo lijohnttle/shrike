@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
+import { Button, FormControl, Input, InputLabel } from '@mui/material';
 import { Page } from '../../components/core';
 import { signIn } from '../../services/security.js';
 import { Redirect } from 'react-router';
 import { useUserSession } from '../../components/core/hooks';
 import { useStyles } from './styles';
-import { urlList } from '../../static';
+import { urlList } from '../../../static';
 
 
 const SignInPage = () => {
