@@ -7,15 +7,12 @@ import { usePrevious } from './usePrevious.js';
 import { useUserSession } from './useUserSession.js';
 
 
-async function recordUserVisit(path, consentAccepted) {
+async function recordUserVisit(path) {
     try {
         await queryData(`
             mutation {
                 recordUserVisit(userVisit: {
-                        path: "${path}",
-                        country: "",
-                        city: "",
-                        consentAccepted: ${consentAccepted}
+                        path: "${path}"
                     })
             }
         `);
@@ -62,7 +59,7 @@ const useUserVisitStatistics = (options) => {
                     ReactGA.pageview(currentPage);
                 }
     
-                recordUserVisit(currentPage, consentAccepted);
+                recordUserVisit(currentPage);
             }
         }
     }, [currentPage]);
