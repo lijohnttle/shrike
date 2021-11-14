@@ -3,6 +3,7 @@ import { Button, Typography } from '@mui/material';
 import { ReadMore as ReadMoreIcon } from '@mui/icons-material';
 import { InternalLink } from '../../../components/InternalLink';
 import { useStyles } from './styles';
+import { Link as RouterLink } from 'react-router-dom';
 
 
 const BlogPostMeta = ({ post }) => {
@@ -28,9 +29,10 @@ const BlogPostMeta = ({ post }) => {
 
             <div className={classes.bottomToolBar}>
                 <Button
+                    component={RouterLink}
                     variant="outlined"
                     color="primary"
-                    href={`/blog/${post.slug}`}
+                    to={`/blog/${post.slug}`}
                     startIcon={<ReadMoreIcon />}>
                     Read More
                 </Button>

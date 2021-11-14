@@ -8,6 +8,7 @@ import { AboutPage } from './views/About/AboutPage';
 import { SignInPage } from './views/SignIn/SignInPage';
 import { AccountManagementPage } from './views/AccountManagement/AccountManagementPage';
 import { BlogPage } from './views/Blog/BlogPage';
+import { BlogPostPage } from './views/Blog/BlogPostPage';
 import { CookieConsent } from './components/common';
 import { useUserVisitStatistics, usePageScroll } from './components/core/hooks';
 import { urlList } from '../static.js';
@@ -27,11 +28,12 @@ const App = () => {
             <CookieConsent />
 
             <Switch>
-                <Route path={urlList.ABOUT} component={AboutPage} />
-                <Route path={urlList.SIGN_IN} component={SignInPage} />
-                <Route path={urlList.ACCOUNT_MANAGEMENT} component={AccountManagementPage} />
-                <Route path={urlList.BLOG} component={BlogPage} />
-                <Route path={urlList.HOME} component={HomePage} exact />
+                <Route exact path={urlList.ABOUT} component={AboutPage} />
+                <Route exact path={urlList.SIGN_IN} component={SignInPage} />
+                <Route exact path={urlList.ACCOUNT_MANAGEMENT} component={AccountManagementPage} />
+                <Route exact path={urlList.BLOG} component={BlogPage} />
+                <Route exact path={urlList.BLOG_POST} component={BlogPostPage} />
+                <Route exact path={urlList.HOME} component={HomePage} />
             </Switch>
         </ThemeProvider >
     );

@@ -3,7 +3,8 @@ const urlList = {
     ABOUT: '/about',
     SIGN_IN: '/account/signin',
     ACCOUNT_MANAGEMENT: '/account/management',
-    BLOG: '/blog'
+    BLOG: '/blog',
+    BLOG_POST: '/blog/:slug',
 };
 
 const cookieKeys = {
