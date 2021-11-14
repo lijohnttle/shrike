@@ -38,8 +38,8 @@ const useUserSession = () => {
     };
     
     const setUserSession = (username, token) => {
-        setCookie(cookieKeys.AUTH_USERNAME, username, { path: '/' });
-        setCookie(cookieKeys.AUTH_TOKEN, token, { path: '/' });
+        setCookie(cookieKeys.AUTH_USERNAME, username, { path: '/', maxAge: 31536000 });
+        setCookie(cookieKeys.AUTH_TOKEN, token, { path: '/', maxAge: 31536000 });
     }
 
     const removeUserSession = () => {

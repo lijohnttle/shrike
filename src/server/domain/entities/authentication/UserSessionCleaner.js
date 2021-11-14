@@ -69,7 +69,9 @@ class UserSessionCleaner {
     }
 
     _cleanUp() {
+        console.log('Clean up expired sessions...');
         this._sessionStorage.deleteExpired();
+        console.log('Expired sessions have been clean up');
     }
 };
 
