@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Typography } from '@mui/material';
 import { ContactLink } from '../ContactLink';
-import { useData } from '../hooks';
+import { useData } from '../../hooks';
 import { useStyles } from './styles';
 
 

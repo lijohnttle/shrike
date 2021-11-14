@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
 import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
-import { useUserSession } from '../../../components/hooks';
+import { useUserSession } from '../../../hooks';
 import { useHistory } from 'react-router';
 import { urlList } from '../../../../static';
 

@@ -11,7 +11,7 @@ import { BlogPage } from './views/Blog/BlogPage';
 import { BlogPostPage } from './views/Blog/BlogPostPage';
 import { NewBlogPostPage } from './views/Blog/NewBlogPostPage';
 import { CookieConsent } from './components/CookieConsent';
-import { useUserVisitStatistics, usePageScroll } from './components/hooks';
+import { useUserVisitStatistics, usePageScroll } from './hooks';
 import { urlList } from '../static.js';
 
 

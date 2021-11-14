@@ -4,7 +4,7 @@ import { ContactLink } from '../../../components/ContactLink';
 import { Page } from '../../../components/Page';
 import { Article } from '../../../components/Article';
 import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
-import { useData } from '../../../components/hooks';
+import { useData } from '../../../hooks';
 import { useStyles } from './styles';
 
 

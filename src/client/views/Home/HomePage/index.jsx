@@ -4,7 +4,7 @@ import { Page } from '../../../components/Page';
 import { WelcomeSection } from '../WelcomeSection';
 import { BooksLibrarySection } from '../BooksLibrarySection';
 import { smoothScrollOptions } from '../../../utils/scrolling'
-import { useData } from '../../../components/hooks';
+import { useData } from '../../../hooks';
 import { useStyles } from './styles';
 
 
