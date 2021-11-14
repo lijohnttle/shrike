@@ -3,6 +3,7 @@ import { Button, CircularProgress, FormControl, Input, InputLabel, Typography } 
 import { queryData } from "../../../services/api.js";
 import { useUserSession } from '../../../components/core/hooks';
 import { SectionHeader } from '../SectionHeader/index.jsx';
+import { useStyles } from './styles';
 
 
 async function loadUserProfile() {
@@ -39,6 +40,7 @@ const UserProfileSection = () => {
     const [getUserSession] = useUserSession();
     const [isLoading, setIsLoading] = useState(true);
     const [goodReadsUserId, setGoodReadsUserId] = useState('');
+    const classes = useStyles();
 
     useEffect(() => {
         let isMounted = true;
@@ -80,7 +82,7 @@ const UserProfileSection = () => {
         <div>
             <SectionHeader text="User Visits" />
 
-            <FormControl>
+            <form className={classes.form}>
                 <InputLabel htmlFor="goodreads_user_id">GoodReads Uesr Id</InputLabel>
                 <Input
                     id="goodreads_user_id"
@@ -89,7 +91,7 @@ const UserProfileSection = () => {
                     onChange={e => setGoodReadsUserId(e.target.value)} />
                 
                 <Button color="primary" onClick={saveChanges}>Save</Button>
-            </FormControl>
+            </form>
         </div>
     );
 };

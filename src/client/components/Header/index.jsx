@@ -8,7 +8,8 @@ import { useStyles } from './styles';
 
 
 const navigationLinks = [
-    { title: 'about', href: '/about', action: undefined }
+    { title: 'blog', href: '/blog', action: undefined },
+    { title: 'about', href: '/about', action: undefined },
 ];
 
 const Header = ({ transparent, dark, light }) => {
@@ -43,10 +44,12 @@ const Header = ({ transparent, dark, light }) => {
         menuItems.push({ title: 'Sign Out', href: '#', action: signOutClickHandler });
     }
 
+    console.log(menuItems);
+
     let navigationMenu = smallScreenMatches
         ? (
             <ul className={classes.navigationMenu}>
-                {menuItems.map((link) => <li key={link.href}><Link to={link.href} onClick={link.action}>{link.title}</Link></li>)}
+                {menuItems.map((link) => <li key={link.title}><Link to={link.href} onClick={link.action}>{link.title}</Link></li>)}
             </ul>)
         : (
             <div>

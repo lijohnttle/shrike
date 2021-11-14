@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Button, FormControl, Input, InputLabel } from '@mui/material';
-import { Page } from '../../components/core';
-import { signIn } from '../../services/security.js';
+import { Button, FormControl, FormControlLabel, Input, InputLabel } from '@mui/material';
+import { Page } from '../../../components/core';
+import { signIn } from '../../../services/security.js';
 import { Redirect } from 'react-router';
-import { useUserSession } from '../../components/core/hooks';
+import { useUserSession } from '../../../components/core/hooks';
 import { useStyles } from './styles';
-import { urlList } from '../../../static';
+import { urlList } from '../../../../static';
 
 
 const SignInPage = () => {
@@ -46,15 +46,11 @@ const SignInPage = () => {
             <div className={classes.topSpace}></div>
 
             <form className={classes.form} onSubmit={submitHandler}>
-                <FormControl>
-                    <InputLabel htmlFor="username">Username</InputLabel>
-                    <Input id="username" aria-describedby="Username" value={username} onChange={e => setUsername(e.target.value)} />
-                </FormControl>
+                <InputLabel htmlFor="username">Username</InputLabel>
+                <Input id="username" aria-describedby="Username" value={username} onChange={e => setUsername(e.target.value)} />
 
-                <FormControl>
-                    <InputLabel htmlFor="password">Password</InputLabel>
-                    <Input id="password" aria-describedby="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
-                </FormControl>
+                <InputLabel htmlFor="password" >Password</InputLabel>
+                <Input id="password" aria-describedby="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
 
                 <Button type="submit" color="primary" onClick={submitHandler}>Sign In</Button>
             </form>

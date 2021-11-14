@@ -14,12 +14,10 @@ const useStyles = makeStyles(() => ({
 }));
 
 const HomePage = ({ data }) => {
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
     const classes = useStyles();
 
     useEffect(() => {
-        setScreenWidth(window.innerWidth);
         setScreenHeight(window.innerHeight);
     }, []);
 
