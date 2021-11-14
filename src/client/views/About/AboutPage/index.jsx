@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, Typography } from '@mui/material';
-import { ContactLink } from '../../../components/common';
-import { withData } from '../../../components/core';
+import { ContactLink } from '../../../components/ContactLink';
 import { Page } from '../../../components/Page';
 import { Article } from '../../../components/Article';
 import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
+import { withData } from '../../../components/core';
 import { useStyles } from './styles';
 
 

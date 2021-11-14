@@ -10,7 +10,7 @@ import { AccountManagementPage } from './views/AccountManagement/AccountManageme
 import { BlogPage } from './views/Blog/BlogPage';
 import { BlogPostPage } from './views/Blog/BlogPostPage';
 import { NewBlogPostPage } from './views/Blog/NewBlogPostPage';
-import { CookieConsent } from './components/common';
+import { CookieConsent } from './components/CookieConsent';
 import { useUserVisitStatistics, usePageScroll } from './components/core/hooks';
 import { urlList } from '../static.js';
 

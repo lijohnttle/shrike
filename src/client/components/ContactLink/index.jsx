@@ -1,15 +1,8 @@
 import React from 'react';
 import { Facebook, LinkedIn, Email, Instagram } from '@mui/icons-material'
 import { IconButton } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { useStyles } from './styles';
 
-const useStyles = makeStyles(() => ({
-    buttonDarkTheme: {
-        '&:hover': {
-            background: '#59595996',
-        }
-    },
-}));
 
 /**
  * Creates an icon element according to the vendor's name.
@@ -61,4 +54,7 @@ const ContactLink = ({ contact, dark, iconClassName }) => {
     );
 };
 
-export default ContactLink;
+
+export {
+    ContactLink
+};

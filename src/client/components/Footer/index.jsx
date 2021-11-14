@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Typography } from '@mui/material';
+import { ContactLink } from '../ContactLink';
 import { withData } from '../core/withData';
-import ContactLink from '../common/ContactLink';
 import { useStyles } from './styles';
 
 

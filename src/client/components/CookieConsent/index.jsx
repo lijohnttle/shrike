@@ -1,6 +1,7 @@
 import React from 'react';
 import ExtCookieConsent from 'react-cookie-consent';
 
+
 const CookieConsent = () => {
     return (
         <ExtCookieConsent>
@@ -9,4 +10,7 @@ const CookieConsent = () => {
     );
 };
 
-export default CookieConsent;
+
+export {
+    CookieConsent
+};
