@@ -1,9 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { Drawer, isWidthUp, makeStyles, withWidth, IconButton, Container } from '@material-ui/core';
-import { Menu as MenuIcon } from '@mui/icons-material';
-import { useUserSession } from '../core/hooks';
-import { signOut } from '../../services/security.js';
+import { makeStyles } from '@mui/styles';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -141,84 +137,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const navigationLinks = [
-    { title: 'about', href: '/about' }
-];
 
-const Header = ({ transparent, dark, light, width }) => {
-    const [isMenuOpen, setIsMenuopen] = useState(false);
-    const [getUserSession, _, removeUserSession] = useUserSession();
-    const history = useHistory();
-    const classes = useStyles({ transparent, light: light });
-
-    const signOutClickHandler = async (e) => {
-        e?.preventDefault();
-
-        try {
-            const userSession = getUserSession();
-
-            if (userSession) {
-                await signOut(userSession.username, userSession.token);
-
-                removeUserSession();
-
-                history.push('/');
-            }
-        }
-        catch (error) {
-            console.error(error);
-        }
-    };
-
-    let navigationMenu;
-
-    if (isWidthUp('sm', width)) {
-        navigationMenu = (
-            <ul className={classes.navigationMenu}>
-                {navigationLinks.map((link) => <li key={link.href}><Link to={link.href}>{link.title}</Link></li>)}
-
-                {getUserSession()
-                    ? <li>
-                        <Link to="#" onClick={signOutClickHandler}>Sign Out</Link>
-                    </li>
-                    : null}
-            </ul>
-        );
-    }
-    else {
-        navigationMenu = (
-            <div>
-                <div className={classes.toggleMenuButtonContainer}>
-                    <IconButton
-                        onClick={() => {
-                            setIsMenuopen(!isMenuOpen);
-                        }}>
-                        <MenuIcon className={classes.menuIcon} />
-                    </IconButton>
-                </div>
-
-                <Drawer anchor="right" open={isMenuOpen} className={classes.drawer} classes={{ paper: classes.drawerPaper }} onClose={() => setIsMenuopen(false)}>
-                    <ul className={classes.navigationVerticalMenu}>
-                        {navigationLinks.map((link) => <li key={link.href}><Link to={link.href}>{link.title}</Link></li>)}
-                    </ul>
-                </Drawer>
-            </div>
-        );
-    }
-
-    return (
-        <div className={classes.root}>
-            <Container className={classes.content} maxWidth="lg">
-                <Link className={classes.logo} to="/">
-                    LIJOHNTTLE
-                </Link>
-
-                <div>
-                    {navigationMenu}
-                </div>
-            </Container>
-        </div>
-    );
+export {
+    useStyles
 };
-
-export default withWidth()(Header);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@mui/styles';
 import { animateScroll } from 'react-scroll';
 import WelcomeSection from './sections/welcome/WelcomeSection';
 import BooksLibrarySection from './sections/books/BooksLibrarySection';
@@ -14,12 +14,10 @@ const useStyles = makeStyles(() => ({
 }));
 
 const HomePage = ({ data }) => {
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
     const classes = useStyles();
 
     useEffect(() => {
-        setScreenWidth(window.innerWidth);
         setScreenHeight(window.innerHeight);
     }, []);
 

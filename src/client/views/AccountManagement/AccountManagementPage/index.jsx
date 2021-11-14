@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router';
-import { Article, ArticleContentBlock } from '../../../components/common';
+import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
+import { Article } from '../../../components/Article';
 import { Page } from '../../../components/core';
 import { useUserSession } from '../../../components/core/hooks';
 import { UserProfileSection } from '../UserProfileSection';
 import { UserVisitsSection } from '../UserVisitsSection';
 import { verifyAccessToken } from '../../../services/security.js';
-import { urlList } from '../../../static.js';
+import { urlList } from '../../../../static.js';
 import { useStyles } from './styles.js';
 import { SectionsMenu } from '../SectionsMenu';
-import { SectionsMenuItem } from '../SectionsMenuItem';
 
 
 const SECTION_IDS = {
@@ -18,7 +18,7 @@ const SECTION_IDS = {
 };
 
 const AccountManagementPage = () => {
-    const [selectedSectionId, setSelectedSectionId] = useState('');
+    const [selectedSectionId, setSelectedSectionId] = useState(SECTION_IDS.USER_PROFILE);
     const [getUserSession, _, removeUserSession] = useUserSession();
     const history = useHistory();
     const classes = useStyles();
@@ -47,19 +47,19 @@ const AccountManagementPage = () => {
             <Article title="ACCOUNT MANAGEMENT">
                 <ArticleContentBlock>
                     <div className={classes.sectionsRoot}>
-                        <SectionsMenu>
-                            <SectionsMenuItem
-                                id={SECTION_IDS.USER_PROFILE}
-                                header="User Profile"
-                                selection={selectedSectionId}
-                                selectionChanged={setSelectedSectionId}
-                                isDefault />
-                            <SectionsMenuItem
-                                id={SECTION_IDS.VISITS}
-                                header="User Visits"
-                                selection={selectedSectionId}
-                                selectionChanged={setSelectedSectionId} />
-                        </SectionsMenu>
+                        <SectionsMenu
+                            options={[
+                                {
+                                    id: SECTION_IDS.USER_PROFILE,
+                                    header: "User Profile",
+                                },
+                                {
+                                    id: SECTION_IDS.VISITS,
+                                    header: "User Visits",
+                                },
+                            ]}
+                            selection={selectedSectionId}
+                            selectionChanged={setSelectedSectionId} />
 
                         <div className={classes.sectionRoot}>
                             {selectedSectionId === SECTION_IDS.USER_PROFILE ? <UserProfileSection /> : null}

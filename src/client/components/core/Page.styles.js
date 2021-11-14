@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@mui/styles';
 
 
 const useStyles = makeStyles(() => ({
@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         flexDirection: 'column',
         flex: '1 1 auto',
-    }
+    },
 }));
 
 

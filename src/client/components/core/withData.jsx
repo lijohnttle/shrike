@@ -9,4 +9,6 @@ const withData = (WrappedComponent) => {
     return ClientDataContainer;
 };
 
-export default withData;
+export {
+    withData
+};

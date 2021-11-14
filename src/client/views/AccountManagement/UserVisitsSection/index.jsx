@@ -1,4 +1,4 @@
-import { Button, Typography } from '@material-ui/core';
+import { Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { queryData } from '../../../services/api';
@@ -143,11 +143,12 @@ const UserVisitsSection = () => {
                                 headerName: 'Path',
                                 flex: 1,
                                 sortable: false,
+                                minWidth: 100,
                             },
                             {
                                 field: 'count',
                                 headerName: 'Count',
-                                width: 100,
+                                width: 60,
                                 sortable: false,
                             },
                             {
@@ -169,12 +170,14 @@ const UserVisitsSection = () => {
                                     return 'Unknown';
                                 },
                                 sortable: false,
+                                minWidth: 200,
                             },
                             {
                                 field: 'date',
                                 headerName: 'Date',
                                 flex: 1,
                                 sortable: false,
+                                minWidth: 250,
                             },
                         ]
                     }

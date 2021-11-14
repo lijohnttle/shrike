@@ -1,4 +1,6 @@
 import path from 'path';
+import { urlList } from '../../static.js';
+
 
 const getName = () => 'Page Controller';
 
@@ -14,19 +16,14 @@ const register = (app, appContext) => {
         res.sendFile(path.resolve(rootPath, 'dist/public/index.html'));
     };
 
-    const pageUrls = [
-        '/',
-        '/about',
-        '/account/signin',
-        '/account/management',
-    ];
-    
-    pageUrls.forEach(url => app.get(url, getIndexHandler));
-
-    console.log('The next pages have been registered:');
-    pageUrls.forEach((url) => console.log(url));
+    console.log('Registering the next pages:');
+    Object.values(urlList).forEach(url => {
+        app.get(url, getIndexHandler);
+        console.log(url);
+    });
     console.log(`Registered ${getName()}`);
 };
+
 
 export default {
     register

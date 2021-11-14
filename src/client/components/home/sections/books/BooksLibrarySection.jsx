@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, CircularProgress, makeStyles, Typography } from '@material-ui/core';
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { LibraryBooks as LibraryBooksIcon } from '@mui/icons-material';
 import SectionContentContainer from '../SectionContentContainer';
 import BookList from './BookList';
 import { loadBooks } from '../../../../services/goodReadsService';
 import { queryData } from '../../../../services/api';
+
 
 const useStyles = makeStyles(theme => ({
     root: ({ screenHeight }) => ({
@@ -119,7 +121,7 @@ const BooksLibrarySection = ({ screenHeight }) => {
                     variant="contained"
                     color="primary"
                     href={`https://www.goodreads.com/review/list/${goodReadsUserId}?shelf=ALL`}
-                    target="blank"
+                    target="_blank"
                     startIcon={<LibraryBooksIcon />}>
                     See all books
                 </Button>
