@@ -1,6 +1,7 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/index.js';
 import { deepOrange, red } from '@mui/material/colors/index.js';
 
+
 let defaultTheme = createTheme({
     palette: {
         primary: deepOrange,
@@ -38,7 +39,7 @@ let defaultTheme = createTheme({
                 backgroundColor: 'rgba(0, 0, 0, 0.1)'
             }
         }
-    }
+    },
 });
 
 defaultTheme = responsiveFontSizes(defaultTheme);

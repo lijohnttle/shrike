@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+import { Link, Typography } from '@mui/material';
 import { Article, ArticleContentBlock } from '../../../components/common';
 import { Page } from '../../../components/core';
-import { Link } from 'react-router-dom';
 
 
 /**
@@ -50,7 +50,7 @@ const BlogPage = () => {
             <Article title="BLOG">
                 {blogPosts.map((post) => (
                     <ArticleContentBlock key={post.id}>
-                        <Link to={`/blog/${post.slug}`}>
+                        <Link to={`/blog/${post.slug}`} component={RouterLink}>
                             <Typography variant="h3" gutterBottom>
                                 {post.title}
                             </Typography>
