@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import ReactGA from 'react-ga';
 import { useLocation } from 'react-router';
 import { getCookieConsentValue } from "react-cookie-consent";
-import { queryData } from '../../../services/api.js';
+import { queryData } from '../../services/api.js';
 import { usePrevious } from './usePrevious.js';
 import { useUserSession } from './useUserSession.js';
 

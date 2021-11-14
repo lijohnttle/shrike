@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { queryData } from '../../../services/api';
-import { useUserSession } from '../../../components/core/hooks';
+import { useUserSession } from '../../../components/hooks';
 import { useStyles } from './styles';
 import { SectionHeader } from '../SectionHeader';
 import { Delete as DeleteIcon, Refresh as RefreshIcon, ClearAll as ClearAllIcon } from '@mui/icons-material';

@@ -4,12 +4,13 @@ import { ContactLink } from '../../../components/ContactLink';
 import { Page } from '../../../components/Page';
 import { Article } from '../../../components/Article';
 import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
-import { withData } from '../../../components/core';
+import { useData } from '../../../components/hooks';
 import { useStyles } from './styles';
 
 
-let AboutPage = ({ data }) => {
+const AboutPage = () => {
     const classes = useStyles();
+    const data = useData();
     
     const linkedin = data.contacts.find(contact => contact.vendor === 'linkedin').value;
 
@@ -121,8 +122,6 @@ let AboutPage = ({ data }) => {
         </Page>
     );
 };
-
-AboutPage = withData(AboutPage);
 
 
 export {

@@ -1,30 +1,9 @@
 import React from 'react';
 import { Link } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { useStyles } from './styles';
 
 
-const useStyles = makeStyles(theme => ({
-    bookContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        width: '98px',
-        height: '160px',
-        marginLeft: theme.spacing(2),
-        marginRight: theme.spacing(2),
-    },
-    bookLink: {
-        display: 'block',
-        overflow: 'hidden',
-
-        '& img': {
-            maxWidth: '100%',
-            maxHeight: '100%'
-        }
-    }
-}));
-
-export default ({ books }) => {
+const BookList = ({ books }) => {
     const classes = useStyles();
 
     if (!books) {
@@ -42,4 +21,9 @@ export default ({ books }) => {
             ))}
         </React.Fragment>
     );
-}; 
+};
+
+
+export {
+    BookList
+};

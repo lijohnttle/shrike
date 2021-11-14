@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@mui/styles';
 import { animateScroll } from 'react-scroll';
-import { Page } from '../Page';
-import WelcomeSection from './sections/welcome/WelcomeSection';
-import BooksLibrarySection from './sections/books/BooksLibrarySection';
-import { smoothScrollOptions } from '../../utils/scrolling'
-import { withData } from '../core';
+import { Page } from '../../../components/Page';
+import { WelcomeSection } from '../WelcomeSection';
+import { BooksLibrarySection } from '../BooksLibrarySection';
+import { smoothScrollOptions } from '../../../utils/scrolling'
+import { useData } from '../../../components/hooks';
+import { useStyles } from './styles';
 
 
-const useStyles = makeStyles(() => ({
-    welcomeSectionContainer: {
-        position: "relative",
-    },
-}));
-
-const HomePage = ({ data }) => {
+const HomePage = () => {
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
     const classes = useStyles();
+    const data = useData();
 
     useEffect(() => {
         setScreenHeight(window.innerHeight);
@@ -42,6 +37,7 @@ const HomePage = ({ data }) => {
     );
 }
 
-let ResultComponent = withData(HomePage);
 
-export default ResultComponent;
+export {
+    HomePage
+};

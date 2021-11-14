@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Drawer, IconButton, Container, useMediaQuery } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
-import { useUserSession } from '../core/hooks';
+import { useUserSession } from '../hooks';
 import { signOut } from '../../services/security.js';
 import { useStyles } from './styles';
 

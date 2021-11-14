@@ -1,39 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import { LibraryBooks as LibraryBooksIcon } from '@mui/icons-material';
-import SectionContentContainer from '../SectionContentContainer';
-import BookList from './BookList';
-import { loadBooks } from '../../../../services/goodReadsService';
-import { queryData } from '../../../../services/api';
+import { SectionContentContainer } from '../SectionContentContainer';
+import { BookList } from '../BookList';
+import { loadBooks } from '../../../services/goodReadsService';
+import { queryData } from '../../../services/api';
+import { useStyles } from './styles';
 
-
-const useStyles = makeStyles(theme => ({
-    root: ({ screenHeight }) => ({
-        background: 'white',
-        color: 'black',
-        justifyContent: 'center',
-        minHeight: `${screenHeight}px`,
-        paddingTop: theme.spacing(12),
-        paddingBottom: theme.spacing(8),
-        paddingLeft: theme.spacing(1),
-        paddingRight: theme.spacing(1),
-
-        [theme.breakpoints.down('sm')]: {
-            paddingTop: theme.spacing(8),
-            paddingBottom: theme.spacing(4)
-        }
-    }),
-    booksContainer: {
-        display: 'flex',
-        flexFlow: 'row wrap',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '160px',
-        marginTop: theme.spacing(1),
-        marginBottom: theme.spacing(8),
-    },
-}));
 
 const BooksLibrarySection = ({ screenHeight }) => {
     const [goodReadsUserId, setGoodReadsUserId] = useState(null);
@@ -142,4 +115,6 @@ const BooksLibrarySection = ({ screenHeight }) => {
     );
 };
 
-export default BooksLibrarySection;
+export {
+    BooksLibrarySection
+};

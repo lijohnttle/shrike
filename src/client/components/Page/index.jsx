@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
 import { useStyles } from './styles';
-import { useUserSession } from '../core/hooks';
+import { useUserSession } from '../hooks';
 import { Redirect, useHistory } from 'react-router';
 import { verifyAccessToken } from '../../services/security';
 import { urlList } from '../../../static';

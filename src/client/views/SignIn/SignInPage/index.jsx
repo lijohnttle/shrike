@@ -3,7 +3,7 @@ import { Button, Input, InputLabel } from '@mui/material';
 import { Page } from '../../../components/Page';
 import { signIn } from '../../../services/security.js';
 import { Redirect } from 'react-router';
-import { useUserSession } from '../../../components/core/hooks';
+import { useUserSession } from '../../../components/hooks';
 import { useStyles } from './styles';
 import { urlList } from '../../../../static';
 

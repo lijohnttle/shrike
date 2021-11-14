@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@mui/styles';
 
 
@@ -16,18 +15,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({ children, rootClassName }) => {
-    const classes = useStyles();
 
-    let rootClasses = classes.root;
-
-    if (rootClassName) {
-        rootClasses = `${rootClasses} ${rootClassName}`;
-    }
-
-    return (
-        <div className={rootClasses}>
-            {children}
-        </div>
-    );
+export {
+    useStyles
 };
