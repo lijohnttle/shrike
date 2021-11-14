@@ -1,14 +1,7 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { useStyles } from './styles';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(4),
-        overflow: 'hidden',
-    },
-}));
 
 const ArticleContentBlock = ({ children, className }) => {
     const classes = useStyles();
@@ -20,4 +13,6 @@ const ArticleContentBlock = ({ children, className }) => {
     )
 };
 
-export default ArticleContentBlock;
+export {
+    ArticleContentBlock
+};

@@ -10,6 +10,10 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(6),
         marginBottom: theme.spacing(4),
         boxShadow: '3px 3px 7px #00000017',
+
+        [theme.breakpoints.down('sm')]: {
+            
+        },
     },
 }));
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router';
-import { ArticleContentBlock } from '../../../components/common';
+import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
 import { Article } from '../../../components/Article';
 import { Page } from '../../../components/core';
 import { useUserSession } from '../../../components/core/hooks';

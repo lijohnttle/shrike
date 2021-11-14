@@ -12,11 +12,6 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: theme.spacing(8),
         paddingBottom: theme.spacing(4),
         zIndex: 1,
-
-        [theme.breakpoints.down('sm')]: {
-            paddingTop: theme.spacing(4),
-            paddingBottom: theme.spacing(2),
-        },
     },
     childrenContainer: {
         display: 'flex',
