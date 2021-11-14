@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
 import { Article } from '../../../components/Article';
-import { Page } from '../../../components/core';
+import { Page } from '../../../components/Page';
 import { BlogPostMeta } from '../BlogPostMeta';
+import { BlogToolBar } from '../BlogToolBar';
 
 
 /**
@@ -58,7 +59,9 @@ const BlogPage = () => {
 
     return (
         <Page title="Blog">
-            <Article title="BLOG" topGutter>
+            <Article title="BLOG">
+                <BlogToolBar />
+
                 {blogPosts.length > 0
                     ? blogPosts.map((post) => (
                         <ArticleContentBlock key={post.id} compact>

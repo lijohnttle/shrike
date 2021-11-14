@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { animateScroll } from 'react-scroll';
+import { Page } from '../Page';
 import WelcomeSection from './sections/welcome/WelcomeSection';
 import BooksLibrarySection from './sections/books/BooksLibrarySection';
 import { smoothScrollOptions } from '../../utils/scrolling'
-import { Page, withData } from '../core';
+import { withData } from '../core';
 
 
 const useStyles = makeStyles(() => ({
