@@ -12,6 +12,10 @@ const useStyles = makeStyles((theme) => ({
             paddingBottom: theme.spacing(2),
         },
     },
+    compact: {
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
+    },
 }));
 
 

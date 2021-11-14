@@ -20,9 +20,12 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(16),
         zIndex: 0,
     },
-    hollow: {
-        background: '#f7f7f7',
-        boxShadow: 'inset 0px 7px 7px -7px #00000017',
+    topGutter: {
+        paddingTop: theme.spacing(4),
+
+        [theme.breakpoints.down('sm')]: {
+            paddingTop: theme.spacing(2),
+        },
     },
 }));
 

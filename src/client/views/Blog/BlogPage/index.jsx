@@ -4,7 +4,6 @@ import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
 import { Article } from '../../../components/Article';
 import { Page } from '../../../components/core';
 import { BlogPostMeta } from '../BlogPostMeta';
-import { BlogPostTile } from '../BlogPostTile';
 
 
 /**
@@ -40,11 +39,11 @@ async function loadBlogPostsList(page, pageSize) {
 
 function renderBlogPostsPlaceholder() {
     return (
-        <BlogPostTile>
+        <ArticleContentBlock compact>
             <Typography variant="subtitle2" align="center">
                 There are no posts yet
             </Typography>
-        </BlogPostTile>
+        </ArticleContentBlock>
     );
 }
 
@@ -59,12 +58,14 @@ const BlogPage = () => {
 
     return (
         <Page title="Blog">
-            <Article title="BLOG" hollow>
-                <ArticleContentBlock>
-                    {blogPosts.length > 0
-                        ? blogPosts.map((post) => <BlogPostMeta key={post.id} post={post} />)
-                        : renderBlogPostsPlaceholder()}
-                </ArticleContentBlock>
+            <Article title="BLOG" topGutter>
+                {blogPosts.length > 0
+                    ? blogPosts.map((post) => (
+                        <ArticleContentBlock key={post.id} compact>
+                            <BlogPostMeta post={post} />
+                        </ArticleContentBlock>
+                    ))
+                    : renderBlogPostsPlaceholder()}
             </Article>
         </Page>
     )

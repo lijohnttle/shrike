@@ -3,7 +3,7 @@ import { Container, Typography } from '@mui/material';
 import { useStyles } from './styles';
 
 
-const Article = ({ title, updatedOn, hollow, children }) => {
+const Article = ({ title, updatedOn, topGutter, children }) => {
     const classes = useStyles();
 
     let updateOnElement = null;
@@ -30,7 +30,7 @@ const Article = ({ title, updatedOn, hollow, children }) => {
                 </Container>
             </div>
 
-            <div className={`${classes.childrenContainer} ${hollow ? classes.hollow : ''}`}>
+            <div className={`${classes.childrenContainer} ${topGutter ? classes.topGutter : ''}`}>
                 {children}
             </div>
         </div>
