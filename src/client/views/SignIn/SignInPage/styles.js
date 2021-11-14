@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
 
-        [theme.breakpoints.down('xs')]: {
+        [theme.breakpoints.down('sm')]: {
             alignSelf: 'stretch',
             width: 'unset',
             marginTop: theme.spacing(2),

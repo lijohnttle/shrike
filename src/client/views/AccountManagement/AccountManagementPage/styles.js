@@ -1,10 +1,14 @@
 import { makeStyles } from '@mui/styles';
 
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     sectionsRoot: {
         display: 'flex',
-        flex: 'row nowrap',
+        flexFlow: 'row nowrap',
+
+        [theme.breakpoints.down('sm')]: {
+            flexFlow: 'column nowrap',
+        },
     },
     sectionRoot: {
         flexGrow: 1,

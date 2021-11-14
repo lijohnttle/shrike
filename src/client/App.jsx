@@ -4,7 +4,7 @@ import { ThemeProvider, CssBaseline } from '@mui/material';
 import { defaultTheme } from './themes';
 import ReactGA from 'react-ga';
 import HomePage from './components/home/HomePage';
-import { AboutPage } from './views/About';
+import { AboutPage } from './views/About/AboutPage';
 import { SignInPage } from './views/SignIn/SignInPage';
 import { AccountManagementPage } from './views/AccountManagement/AccountManagementPage';
 import { BlogPage } from './views/Blog/BlogPage';
@@ -31,7 +31,7 @@ const App = () => {
                 <Route path={urlList.SIGN_IN} component={SignInPage} />
                 <Route path={urlList.ACCOUNT_MANAGEMENT} component={AccountManagementPage} />
                 <Route path={urlList.BLOG} component={BlogPage} />
-                <Route path={urlList.HOME} component={HomePage} />
+                <Route path={urlList.HOME} component={HomePage} exact />
             </Switch>
         </ThemeProvider >
     );

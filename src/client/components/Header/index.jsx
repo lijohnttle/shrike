@@ -17,7 +17,7 @@ const Header = ({ transparent, dark, light }) => {
     const [getUserSession, _, removeUserSession] = useUserSession();
     const history = useHistory();
     const classes = useStyles({ transparent, light: light });
-    const smallScreenMatches = useMediaQuery((theme) => theme.breakpoints.up('sm'));
+    const smallScreenMatches = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     const signOutClickHandler = async (e) => {
         e?.preventDefault();
@@ -44,7 +44,7 @@ const Header = ({ transparent, dark, light }) => {
         menuItems.push({ title: 'Sign Out', href: '#', action: signOutClickHandler });
     }
 
-    let navigationMenu = smallScreenMatches
+    let navigationMenu = !smallScreenMatches
         ? (
             <ul className={classes.navigationMenu}>
                 {menuItems.map((link) => <li key={link.title}><Link to={link.href} onClick={link.action}>{link.title}</Link></li>)}
@@ -62,7 +62,7 @@ const Header = ({ transparent, dark, light }) => {
 
                 <Drawer anchor="right" open={isMenuOpen} className={classes.drawer} classes={{ paper: classes.drawerPaper }} onClose={() => setIsMenuopen(false)}>
                     <ul className={classes.navigationVerticalMenu}>
-                        {menuItems.map((link) => <li key={link.href}><Link to={link.href}>{link.title}</Link></li>)}
+                        {menuItems.map((link) => <li key={link.href}><Link to={link.href} onClick={link.action}>{link.title}</Link></li>)}
                     </ul>
                 </Drawer>
             </div>);

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, Typography } from '@mui/material';
-import { Article, ArticleContentBlock, ContactLink } from '../../components/common';
-import { Page, withData } from '../../components/core';
+import { ArticleContentBlock, ContactLink } from '../../../components/common';
+import { Page, withData } from '../../../components/core';
+import { Article } from '../../../components/Article';
 import { useStyles } from './styles';
 
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
-import { Article, ArticleContentBlock } from '../../../components/common';
+import { ArticleContentBlock } from '../../../components/common';
+import { Article } from '../../../components/Article';
 import { Page } from '../../../components/core';
 import { BlogPostMeta } from '../BlogPostMeta';
 import { BlogPostTile } from '../BlogPostTile';
@@ -50,11 +51,11 @@ function renderBlogPostsPlaceholder() {
 const BlogPage = () => {
     const [blogPosts, setBlogPosts] = useState([]);
 
-    // useEffect(() => {
-    //     loadBlogPostsList()
-    //         .then((data) => setBlogPosts(data))
-    //         .catch((error) => console.error(error));
-    // }, []);
+    useEffect(() => {
+        loadBlogPostsList()
+            .then((data) => setBlogPosts(data))
+            .catch((error) => console.error(error));
+    }, []);
 
     return (
         <Page title="Blog">
