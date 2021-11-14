@@ -44,8 +44,6 @@ const Header = ({ transparent, dark, light }) => {
         menuItems.push({ title: 'Sign Out', href: '#', action: signOutClickHandler });
     }
 
-    console.log(menuItems);
-
     let navigationMenu = smallScreenMatches
         ? (
             <ul className={classes.navigationMenu}>

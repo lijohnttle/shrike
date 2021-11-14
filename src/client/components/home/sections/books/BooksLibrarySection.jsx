@@ -121,7 +121,7 @@ const BooksLibrarySection = ({ screenHeight }) => {
                     variant="contained"
                     color="primary"
                     href={`https://www.goodreads.com/review/list/${goodReadsUserId}?shelf=ALL`}
-                    target="blank"
+                    target="_blank"
                     startIcon={<LibraryBooksIcon />}>
                     See all books
                 </Button>

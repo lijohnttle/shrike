@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { Link, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { Article, ArticleContentBlock } from '../../../components/common';
 import { Page } from '../../../components/core';
+import { BlogPostMeta } from '../BlogPostMeta';
+import { BlogPostTile } from '../BlogPostTile';
 
 
 /**
@@ -36,32 +37,33 @@ async function loadBlogPostsList(page, pageSize) {
     ];
 }
 
+function renderBlogPostsPlaceholder() {
+    return (
+        <BlogPostTile>
+            <Typography variant="subtitle2" align="center">
+                There are no posts yet
+            </Typography>
+        </BlogPostTile>
+    );
+}
+
 const BlogPage = () => {
     const [blogPosts, setBlogPosts] = useState([]);
 
-    useEffect(() => {
-        loadBlogPostsList()
-            .then((data) => setBlogPosts(data))
-            .catch((error) => console.error(error));
-    }, []);
+    // useEffect(() => {
+    //     loadBlogPostsList()
+    //         .then((data) => setBlogPosts(data))
+    //         .catch((error) => console.error(error));
+    // }, []);
 
     return (
         <Page title="Blog">
-            <Article title="BLOG">
-                {blogPosts.map((post) => (
-                    <ArticleContentBlock key={post.id}>
-                        <Link to={`/blog/${post.slug}`} component={RouterLink}>
-                            <Typography variant="h3" gutterBottom>
-                                {post.title}
-                            </Typography>
-                        </Link>
-                        
-                        <Typography variant="body1" paragraph>
-                            {post.description}
-                        </Typography>
-                    </ArticleContentBlock>
-                ))}
-                
+            <Article title="BLOG" hollow>
+                <ArticleContentBlock>
+                    {blogPosts.length > 0
+                        ? blogPosts.map((post) => <BlogPostMeta key={post.id} post={post} />)
+                        : renderBlogPostsPlaceholder()}
+                </ArticleContentBlock>
             </Article>
         </Page>
     )
