@@ -24,7 +24,7 @@ const BlogToolBar = () => {
     return (
         <ArticleContentBlock compact>
             <div>
-                <Button startIcon={<AddIcon />} onClick={handleAddBlogPost}>Create Post</Button>
+                <Button variant="outlined" startIcon={<AddIcon />} onClick={handleAddBlogPost}>Create Post</Button>
             </div>
         </ArticleContentBlock>
     );
