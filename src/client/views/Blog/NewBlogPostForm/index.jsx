@@ -8,20 +8,19 @@ import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
 const NewBlogPostForm = ({
         blogPostTitle,
         setBlogPostTitle,
+        blogPostSlug,
+        setBlogPostSlug,
         blogPostDescription,
         setBlogPostDescription,
         blogPostContent,
         setBlogPostContent,
         blogPostPublish,
         setBlogPostPublish,
-        onPreview
+        onPreview,
+        onCreate
     }) => {
 
     const classes = useStyles();
-
-    const createButtonClickHandler = () => {
-
-    };
 
     const previewButtonClickHandler = () => {
         onPreview();
@@ -37,6 +36,13 @@ const NewBlogPostForm = ({
                             label="Title"
                             defaultValue={blogPostTitle}
                             onChange={e => setBlogPostTitle(e.target.value)} />
+                    </div>
+                    <div className={classes.fieldContainer}>
+                        <TextField
+                            required
+                            label="Slug"
+                            defaultValue={blogPostSlug}
+                            onChange={e => setBlogPostSlug(e.target.value)} />
                     </div>
                     <div className={classes.fieldContainer}>
                         <TextField
@@ -65,7 +71,7 @@ const NewBlogPostForm = ({
                             <Button color="primary" variant="outlined" onClick={previewButtonClickHandler}>PREVIEW</Button>
                         </div>
                         <div className={classes.commandContainer}>
-                            <Button color="success" variant="contained" onClick={createButtonClickHandler}>CREATE</Button>
+                            <Button color="success" variant="contained" onClick={onCreate}>CREATE</Button>
                         </div>
                     </div>
                 </form>

@@ -10,14 +10,11 @@ const NewBlogPostPreview = ({
         blogPostTitle,
         blogPostContent,
         blogPostPublish,
-        onEdit
+        onEdit,
+        onCreate
     }) => {
 
     const classes = useStyles();
-
-    const createButtonClickHandler = () => {
-
-    };
 
     const editButtonClickHandler = () => {
         onEdit();
@@ -38,7 +35,7 @@ const NewBlogPostPreview = ({
                                 <Button color="primary" variant="outlined" onClick={editButtonClickHandler}>EDIT</Button>
                             </div>
                             <div className={classes.commandContainer}>
-                                <Button color="success" variant="contained" onClick={createButtonClickHandler}>CREATE</Button>
+                                <Button color="success" variant="contained" onClick={onCreate}>CREATE</Button>
                             </div>
                         </div>
                     </form>

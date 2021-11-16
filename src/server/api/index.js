@@ -18,6 +18,12 @@ import {
     mutationResolvers as diagnosticsSchemaMutationResolvers
 } from './diagnosticsSchema.js';
 
+import {
+    typeDef as blogSchemaTypeDef,
+    queryResolvers as blogSchemaQueryResolvers,
+    mutationResolvers as blogSchemaMutationResolvers
+} from './blogSchema.js';
+
 
 const Query = `
     type Query {
@@ -36,6 +42,7 @@ const schema = makeExecutableSchema({
         accountTypeDef,
         userProfileTypeDef,
         diagnosticsSchemaTypeDef,
+        blogSchemaTypeDef,
     ],
     resolvers: {
         Query: {
@@ -43,11 +50,13 @@ const schema = makeExecutableSchema({
             ...accountQueryResolvers,
             ...userProfileQueryResolvers,
             ...diagnosticsSchemaQueryResolvers,
+            ...blogSchemaQueryResolvers,
         },
         Mutation: {
             ...accountMutationResolvers,
             ...userProfileMutationResolvers,
             ...diagnosticsSchemaMutationResolvers,
+            ...blogSchemaMutationResolvers,
         },
      }
 });
