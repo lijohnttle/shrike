@@ -9,16 +9,16 @@ import { useStyles } from './styles';
  * @param {String} vendor Vendor's name.
  * @returns {import('react').ReactElement} 
  */
- function createIconByVendor(vendor, className) {
+ function createIconByVendor(vendor, fontSize, className) {
     switch (vendor) {
         case 'facebook':
-            return <Facebook fontSize="inherit" className={className} />
+            return <Facebook fontSize={fontSize} className={className} classes={{ root: className }} />
         case 'instagram':
-            return <Instagram fontSize="inherit" className={className} />
+            return <Instagram fontSize={fontSize} className={className} />
         case 'linkedin':
-            return <LinkedIn fontSize="inherit" className={className} />
+            return <LinkedIn fontSize={fontSize} className={className} />
         case 'email':
-            return <Email fontSize="inherit" className={className} />
+            return <Email fontSize={fontSize} className={className} />
         default:
             return null;
     }
@@ -38,7 +38,7 @@ function buildHRefByVendor(vendor, value) {
     }
 }
 
-const ContactLink = ({ contact, dark, iconClassName }) => {
+const ContactLink = ({ contact, dark, fontSize, iconClassName }) => {
     const classes = useStyles();
 
     return (
@@ -48,7 +48,7 @@ const ContactLink = ({ contact, dark, iconClassName }) => {
                 href={buildHRefByVendor(contact.vendor, contact.value)}
                 color="inherit"
                 target="_blank">
-                {createIconByVendor(contact.vendor, iconClassName)}
+                {createIconByVendor(contact.vendor, fontSize || 'inherit', iconClassName)}
             </IconButton>
         </div>
     );

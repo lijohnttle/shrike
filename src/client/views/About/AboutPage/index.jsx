@@ -115,7 +115,7 @@ const AboutPage = () => {
                     </Typography>
 
                     <div className={classes.contactList}>
-                        {data.contacts.map(contact => <ContactLink key={contact.vendor} contact={contact} iconClassName={classes.contactIcon} />)}
+                        {data.contacts.map(contact => <ContactLink key={contact.vendor} contact={contact} fontSize="large" />)}
                     </div>
                 </ArticleContentBlock>
             </Article>

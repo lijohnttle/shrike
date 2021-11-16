@@ -29,7 +29,7 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
 
                 <div className={classes.contactsContainer}>
                     {contacts.map(contact => (
-                        <ContactLink key={contact.vendor} contact={contact} dark iconClassName={classes.contactIcon} />
+                        <ContactLink key={contact.vendor} contact={contact} dark fontSize="large" />
                     ))}
                 </div>
             </div>

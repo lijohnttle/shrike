@@ -45,15 +45,6 @@ const useStyles = makeStyles((theme) => ({
             background: '#59595996',
         }
     },
-    contactIcon: {
-        width: theme.typography.h1.fontSize,
-        height: theme.typography.h1.fontSize,
-
-        [theme.breakpoints.down('sm')]: {
-            width: theme.typography.h2.fontSize,
-            width: theme.typography.h2.fontSize,
-        }
-    },
     gotoNextSectionButtonContainer: {
         flex: '1 1 auto',
         display: 'flex',
