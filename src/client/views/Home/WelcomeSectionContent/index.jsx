@@ -36,7 +36,7 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
 
             <div className={classes.gotoNextSectionButtonContainer}>
                 <IconButton className={classes.buttonDarkTheme} onClick={gotoNextSection} color="inherit">
-                    <ArrowDownwardRounded className={classes.gotoNextSectionIcon} />
+                    <ArrowDownwardRounded fontSize="large" />
                 </IconButton>
             </div>
         </div>

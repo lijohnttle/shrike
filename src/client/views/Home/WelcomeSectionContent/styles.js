@@ -51,15 +51,6 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    gotoNextSectionIcon: {
-        width: theme.typography.h1.fontSize,
-        height: theme.typography.h1.fontSize,
-
-        [theme.breakpoints.down('sm')]: {
-            width: theme.typography.h2.fontSize,
-            width: theme.typography.h2.fontSize,
-        }
-    },
 }));
 
 
