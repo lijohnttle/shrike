@@ -10,7 +10,7 @@
     "build-dev": "webpack --config build/client/webpack.config.js --mode development",
     "build-prod": "webpack --config build/client/webpack.config.js --mode production",
     "build": "npm run build-dev",
-    "start": "node ./src/server/index.js",
+    "start": "node --experimental-specifier-resolution=node ./src/server/index.js",
     "restart": "npm run build && npm start",
     "test": "jest --testEnvironment=node --runInBand ./src/tests --config ./src/tests/jest.config.js"
   },

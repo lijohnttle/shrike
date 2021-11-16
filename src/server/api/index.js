@@ -1,28 +1,8 @@
 import { makeExecutableSchema } from '@graphql-tools/schema';
-
-import {
-    typeDef as accountTypeDef,
-    queryResolvers as accountQueryResolvers,
-    mutationResolvers as accountMutationResolvers
- } from './accountSchema.js';
-
-import {
-    typeDef as userProfileTypeDef,
-    queryResolvers as userProfileQueryResolvers,
-    mutationResolvers as userProfileMutationResolvers
-} from './userProfileSchema.js';
-
-import {
-    typeDef as diagnosticsSchemaTypeDef,
-    queryResolvers as diagnosticsSchemaQueryResolvers,
-    mutationResolvers as diagnosticsSchemaMutationResolvers
-} from './diagnosticsSchema.js';
-
-import {
-    typeDef as blogSchemaTypeDef,
-    queryResolvers as blogSchemaQueryResolvers,
-    mutationResolvers as blogSchemaMutationResolvers
-} from './blogSchema.js';
+import { register as registerAccountSchema } from './schemas/account';
+import { register as registerBlogSchema } from './schemas/blog';
+import { register as registerUserProfileSchema } from './schemas/userProfile';
+import { register as registerDiagnosticsSchema } from './schemas/diagnostics';
 
 
 const Query = `
@@ -35,30 +15,30 @@ const Mutation = `
     type Mutation
 `;
 
-const schema = makeExecutableSchema({
+
+const schemaDef = {
     typeDefs: [
         Query,
         Mutation,
-        accountTypeDef,
-        userProfileTypeDef,
-        diagnosticsSchemaTypeDef,
-        blogSchemaTypeDef,
     ],
+    queryResolvers: {
+        version: () => "v1",
+    },
+    mutationResolvers: { }
+};
+
+registerAccountSchema(schemaDef);
+registerBlogSchema(schemaDef);
+registerUserProfileSchema(schemaDef);
+registerDiagnosticsSchema(schemaDef);
+
+
+const schema = makeExecutableSchema({
+    typeDefs: schemaDef.typeDefs,
     resolvers: {
-        Query: {
-            version: () => "v1",
-            ...accountQueryResolvers,
-            ...userProfileQueryResolvers,
-            ...diagnosticsSchemaQueryResolvers,
-            ...blogSchemaQueryResolvers,
-        },
-        Mutation: {
-            ...accountMutationResolvers,
-            ...userProfileMutationResolvers,
-            ...diagnosticsSchemaMutationResolvers,
-            ...blogSchemaMutationResolvers,
-        },
-     }
+        Query: schemaDef.queryResolvers,
+        Mutation: schemaDef.mutationResolvers,
+    }
 });
 
 

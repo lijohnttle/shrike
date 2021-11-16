@@ -1,37 +1,7 @@
-import { getAccessValidator, getUserAuthenticator } from '../domain/index.js';
+import { getAccessValidator, getUserAuthenticator } from '../../../domain';
 
-export const typeDef = `
-    extend type Query {
-        verifyAdminAccess(accessToken: String!): VerificationResult
-    }
 
-    extend type Mutation {
-        signIn(credentials: CredentialsInput!): AuthenticationResult
-        signOut(session: SessionInput!): Boolean
-    }
-
-    input CredentialsInput {
-        username: String!
-        password: String!
-    }
-
-    type AuthenticationResult {
-        username: String,
-        token: String
-        message: String
-    }
-
-    input SessionInput {
-        username: String!
-        token: String!
-    }
-
-    type VerificationResult {
-        verified: Boolean!
-    }
-`;
-
-export const queryResolvers = {
+const queryResolvers = {
     verifyAdminAccess: async (_, { accessToken }) => {
 
         try {
@@ -47,7 +17,7 @@ export const queryResolvers = {
     },
 };
 
-export const mutationResolvers = {
+const mutationResolvers = {
     signIn: (_, { credentials }) => {
         try {
             return getUserAuthenticator().signIn(credentials.username, credentials.password);
@@ -67,3 +37,9 @@ export const mutationResolvers = {
         }
     },
 };
+
+
+export {
+    queryResolvers,
+    mutationResolvers,
+}

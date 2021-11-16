@@ -1,30 +1,7 @@
-import { getAccessValidator, getUserProfileRepository } from '../domain/index.js';
+import { getAccessValidator, getUserProfileRepository } from '../../../domain';
 
-export const typeDef = `
-    extend type Query {
-        userProfile: UserProfileResult
-    }
 
-    extend type Mutation {
-        saveUserProfile(userProfile: UserProfileInput!, accessToken: String!): Boolean
-    }
-
-    type UserProfileResult {
-        success: Boolean!
-        userProfile: UserProfile
-        errorMessage: String
-    }
-
-    type UserProfile {
-        goodReadsUserId: String!
-    }
-
-    input UserProfileInput {
-        goodReadsUserId: String
-    }
-`;
-
-export const queryResolvers = {
+const queryResolvers = {
     userProfile: async () => {
         try {
             const userProfile = await getUserProfileRepository().find();
@@ -47,7 +24,7 @@ export const queryResolvers = {
     },
 };
 
-export const mutationResolvers = {
+const mutationResolvers = {
     saveUserProfile: async (_, { userProfile, accessToken }) => {
         
         getAccessValidator().verifyAdminAccess(accessToken);
@@ -63,3 +40,9 @@ export const mutationResolvers = {
         }
     },
 };
+
+
+export {
+    queryResolvers,
+    mutationResolvers,
+}
