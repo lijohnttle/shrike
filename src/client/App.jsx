@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const App = () => {
-    useUserVisitStatistics({ ignorePaths: ['/account'] });
+    useUserVisitStatistics({ ignorePaths: ['/management'] });
     usePageScroll();
 
     return (
