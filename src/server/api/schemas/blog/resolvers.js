@@ -49,17 +49,12 @@ const mutationResolvers = {
             }
 
             const newBlogPost = new BlogPost(blogPost);
-            newBlogPost.
-
-
             newBlogPost.createdOn = new Date();
-            newBlogPost.updatedUp = newBlogPost.createdOn;
+            newBlogPost.updatedOn = newBlogPost.createdOn;
 
             if (blogPost.publish) {
                 newBlogPost.publishedOn = newBlogPost.createdOn;
             }
-
-            console.log(blogPost);
 
             await newBlogPost.save();
 
