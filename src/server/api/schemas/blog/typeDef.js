@@ -18,10 +18,10 @@ const typeDef = `
         title: String!
         slug: String!
         description: String!
-        createdOn: String
-        updatedOn: String
+        createdOn: String!
+        updatedOn: String!
         publishedOn: String
-        published: Boolean
+        published: Boolean!
     }
 
     input CreateBlogPostInput {

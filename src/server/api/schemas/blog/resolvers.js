@@ -15,10 +15,27 @@ const queryResolvers = {
                 }
             }
 
-            const blogPosts = await BlogPost.find({ published: true });
+            const filter = { };
 
-            blogPosts.forEach((post) => {
-                post.id = post._id;
+            if (!includeUnpublished) {
+                filter.published = true;
+            }
+
+            const rawBlogPosts = await BlogPost.find(filter);
+
+            const blogPosts = rawBlogPosts.map((source) => {
+                const result = {
+                    id: source._id,
+                    title: source.title,
+                    slug: source.slug,
+                    description: source.description,
+                    createdOn: source.createdOn.toUTCString(),
+                    updatedOn: source.updatedOn.toUTCString(),
+                    publishedOn: source.publishedOn ? source.publishedOn.toUTCString() : null,
+                    published: !!source.published
+                };
+
+                return result;
             });
 
             return {
@@ -54,6 +71,7 @@ const mutationResolvers = {
 
             if (blogPost.publish) {
                 newBlogPost.publishedOn = newBlogPost.createdOn;
+                newBlogPost.published = true;
             }
 
             await newBlogPost.save();

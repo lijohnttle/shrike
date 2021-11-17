@@ -5,38 +5,54 @@ import { Article } from '../../../components/Article';
 import { Page } from '../../../components/Page';
 import { BlogPostMeta } from '../BlogPostMeta';
 import { BlogToolBar } from '../BlogToolBar';
+import { useUserSession } from '../../../hooks';
+import { queryData } from '../../../services/api';
 
 
-/**
- * 
- * @param {Number} page The number of page.
- * @param {Number} pageSize The number of posts on a page.
- * @returns {Array} Array of blog posts.
- */
-// async function loadBlogPostsList(page, pageSize) {
-//     return [
-//         {
-//             id: '0',
-//             title: 'How to grow dragons',
-//             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur semper augue libero, et feugiat ex tempor vitae. Quisque eget justo consequat, semper sapien nec, vehicula nulla. Etiam fringilla hendrerit orci tristique cursus. Quisque maximus sapien sapien, at placerat justo ullamcorper feugiat. Duis tempus vehicula libero, ut condimentum diam cursus id. Donec erat turpis, euismod non nisl sed, feugiat ullamcorper velit. Aliquam ullamcorper metus in molestie posuere. Quisque vel convallis lorem. Sed pellentesque sed purus in venenatis. Ut non risus tellus. Morbi id felis ut tellus interdum ullamcorper. Phasellus ullamcorper eros ac sapien accumsan, vel sollicitudin tellus rutrum. Quisque bibendum arcu et commodo rhoncus. Quisque consectetur est sed odio vehicula tempor.',
-//             slug: 'how_to_grow_dragons',
-//             createdOn: new Date(),
-//             updatedOn: new Date(),
-//             publishedOn: new Date(),
-//             published: true,
-//         },
-//         {
-//             id: '1',
-//             title: 'How to kill orks',
-//             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur semper augue libero, et feugiat ex tempor vitae. Quisque eget justo consequat, semper sapien nec, vehicula nulla. Etiam fringilla hendrerit orci tristique cursus. Quisque maximus sapien sapien, at placerat justo ullamcorper feugiat. Duis tempus vehicula libero, ut condimentum diam cursus id. Donec erat turpis, euismod non nisl sed, feugiat ullamcorper velit. Aliquam ullamcorper metus in molestie posuere. Quisque vel convallis lorem. Sed pellentesque sed purus in venenatis. Ut non risus tellus. Morbi id felis ut tellus interdum ullamcorper. Phasellus ullamcorper eros ac sapien accumsan, vel sollicitudin tellus rutrum. Quisque bibendum arcu et commodo rhoncus. Quisque consectetur est sed odio vehicula tempor.',
-//             slug: 'how_to_kill_orks',
-//             createdOn: new Date(),
-//             updatedOn: new Date(),
-//             publishedOn: new Date(),
-//             published: true,
-//         },
-//     ];
-// }
+async function loadBlogPostsList(session, showUnpublished) {
+    try {
+        const response = await queryData(`
+            query {
+                blogPostList(
+                    includeUnpublished: ${showUnpublished},
+                    accessToken: "${session.token}")
+                {
+                    success
+                    blogPosts {
+                        title
+                        slug
+                        description
+                        createdOn
+                        updatedOn
+                        publishedOn
+                        published
+                    }
+                    errorMessage
+                }
+            }
+        `);
+
+        if (response.blogPostList?.success === true) {
+            return response.blogPostList.blogPosts.map((post) => {
+                const result = { ...post };
+
+                result.createdOn = new Date(Date.parse(post.createdOn));
+                result.updatedOn = new Date(Date.parse(post.updatedOn));
+
+                if (result.publishedOn) {
+                    result.publishedOn = new Date(Date.parse(post.publishedOn));
+                }
+
+                return result;
+            });
+        }
+    }
+    catch (error) {
+        console.error(error);
+    }
+
+    return [];
+}
 
 function renderBlogPostsPlaceholder() {
     return (
@@ -50,21 +66,29 @@ function renderBlogPostsPlaceholder() {
 
 const BlogPage = () => {
     const [blogPosts, setBlogPosts] = useState([]);
+    const [showUnpublished, setShowUnpublished] = useState(false);
+    const [getUserSession] = useUserSession();
 
-    // useEffect(() => {
-    //     loadBlogPostsList()
-    //         .then((data) => setBlogPosts(data))
-    //         .catch((error) => console.error(error));
-    // }, []);
+    useEffect(() => {
+        refreshPosts();
+    }, [showUnpublished]);
+
+    const refreshPosts = async () => {
+        const session = getUserSession();
+
+        await loadBlogPostsList(session, showUnpublished)
+            .then((data) => setBlogPosts(data))
+            .catch((error) => console.error(error));
+    };
 
     return (
         <Page title="Blog">
             <Article title="BLOG">
-                <BlogToolBar />
+                <BlogToolBar showUnpublished={showUnpublished} setShowUnpublished={setShowUnpublished} />
 
                 {blogPosts.length > 0
                     ? blogPosts.map((post) => (
-                        <ArticleContentBlock key={post.id} compact>
+                        <ArticleContentBlock key={post.slug} compact>
                             <BlogPostMeta post={post} />
                         </ArticleContentBlock>
                     ))
