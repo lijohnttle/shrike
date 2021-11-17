@@ -23,13 +23,17 @@ const blogPostSchema = new mongoose.Schema({
         default: Date.now,
         required: true,
     },
-    updatedOn: Date,
+    updatedOn: {
+        type: Date,
+        default: Date.now,
+        required: true,
+    },
     publishedOn: Date,
     published: Boolean
 });
 
 blogPostSchema.index({ publishedOn: 1 });
-blogPostSchema.index({ slug: 1 });
+blogPostSchema.index({ slug: 1 }, { unique: true });
 
 const BlogPost = mongoose.model('BlogPost', blogPostSchema);
 

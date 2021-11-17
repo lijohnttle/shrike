@@ -1,12 +1,13 @@
 import React from 'react';
 import { Container, Typography } from '@mui/material';
-import { withData } from '../core/withData';
-import ContactLink from '../common/ContactLink';
+import { ContactLink } from '../ContactLink';
+import { useData } from '../../hooks';
 import { useStyles } from './styles';
 
 
-let Footer = ({ data }) => {
+const Footer = () => {
     const classes = useStyles();
+    const data = useData();
 
     return (
         <div className={classes.root}>
@@ -24,8 +25,6 @@ let Footer = ({ data }) => {
         </div>
     );
 };
-
-Footer = withData(Footer);
 
 
 export {

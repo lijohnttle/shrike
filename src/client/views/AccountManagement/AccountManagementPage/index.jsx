@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Redirect, useHistory } from 'react-router';
+import React, { useState } from 'react';
 import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
 import { Article } from '../../../components/Article';
-import { Page } from '../../../components/core';
-import { useUserSession } from '../../../components/core/hooks';
+import { Page } from '../../../components/Page';
 import { UserProfileSection } from '../UserProfileSection';
 import { UserVisitsSection } from '../UserVisitsSection';
-import { verifyAccessToken } from '../../../services/security.js';
-import { urlList } from '../../../../static.js';
 import { useStyles } from './styles.js';
 import { SectionsMenu } from '../SectionsMenu';
 
@@ -19,31 +15,10 @@ const SECTION_IDS = {
 
 const AccountManagementPage = () => {
     const [selectedSectionId, setSelectedSectionId] = useState(SECTION_IDS.USER_PROFILE);
-    const [getUserSession, _, removeUserSession] = useUserSession();
-    const history = useHistory();
     const classes = useStyles();
 
-    useEffect(() => {
-        const session = getUserSession();
-
-        if (session) {
-            verifyAccessToken(session.token, removeUserSession)
-                .then((verified) => {
-                    if (!verified) {
-                        removeUserSession();
-                        history.push(urlList.SIGN_IN);
-                    }
-                })
-                .catch((error) => console.error(error));
-        }
-    }, []);
-
-    if (!getUserSession()) {
-        return <Redirect to={urlList.SIGN_IN} />;
-    }
-
     return (
-        <Page title="Account Management">
+        <Page title="Account Management" authenticated>
             <Article title="ACCOUNT MANAGEMENT">
                 <ArticleContentBlock>
                     <div className={classes.sectionsRoot}>

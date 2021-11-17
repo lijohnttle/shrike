@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Button, CircularProgress, FormControl, Input, InputLabel, Typography } from '@mui/material';
+import { Button, CircularProgress, Input, InputLabel } from '@mui/material';
 import { queryData } from "../../../services/api.js";
-import { useUserSession } from '../../../components/core/hooks';
+import { useUserSession } from '../../../hooks';
 import { SectionHeader } from '../SectionHeader/index.jsx';
 import { useStyles } from './styles';
 

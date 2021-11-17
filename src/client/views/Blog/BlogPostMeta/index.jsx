@@ -13,7 +13,9 @@ const BlogPostMeta = ({ post }) => {
         <div className={classes.root}>
             <div className={classes.publishedOn}>
                 <Typography variant="caption" align="justify">
-                    {post.publishedOn.toLocaleDateString()}
+                    {post.publishedOn?.toLocaleDateString() ?? ''}
+
+                    {!post.published ? ' (Not published)' : ''}
                 </Typography>
             </div>
             

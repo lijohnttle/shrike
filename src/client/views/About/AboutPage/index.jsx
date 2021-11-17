@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link, Typography } from '@mui/material';
-import { ContactLink } from '../../../components/common';
-import { Page, withData } from '../../../components/core';
+import { ContactLink } from '../../../components/ContactLink';
+import { Page } from '../../../components/Page';
 import { Article } from '../../../components/Article';
 import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
+import { useData } from '../../../hooks';
 import { useStyles } from './styles';
 
 
-let AboutPage = ({ data }) => {
+const AboutPage = () => {
     const classes = useStyles();
+    const data = useData();
     
     const linkedin = data.contacts.find(contact => contact.vendor === 'linkedin').value;
 
@@ -113,15 +115,13 @@ let AboutPage = ({ data }) => {
                     </Typography>
 
                     <div className={classes.contactList}>
-                        {data.contacts.map(contact => <ContactLink key={contact.vendor} contact={contact} iconClassName={classes.contactIcon} />)}
+                        {data.contacts.map(contact => <ContactLink key={contact.vendor} contact={contact} fontSize="large" />)}
                     </div>
                 </ArticleContentBlock>
             </Article>
         </Page>
     );
 };
-
-AboutPage = withData(AboutPage);
 
 
 export {

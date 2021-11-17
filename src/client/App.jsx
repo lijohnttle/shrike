@@ -3,14 +3,15 @@ import { Switch, Route } from 'react-router-dom';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { defaultTheme } from './themes';
 import ReactGA from 'react-ga';
-import HomePage from './components/home/HomePage';
+import { HomePage } from './views/Home/HomePage';
 import { AboutPage } from './views/About/AboutPage';
 import { SignInPage } from './views/SignIn/SignInPage';
 import { AccountManagementPage } from './views/AccountManagement/AccountManagementPage';
 import { BlogPage } from './views/Blog/BlogPage';
 import { BlogPostPage } from './views/Blog/BlogPostPage';
-import { CookieConsent } from './components/common';
-import { useUserVisitStatistics, usePageScroll } from './components/core/hooks';
+import { NewBlogPostPage } from './views/Blog/NewBlogPostPage';
+import { CookieConsent } from './components/CookieConsent';
+import { useUserVisitStatistics, usePageScroll } from './hooks';
 import { urlList } from '../static.js';
 
 
@@ -31,6 +32,7 @@ const App = () => {
                 <Route exact path={urlList.ABOUT} component={AboutPage} />
                 <Route exact path={urlList.SIGN_IN} component={SignInPage} />
                 <Route exact path={urlList.ACCOUNT_MANAGEMENT} component={AccountManagementPage} />
+                <Route exact path={urlList.NEW_BLOG_POST} component={NewBlogPostPage} />
                 <Route exact path={urlList.BLOG} component={BlogPage} />
                 <Route exact path={urlList.BLOG_POST} component={BlogPostPage} />
                 <Route exact path={urlList.HOME} component={HomePage} />

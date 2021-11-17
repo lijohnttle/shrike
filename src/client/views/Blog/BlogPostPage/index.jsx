@@ -1,7 +1,7 @@
 import React from 'react';
 import { Article } from '../../../components/Article';
 import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
-import { Page } from '../../../components/core';
+import { Page } from '../../../components/Page';
 
 
 const BlogPostPage = () => {

@@ -26,10 +26,6 @@ const useStyles = makeStyles((theme) => ({
         flexFlow: 'row wrap',
         justifyContent: 'center',
     },
-    contactIcon: {
-        width: 48,
-        height: 48,
-    },
 }));
 
 
