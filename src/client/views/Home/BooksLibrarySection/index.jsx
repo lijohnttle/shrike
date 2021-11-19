@@ -103,7 +103,7 @@ const BooksLibrarySection = ({ screenHeight }) => {
     );
 
     return (
-        <SectionContentContainer rootClassName={classes.root}>
+        <SectionContentContainer className={classes.root}>
             <Box mb={4}>
                 <Typography variant="h1" align="center">
                     Book Library
