@@ -28,8 +28,6 @@ const useNotFound = (app, appContext) => {
     app.get('*', (req, res) => {
         res.status(404);
 
-        console.log(req.accepts('html'));
-
         // respond with html page
         if (req.accepts('html')) {
             res.setHeader('content-type', 'text/html');

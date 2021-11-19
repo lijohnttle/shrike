@@ -5,7 +5,8 @@ const urlList = {
     ACCOUNT_MANAGEMENT: '/management/account',
     BLOG: '/blog',
     BLOG_POST: '/blog/:slug',
-    NEW_BLOG_POST: '/management/blog/new',
+    BLOG_POST_NEW: '/management/blog/new',
+    BLOG_POST_EDIT: '/management/blog/edit/:slug',
 };
 
 const cookieKeys = {

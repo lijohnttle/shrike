@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom'
+import { useUserSession } from '../../../hooks';
+import { queryData } from '../../../services/api';
 import { Article } from '../../../components/Article';
 import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
 import { NotFound } from '../../../components/NotFound';
 import { Page } from '../../../components/Page';
-import { useUserSession } from '../../../hooks';
-import { queryData } from '../../../services/api';
+import { BlogPostToolBar } from '../BlogPostToolBar';
 
 
-async function loadBlogPost(slug, session) {
+const loadBlogPost = async (slug, session) => {
     try {
         const response = await queryData(`
             query {
@@ -66,7 +67,7 @@ async function loadBlogPost(slug, session) {
 
 const BlogPostPage = () => {
     const isCancelled = useRef(false);
-    const [blogPost, setBlogpost] = useState();
+    const [blogPost, setBlogPost] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const { slug } = useParams();
     const [getUserSession] = useUserSession();
@@ -77,7 +78,7 @@ const BlogPostPage = () => {
         loadBlogPost(slug, session)
             .then((post) => {
                 if (!isCancelled.current) {
-                    setBlogpost(post);
+                    setBlogPost(post);
                 }
             })
             .finally(() => {
@@ -98,6 +99,8 @@ const BlogPostPage = () => {
     return (
         <Page title={blogPost?.title || (isLoading ? 'Loading...' : '')}>
             <Article title={blogPost?.title || ''} topGutter>
+                {!isLoading ? <BlogPostToolBar slug={blogPost.slug} /> : null}
+
                 <ArticleContentBlock>
                     {!isLoading ? <ReactMarkdown children={blogPost.content} /> : null}
                 </ArticleContentBlock>

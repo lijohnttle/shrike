@@ -5,7 +5,8 @@ import { Article } from '../../../components/Article';
 import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
 
 
-const NewBlogPostForm = ({
+const EditBlogPostForm = ({
+        isCreation,
         blogPostTitle,
         setBlogPostTitle,
         blogPostSlug,
@@ -17,7 +18,7 @@ const NewBlogPostForm = ({
         blogPostPublish,
         setBlogPostPublish,
         onPreview,
-        onCreate
+        onSave
     }) => {
 
     const classes = useStyles();
@@ -27,7 +28,7 @@ const NewBlogPostForm = ({
     };
 
     return (
-        <Article title="NEW BLOG POST">
+        <Article title={isCreation ? 'NEW BLOG POST' : 'EDIT BLOG POST'}>
             <ArticleContentBlock>
                 <form className={classes.form}>
                     <div className={classes.fieldContainer}>
@@ -71,7 +72,7 @@ const NewBlogPostForm = ({
                             <Button color="primary" variant="outlined" onClick={previewButtonClickHandler}>PREVIEW</Button>
                         </div>
                         <div className={classes.commandContainer}>
-                            <Button color="success" variant="contained" onClick={onCreate}>CREATE</Button>
+                            <Button color="success" variant="contained" onClick={onSave}>{isCreation ? 'CREATE' : 'SAVE'}</Button>
                         </div>
                     </div>
                 </form>
@@ -82,5 +83,5 @@ const NewBlogPostForm = ({
 
 
 export {
-    NewBlogPostForm
+    EditBlogPostForm
 };
