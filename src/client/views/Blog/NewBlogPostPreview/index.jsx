@@ -23,7 +23,7 @@ const NewBlogPostPreview = ({
     return (
         <Article title={blogPostTitle.toUpperCase()} compact>
             <ArticleContentBlock>
-                <div className={classes.root}>
+                <div className={classes.contentRoot}>
                     <ReactMarkdown children={blogPostContent} />
 
                     <form className={classes.form}>

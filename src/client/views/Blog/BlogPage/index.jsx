@@ -54,7 +54,7 @@ async function loadBlogPostsList(session, showUnpublished) {
     return [];
 }
 
-function renderBlogPostsPlaceholder() {
+const renderBlogPostsPlaceholder = () => {
     return (
         <ArticleContentBlock compact>
             <Typography variant="h3" align="center">
@@ -62,7 +62,7 @@ function renderBlogPostsPlaceholder() {
             </Typography>
         </ArticleContentBlock>
     );
-}
+};
 
 const BlogPage = () => {
     const [blogPosts, setBlogPosts] = useState([]);

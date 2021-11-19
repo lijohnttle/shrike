@@ -25,8 +25,6 @@ const Page = ({ title, hideHeader, hideFooter, authenticated, children }) => {
     const history = useHistory();
 
     useEffect(() => {
-        document.title = title ? `lijohnttle - ${title}` : 'lijohnttle';
-
         if (authenticated) {
             const session = getUserSession();
 
@@ -42,6 +40,10 @@ const Page = ({ title, hideHeader, hideFooter, authenticated, children }) => {
             }
         }
     }, []);
+
+    useEffect(() => {
+        document.title = title ? `lijohnttle - ${title}` : 'lijohnttle';
+    }, [title]);
 
     if (authenticated && !getUserSession()) {
         return <Redirect to={urlList.SIGN_IN} />;

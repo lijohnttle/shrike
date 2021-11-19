@@ -13,6 +13,7 @@ import { NewBlogPostPage } from './views/Blog/NewBlogPostPage';
 import { CookieConsent } from './components/CookieConsent';
 import { useUserVisitStatistics, usePageScroll } from './hooks';
 import { urlList } from '../static.js';
+import { NotFound } from './components/NotFound';
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -36,6 +37,7 @@ const App = () => {
                 <Route exact path={urlList.BLOG} component={BlogPage} />
                 <Route exact path={urlList.BLOG_POST} component={BlogPostPage} />
                 <Route exact path={urlList.HOME} component={HomePage} />
+                <Route component={NotFound} />
             </Switch>
         </ThemeProvider >
     );

@@ -2,6 +2,22 @@ import { BlogPost } from '../../../data/models/blog/BlogPost';
 import { getAccessValidator } from '../../../domain';
 
 
+const convertToBlogPostMetadata = (rawBlogPost) => {
+    const result = {
+        id: rawBlogPost._id,
+        title: rawBlogPost.title,
+        slug: rawBlogPost.slug,
+        description: rawBlogPost.description,
+        createdOn: rawBlogPost.createdOn.toUTCString(),
+        updatedOn: rawBlogPost.updatedOn.toUTCString(),
+        publishedOn: rawBlogPost.publishedOn ? rawBlogPost.publishedOn.toUTCString() : null,
+        published: !!rawBlogPost.published
+    };
+
+    return result;
+};
+
+
 const queryResolvers = {
     blogPostList: async (_, { includeUnpublished, accessToken }) => {
 
@@ -23,20 +39,7 @@ const queryResolvers = {
 
             const rawBlogPosts = await BlogPost.find(filter);
 
-            const blogPosts = rawBlogPosts.map((source) => {
-                const result = {
-                    id: source._id,
-                    title: source.title,
-                    slug: source.slug,
-                    description: source.description,
-                    createdOn: source.createdOn.toUTCString(),
-                    updatedOn: source.updatedOn.toUTCString(),
-                    publishedOn: source.publishedOn ? source.publishedOn.toUTCString() : null,
-                    published: !!source.published
-                };
-
-                return result;
-            });
+            const blogPosts = rawBlogPosts.map(convertToBlogPostMetadata);
 
             return {
                 success: true,
@@ -49,6 +52,44 @@ const queryResolvers = {
             return {
                 success: false,
                 errorMessage: 'Error occured while retrieving a list of blog posts'
+            };
+        }
+    },
+    blogPost: async (_, { slug, accessToken }) => {
+
+        try {
+            const rawBlogPost = await BlogPost.findOne({ slug: slug });
+
+            if (!rawBlogPost) {
+                return {
+                    success: true,
+                    blogPost: null,
+                };
+            }
+
+            if (!rawBlogPost.published) {
+                if (!accessToken || !getAccessValidator().validateAdminAccess(accessToken)) {
+                    return {
+                        success: false,
+                        errorMessage: 'Unauthorized acceess'
+                    };
+                }
+            }
+
+            return {
+                success: true,
+                blogPost: {
+                    metadata: convertToBlogPostMetadata(rawBlogPost),
+                    content: rawBlogPost.content,
+                },
+            };
+        }
+        catch (error) {
+            console.error(error);
+
+            return {
+                success: false,
+                errorMessage: 'Error occured while retrieving a blog post'
             };
         }
     },

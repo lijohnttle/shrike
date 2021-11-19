@@ -80,7 +80,7 @@ const UserProfileSection = () => {
 
     return (
         <div>
-            <SectionHeader text="User Visits" />
+            <SectionHeader text="User Profile" />
 
             <form className={classes.form}>
                 <InputLabel htmlFor="goodreads_user_id">GoodReads Uesr Id</InputLabel>
