@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom'
 import { Article } from '../../../components/Article';
@@ -15,7 +15,7 @@ async function loadBlogPost(slug, session) {
             query {
                 blogPost(
                     slug: "${slug}",
-                    accessToken: "${session.token}")
+                    accessToken: "${session?.token || ''}")
                 {
                     success
                     blogPost {
@@ -65,6 +65,7 @@ async function loadBlogPost(slug, session) {
 }
 
 const BlogPostPage = () => {
+    const isCancelled = useRef(false);
     const [blogPost, setBlogpost] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const { slug } = useParams();
@@ -74,10 +75,21 @@ const BlogPostPage = () => {
         const session = getUserSession();
 
         loadBlogPost(slug, session)
-            .then((post) => setBlogpost(post))
-            .catch((error) => console.error(error))
-            .finally(() => setIsLoading(false));
-    });
+            .then((post) => {
+                if (!isCancelled.current) {
+                    setBlogpost(post);
+                }
+            })
+            .finally(() => {
+                if (!isCancelled.current) {
+                    setIsLoading(false);
+                }
+            });
+
+            return () => {
+                isCancelled.current = true;
+            };
+    }, []);
 
     if (!isLoading && !blogPost) {
         return <NotFound />;
