@@ -5,6 +5,7 @@ import { useUserSession } from '../../../hooks';
 import { queryData } from '../../../services/api';
 import { EditBlogPostForm } from '../EditBlogPostForm';
 import { EditBlogPostPreview } from '../EditBlogPostPreview';
+import { NotFound } from '../../../components/NotFound';
 
 
 const loadBlogPost = async (slug, session) => {
@@ -69,7 +70,7 @@ const saveBlogPost = async (blogPostId, blogPostTitle, blogPostSlug, blogPostDes
             mutation {
                 editBlogPost(
                     blogPost: {
-                        id: "${blogPostId}
+                        id: "${blogPostId}",
                         title: "${blogPostTitle}",
                         slug: "${blogPostSlug}",
                         description: "${blogPostDescription}",
@@ -84,7 +85,7 @@ const saveBlogPost = async (blogPostId, blogPostTitle, blogPostSlug, blogPostDes
             }
         `);
 
-        return response.createBlogPost?.success === true;
+        return response.editBlogPost?.success === true;
     }
     catch (error) {
         console.error(error);
@@ -112,7 +113,7 @@ const EditBlogPostPage = () => {
 
         loadBlogPost(slug, session)
             .then((post) => {
-                if (!isCancelled.current) {
+                if (!isCancelled.current && post) {
                     setBlogPostId(post.id);
                     setBlogPostTitle(post.title);
                     setBlogPostSlug(post.slug);

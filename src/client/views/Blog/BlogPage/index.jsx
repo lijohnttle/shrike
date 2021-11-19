@@ -46,6 +46,9 @@ async function loadBlogPostsList(session, showUnpublished) {
                 return result;
             });
         }
+        else {
+            console.error(response.blogPostList?.errorMessage);
+        }
     }
     catch (error) {
         console.error(error);
@@ -74,7 +77,7 @@ const BlogPage = () => {
         return () => {
             isCancelled.current = true;
         };
-    });
+    }, []);
 
     useEffect(() => {
         refreshPosts();

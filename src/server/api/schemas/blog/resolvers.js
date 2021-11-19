@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { BlogPost } from '../../../data/models/blog/BlogPost';
 import { getAccessValidator } from '../../../domain';
 
@@ -127,6 +128,56 @@ const mutationResolvers = {
             return {
                 success: false,
                 errorMessage: 'Error occured while creating a blog post'
+            };
+        }
+    },
+    editBlogPost: async (_, { blogPost, accessToken }) => {
+
+        try {
+            if (!getAccessValidator().validateAdminAccess(accessToken)) {
+                return {
+                    success: false,
+                    errorMessage: 'Unauthorized acceess'
+                };
+            }
+
+            const existingBlogPost = await BlogPost.findOne({ _id: mongoose.Types.ObjectId(blogPost.id) });
+
+            if (!existingBlogPost) {
+                return {
+                    success: false,
+                    errorMessage: 'Blog post has not been found',
+                };
+            }
+
+            existingBlogPost.title = blogPost.title;
+            existingBlogPost.description = blogPost.description;
+            existingBlogPost.content = blogPost.content;
+            existingBlogPost.slug = blogPost.slug;
+            existingBlogPost.published = blogPost.publish;
+            existingBlogPost.updatedOn = new Date();
+
+            if (existingBlogPost.published) {
+                if (!existingBlogPost.publishedOn) {
+                    existingBlogPost.publishedOn = existingBlogPost.updatedOn;
+                }
+            }
+            else {
+                existingBlogPost.publishedOn = null;
+            }
+
+            await existingBlogPost.save();
+
+            return {
+                success: true
+            };
+        }
+        catch (error) {
+            console.error(error);
+            
+            return {
+                success: false,
+                errorMessage: 'Error occured while saving a blog post'
             };
         }
     },

@@ -6,6 +6,24 @@ const typeDef = `
 
     extend type Mutation {
         createBlogPost(blogPost: CreateBlogPostInput!, accessToken: String!): CreateBlogPostResult
+        editBlogPost(blogPost: EditBlogPostInput!, accessToken: String!): EditBlogPostResult
+    }
+    
+    input CreateBlogPostInput {
+        title: String!
+        slug: String!
+        description: String!
+        content: String!
+        publish: Boolean
+    }
+
+    input EditBlogPostInput {
+        id: String!
+        title: String!
+        slug: String!
+        description: String!
+        content: String!
+        publish: Boolean
     }
 
     type BlogPostMetadata {
@@ -24,14 +42,6 @@ const typeDef = `
         content: String!
     }
 
-    input CreateBlogPostInput {
-        title: String!
-        slug: String!
-        description: String!
-        content: String!
-        publish: Boolean
-    }
-
     type BlogPostListResult {
         success: Boolean!
         blogPosts: [BlogPostMetadata]
@@ -45,6 +55,11 @@ const typeDef = `
     }
 
     type CreateBlogPostResult {
+        success: Boolean!
+        errorMessage: String
+    }
+
+    type EditBlogPostResult {
         success: Boolean!
         errorMessage: String
     }
