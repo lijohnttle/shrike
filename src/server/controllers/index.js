@@ -18,6 +18,8 @@ const registerControllers = (app, appContext) => {
         console.log('');
     });
 
+    pageController.useNotFound(app, appContext);
+
     console.log('Registered controllers...');
     console.log('');
 };

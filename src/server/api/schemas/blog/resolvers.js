@@ -1,5 +1,22 @@
+import mongoose from 'mongoose';
 import { BlogPost } from '../../../data/models/blog/BlogPost';
 import { getAccessValidator } from '../../../domain';
+
+
+const convertToBlogPostMetadata = (rawBlogPost) => {
+    const result = {
+        id: rawBlogPost._id,
+        title: rawBlogPost.title,
+        slug: rawBlogPost.slug,
+        description: rawBlogPost.description,
+        createdOn: rawBlogPost.createdOn.toUTCString(),
+        updatedOn: rawBlogPost.updatedOn.toUTCString(),
+        publishedOn: rawBlogPost.publishedOn ? rawBlogPost.publishedOn.toUTCString() : null,
+        published: !!rawBlogPost.published
+    };
+
+    return result;
+};
 
 
 const queryResolvers = {
@@ -23,20 +40,7 @@ const queryResolvers = {
 
             const rawBlogPosts = await BlogPost.find(filter);
 
-            const blogPosts = rawBlogPosts.map((source) => {
-                const result = {
-                    id: source._id,
-                    title: source.title,
-                    slug: source.slug,
-                    description: source.description,
-                    createdOn: source.createdOn.toUTCString(),
-                    updatedOn: source.updatedOn.toUTCString(),
-                    publishedOn: source.publishedOn ? source.publishedOn.toUTCString() : null,
-                    published: !!source.published
-                };
-
-                return result;
-            });
+            const blogPosts = rawBlogPosts.map(convertToBlogPostMetadata);
 
             return {
                 success: true,
@@ -49,6 +53,44 @@ const queryResolvers = {
             return {
                 success: false,
                 errorMessage: 'Error occured while retrieving a list of blog posts'
+            };
+        }
+    },
+    blogPost: async (_, { slug, accessToken }) => {
+
+        try {
+            const rawBlogPost = await BlogPost.findOne({ slug: slug });
+
+            if (!rawBlogPost) {
+                return {
+                    success: true,
+                    blogPost: null,
+                };
+            }
+
+            if (!rawBlogPost.published) {
+                if (!accessToken || !getAccessValidator().validateAdminAccess(accessToken)) {
+                    return {
+                        success: false,
+                        errorMessage: 'Unauthorized acceess'
+                    };
+                }
+            }
+
+            return {
+                success: true,
+                blogPost: {
+                    metadata: convertToBlogPostMetadata(rawBlogPost),
+                    content: rawBlogPost.content,
+                },
+            };
+        }
+        catch (error) {
+            console.error(error);
+
+            return {
+                success: false,
+                errorMessage: 'Error occured while retrieving a blog post'
             };
         }
     },
@@ -86,6 +128,56 @@ const mutationResolvers = {
             return {
                 success: false,
                 errorMessage: 'Error occured while creating a blog post'
+            };
+        }
+    },
+    editBlogPost: async (_, { blogPost, accessToken }) => {
+
+        try {
+            if (!getAccessValidator().validateAdminAccess(accessToken)) {
+                return {
+                    success: false,
+                    errorMessage: 'Unauthorized acceess'
+                };
+            }
+
+            const existingBlogPost = await BlogPost.findOne({ _id: mongoose.Types.ObjectId(blogPost.id) });
+
+            if (!existingBlogPost) {
+                return {
+                    success: false,
+                    errorMessage: 'Blog post has not been found',
+                };
+            }
+
+            existingBlogPost.title = blogPost.title;
+            existingBlogPost.description = blogPost.description;
+            existingBlogPost.content = blogPost.content;
+            existingBlogPost.slug = blogPost.slug;
+            existingBlogPost.published = blogPost.publish;
+            existingBlogPost.updatedOn = new Date();
+
+            if (existingBlogPost.published) {
+                if (!existingBlogPost.publishedOn) {
+                    existingBlogPost.publishedOn = existingBlogPost.updatedOn;
+                }
+            }
+            else {
+                existingBlogPost.publishedOn = null;
+            }
+
+            await existingBlogPost.save();
+
+            return {
+                success: true
+            };
+        }
+        catch (error) {
+            console.error(error);
+            
+            return {
+                success: false,
+                errorMessage: 'Error occured while saving a blog post'
             };
         }
     },

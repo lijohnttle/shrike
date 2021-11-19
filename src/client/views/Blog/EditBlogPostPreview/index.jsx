@@ -6,12 +6,13 @@ import { Article } from '../../../components/Article';
 import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
 
 
-const NewBlogPostPreview = ({
+const EditBlogPostPreview = ({
+        isCreation,
         blogPostTitle,
         blogPostContent,
         blogPostPublish,
         onEdit,
-        onCreate
+        onSave
     }) => {
 
     const classes = useStyles();
@@ -23,7 +24,7 @@ const NewBlogPostPreview = ({
     return (
         <Article title={blogPostTitle.toUpperCase()} compact>
             <ArticleContentBlock>
-                <div className={classes.root}>
+                <div className={classes.contentRoot}>
                     <ReactMarkdown children={blogPostContent} />
 
                     <form className={classes.form}>
@@ -35,7 +36,7 @@ const NewBlogPostPreview = ({
                                 <Button color="primary" variant="outlined" onClick={editButtonClickHandler}>EDIT</Button>
                             </div>
                             <div className={classes.commandContainer}>
-                                <Button color="success" variant="contained" onClick={onCreate}>CREATE</Button>
+                                <Button color="success" variant="contained" onClick={onSave}>{isCreation ? 'CREATE' : 'SAVE'}</Button>
                             </div>
                         </div>
                     </form>
@@ -47,5 +48,5 @@ const NewBlogPostPreview = ({
 
 
 export {
-    NewBlogPostPreview
+    EditBlogPostPreview
 };

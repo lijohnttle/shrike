@@ -9,10 +9,12 @@ import { SignInPage } from './views/SignIn/SignInPage';
 import { AccountManagementPage } from './views/AccountManagement/AccountManagementPage';
 import { BlogPage } from './views/Blog/BlogPage';
 import { BlogPostPage } from './views/Blog/BlogPostPage';
+import { EditBlogPostPage } from './views/Blog/EditBlogPostPage';
 import { NewBlogPostPage } from './views/Blog/NewBlogPostPage';
 import { CookieConsent } from './components/CookieConsent';
 import { useUserVisitStatistics, usePageScroll } from './hooks';
 import { urlList } from '../static.js';
+import { NotFound } from './components/NotFound';
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -32,10 +34,12 @@ const App = () => {
                 <Route exact path={urlList.ABOUT} component={AboutPage} />
                 <Route exact path={urlList.SIGN_IN} component={SignInPage} />
                 <Route exact path={urlList.ACCOUNT_MANAGEMENT} component={AccountManagementPage} />
-                <Route exact path={urlList.NEW_BLOG_POST} component={NewBlogPostPage} />
+                <Route exact path={urlList.BLOG_POST_NEW} component={NewBlogPostPage} />
+                <Route exact path={urlList.BLOG_POST_EDIT} component={EditBlogPostPage} />
                 <Route exact path={urlList.BLOG} component={BlogPage} />
                 <Route exact path={urlList.BLOG_POST} component={BlogPostPage} />
                 <Route exact path={urlList.HOME} component={HomePage} />
+                <Route component={NotFound} />
             </Switch>
         </ThemeProvider >
     );

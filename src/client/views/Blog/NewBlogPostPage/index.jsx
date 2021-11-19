@@ -3,8 +3,8 @@ import { useHistory } from 'react-router';
 import { Page } from '../../../components/Page';
 import { useUserSession } from '../../../hooks';
 import { queryData } from '../../../services/api';
-import { NewBlogPostForm } from '../NewBlogPostForm';
-import { NewBlogPostPreview } from '../NewBlogPostPreview';
+import { EditBlogPostForm } from '../EditBlogPostForm';
+import { EditBlogPostPreview } from '../EditBlogPostPreview';
 
 
 const NewBlogPostPage = () => {
@@ -12,13 +12,13 @@ const NewBlogPostPage = () => {
     const [blogPostSlug, setBlogPostSlug] = useState('');
     const [blogPostDescription, setBlogPostDescription] = useState('');
     const [blogPostContent, setBlogPostContent] = useState('');
-    const [blogPostPublish, setBlogPostPublish] = React.useState(false);
+    const [blogPostPublish, setBlogPostPublish] = useState(false);
+    const [isPreviewMode, setIsPreviewMode] = useState(false);
     const [getUserSession] = useUserSession();
     const history = useHistory();
 
-    const [isPreviewMode, setIsPreviewMode] = React.useState(false);
 
-    const createHandler = async () => {
+    const saveHandler = async () => {
         try {
             const session = getUserSession();
 
@@ -52,7 +52,8 @@ const NewBlogPostPage = () => {
     return (
         <Page title="New Blog Post" authenticated>
             {!isPreviewMode ? 
-                <NewBlogPostForm
+                <EditBlogPostForm
+                    isCreation={true}
                     blogPostTitle={blogPostTitle}
                     setBlogPostTitle={setBlogPostTitle}
                     blogPostSlug={blogPostSlug}
@@ -64,16 +65,17 @@ const NewBlogPostPage = () => {
                     blogPostPublish={blogPostPublish}
                     setBlogPostPublish={setBlogPostPublish}
                     onPreview={() => setIsPreviewMode(true)}
-                    onCreate={createHandler} />
+                    onSave={saveHandler} />
                 : null}
 
             {isPreviewMode ? 
-                <NewBlogPostPreview
+                <EditBlogPostPreview
+                    isCreation={true}
                     blogPostTitle={blogPostTitle}
                     blogPostContent={blogPostContent}
                     blogPostPublish={blogPostPublish}
                     onEdit={() => setIsPreviewMode(false)}
-                    onCreate={createHandler} />
+                    onSave={saveHandler} />
                 : null}
         </Page>
     );

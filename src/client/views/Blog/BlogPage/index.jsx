@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Typography } from '@mui/material';
 import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
 import { Article } from '../../../components/Article';
@@ -15,7 +15,7 @@ async function loadBlogPostsList(session, showUnpublished) {
             query {
                 blogPostList(
                     includeUnpublished: ${showUnpublished},
-                    accessToken: "${session.token}")
+                    accessToken: "${session?.token || ''}")
                 {
                     success
                     blogPosts {
@@ -46,6 +46,9 @@ async function loadBlogPostsList(session, showUnpublished) {
                 return result;
             });
         }
+        else {
+            console.error(response.blogPostList?.errorMessage);
+        }
     }
     catch (error) {
         console.error(error);
@@ -54,7 +57,7 @@ async function loadBlogPostsList(session, showUnpublished) {
     return [];
 }
 
-function renderBlogPostsPlaceholder() {
+const renderBlogPostsPlaceholder = () => {
     return (
         <ArticleContentBlock compact>
             <Typography variant="h3" align="center">
@@ -62,12 +65,19 @@ function renderBlogPostsPlaceholder() {
             </Typography>
         </ArticleContentBlock>
     );
-}
+};
 
 const BlogPage = () => {
+    const isCancelled = useRef(false);
     const [blogPosts, setBlogPosts] = useState([]);
     const [showUnpublished, setShowUnpublished] = useState(false);
     const [getUserSession] = useUserSession();
+
+    useEffect(() => {
+        return () => {
+            isCancelled.current = true;
+        };
+    }, []);
 
     useEffect(() => {
         refreshPosts();
@@ -77,8 +87,11 @@ const BlogPage = () => {
         const session = getUserSession();
 
         await loadBlogPostsList(session, showUnpublished)
-            .then((data) => setBlogPosts(data))
-            .catch((error) => console.error(error));
+            .then((data) => {
+                if (!isCancelled.current) {
+                    setBlogPosts(data);
+                }
+            });
     };
 
     return (

@@ -1,16 +1,29 @@
 const typeDef = `
     extend type Query {
         blogPostList(includeUnpublished: Boolean, accessToken: String): BlogPostListResult
+        blogPost(slug: String!, accessToken: String): BlogPostResult
     }
 
     extend type Mutation {
         createBlogPost(blogPost: CreateBlogPostInput!, accessToken: String!): CreateBlogPostResult
+        editBlogPost(blogPost: EditBlogPostInput!, accessToken: String!): EditBlogPostResult
+    }
+    
+    input CreateBlogPostInput {
+        title: String!
+        slug: String!
+        description: String!
+        content: String!
+        publish: Boolean
     }
 
-    type BlogPostListResult {
-        success: Boolean!
-        blogPosts: [BlogPostMetadata]
-        errorMessage: String
+    input EditBlogPostInput {
+        id: String!
+        title: String!
+        slug: String!
+        description: String!
+        content: String!
+        publish: Boolean
     }
 
     type BlogPostMetadata {
@@ -24,15 +37,29 @@ const typeDef = `
         published: Boolean!
     }
 
-    input CreateBlogPostInput {
-        title: String!
-        slug: String!
-        description: String!
+    type BlogPost {
+        metadata: BlogPostMetadata!
         content: String!
-        publish: Boolean
+    }
+
+    type BlogPostListResult {
+        success: Boolean!
+        blogPosts: [BlogPostMetadata]
+        errorMessage: String
+    }
+
+    type BlogPostResult {
+        success: Boolean!
+        blogPost: BlogPost
+        errorMessage: String
     }
 
     type CreateBlogPostResult {
+        success: Boolean!
+        errorMessage: String
+    }
+
+    type EditBlogPostResult {
         success: Boolean!
         errorMessage: String
     }
