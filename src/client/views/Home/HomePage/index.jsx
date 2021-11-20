@@ -4,7 +4,7 @@ import { Page } from '../../../components/Page';
 import { WelcomeSection } from '../WelcomeSection';
 import { ProjectsSection } from '../ProjectsSection';
 import { BooksLibrarySection } from '../BooksLibrarySection';
-import { smoothScrollOptions } from '../../../utils/scrolling'
+import { smoothScrollOptions } from '../../../utils/scrolling';
 import { useData } from '../../../hooks';
 import { useStyles } from './styles';
 
@@ -45,7 +45,7 @@ const HomePage = () => {
 
                 <ProjectsSection screenHeight={screenHeight} />
 
-                <BooksLibrarySection screenHeight={screenHeight} />
+                <BooksLibrarySection screenHeight={screenHeight} isLastSection />
             </div>
         </Page>
     );

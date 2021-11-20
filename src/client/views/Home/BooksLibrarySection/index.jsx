@@ -8,7 +8,7 @@ import { queryData } from '../../../services/api';
 import { useStyles } from './styles';
 
 
-const BooksLibrarySection = ({ screenHeight }) => {
+const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
     const [goodReadsUserId, setGoodReadsUserId] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isBooksLoading, setIsBooksLoading] = useState(true);
@@ -63,7 +63,7 @@ const BooksLibrarySection = ({ screenHeight }) => {
     }, []);
 
     return (
-        <SectionContentContainer title="Book Library" isLoading={isLoading} className={classes.root}>
+        <SectionContentContainer title="Book Library" isLoading={isLoading} className={classes.root} canScrollToNextSection={!isLastSection}>
             <Box mb={2}>
                 <Typography variant="h4" align="center">
                     Shelf "Currently Reading"

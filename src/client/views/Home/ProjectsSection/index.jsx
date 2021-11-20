@@ -32,7 +32,7 @@ const projects = [
     },
 ];
 
-const ProjectsSection = ({ screenHeight }) => {
+const ProjectsSection = ({ screenHeight, isLastSection }) => {
     const [isLoading, setIsLoading] = useState(true);
     const classes = useStyles({ screenHeight });
 
@@ -41,7 +41,7 @@ const ProjectsSection = ({ screenHeight }) => {
     });
 
     return (
-        <SectionContentContainer title="Side Projects" isLoading={isLoading} className={classes.root} maxWidth="md">
+        <SectionContentContainer title="Side Projects" isLoading={isLoading} className={classes.root} maxWidth="md" canScrollToNextSection={!isLastSection}>
             {projects.map((project) => {
                 return (
                     <div key={project.name} className={classes.projectRoot}>
