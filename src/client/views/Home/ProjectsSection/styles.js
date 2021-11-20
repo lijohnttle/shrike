@@ -2,15 +2,15 @@ import { makeStyles } from '@mui/styles';
 
 
 const useStyles = makeStyles(theme => ({
-    root: ({ screenHeight }) => ({
-        background: 'white',
+    root: {
+        background: '#fafafa',
         color: 'black',
+    },
+    contentRoot: ({ screenHeight }) => ({
         justifyContent: 'center',
         minHeight: `${screenHeight}px`,
         paddingTop: theme.spacing(12),
         paddingBottom: theme.spacing(8),
-        paddingLeft: theme.spacing(1),
-        paddingRight: theme.spacing(1),
 
         [theme.breakpoints.down('sm')]: {
             paddingTop: theme.spacing(8),
@@ -21,8 +21,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexFlow: 'row nowrap',
         marginBottom: theme.spacing(1),
-        background: '#2b3542',
-        color: 'white',
+        background: 'white',
     },
     projectBullet: {
         width: theme.spacing(1),

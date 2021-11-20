@@ -27,14 +27,14 @@ const renderLoader = (classes) => {
 const renderScrollButton = (classes, clickHandler) => {
     return (
         <div className={classes.gotoNextSectionButtonContainer}>
-            <IconButton onClick={clickHandler}>
+            <IconButton color="inherit" onClick={clickHandler}>
                 <ArrowDownwardRounded fontSize="large" />
             </IconButton>
         </div>
     );
 };
 
-const SectionContentContainer = ({ children, className, title, isLoading, maxWidth, canScrollToNextSection }) => {
+const SectionContentContainer = ({ children, className, contentRootClassName, title, isLoading, maxWidth, canScrollToNextSection }) => {
     const containerRef = useRef();
     const classes = useStyles();
 
@@ -45,19 +45,21 @@ const SectionContentContainer = ({ children, className, title, isLoading, maxWid
     };
 
     return (
-        <Container ref={containerRef} maxWidth={maxWidth || 'lg'}>
-            <div className={`${classes.root} ${className || ''}`}>
-                <div className={classes.topSpace}></div>
+        <div className={className || ''}>
+            <Container ref={containerRef} maxWidth={maxWidth || 'lg'}>
+                <div className={`${classes.contentRoot} ${contentRootClassName || ''}`}>
+                    <div className={classes.topSpace}></div>
 
-                {title ? renderTitle(title, classes) : null}
+                    {title ? renderTitle(title, classes) : null}
 
-                {isLoading ? renderLoader(classes) : children}
+                    {isLoading ? renderLoader(classes) : children}
 
-                <div className={classes.bottomSpace}>
-                    {canScrollToNextSection ? renderScrollButton(classes, scrollToNextSection) : null}
+                    <div className={classes.bottomSpace}>
+                        {canScrollToNextSection ? renderScrollButton(classes, scrollToNextSection) : null}
+                    </div>
                 </div>
-            </div>
-        </Container>
+            </Container>
+        </div>
     );
 };
 

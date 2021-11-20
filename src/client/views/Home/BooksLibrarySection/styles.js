@@ -2,9 +2,7 @@ import { makeStyles } from '@mui/styles';
 
 
 const useStyles = makeStyles(theme => ({
-    root: ({ screenHeight }) => ({
-        background: 'white',
-        color: 'black',
+    contentRoot: ({ screenHeight }) => ({
         justifyContent: 'center',
         minHeight: `${screenHeight}px`,
         paddingTop: theme.spacing(12),

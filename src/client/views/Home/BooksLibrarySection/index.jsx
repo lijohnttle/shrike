@@ -63,7 +63,7 @@ const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
     }, []);
 
     return (
-        <SectionContentContainer title="Book Library" isLoading={isLoading} className={classes.root} canScrollToNextSection={!isLastSection}>
+        <SectionContentContainer title="Book Library" isLoading={isLoading} contentRootClassName={classes.contentRoot} canScrollToNextSection={!isLastSection}>
             <Box mb={2}>
                 <Typography variant="h4" align="center">
                     Shelf "Currently Reading"
