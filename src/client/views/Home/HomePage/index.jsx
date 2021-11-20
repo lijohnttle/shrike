@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { animateScroll } from 'react-scroll';
 import { Page } from '../../../components/Page';
 import { WelcomeSection } from '../WelcomeSection';
+import { ProjectsSection } from '../ProjectsSection';
 import { BooksLibrarySection } from '../BooksLibrarySection';
-import { smoothScrollOptions } from '../../../utils/scrolling'
+import { smoothScrollOptions } from '../../../utils/scrolling';
 import { useData } from '../../../hooks';
 import { useStyles } from './styles';
 
@@ -14,8 +15,19 @@ const HomePage = () => {
     const data = useData();
 
     useEffect(() => {
+        const handleResize = () => {
+            setScreenHeight(window.innerHeight);
+        };
+
         setScreenHeight(window.innerHeight);
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
+    
 
     const gotoBooksSection = () => {
         animateScroll.scrollTo(window.innerHeight, smoothScrollOptions);
@@ -31,7 +43,9 @@ const HomePage = () => {
                         screenHeight={screenHeight} />
                 </div>
 
-                <BooksLibrarySection screenHeight={screenHeight} />
+                <ProjectsSection screenHeight={screenHeight} />
+
+                <BooksLibrarySection screenHeight={screenHeight} isLastSection />
             </div>
         </Page>
     );

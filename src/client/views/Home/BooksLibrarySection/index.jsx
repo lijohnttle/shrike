@@ -8,13 +8,14 @@ import { queryData } from '../../../services/api';
 import { useStyles } from './styles';
 
 
-const BooksLibrarySection = ({ screenHeight }) => {
+const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
     const [goodReadsUserId, setGoodReadsUserId] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isBooksLoading, setIsBooksLoading] = useState(true);
     const [isReadBooksLoading, setIsReadBooksLoading] = useState(true);
     const [books, setBooks] = useState([]);
     const [readBooks, setReadBooks] = useState([]);
+    const classes = useStyles({ screenHeight });
 
     useEffect(() => {
         queryData(`
@@ -61,10 +62,8 @@ const BooksLibrarySection = ({ screenHeight }) => {
             .finally(() => setIsReadBooksLoading(false));
     }, []);
 
-    const classes = useStyles({ screenHeight });
-
-    const shelvesContent = (
-        <React.Fragment>
+    return (
+        <SectionContentContainer title="Book Library" isLoading={isLoading} className={classes.root} canScrollToNextSection={!isLastSection}>
             <Box mb={2}>
                 <Typography variant="h4" align="center">
                     Shelf "Currently Reading"
@@ -99,18 +98,6 @@ const BooksLibrarySection = ({ screenHeight }) => {
                     See all books
                 </Button>
             </Box>
-        </React.Fragment>
-    );
-
-    return (
-        <SectionContentContainer className={classes.root}>
-            <Box mb={4}>
-                <Typography variant="h1" align="center">
-                    Book Library
-                </Typography>
-            </Box>
-
-            {isLoading ? <CircularProgress /> : shelvesContent}
         </SectionContentContainer>
     );
 };
