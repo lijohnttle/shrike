@@ -17,6 +17,31 @@ const useStyles = makeStyles(theme => ({
             paddingBottom: theme.spacing(4)
         }
     }),
+    projectRoot: {
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        marginBottom: theme.spacing(4),
+        background: '#f3f8ff',
+    },
+    projectBullet: {
+        width: theme.spacing(1),
+        background: '#5da6ff',
+    },
+    projectContentRoot: {
+        flexGrow: 1,
+        padding: theme.spacing(2),
+    },
+    projectLinks: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'end',
+        
+        [theme.breakpoints.down('sm')]: {
+            marginTop: theme.spacing(2),
+            justifyContent: 'start',
+        },
+    },
 }));
 
 

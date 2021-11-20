@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, LinkedIn, Email, Instagram } from '@mui/icons-material'
+import { Facebook, LinkedIn, Email, Instagram, GitHub, Link as LinkIcon, Web } from '@mui/icons-material'
 import { IconButton } from '@mui/material';
 import { useStyles } from './styles';
 
@@ -17,10 +17,14 @@ import { useStyles } from './styles';
             return <Instagram fontSize={fontSize} className={className} />
         case 'linkedin':
             return <LinkedIn fontSize={fontSize} className={className} />
+        case 'github':
+            return <GitHub fontSize={fontSize} className={className} />
+        case 'web':
+            return <Web fontSize={fontSize} className={className} />
         case 'email':
             return <Email fontSize={fontSize} className={className} />
         default:
-            return null;
+            return <LinkIcon fontSize={fontSize} className={className} />;
     }
 }
 

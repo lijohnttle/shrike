@@ -1,5 +1,5 @@
 import React from 'react';
-import { CircularProgress, Typography } from '@mui/material';
+import { CircularProgress, Container, Typography } from '@mui/material';
 import { useStyles } from './styles';
 
 
@@ -21,15 +21,17 @@ const renderLoader = (classes) => {
     );
 };
 
-const SectionContentContainer = ({ children, className, title, isLoading }) => {
+const SectionContentContainer = ({ children, className, title, isLoading, maxWidth }) => {
     const classes = useStyles();
 
     return (
-        <div className={`${classes.root} ${className || ''}`}>
-            {title ? renderTitle(title, classes) : null}
+        <Container maxWidth={maxWidth || 'lg'}>
+            <div className={`${classes.root} ${className || ''}`}>
+                {title ? renderTitle(title, classes) : null}
 
-            {isLoading ? renderLoader(classes) : children}
-        </div>
+                {isLoading ? renderLoader(classes) : children}
+            </div>
+        </Container>
     );
 };
 
