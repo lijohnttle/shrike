@@ -12,7 +12,13 @@ const useStyles = makeStyles(theme => ({
             paddingLeft: theme.spacing(1),
             paddingRight: theme.spacing(1)
         }
-    }
+    },
+    title: {
+        paddingBottom: theme.spacing(4),
+    },
+    loader: {
+        alignSelf: 'center',
+    },
 }));
 
 
