@@ -16,7 +16,7 @@ const AboutPage = () => {
 
     return (
         <Page title="About">
-            <Article title="ABOUT ME" updatedOn="November 09, 2021">
+            <Article title="ABOUT ME" updatedOn="November 21, 2021">
                 <ArticleContentBlock className={classes.introductionBlock}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />
@@ -41,7 +41,7 @@ const AboutPage = () => {
                     </div>
                 </ArticleContentBlock>
 
-                <ArticleContentBlock>
+                <ArticleContentBlock maxWidth="md">
                     <Typography variant="h2" align="center" gutterBottom paragraph>
                         What I'm doing now
                     </Typography>
@@ -49,12 +49,12 @@ const AboutPage = () => {
                     <ul>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>I am based in Wroclaw, Poland.</b> I moved here from Saint Petersburg, Russia in February 2019.
+                                <b>Living in Wroclaw, Poland.</b> I moved here from Saint Petersburg, Russia in February 2019.
                             </Typography>
                         </li>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Working</b> as a Senior Software Engineer in a Swiss multinational bank.
+                                <b>Working as a Senior Software Engineer</b> in a Swiss multinational bank.
                             </Typography>
                         </li>
                         <li>
@@ -64,8 +64,7 @@ const AboutPage = () => {
                         </li>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Travelling.</b> One of the best ways to broaden your mind, and Europe is rich with interesting places and
-                                different cultures to visit.
+                                <b>Travelling.</b>
                             </Typography>
                         </li>
                         <li>
@@ -75,14 +74,13 @@ const AboutPage = () => {
                         </li>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Personal development.</b> Trying to get rid of bad habits and to acquire good ones. Improving my time management.
-                                Having a list of daily goals and trying to achieve them.
+                                <b>Striving for self-improvement.</b>
                             </Typography>
                         </li>
                     </ul>
                 </ArticleContentBlock>
 
-                <ArticleContentBlock>
+                <ArticleContentBlock maxWidth="md">
                     <Typography variant="h2" align="center" gutterBottom paragraph>
                         My plans
                     </Typography>
@@ -90,11 +88,14 @@ const AboutPage = () => {
                     <ul>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Relocate to Canada or Australia.</b> For the last few years I've been looking for a country to settle down,
-                                and recently I fell in love with these two. My girlfriend and I are planning on starting family soon, and we
-                                hope that we will be able to move to one of them. Therefore, I would be glad to consider job opportunities in any
-                                of these countries. You can check my <Link href={linkedin} target="_blank">LinkedIn profile</Link> or
+                                <b>Relocate to Canada or Australia.</b> Currently I am looking for a job in one of of these countries.
+                                You can check my <Link href={linkedin} target="_blank">LinkedIn profile</Link> or
                                 my <Link href={data.cv} target="_blank">CV</Link>.
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography align="justify" gutterBottom paragraph>
+                                <b>Get married.</b>
                             </Typography>
                         </li>
                         <li>
@@ -105,7 +106,7 @@ const AboutPage = () => {
                     </ul>
                 </ArticleContentBlock>
 
-                <ArticleContentBlock>
+                <ArticleContentBlock maxWidth="md">
                     <Typography variant="h2" align="center" gutterBottom paragraph>
                         Contact Me
                     </Typography>
