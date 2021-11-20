@@ -21,12 +21,12 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexFlow: 'row nowrap',
         marginBottom: theme.spacing(1),
-        background: '#3c93ff',
+        background: '#2b3542',
         color: 'white',
     },
     projectBullet: {
         width: theme.spacing(1),
-        background: '#8ec1ff',
+        background: '#5e6f85',
     },
     projectContentRoot: {
         flexGrow: 1,
