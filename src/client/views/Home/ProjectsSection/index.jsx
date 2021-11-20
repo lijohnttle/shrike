@@ -50,7 +50,7 @@ const ProjectsSection = ({ screenHeight, isLastSection }) => {
                             <Typography variant="h3" gutterBottom align="justify">
                                 {project.name}
                             </Typography>
-                            <Typography variant="subtitle2" color="GrayText" align="justify">
+                            <Typography variant="subtitle2" align="justify">
                                 {project.description}
                             </Typography>
                             <div className={classes.projectLinks}>
