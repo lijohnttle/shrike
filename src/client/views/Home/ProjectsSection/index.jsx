@@ -41,7 +41,7 @@ const ProjectsSection = ({ screenHeight }) => {
     });
 
     return (
-        <SectionContentContainer title="Side Projects" isLoading={isLoading} className={classes.root} maxWidth="sm">
+        <SectionContentContainer title="Side Projects" isLoading={isLoading} className={classes.root} maxWidth="md">
             {projects.map((project) => {
                 return (
                     <div key={project.name} className={classes.projectRoot}>
