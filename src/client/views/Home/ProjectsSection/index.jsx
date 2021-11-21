@@ -5,10 +5,16 @@ import { SectionContentContainer } from '../SectionContentContainer';
 import { useStyles } from './styles';
 
 
+const projectStatuses = {
+    RELEASED: 'released',
+    DEVELOPMENT: 'development',
+    DESIGN: 'design',
+};
+
 const projects = [
     {
         name: 'Habit Tracker',
-        description: 'Mobile application for tracking habits. Status: preparing mock-ups.',
+        description: 'Mobile application for tracking habits.',
         technologies: ['JavaScript', 'React Native'],
         links: [
             {
@@ -16,10 +22,11 @@ const projects = [
                 value: 'https://github.com/lijohnttle/habit-tracker',
             },
         ],
+        status: projectStatuses.DESIGN,
     },
     {
         name: 'Monsterlution',
-        description: 'A blockchain game. Status: developing concept.',
+        description: 'A blockchain game.',
         technologies: ['C#', 'Unity 3D'],
         links: [
             {
@@ -27,6 +34,7 @@ const projects = [
                 value: 'https://github.com/lijohnttle/monsterlution',
             },
         ],
+        status: projectStatuses.DESIGN,
     },
     {
         name: 'Personal Web-Site',
@@ -42,6 +50,7 @@ const projects = [
                 value: 'https://www.lijohnttle.com/',
             },
         ],
+        status: projectStatuses.RELEASED,
     },
 ];
 
@@ -67,15 +76,23 @@ const ProjectsSection = ({ screenHeight, isLastSection }) => {
                     <div key={project.name} className={classes.projectRoot}>
                         <div className={classes.projectBullet}></div>
                         <div className={classes.projectContentRoot}>
-                            <Typography variant="h3" gutterBottom align="justify">
-                                {project.name}
-                            </Typography>
+                            <div className={classes.projectTopPanel}>
+                                <Typography variant="h3" align="justify">
+                                    {project.name}
+                                </Typography>
+                                {project.status === projectStatuses.RELEASED ? (
+                                    <div title="Status: LIVE" className={`${classes.projectDefaultStatus} ${classes.projectLiveStatus}`}>⬤ LIVE</div>
+                                ) : null}
+                                {project.status !== projectStatuses.RELEASED ? (
+                                    <div title={`Status: ${project.status.toUpperCase()}`} className={classes.projectDefaultStatus}>{project.status.toUpperCase()}</div>
+                                ) : null}
+                            </div>
                             <Typography variant="subtitle2" align="justify" paragraph>
                                 {project.description}
                             </Typography>
-                            <div className={classes.technologyList}>
+                            <div className={classes.projectTechnologyList}>
                                 {project.technologies.map((technology) => (
-                                    <div key={technology} className={classes.technology}>{technology}</div>
+                                    <div key={technology} className={classes.projectTechnology}>{technology}</div>
                                 ))}
                             </div>
                             <div className={classes.projectLinks}>

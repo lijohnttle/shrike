@@ -27,19 +27,37 @@ const useStyles = makeStyles(theme => ({
         width: theme.spacing(1),
         background: '#5e6f85',
     },
+    projectTopPanel: {
+        display: 'flex',
+        flexFlow: 'row wrap',
+        alignItems: 'center',
+        marginBottom: theme.spacing(2),
+    },
+    projectDefaultStatus: {
+        color: '#d1d1d1',
+        fontSize: '0.75rem',
+        marginLeft: theme.spacing(2),
+        padding: '0px 4px',
+        border: '1px solid #d1d1d1',
+        borderRadius: '3px',
+    },
+    projectLiveStatus: {
+        color: '#b7e789',
+        border: '1px solid #b7e789',
+    },
     projectContentRoot: {
         flexGrow: 1,
         padding: theme.spacing(2),
     },
-    technologyList: {
+    projectTechnologyList: {
         display: 'flex',
         flexFlow: 'row wrap',
     },
-    technology: {
+    projectTechnology: {
         background: '#7bb6ff',
         color: 'white',
-        padding: '0px 4px',
         fontSize: '0.75rem',
+        padding: '0px 4px',
         marginRight: '4px',
         marginBottom: '2px',
         borderRadius: '3px',
