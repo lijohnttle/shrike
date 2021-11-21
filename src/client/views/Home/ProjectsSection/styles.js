@@ -31,6 +31,19 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         padding: theme.spacing(2),
     },
+    technologyList: {
+        display: 'flex',
+        flexFlow: 'row wrap',
+    },
+    technology: {
+        background: '#7bb6ff',
+        color: 'white',
+        padding: '0px 4px',
+        fontSize: '0.75rem',
+        marginRight: '4px',
+        marginBottom: '2px',
+        borderRadius: '3px',
+    },
     projectLinks: {
         display: 'flex',
         flexDirection: 'row',

@@ -9,6 +9,7 @@ const projects = [
     {
         name: 'Habit Tracker',
         description: 'Mobile application for tracking habits. Status: preparing mock-ups.',
+        technologies: ['JavaScript', 'React Native'],
         links: [
             {
                 vendor: 'github',
@@ -17,8 +18,20 @@ const projects = [
         ],
     },
     {
+        name: 'Monsterlution',
+        description: 'A blockchain game. Status: developing concept.',
+        technologies: ['C#', 'Unity 3D'],
+        links: [
+            {
+                vendor: 'github',
+                value: 'https://github.com/lijohnttle/monsterlution',
+            },
+        ],
+    },
+    {
         name: 'Personal Web-Site',
         description: 'My personal web-site.',
+        technologies: ['JavaScript', 'React', 'Node.JS', 'Express', 'GraphQL', 'MongoDB'],
         links: [
             {
                 vendor: 'github',
@@ -57,9 +70,14 @@ const ProjectsSection = ({ screenHeight, isLastSection }) => {
                             <Typography variant="h3" gutterBottom align="justify">
                                 {project.name}
                             </Typography>
-                            <Typography variant="subtitle2" align="justify">
+                            <Typography variant="subtitle2" align="justify" paragraph>
                                 {project.description}
                             </Typography>
+                            <div className={classes.technologyList}>
+                                {project.technologies.map((technology) => (
+                                    <div key={technology} className={classes.technology}>{technology}</div>
+                                ))}
+                            </div>
                             <div className={classes.projectLinks}>
                                 {project.links.map((link) => <ContactLink key={link.value} contact={link} fontSize="large" />)}
                             </div>
