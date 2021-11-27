@@ -13,6 +13,22 @@ const projectStatuses = {
 
 const projects = [
     {
+        name: 'Personal Web-Site',
+        description: 'My personal web-site.',
+        technologies: ['JavaScript', 'React', 'Node.JS', 'Express', 'GraphQL', 'MongoDB'],
+        links: [
+            {
+                vendor: 'github',
+                value: 'https://github.com/lijohnttle/personal-website',
+            },
+            {
+                vendor: 'web',
+                value: 'https://www.lijohnttle.com/',
+            },
+        ],
+        status: projectStatuses.RELEASED,
+    },
+    {
         name: 'Habit Tracker',
         description: 'Mobile application for tracking habits.',
         technologies: ['JavaScript', 'React Native'],
@@ -36,22 +52,6 @@ const projects = [
         ],
         status: projectStatuses.DESIGN,
     },
-    {
-        name: 'Personal Web-Site',
-        description: 'My personal web-site.',
-        technologies: ['JavaScript', 'React', 'Node.JS', 'Express', 'GraphQL', 'MongoDB'],
-        links: [
-            {
-                vendor: 'github',
-                value: 'https://github.com/lijohnttle/personal-website',
-            },
-            {
-                vendor: 'web',
-                value: 'https://www.lijohnttle.com/',
-            },
-        ],
-        status: projectStatuses.RELEASED,
-    },
 ];
 
 const ProjectsSection = ({ screenHeight, isLastSection }) => {
@@ -74,12 +74,13 @@ const ProjectsSection = ({ screenHeight, isLastSection }) => {
             {projects.map((project) => {
                 return (
                     <div key={project.name} className={classes.projectRoot}>
-                        <div className={classes.projectBullet}></div>
-                        <div className={classes.projectContentRoot}>
+                        <div className={classes.projectContent}>
                             <div className={classes.projectTopPanel}>
-                                <Typography variant="h3" align="justify">
-                                    {project.name}
-                                </Typography>
+                                <div className={classes.projectTitle}>
+                                    <Typography variant="h3" align="justify">
+                                        {project.name}
+                                    </Typography>
+                                </div>
                                 {project.status === projectStatuses.RELEASED ? (
                                     <div title="Status: LIVE" className={`${classes.projectDefaultStatus} ${classes.projectLiveStatus}`}>⬤ LIVE</div>
                                 ) : null}
@@ -95,9 +96,10 @@ const ProjectsSection = ({ screenHeight, isLastSection }) => {
                                     <div key={technology} className={classes.projectTechnology}>{technology}</div>
                                 ))}
                             </div>
-                            <div className={classes.projectLinks}>
-                                {project.links.map((link) => <ContactLink key={link.value} contact={link} fontSize="large" />)}
-                            </div>
+                        </div>
+
+                        <div className={classes.projectLinks}>
+                            {project.links.map((link) => <ContactLink key={link.value} contact={link} fontSize="large" />)}
                         </div>
                     </div>
                 );

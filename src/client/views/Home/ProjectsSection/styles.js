@@ -19,13 +19,14 @@ const useStyles = makeStyles(theme => ({
     }),
     projectRoot: {
         display: 'flex',
-        flexFlow: 'row nowrap',
+        flexFlow: 'column nowrap',
         marginBottom: theme.spacing(1),
         background: 'white',
     },
-    projectBullet: {
-        width: theme.spacing(1),
-        background: '#5e6f85',
+    projectContent: {
+        display: 'flex',
+        flexFlow: 'column nowrap',
+        padding: theme.spacing(2),
     },
     projectTopPanel: {
         display: 'flex',
@@ -33,21 +34,19 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         marginBottom: theme.spacing(2),
     },
+    projectTitle: {
+        marginRight: theme.spacing(2),
+    },
     projectDefaultStatus: {
         color: '#d1d1d1',
         fontSize: '0.75rem',
-        marginLeft: theme.spacing(2),
         padding: '0px 4px',
         border: '1px solid #d1d1d1',
         borderRadius: '3px',
     },
     projectLiveStatus: {
-        color: '#b7e789',
-        border: '1px solid #b7e789',
-    },
-    projectContentRoot: {
-        flexGrow: 1,
-        padding: theme.spacing(2),
+        color: '#60cb3d',
+        border: '1px solid #60cb3d',
     },
     projectTechnologyList: {
         display: 'flex',
@@ -66,12 +65,9 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'end',
-        
-        [theme.breakpoints.down('sm')]: {
-            marginTop: theme.spacing(2),
-            justifyContent: 'start',
-        },
+        justifyContent: 'start',
+        padding: theme.spacing(2),
+        paddingTop: '0',
     },
 }));
 
