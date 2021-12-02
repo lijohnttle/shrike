@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { ContactLink } from '../../../components/ContactLink';
 import { Page } from '../../../components/Page';
 import { Article } from '../../../components/Article';
@@ -12,11 +12,9 @@ const AboutPage = () => {
     const classes = useStyles();
     const data = useData();
     
-    const linkedin = data.contacts.find(contact => contact.vendor === 'linkedin').value;
-
     return (
         <Page title="About">
-            <Article title="ABOUT ME" updatedOn="November 21, 2021">
+            <Article title="ABOUT ME" updatedOn="December 02, 2021">
                 <ArticleContentBlock className={classes.introductionBlock}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />
@@ -88,19 +86,12 @@ const AboutPage = () => {
                     <ul>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Relocate to Canada or Australia.</b> Currently I am looking for a job in one of of these countries.
-                                You can check my <Link href={linkedin} target="_blank">LinkedIn profile</Link> or
-                                my <Link href={data.cv} target="_blank">CV</Link>.
+                                <b>Relocate to Canada.</b> Currently I am in the process of moving to Canada.
                             </Typography>
                         </li>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
                                 <b>Get married.</b>
-                            </Typography>
-                        </li>
-                        <li>
-                            <Typography align="justify" gutterBottom paragraph>
-                                <b>Learn Polish.</b>
                             </Typography>
                         </li>
                     </ul>
