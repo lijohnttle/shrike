@@ -26,6 +26,10 @@ const generateToken = () => {
     return generateUuidv4();
 };
 
+const generateSessionId = () => {
+    return generateUuidv4();
+};
+
 
 class Options {
     constructor() {
@@ -60,6 +64,8 @@ class UserAuthenticator {
             const token = generateToken();
 
             const userSession = new UserSession(username, token);
+            
+            userSession.id = generateSessionId();
 
             this._sessionStorage.store(userSession);
         
@@ -83,6 +89,22 @@ class UserAuthenticator {
      */
     signOut(token) {
         return this._sessionStorage.delete(token);
+    };
+
+    /**
+     * Closes existing sessions by id.
+     * @param {string} id Session id.
+     * @returns {boolean}
+     */
+    signOutById(id) {
+        const session = this._sessionStorage.findById(id);
+
+        if (session) {
+            return this.signOut(session.token);
+        }
+        else {
+            return false;
+        }
     };
 
     /**

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getAccessValidator, getUserVisitCounter } from '../../../domain';
+import { getAccessValidator, getUserVisitCounter, getUserAuthenticator } from '../../../domain';
 
 
 const queryResolvers = {
@@ -46,6 +46,45 @@ const queryResolvers = {
             return {
                 success: false,
                 errorMessage: error.toString()
+            };
+        }
+    },
+    userSessions: async (_, { username, accessToken }) => {
+
+        try {
+            getAccessValidator().verifyAdminAccess(accessToken);
+
+            try {
+                const rawUserSessions = await getUserAuthenticator().findSessions(username);
+    
+                const userSessions = rawUserSessions.map((source) => {
+                    const result = {
+                        id: source.id,
+                        username: source.username,
+                        expired: source.isExpired,
+                        updatedOn: source.updatedOn.toUTCString()
+                    };
+    
+                    return result;
+                });
+
+                return {
+                    success: true,
+                    payload: userSessions
+                };
+            }
+            catch (error) {
+                console.error(error);
+    
+                throw new Error('Error occured while retrieving user visits');
+            }
+        }
+        catch (error) {
+            return {
+                success: false,
+                error: {
+                    message: error.toString(),
+                },
             };
         }
     },
@@ -105,6 +144,42 @@ const mutationResolvers = {
             }
 
             await getUserVisitCounter().delete(userVisitIds);
+
+            return true;
+        }
+        catch (error) {
+            console.error(error);
+
+            return false;
+        }
+    },
+    deleteUserSessions: async (_, { ids, accessToken }) => {
+        try {
+            getAccessValidator().verifyAdminAccess(accessToken);
+
+            if (ids.length === 0) {
+                return false;
+            }
+
+            const userAuthenticator = getUserAuthenticator();
+
+            for (const id of ids) {
+                await userAuthenticator.signOutById(id);
+            }
+
+            return true;
+        }
+        catch (error) {
+            console.error(error);
+
+            return false;
+        }
+    },
+    deleteAllUserSessions: async (_, { accessToken }) => {
+        try {
+            getAccessValidator().verifyAdminAccess(accessToken);
+
+            await getUserAuthenticator().signOutEveryone();
 
             return true;
         }

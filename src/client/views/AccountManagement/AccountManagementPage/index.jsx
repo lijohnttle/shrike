@@ -6,15 +6,29 @@ import { UserProfileSection } from '../UserProfileSection';
 import { UserVisitsSection } from '../UserVisitsSection';
 import { useStyles } from './styles.js';
 import { SectionsMenu } from '../SectionsMenu';
+import { UserSessionsSection } from '../UserSessionsSection';
 
 
-const SECTION_IDS = {
-    USER_PROFILE: 'USER_PROFILE',
-    VISITS: 'VISITS',
-};
+const SECTION_LIST = [
+    {
+        id: 'USER_PROFILE',
+        header: 'User Profile',
+        render: () => <UserProfileSection />,
+    },
+    {
+        id: 'USER_VISITS',
+        header: 'User Visits',
+        render: () => <UserVisitsSection />,
+    },
+    {
+        id: 'USER_SESSIONS',
+        header: 'User Sessions',
+        render: () => <UserSessionsSection />,
+    },
+];
 
 const AccountManagementPage = () => {
-    const [selectedSectionId, setSelectedSectionId] = useState(SECTION_IDS.USER_PROFILE);
+    const [selectedSectionId, setSelectedSectionId] = useState(SECTION_LIST[0].id);
     const classes = useStyles();
 
     return (
@@ -23,22 +37,12 @@ const AccountManagementPage = () => {
                 <ArticleContentBlock>
                     <div className={classes.sectionsRoot}>
                         <SectionsMenu
-                            options={[
-                                {
-                                    id: SECTION_IDS.USER_PROFILE,
-                                    header: "User Profile",
-                                },
-                                {
-                                    id: SECTION_IDS.VISITS,
-                                    header: "User Visits",
-                                },
-                            ]}
+                            options={SECTION_LIST}
                             selection={selectedSectionId}
                             selectionChanged={setSelectedSectionId} />
 
                         <div className={classes.sectionRoot}>
-                            {selectedSectionId === SECTION_IDS.USER_PROFILE ? <UserProfileSection /> : null}
-                            {selectedSectionId === SECTION_IDS.VISITS ? <UserVisitsSection /> : null}
+                            {SECTION_LIST.find((section) => section.id === selectedSectionId)?.render()}
                         </div>
                     </div>
                 </ArticleContentBlock>

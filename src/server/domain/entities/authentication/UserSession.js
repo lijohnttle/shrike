@@ -5,6 +5,7 @@ class UserSession {
      * @param {*} token Access token.
      */
     constructor(username, token) {
+        this.id = null;
         this.username = username;
         this.token = token;
         this.updatedOn = new Date();
