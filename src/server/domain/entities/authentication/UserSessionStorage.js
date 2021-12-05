@@ -180,7 +180,7 @@ class UserSessionStorage {
     /**
      * Returns a session for specific user using access token.
      * @param {string} token Access token.
-     * @returns {UserSession} Uesr session.
+     * @returns {UserSession} User session.
      */
     findByToken(token) {
         const session = this._sessionByToken[token];
@@ -190,6 +190,15 @@ class UserSessionStorage {
         }
 
         return session;
+    }
+
+    /**
+     * Returns a session for specific user using session id.
+     * @param {string} id Session id.
+     * @returns {UserSession} User session.
+     */
+    findById(id) {
+        return Object.values(this._sessionByToken).find((session) => session.id === id);
     }
 
     /**

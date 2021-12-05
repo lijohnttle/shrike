@@ -9,6 +9,10 @@ const Query = `
     type Query {
         version: String!
     }
+
+    type Error {
+        message: String!
+    }
 `;
 
 const Mutation = `

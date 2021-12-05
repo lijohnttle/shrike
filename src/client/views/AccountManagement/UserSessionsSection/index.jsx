@@ -5,15 +5,13 @@ import React, { useEffect, useState } from 'react';
 import { useUserSession } from '../../../hooks';
 import { useStyles } from './styles';
 import { SectionHeader } from '../SectionHeader';
-import { fetchUserVisits, deleteUserVisits, deleteAllUserVisits } from '../../../services/userVisitsApi';
+import { fetchUserSessions, deleteUserSessions, deleteAllUserSessions } from '../../../services/userSessionsApi';
 
 
-const USER_VISIT_COUNT = 100;
-
-const UserVisitsSection = () => {
-    const [userVisits, setUserVisits] = useState([]);
+const UserSessionsSection = () => {
+    const [userSessions, setUserSessions] = useState([]);
     const [pageSize, setPageSize] = useState(10);
-    const [selectedUserVisitIds, setSelectedUserVisitIds] = useState([]);
+    const [selectedUserSessionIds, setSelectedUserSessionIds] = useState([]);
     const [getUserSession] = useUserSession();
     const classes = useStyles();
 
@@ -25,20 +23,20 @@ const UserVisitsSection = () => {
         const session = getUserSession();
 
         if (session) {
-            await fetchUserVisits(USER_VISIT_COUNT, session.token, setUserVisits);
+            await fetchUserSessions(session.username, session.token, setUserSessions);
         }
     };
 
     const handleDelete = async () => {
-        if (selectedUserVisitIds.length === 0) {
+        if (selectedUserSessionIds.length === 0) {
             return;
         }
 
         const session = getUserSession();
 
         if (session) {
-            if (await deleteUserVisits(selectedUserVisitIds, session.token)) {
-                await fetchUserVisits(USER_VISIT_COUNT, session.token, setUserVisits);
+            if (await deleteUserSessions(selectedUserSessionIds, session.token)) {
+                await fetchUserSessions(session.username, session.token, setUserSessions);
             }
         }
     };
@@ -47,15 +45,15 @@ const UserVisitsSection = () => {
         const session = getUserSession();
 
         if (session) {
-            if (await deleteAllUserVisits(session.token)) {
-                await fetchUserVisits(USER_VISIT_COUNT, session.token, setUserVisits);
+            if (await deleteAllUserSessions(session.token)) {
+                await fetchUserSessions(session.username, session.token, setUserSessions);
             }
         }
     };
 
     return (
         <div>
-            <SectionHeader text="User Visits" />
+            <SectionHeader text="User Sessions" />
 
             <div className={classes.toolbar}>
                 <Button startIcon={<DeleteIcon />} onClick={handleDelete}>Delete</Button>
@@ -68,60 +66,47 @@ const UserVisitsSection = () => {
                     columns={
                         [
                             {
-                                field: 'path',
-                                headerName: 'Path',
+                                field: 'id',
+                                headerName: 'id',
                                 flex: 1,
                                 sortable: false,
                                 minWidth: 100,
                             },
                             {
-                                field: 'count',
-                                headerName: 'Count',
-                                width: 60,
-                                sortable: false,
-                            },
-                            {
-                                field: 'location',
-                                headerName: 'Location',
+                                field: 'username',
+                                headerName: 'Username',
                                 flex: 1,
-                                valueGetter: (params) => {
-                                    const country = params.row.country;
-                                    const city = params.row.city;
-                        
-                                    if (city && country) {
-                                        return `${city}, ${country}`;
-                                    }
-                        
-                                    if (country) {
-                                        return `${country}`
-                                    }
-                        
-                                    return 'Unknown';
-                                },
                                 sortable: false,
-                                minWidth: 200,
+                                minWidth: 100,
                             },
                             {
-                                field: 'date',
-                                headerName: 'Date',
+                                field: 'expired',
+                                headerName: 'Expired',
+                                flex: 1,
+                                sortable: false,
+                                minWidth: 100,
+                            },
+                            {
+                                field: 'updatedOn',
+                                headerName: 'Updated On',
                                 flex: 1,
                                 sortable: false,
                                 minWidth: 250,
                             },
                         ]
                     }
-                    rows={userVisits}
+                    rows={userSessions}
                     pageSize={pageSize}
                     rowsPerPageOptions={[10, 50, 100]}
                     checkboxSelection
                     paginationMode="client"
                     pagination
                     onPageSizeChange={(pageSize) => setPageSize(pageSize)}
-                    onSelectionModelChange={(selection) => setSelectedUserVisitIds(selection)} />
+                    onSelectionModelChange={(selection) => setSelectedUserSessionIds(selection)} />
             </div>
         </div>
     );
 }
 
 
-export { UserVisitsSection };
+export { UserSessionsSection };
