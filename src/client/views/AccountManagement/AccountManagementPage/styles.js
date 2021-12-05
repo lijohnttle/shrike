@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexFlow: 'row nowrap',
 
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('md')]: {
             flexFlow: 'column nowrap',
         },
     },

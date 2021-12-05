@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, CircularProgress, Input, InputLabel } from '@mui/material';
+import { Button, CircularProgress, TextField } from '@mui/material';
 import { queryData } from "../../../services/api.js";
 import { useUserSession } from '../../../hooks';
 import { SectionHeader } from '../SectionHeader/index.jsx';
@@ -83,14 +83,16 @@ const UserProfileSection = () => {
             <SectionHeader text="User Profile" />
 
             <form className={classes.form}>
-                <InputLabel htmlFor="goodreads_user_id">GoodReads Uesr Id</InputLabel>
-                <Input
-                    id="goodreads_user_id"
-                    aria-describedby="GoodReads User Id"
-                    value={goodReadsUserId}
-                    onChange={e => setGoodReadsUserId(e.target.value)} />
+                <div className={classes.fieldContainer}>
+                    <TextField
+                        label="GoodReads User Id"
+                        defaultValue={goodReadsUserId}
+                        onChange={e => setUsername(e.target.value)} />
+                </div>
                 
-                <Button color="primary" onClick={saveChanges}>Save</Button>
+                <div className={classes.commandContainer}>
+                    <Button color="primary" variant="contained" onClick={saveChanges}>Save</Button>
+                </div>
             </form>
         </div>
     );

@@ -3,10 +3,12 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        display: 'flex',
+        flexFlow: 'column nowrap',
         marginRight: theme.spacing(4),
         minWidth: '200px',
 
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('md')]: {
             marginRight: 'unset',
             marginBottom: theme.spacing(4),
         },
