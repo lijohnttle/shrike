@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Input, InputLabel } from '@mui/material';
+import { Button, Input, InputLabel, TextField } from '@mui/material';
 import { Page } from '../../../components/Page';
 import { signIn } from '../../../services/security.js';
 import { Redirect } from 'react-router';
@@ -46,13 +46,23 @@ const SignInPage = () => {
             <div className={classes.topSpace}></div>
 
             <form className={classes.form} onSubmit={submitHandler}>
-                <InputLabel htmlFor="username">Username</InputLabel>
-                <Input id="username" aria-describedby="Username" value={username} onChange={e => setUsername(e.target.value)} />
+                <div className={classes.fieldContainer}>
+                    <TextField
+                        required
+                        label="Username"
+                        defaultValue={username}
+                        onChange={e => setUsername(e.target.value)} />
+                </div>
+                <div className={classes.fieldContainer}>
+                    <TextField
+                        required
+                        type="password"
+                        label="Password"
+                        defaultValue={password}
+                        onChange={e => setPassword(e.target.value)} />
+                </div>
 
-                <InputLabel htmlFor="password" >Password</InputLabel>
-                <Input id="password" aria-describedby="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
-
-                <Button type="submit" color="primary" onClick={submitHandler}>Sign In</Button>
+                <Button type="submit" color="primary" variant="contained" onClick={submitHandler}>Sign In</Button>
             </form>
 
             <div className={classes.bottomSpace}></div>

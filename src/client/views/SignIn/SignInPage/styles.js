@@ -19,6 +19,11 @@ const useStyles = makeStyles((theme) => ({
             marginBottom: theme.spacing(2),
         },
     },
+    fieldContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        marginBottom: theme.spacing(2),
+    },
     topSpace: {
         flexGrow: 1,
     },
