@@ -22,6 +22,8 @@ const useStyles = makeStyles(theme => ({
         flexFlow: 'column nowrap',
         marginBottom: theme.spacing(1),
         background: 'white',
+        boxShadow: '3px 3px 7px #eaeaea',
+        borderLeft: '4px solid black',
     },
     projectContent: {
         display: 'flex',
@@ -36,30 +38,6 @@ const useStyles = makeStyles(theme => ({
     },
     projectTitle: {
         marginRight: theme.spacing(2),
-    },
-    projectDefaultStatus: {
-        color: '#d1d1d1',
-        fontSize: '0.75rem',
-        padding: '0px 4px',
-        border: '1px solid #d1d1d1',
-        borderRadius: '3px',
-    },
-    projectLiveStatus: {
-        color: '#60cb3d',
-        border: '1px solid #60cb3d',
-    },
-    projectTechnologyList: {
-        display: 'flex',
-        flexFlow: 'row wrap',
-    },
-    projectTechnology: {
-        background: '#7bb6ff',
-        color: 'white',
-        fontSize: '0.75rem',
-        padding: '0px 4px',
-        marginRight: '4px',
-        marginBottom: '2px',
-        borderRadius: '3px',
     },
     projectLinks: {
         display: 'flex',
