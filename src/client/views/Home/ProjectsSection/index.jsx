@@ -5,32 +5,24 @@ import { SectionContentContainer } from '../SectionContentContainer';
 import { useStyles } from './styles';
 
 
-const projectStatuses = {
-    RELEASED: 'released',
-    DEVELOPMENT: 'development',
-    DESIGN: 'design',
-};
-
 const projects = [
-    // {
-    //     name: 'Personal Web-Site',
-    //     description: 'My personal web-site.',
-    //     technologies: ['JavaScript', 'React', 'Node.JS', 'Express', 'GraphQL', 'MongoDB'],
-    //     links: [
-    //         {
-    //             vendor: 'github',
-    //             value: 'https://github.com/lijohnttle/personal-website',
-    //         },
-    //         {
-    //             vendor: 'web',
-    //             value: 'https://www.lijohnttle.com/',
-    //         },
-    //     ],
-    // },
+    {
+        name: 'Personal Website',
+        description: 'My personal web-site.',
+        links: [
+            {
+                vendor: 'github',
+                value: 'https://github.com/lijohnttle/personal-website',
+            },
+            {
+                vendor: 'web',
+                value: 'https://www.lijohnttle.com/',
+            },
+        ],
+    },
     {
         name: 'Habit Tracker',
-        description: 'Mobile application for tracking habits.',
-        technologies: ['JavaScript', 'React Native'],
+        description: 'A mobile application for tracking habits.',
         links: [
             {
                 vendor: 'github',
@@ -38,17 +30,16 @@ const projects = [
             },
         ],
     },
-    // {
-    //     name: 'Monsterlution',
-    //     description: 'A blockchain game.',
-    //     technologies: ['C#', 'Unity 3D'],
-    //     links: [
-    //         {
-    //             vendor: 'github',
-    //             value: 'https://github.com/lijohnttle/monsterlution',
-    //         },
-    //     ],
-    // },
+    {
+        name: 'Monsterlution',
+        description: 'A blockchain game.',
+        links: [
+            {
+                vendor: 'github',
+                value: 'https://github.com/lijohnttle/monsterlution',
+            },
+        ],
+    },
 ];
 
 const ProjectsSection = ({ screenHeight, isLastSection }) => {
@@ -74,7 +65,7 @@ const ProjectsSection = ({ screenHeight, isLastSection }) => {
                         <div className={classes.projectContent}>
                             <div className={classes.projectTopPanel}>
                                 <div className={classes.projectTitle}>
-                                    <Typography variant="h3" align="justify">
+                                    <Typography variant="h5" align="justify">
                                         {project.name.toUpperCase()}
                                     </Typography>
                                 </div>

@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexFlow: 'row wrap',
         alignItems: 'center',
-        marginBottom: theme.spacing(2),
+        marginBottom: theme.spacing(1),
     },
     projectTitle: {
         marginRight: theme.spacing(2),
