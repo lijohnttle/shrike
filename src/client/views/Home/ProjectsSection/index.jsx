@@ -30,16 +30,6 @@ const projects = [
             },
         ],
     },
-    {
-        name: 'Monsterlution',
-        description: 'A blockchain game.',
-        links: [
-            {
-                vendor: 'github',
-                value: 'https://github.com/lijohnttle/monsterlution',
-            },
-        ],
-    },
 ];
 
 const ProjectsSection = ({ screenHeight, isLastSection }) => {
@@ -58,29 +48,33 @@ const ProjectsSection = ({ screenHeight, isLastSection }) => {
             contentRootClassName={classes.contentRoot}
             maxWidth="md"
             canScrollToNextSection={!isLastSection}>
-            
-            {projects.map((project) => {
-                return (
-                    <div key={project.name} className={classes.projectRoot}>
-                        <div className={classes.projectContent}>
-                            <div className={classes.projectTopPanel}>
-                                <div className={classes.projectTitle}>
-                                    <Typography variant="h5" align="justify">
-                                        {project.name.toUpperCase()}
+
+            <div className={classes.projectList}>
+                {projects.map((project) => {
+                    return (
+                        <div key={project.name} className={classes.projectWrapper}>
+                            <div className={classes.project}>
+                                <div className={classes.projectContent}>
+                                    <div className={classes.projectTopPanel}>
+                                        <div className={classes.projectTitle}>
+                                            <Typography variant="h5" align="justify">
+                                                {project.name.toUpperCase()}
+                                            </Typography>
+                                        </div>
+                                    </div>
+                                    <Typography variant="caption" color="GrayText" align="justify">
+                                        {project.description}
                                     </Typography>
                                 </div>
-                            </div>
-                            <Typography variant="subtitle2" align="justify">
-                                {project.description}
-                            </Typography>
-                        </div>
 
-                        <div className={classes.projectLinks}>
-                            {project.links.map((link) => <ContactLink key={link.value} contact={link} fontSize="large" />)}
+                                <div className={classes.projectBottomPanel}>
+                                    {project.links.map((link) => <ContactLink key={link.value} contact={link} fontSize="medium" />)}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                );
-            })}
+                    );
+                })}
+            </div>
         </SectionContentContainer>
     );
 };

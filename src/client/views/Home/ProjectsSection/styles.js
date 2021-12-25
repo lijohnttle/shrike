@@ -15,20 +15,56 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down('sm')]: {
             paddingTop: theme.spacing(8),
             paddingBottom: theme.spacing(4)
-        }
+        },
     }),
-    projectRoot: {
+    projectList: {
+        display: 'flex',
+        flexFlow: 'row wrap',
+        justifyContent: 'space-between',
+
+        [theme.breakpoints.down('sm')]: {
+            flexFlow: 'column nowrap',
+            justifyContent: 'flex-start',
+        },
+    },
+    projectWrapper: {
         display: 'flex',
         flexFlow: 'column nowrap',
-        marginBottom: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+        width: '50%',
+
+        '&:nth-child(odd)': {
+            paddingRight: theme.spacing(0.5),
+
+            [theme.breakpoints.down('md')]: {
+                paddingRight: theme.spacing(0),
+            },
+        },
+
+        '&:nth-child(even)': {
+            paddingLeft: theme.spacing(0.5),
+
+            [theme.breakpoints.down('md')]: {
+                paddingLeft: theme.spacing(0),
+            },
+        },
+
+        [theme.breakpoints.down('md')]: {
+            width: '100%',
+            paddingBottom: theme.spacing(1),
+        },
+    },
+    project: {
+        display: 'flex',
+        flexFlow: 'column nowrap',
+        flexGrow: '1',
         background: 'white',
         boxShadow: '3px 3px 7px #eaeaea',
-        borderLeft: '4px solid black',
     },
     projectContent: {
         display: 'flex',
         flexFlow: 'column nowrap',
-        padding: theme.spacing(2),
+        padding: theme.spacing(3),
     },
     projectTopPanel: {
         display: 'flex',
@@ -39,13 +75,16 @@ const useStyles = makeStyles(theme => ({
     projectTitle: {
         marginRight: theme.spacing(2),
     },
-    projectLinks: {
+    projectBottomPanel: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'start',
         padding: theme.spacing(2),
-        paddingTop: '0',
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+        borderTop: '1px solid #ededed',
+        background: '#fafafa',
     },
 }));
 
