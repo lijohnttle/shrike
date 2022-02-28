@@ -14,7 +14,7 @@ const AboutPage = () => {
     
     return (
         <Page title="About">
-            <Article title="ABOUT ME" updatedOn="December 02, 2021">
+            <Article title="ABOUT ME" updatedOn="February 28, 2022">
                 <ArticleContentBlock className={classes.introductionBlock}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />
@@ -91,7 +91,7 @@ const AboutPage = () => {
                         </li>
                         <li>
                             <Typography align="justify" gutterBottom paragraph>
-                                <b>Get married.</b>
+                                <b>Get married.</b> We are engaged.
                             </Typography>
                         </li>
                     </ul>
