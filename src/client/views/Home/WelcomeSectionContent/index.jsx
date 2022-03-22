@@ -28,7 +28,7 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
                 </Typography>
 
                 <div className={classes.contactsContainer}>
-                    {contacts.map(contact => (
+                    {contacts.filter(c => c.types.some(ct => ct === 'social')).map(contact => (
                         <ContactLink key={contact.vendor} contact={contact} dark fontSize="large" />
                     ))}
                 </div>

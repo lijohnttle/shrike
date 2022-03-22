@@ -43,7 +43,7 @@ const HomePage = () => {
                         screenHeight={screenHeight} />
                 </div>
 
-                <ProjectsSection screenHeight={screenHeight} />
+                <ProjectsSection contacts={data.contacts} screenHeight={screenHeight} />
 
                 <BooksLibrarySection screenHeight={screenHeight} isLastSection />
             </div>

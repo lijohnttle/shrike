@@ -3,19 +3,28 @@ export default {
     contacts: [
         {
             vendor: "email",
-            value: "lijohnttle@gmail.com"
+            value: "lijohnttle@gmail.com",
+            types: ["social"]
         },
         {
             vendor: "facebook",
-            value: "https://www.facebook.com/lijohnttle"
+            value: "https://www.facebook.com/lijohnttle",
+            types: ["social"]
         },
         {
             vendor: "linkedin",
-            value: "https://www.linkedin.com/in/lijohnttle"
+            value: "https://www.linkedin.com/in/lijohnttle",
+            types: ["social", "business"]
         },
         {
             vendor: "instagram",
-            value: "https://www.instagram.com/_lijohnttle"
+            value: "https://www.instagram.com/_lijohnttle",
+            types: ["social"]
+        },
+        {
+            vendor: "upwork",
+            value: "https://www.upwork.com/freelancers/~0125be27d2c250970b",
+            types: ["business"]
         }
     ]
 };

@@ -17,6 +17,27 @@ const useStyles = makeStyles(theme => ({
             paddingBottom: theme.spacing(4)
         },
     }),
+    summary: {
+        marginBottom: theme.spacing(6),
+    },
+    subHeader: {
+        borderBottom: '1px solid #dadada',
+        paddingBottom: theme.spacing(1.5),
+        marginBottom: theme.spacing(3),
+    },
+    businessContacts: {
+        display: 'flex',
+        flexFlow: 'row wrap',
+        paddingBottom: theme.spacing(6),
+    },
+    businessContact: {
+        background: 'transparent',
+        padding: theme.spacing(1),
+
+        '&:hover': {
+            background: '#e9e9e9',
+        }
+    },
     projectList: {
         display: 'flex',
         flexFlow: 'row wrap',
