@@ -100,7 +100,7 @@ const ProjectsSection = ({ contacts, screenHeight, isLastSection }) => {
                                             </Typography>
                                         </div>
                                     </div>
-                                    <Typography variant="caption" color="GrayText" align="justify">
+                                    <Typography variant="caption" align="justify">
                                         {project.description}
                                     </Typography>
                                 </div>

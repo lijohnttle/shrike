@@ -1,23 +1,24 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/index.js';
+import colors from './colors.js';
 
 
 let defaultTheme = createTheme({
     palette: {
         primary: {
-            light: '#63a4ff',
-            main: '#1976d2',
-            dark: '#004ba0',
-            contrastText: '#fff',
+            light: colors.activeLight,
+            main: colors.active,
+            dark: colors.activeDark,
+            contrastText: colors.activeText,
         },
         secondary: {
             light: '#ffd149',
             main: '#ffa000',
             dark: '#c67100',
-            contrastText: '#000',
+            contrastText: colors.text,
         },
         background: {
-            default: '#ffffff',
-            paper: '#ffffff'
+            default: colors.background,
+            paper: colors.paperBackground,
         }
     },
     typography: {

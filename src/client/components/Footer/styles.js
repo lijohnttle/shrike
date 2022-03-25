@@ -1,10 +1,11 @@
 import { makeStyles } from '@mui/styles';
+import colors from '../../themes/colors.js';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        background: '#313131',
-        color: 'white',
+        background: colors.backgroundComplementary,
+        color: colors.textComplementary,
         marginTop: 'auto',
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(2),

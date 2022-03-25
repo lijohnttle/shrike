@@ -18,7 +18,8 @@ const Footer = () => {
                     </Typography>
 
                     <div className={classes.contactList}>
-                        {data.contacts.map((contact) => <ContactLink key={contact.vendor} contact={contact} dark />)}
+                        {data.contacts.filter((contact) => contact.types.some((type) => type === 'social'))
+                            .map((contact) => <ContactLink key={contact.vendor} contact={contact} dark />)}
                     </div>
                 </div>
             </Container>

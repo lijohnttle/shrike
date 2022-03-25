@@ -1,10 +1,11 @@
 import { makeStyles } from '@mui/styles';
+import colors from '../../../themes/colors.js';
 
 
 const useStyles = makeStyles(theme => ({
     root: {
-        background: '#fafafa',
-        color: 'black',
+        background: colors.background,
+        color: colors.text,
     },
     contentRoot: ({ screenHeight }) => ({
         justifyContent: 'center',
@@ -21,7 +22,7 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(6),
     },
     subHeader: {
-        borderBottom: '1px solid #dadada',
+        borderBottom: `1px solid ${colors.border}`,
         paddingBottom: theme.spacing(1.5),
         marginBottom: theme.spacing(3),
     },
@@ -35,7 +36,7 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(1),
 
         '&:hover': {
-            background: '#e9e9e9',
+            background: colors.selectionBackground,
         }
     },
     projectList: {
@@ -79,8 +80,8 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexFlow: 'column nowrap',
         flexGrow: '1',
-        background: 'white',
-        boxShadow: '3px 3px 7px #eaeaea',
+        background: colors.backgroundComplementary,
+        color: colors.textComplementary,
     },
     projectContent: {
         display: 'flex',
@@ -104,8 +105,6 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(2),
         paddingTop: theme.spacing(1),
         paddingBottom: theme.spacing(1),
-        borderTop: '1px solid #ededed',
-        background: '#fafafa',
     },
 }));
 

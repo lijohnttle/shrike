@@ -1,10 +1,11 @@
 import { makeStyles } from '@mui/styles';
+import colors from '../../../themes/colors.js';
 
 
 const useStyles = makeStyles((theme) => ({
     introductionBlock: {
-        background: 'lightslategray',
-        color: 'white',
+        background: colors.backgroundComplementary,
+        color: colors.textComplementary,
     },
     pictureContainer: {
         width: '50%',

@@ -1,4 +1,5 @@
 import { makeStyles } from '@mui/styles';
+import colors from '../../themes/colors.js';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -8,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: '1',
     },
     header: {
-        background: 'white',
+        background: colors.background,
         paddingTop: theme.spacing(8),
         paddingBottom: theme.spacing(4),
         zIndex: 1,
