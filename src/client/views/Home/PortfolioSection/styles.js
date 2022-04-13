@@ -28,16 +28,8 @@ const useStyles = makeStyles(theme => ({
     },
     businessContacts: {
         display: 'flex',
-        flexFlow: 'row wrap',
+        flexFlow: 'column nowrap',
         paddingBottom: theme.spacing(6),
-    },
-    businessContact: {
-        background: 'transparent',
-        padding: theme.spacing(1),
-
-        '&:hover': {
-            background: colors.selectionBackground,
-        }
     },
     projectList: {
         display: 'flex',
@@ -105,6 +97,15 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(2),
         paddingTop: theme.spacing(1),
         paddingBottom: theme.spacing(1),
+    },
+    coreValuesContainer: {
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: theme.spacing(6),
+    },
+    coreValuesPicture: {
+        width: '100%',
+        maxWidth: '900px',
     },
 }));
 

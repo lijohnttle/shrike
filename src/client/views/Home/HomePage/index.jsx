@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { animateScroll } from 'react-scroll';
 import { Page } from '../../../components/Page';
 import { WelcomeSection } from '../WelcomeSection';
-import { ProjectsSection } from '../ProjectsSection';
+import { PortfolioSection } from '../PortfolioSection';
 import { BooksLibrarySection } from '../BooksLibrarySection';
 import { smoothScrollOptions } from '../../../utils/scrolling';
 import { useData } from '../../../hooks';
@@ -43,7 +43,7 @@ const HomePage = () => {
                         screenHeight={screenHeight} />
                 </div>
 
-                <ProjectsSection contacts={data.contacts} screenHeight={screenHeight} />
+                <PortfolioSection contacts={data.contacts} screenHeight={screenHeight} />
 
                 <BooksLibrarySection screenHeight={screenHeight} isLastSection />
             </div>

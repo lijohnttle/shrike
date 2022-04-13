@@ -6,10 +6,10 @@ import { smoothScrollOptions } from '../../../utils/scrolling';
 import { useStyles } from './styles';
 
 
-const renderTitle = (title, classes) => {
+const renderTitle = (title, fontFamily, classes) => {
     return (
         <div className={classes.title}>
-            <Typography variant="h1" align="center">
+            <Typography variant="h1" fontFamily={fontFamily} align="center">
                 {title}
             </Typography>
         </div>
@@ -34,7 +34,7 @@ const renderScrollButton = (classes, clickHandler) => {
     );
 };
 
-const SectionContentContainer = ({ children, className, contentRootClassName, title, isLoading, maxWidth, canScrollToNextSection }) => {
+const SectionContentContainer = ({ children, className, contentRootClassName, title, titleClassName, titleFontFamily, isLoading, maxWidth, canScrollToNextSection }) => {
     const containerRef = useRef();
     const classes = useStyles();
 
@@ -50,7 +50,7 @@ const SectionContentContainer = ({ children, className, contentRootClassName, ti
                 <div className={`${classes.contentRoot} ${contentRootClassName || ''}`}>
                     <div className={classes.topSpace}></div>
 
-                    {title ? renderTitle(title, classes) : null}
+                    {title ? renderTitle(title, titleFontFamily, classes) : null}
 
                     {isLoading ? renderLoader(classes) : children}
 
