@@ -80,7 +80,7 @@ const PortfolioSection = ({ contacts, screenHeight, isLastSection }) => {
                 {contacts.filter(contact => contact.types.some(t => t === 'business')).map(contact => (
                     <li key={contact.vendor}>
                         <div>
-                            <Link href={contact.value} target="_blank">
+                            <Link href={contact.vendor === 'email' ? `mailto:${contact.value}` : contact.value} target="_blank">
                                 {contact.displayName}
                             </Link>
                         </div>
