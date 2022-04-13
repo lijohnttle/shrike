@@ -42,17 +42,7 @@ const renderSubHeader = (header, classes) => {
     );
 };
 
-const renderBusinessContact = (contactName, contacts, imageSrc, classes) => {
-    return (
-        <div className={classes.businessContact}>
-            <Link href={contacts.find(c => c.vendor === contactName).value} target="_blank" display="block" fontSize={0}>
-                <img width="96px" height="96px" src={imageSrc} />
-            </Link>
-        </div>
-    );
-};
-
-const ProjectsSection = ({ contacts, screenHeight, isLastSection }) => {
+const PortfolioSection = ({ contacts, screenHeight, isLastSection }) => {
     const [isLoading, setIsLoading] = useState(true);
     const classes = useStyles({ screenHeight });
 
@@ -69,8 +59,6 @@ const ProjectsSection = ({ contacts, screenHeight, isLastSection }) => {
             maxWidth="md"
             canScrollToNextSection={!isLastSection}>
 
-            {renderSubHeader('SUMMARY', classes)}
-
             <div className={classes.summary}>
                 <Typography textAlign="justify" gutterBottom>
                     I am a Senior Software Engineer with extensive experience in web/mobile/desktop software development.
@@ -78,12 +66,26 @@ const ProjectsSection = ({ contacts, screenHeight, isLastSection }) => {
                 </Typography>
             </div>
 
-            {renderSubHeader('BUSINESS CONTACTS', classes)}
+            <picture className={classes.coreValuesContainer}>
+                <source media="(min-width: 700px)" type="image/jpeg" srcset="/assets/images/core_values.png" />
+                <source type="image/jpeg" srcset="/assets/images/core_values_sm.png" />
+                <img src="/assets/images/core_values.png" alt="" className={classes.coreValuesPicture} />
+            </picture>
 
-            <div className={classes.businessContacts}>
-                {renderBusinessContact('linkedin', contacts, '/assets/images/linkedin-logo.jpg', classes)}
-                {renderBusinessContact('upwork', contacts, '/assets/images/upwork-logo.png', classes)}
-            </div>
+            <Typography fontWeight="bold">
+                Business Contacts:
+            </Typography>
+
+            <ul className={classes.businessContacts}>
+                {contacts.filter(contact => contact.types.some(t => t === 'business')).map(contact => (
+                    <li key={contact.vendor}>
+                        <div>
+                            <Link href={contact.value} target="_blank">
+                                {contact.displayName}
+                            </Link>
+                        </div>
+                    </li>))}
+            </ul>
 
             {renderSubHeader('SIDE PROJECTS', classes)}
 
@@ -119,5 +121,5 @@ const ProjectsSection = ({ contacts, screenHeight, isLastSection }) => {
 
 
 export {
-    ProjectsSection
+    PortfolioSection
 };
