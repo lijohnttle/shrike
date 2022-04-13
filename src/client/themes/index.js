@@ -19,6 +19,10 @@ let defaultTheme = createTheme({
         background: {
             default: colors.background,
             paper: colors.paperBackground,
+        },
+        red: {
+            main: '#ff0000',
+            contrastText: colors.activeText,
         }
     },
     typography: {
@@ -43,13 +47,23 @@ let defaultTheme = createTheme({
             fontWeight: 'bold'
         }
     },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    borderRadius: 0,
+                }, 
+            },
+        },
+    },
     overrides: {
         MuiSkeleton: {
             root: {
                 backgroundColor: 'rgba(0, 0, 0, 0.1)'
             }
-        }
+        },
     },
+    shadows: ["none"],
 });
 
 defaultTheme = responsiveFontSizes(defaultTheme);

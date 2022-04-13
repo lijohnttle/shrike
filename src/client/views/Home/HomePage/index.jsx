@@ -4,6 +4,7 @@ import { Page } from '../../../components/Page';
 import { WelcomeSection } from '../WelcomeSection';
 import { PortfolioSection } from '../PortfolioSection';
 import { BooksLibrarySection } from '../BooksLibrarySection';
+import { AboutMeSection } from '../AboutMeSection';
 import { smoothScrollOptions } from '../../../utils/scrolling';
 import { useData } from '../../../hooks';
 import { useStyles } from './styles';
@@ -42,6 +43,8 @@ const HomePage = () => {
                         gotoNextSection={gotoBooksSection}
                         screenHeight={screenHeight} />
                 </div>
+
+                <AboutMeSection screenHeight={screenHeight} />
 
                 <PortfolioSection contacts={data.contacts} screenHeight={screenHeight} />
 

@@ -1,4 +1,4 @@
-import { Link, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { ContactLink } from '../../../components/ContactLink';
 import { SectionContentContainer } from '../SectionContentContainer';
@@ -35,7 +35,7 @@ const projects = [
 const renderSubHeader = (header, classes) => {
     return (
         <div className={classes.subHeader}>
-            <Typography variant="h3" textAlign="left">
+            <Typography variant="h2" textAlign="center">
                 {header}
             </Typography>
         </div>
@@ -65,27 +65,21 @@ const PortfolioSection = ({ contacts, screenHeight, isLastSection }) => {
                     Currently I am open to new opportunities, please feel free to contact me regarding any projects you have.
                 </Typography>
             </div>
+            
+            {renderSubHeader('VALUES', classes)}
 
             <picture className={classes.coreValuesContainer}>
-                <source media="(min-width: 700px)" type="image/jpeg" srcset="/assets/images/core_values.png" />
-                <source type="image/jpeg" srcset="/assets/images/core_values_sm.png" />
+                <source media="(min-width: 700px)" type="image/jpeg" srcSet="/assets/images/core_values.png" />
+                <source type="image/jpeg" srcSet="/assets/images/core_values_sm.png" />
                 <img src="/assets/images/core_values.png" alt="" className={classes.coreValuesPicture} />
             </picture>
 
-            <Typography fontWeight="bold">
-                Business Contacts:
-            </Typography>
+            {renderSubHeader('CONTACTS', classes)}
 
-            <ul className={classes.businessContacts}>
-                {contacts.filter(contact => contact.types.some(t => t === 'business')).map(contact => (
-                    <li key={contact.vendor}>
-                        <div>
-                            <Link href={contact.vendor === 'email' ? `mailto:${contact.value}` : contact.value} target="_blank">
-                                {contact.displayName}
-                            </Link>
-                        </div>
-                    </li>))}
-            </ul>
+            <div className={classes.businessContacts}>
+                {contacts.filter(c => c.types.some(t => t === 'business')).map(
+                    contact => <ContactLink key={contact.vendor} contact={contact} fontSize="large" />)}
+            </div>
 
             {renderSubHeader('SIDE PROJECTS', classes)}
 

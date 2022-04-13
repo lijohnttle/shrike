@@ -10,7 +10,7 @@ const renderTitle = (title, fontFamily, classes) => {
     return (
         <div className={classes.title}>
             <Typography variant="h1" fontFamily={fontFamily} align="center">
-                {title}
+                {title?.toUpperCase()}
             </Typography>
         </div>
     );
@@ -34,7 +34,16 @@ const renderScrollButton = (classes, clickHandler) => {
     );
 };
 
-const SectionContentContainer = ({ children, className, contentRootClassName, title, titleClassName, titleFontFamily, isLoading, maxWidth, canScrollToNextSection }) => {
+const SectionContentContainer = ({
+    children,
+    className,
+    contentRootClassName,
+    title,
+    titleFontFamily,
+    isLoading,
+    maxWidth,
+    canScrollToNextSection }) => {
+
     const containerRef = useRef();
     const classes = useStyles();
 

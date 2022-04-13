@@ -22,13 +22,14 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(6),
     },
     subHeader: {
-        borderBottom: `1px solid ${colors.border}`,
-        paddingBottom: theme.spacing(1.5),
+        // borderBottom: `1px solid ${colors.border}`,
+        // paddingBottom: theme.spacing(1.5),
         marginBottom: theme.spacing(3),
     },
     businessContacts: {
         display: 'flex',
-        flexFlow: 'column nowrap',
+        flexFlow: 'row nowrap',
+        justifyContent: 'center',
         paddingBottom: theme.spacing(6),
     },
     projectList: {

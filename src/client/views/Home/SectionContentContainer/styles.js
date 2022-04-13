@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     title: {
-        paddingBottom: theme.spacing(4),
+        paddingBottom: theme.spacing(6),
     },
     loader: {
         alignSelf: 'center',
