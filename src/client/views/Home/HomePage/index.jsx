@@ -5,6 +5,7 @@ import { WelcomeSection } from '../WelcomeSection';
 import { PortfolioSection } from '../PortfolioSection';
 import { BooksLibrarySection } from '../BooksLibrarySection';
 import { AboutMeSection } from '../AboutMeSection';
+import { CoreValuesSection } from '../CoreValuesSection';
 import { smoothScrollOptions } from '../../../utils/scrolling';
 import { useData } from '../../../hooks';
 import { useStyles } from './styles';
@@ -46,7 +47,9 @@ const HomePage = () => {
 
                 <AboutMeSection screenHeight={screenHeight} />
 
-                <PortfolioSection contacts={data.contacts} screenHeight={screenHeight} />
+                <CoreValuesSection screenHeight={screenHeight} />
+
+                <PortfolioSection screenHeight={screenHeight} />
 
                 <BooksLibrarySection screenHeight={screenHeight} isLastSection />
             </div>

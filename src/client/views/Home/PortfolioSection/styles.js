@@ -4,8 +4,8 @@ import colors from '../../../themes/colors.js';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        background: colors.background,
-        color: colors.text,
+        background: '#171717',
+        color: colors.textComplementary,
     },
     contentRoot: ({ screenHeight }) => ({
         justifyContent: 'center',
@@ -18,20 +18,6 @@ const useStyles = makeStyles(theme => ({
             paddingBottom: theme.spacing(4)
         },
     }),
-    summary: {
-        marginBottom: theme.spacing(6),
-    },
-    subHeader: {
-        // borderBottom: `1px solid ${colors.border}`,
-        // paddingBottom: theme.spacing(1.5),
-        marginBottom: theme.spacing(3),
-    },
-    businessContacts: {
-        display: 'flex',
-        flexFlow: 'row nowrap',
-        justifyContent: 'center',
-        paddingBottom: theme.spacing(6),
-    },
     projectList: {
         display: 'flex',
         flexFlow: 'row wrap',
@@ -75,6 +61,7 @@ const useStyles = makeStyles(theme => ({
         flexGrow: '1',
         background: colors.backgroundComplementary,
         color: colors.textComplementary,
+        border: '1px solid #666666',
     },
     projectContent: {
         display: 'flex',
@@ -98,15 +85,6 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(2),
         paddingTop: theme.spacing(1),
         paddingBottom: theme.spacing(1),
-    },
-    coreValuesContainer: {
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginBottom: theme.spacing(6),
-    },
-    coreValuesPicture: {
-        width: '100%',
-        maxWidth: '900px',
     },
 }));
 

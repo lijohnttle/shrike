@@ -32,17 +32,7 @@ const projects = [
     },
 ];
 
-const renderSubHeader = (header, classes) => {
-    return (
-        <div className={classes.subHeader}>
-            <Typography variant="h2" textAlign="center">
-                {header}
-            </Typography>
-        </div>
-    );
-};
-
-const PortfolioSection = ({ contacts, screenHeight, isLastSection }) => {
+const PortfolioSection = ({ screenHeight, isLastSection }) => {
     const [isLoading, setIsLoading] = useState(true);
     const classes = useStyles({ screenHeight });
 
@@ -58,30 +48,6 @@ const PortfolioSection = ({ contacts, screenHeight, isLastSection }) => {
             contentRootClassName={classes.contentRoot}
             maxWidth="md"
             canScrollToNextSection={!isLastSection}>
-
-            <div className={classes.summary}>
-                <Typography textAlign="justify" gutterBottom>
-                    I am a Senior Software Engineer with extensive experience in web/mobile/desktop software development.
-                    Currently I am open to new opportunities, please feel free to contact me regarding any projects you have.
-                </Typography>
-            </div>
-            
-            {renderSubHeader('VALUES', classes)}
-
-            <picture className={classes.coreValuesContainer}>
-                <source media="(min-width: 700px)" type="image/jpeg" srcSet="/assets/images/core_values.png" />
-                <source type="image/jpeg" srcSet="/assets/images/core_values_sm.png" />
-                <img src="/assets/images/core_values.png" alt="" className={classes.coreValuesPicture} />
-            </picture>
-
-            {renderSubHeader('CONTACTS', classes)}
-
-            <div className={classes.businessContacts}>
-                {contacts.filter(c => c.types.some(t => t === 'business')).map(
-                    contact => <ContactLink key={contact.vendor} contact={contact} fontSize="large" />)}
-            </div>
-
-            {renderSubHeader('SIDE PROJECTS', classes)}
 
             <div className={classes.projectList}>
                 {projects.map((project) => {

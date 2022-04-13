@@ -26,7 +26,7 @@ const AboutMeSection = ({ screenHeight, isLastSection }) => {
                         </Typography>
 
                         <Typography fontSize="1.2rem" paragraph>
-                            I am a software engineer, traveller, lover of Sci-Fi.
+                            I am a software engineer, traveller, science lover, Sci-Fi fun.
                         </Typography>
                     </div>
 
