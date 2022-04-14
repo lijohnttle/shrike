@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
         },
 
         '& > div:nth-child(even)': {
-            paddingLeft: theme.spacing(2),
+            paddingLeft: theme.spacing(0.5),
 
             [theme.breakpoints.down('sm')]: {
                 paddingLeft: 0,
@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
         },
 
         '& > div:nth-child(odd)': {
-            paddingRight: theme.spacing(2),
+            paddingRight: theme.spacing(0.5),
 
             [theme.breakpoints.down('sm')]: {
                 paddingRight: 0,
@@ -51,10 +51,9 @@ const useStyles = makeStyles(theme => ({
         },
 
         '& > div > div': {
-            background: '#2da7ff',
+            background: colors.backgroundComplementary,
             color: colors.textComplementary,
             padding: theme.spacing(2),
-            borderRadius: theme.spacing(2),
             height: '100%',
         },
     },

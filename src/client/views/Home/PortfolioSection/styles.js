@@ -4,8 +4,8 @@ import colors from '../../../themes/colors.js';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        background: '#171717',
-        color: colors.textComplementary,
+        background: colors.background,
+        color: colors.text,
     },
     contentRoot: ({ screenHeight }) => ({
         justifyContent: 'center',
