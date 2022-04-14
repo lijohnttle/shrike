@@ -17,7 +17,8 @@ const HomePage = () => {
     const data = useData();
 
     const handleResize = useCallback(() => {
-        if (Math.abs(screenHeight - window.innerHeight) > 50) {
+        // prevent jumping with auto hiding address bar
+        if (Math.abs(screenHeight - window.innerHeight) > 72) {
             setScreenHeight(window.innerHeight);
         }
     });
