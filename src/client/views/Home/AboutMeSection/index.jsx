@@ -32,7 +32,7 @@ const AboutMeSection = ({ contacts, screenHeight, isLastSection }) => {
                     </div>
 
                     <div className={classes.readMoreButton}>
-                        <Button variant='contained' component={Link} to="/about" endIcon={<AddIcon />} color="blue">
+                        <Button variant='contained' component={Link} to="/about" endIcon={<AddIcon />} color="brand">
                             <span>READ MORE</span>
                         </Button>
                     </div>

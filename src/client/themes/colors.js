@@ -10,4 +10,5 @@ export default {
     activeLight: '#81c1ff',
     activeDark: '#0060bd',
     activeText: '#ffffff',
+    brand: '#00adff',
 };

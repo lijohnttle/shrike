@@ -1,4 +1,5 @@
 import { makeStyles } from '@mui/styles';
+import colors from '../../themes/colors.js';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
         color: ({ light }) => light ? 'black' : 'inherit',
-        background: ({ light }) => light ? 'white' : 'crimson',
+        background: ({ light }) => light ? colors.background : colors.brand,
         textDecoration: 'none',
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),

@@ -20,12 +20,8 @@ let defaultTheme = createTheme({
             default: colors.background,
             paper: colors.paperBackground,
         },
-        red: {
-            main: '#ff0000',
-            contrastText: colors.activeText,
-        },
-        blue: {
-            main: '#00adff',
+        brand: {
+            main: colors.brand,
             contrastText: colors.activeText,
         }
     },

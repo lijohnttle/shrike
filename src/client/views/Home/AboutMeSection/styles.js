@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
         marginLeft: theme.spacing(4),
         background: colors.background,
         color: colors.text,
-        boxShadow: `14px 14px 0px 0px #00adff`,
+        boxShadow: `14px 14px 0px 0px ${colors.brand}`,
 
         [theme.breakpoints.down('md')]: {
             width: '100%',
@@ -58,7 +58,7 @@ const useStyles = makeStyles(theme => ({
     summaryContainer: {
         background: colors.background,
         color: colors.text,
-        boxShadow: `14px 14px 0px 0px #00adff`,
+        boxShadow: `14px 14px 0px 0px ${colors.brand}`,
         paddingLeft: theme.spacing(4),
         paddingRight: theme.spacing(4),
         paddingTop: theme.spacing(4),
