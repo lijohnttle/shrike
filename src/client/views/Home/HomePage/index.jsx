@@ -18,9 +18,16 @@ const HomePage = () => {
 
     const handleResize = useCallback(() => {
         // prevent jumping with auto hiding address bar
-        if (Math.abs(screenHeight - window.innerHeight) > 72) {
+        const change = Math.abs(screenHeight - window.innerHeight);
+        const changePercent = change / screenHeight;
+
+        if (change > 100 && changePercent > 0.2) {
             setScreenHeight(window.innerHeight);
         }
+    });
+
+    const handleOrientationChange = useCallback(() => {
+        setScreenHeight(window.innerHeight);
     });
 
     useEffect(() => {
@@ -34,6 +41,14 @@ const HomePage = () => {
             window.removeEventListener('resize', handleResize);
         };
     }, [handleResize]);
+
+    useEffect(() => {
+        window.addEventListener('orientationchange', handleOrientationChange);
+
+        return () => {
+            window.removeEventListener('orientationchange', handleOrientationChange);
+        };
+    }, [handleOrientationChange]);
 
     const gotoBooksSection = () => {
         animateScroll.scrollTo(window.innerHeight, smoothScrollOptions);
