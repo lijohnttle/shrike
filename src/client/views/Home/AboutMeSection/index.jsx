@@ -4,9 +4,10 @@ import { Add as AddIcon } from '@mui/icons-material';
 import { SectionContentContainer } from '../SectionContentContainer';
 import { useStyles } from './styles';
 import { Link } from 'react-router-dom';
+import { ContactLink } from '../../../components/ContactLink';
 
 
-const AboutMeSection = ({ screenHeight, isLastSection }) => {
+const AboutMeSection = ({ contacts, screenHeight, isLastSection }) => {
     const classes = useStyles({ screenHeight });
 
     return (
@@ -37,8 +38,15 @@ const AboutMeSection = ({ screenHeight, isLastSection }) => {
                     </div>
                 </div>
 
-                <div className={classes.pictureContainer}>
-                    <div className={classes.picture}></div>
+                <div className={classes.rightColumn}>
+                    <div className={classes.pictureContainer}>
+                        <div className={classes.picture}></div>
+                    </div>
+
+                    <div className={classes.contactList}>
+                        {contacts.filter(c => c.types.some(ct => ct === 'social')).map(
+                            contact => <ContactLink key={contact.vendor} contact={contact} fontSize="large" />)}
+                    </div>
                 </div>
             </div>
         </SectionContentContainer>

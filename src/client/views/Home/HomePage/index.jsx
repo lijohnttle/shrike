@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { animateScroll } from 'react-scroll';
 import { Page } from '../../../components/Page';
 import { WelcomeSection } from '../WelcomeSection';
@@ -16,20 +16,23 @@ const HomePage = () => {
     const classes = useStyles();
     const data = useData();
 
-    useEffect(() => {
-        const handleResize = () => {
+    const handleResize = useCallback(() => {
+        if (Math.abs(screenHeight - window.innerHeight) > 50) {
             setScreenHeight(window.innerHeight);
-        };
+        }
+    });
 
+    useEffect(() => {
         setScreenHeight(window.innerHeight);
-
+    }, []);
+    
+    useEffect(() => {
         window.addEventListener('resize', handleResize);
 
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
-    
+    }, [handleResize]);
 
     const gotoBooksSection = () => {
         animateScroll.scrollTo(window.innerHeight, smoothScrollOptions);
@@ -45,7 +48,7 @@ const HomePage = () => {
                         screenHeight={screenHeight} />
                 </div>
 
-                <AboutMeSection screenHeight={screenHeight} />
+                <AboutMeSection contacts={data.contacts} screenHeight={screenHeight} />
 
                 <CoreValuesSection screenHeight={screenHeight} />
 

@@ -36,6 +36,25 @@ const useStyles = makeStyles(theme => ({
         maxWidth: '400px',
         fontSize: '1.2rem',
     },
+    rightColumn: {
+        display: 'flex',
+        flexFlow: 'column nowrap',
+        width: '50%',
+        alignSelf: 'stretch',
+        marginLeft: theme.spacing(4),
+        background: colors.background,
+        color: colors.text,
+        boxShadow: `14px 14px 0px 0px #00adff`,
+
+        [theme.breakpoints.down('md')]: {
+            width: '100%',
+            marginLeft: 0,
+            marginTop: theme.spacing(8),
+            background: 'none',
+            color: colors.textComplementary,
+            boxShadow: 'none',
+        },
+    },
     summaryContainer: {
         background: colors.background,
         color: colors.text,
@@ -52,17 +71,11 @@ const useStyles = makeStyles(theme => ({
         },
     },
     pictureContainer: {
-        width: '50%',
-        marginLeft: theme.spacing(4),
+        flexGrow: '1',
         padding: theme.spacing(4),
-        alignSelf: 'stretch',
-        background: 'white',
 
         [theme.breakpoints.down('md')]: {
             display: 'none',
-            marginLeft: 0,
-            width: '100%',
-            marginTop: theme.spacing(4),
         },
     },
     picture: {
@@ -84,6 +97,13 @@ const useStyles = makeStyles(theme => ({
             paddingTop: theme.spacing(1),
             paddingBottom: theme.spacing(1),
         },
+    },
+    contactList: {
+        display: 'flex',
+        flexFlow: 'row wrap',
+        justifyContent: 'center',
+        paddingBottom: theme.spacing(1),
+        paddingTop: theme.spacing(1),
     },
 }));
 
