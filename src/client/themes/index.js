@@ -23,6 +23,10 @@ let defaultTheme = createTheme({
         red: {
             main: '#ff0000',
             contrastText: colors.activeText,
+        },
+        blue: {
+            main: '#00adff',
+            contrastText: colors.activeText,
         }
     },
     typography: {

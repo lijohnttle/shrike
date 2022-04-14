@@ -31,13 +31,15 @@ const AboutMeSection = ({ screenHeight, isLastSection }) => {
                     </div>
 
                     <div className={classes.readMoreButton}>
-                        <Button variant='contained' component={Link} to="/about" endIcon={<AddIcon />} color="red">
+                        <Button variant='contained' component={Link} to="/about" endIcon={<AddIcon />} color="blue">
                             <span>READ MORE</span>
                         </Button>
                     </div>
                 </div>
 
-                <div className={classes.picture} />
+                <div className={classes.pictureContainer}>
+                    <div className={classes.picture}></div>
+                </div>
             </div>
         </SectionContentContainer>
     );

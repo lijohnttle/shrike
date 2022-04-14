@@ -4,7 +4,7 @@ import colors from '../../../themes/colors.js';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        background: '#1c1253',
+        background: '#191919',
         color: colors.textComplementary,
     }, 
     contentRoot: ({ screenHeight }) => ({
@@ -51,14 +51,12 @@ const useStyles = makeStyles(theme => ({
             paddingRight: theme.spacing(2),
         },
     },
-    picture: {
+    pictureContainer: {
         width: '50%',
         marginLeft: theme.spacing(4),
+        padding: theme.spacing(4),
         alignSelf: 'stretch',
-        background: 'url(\'/assets/images/development.png\')',
-        backgroundSize: 'contain',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat',
+        background: 'white',
 
         [theme.breakpoints.down('md')]: {
             display: 'none',
@@ -66,6 +64,14 @@ const useStyles = makeStyles(theme => ({
             width: '100%',
             marginTop: theme.spacing(4),
         },
+    },
+    picture: {
+        width: '100%',
+        height: '100%',
+        background: 'url(\'/assets/images/development.png\')',
+        backgroundSize: 'contain',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
     },
     readMoreButton: {
         marginTop: theme.spacing(8),
