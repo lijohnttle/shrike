@@ -6,6 +6,7 @@ import { BookList } from '../BookList';
 import { loadBooks } from '../../../services/goodReadsService';
 import { queryData } from '../../../services/api';
 import { useStyles } from './styles';
+import { SectionWrapper } from '../SectionWrapper';
 
 
 const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
@@ -15,7 +16,7 @@ const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
     const [isReadBooksLoading, setIsReadBooksLoading] = useState(true);
     const [books, setBooks] = useState([]);
     const [readBooks, setReadBooks] = useState([]);
-    const classes = useStyles({ screenHeight });
+    const classes = useStyles();
 
     useEffect(() => {
         queryData(`
@@ -63,42 +64,47 @@ const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
     }, []);
 
     return (
-        <SectionContentContainer title="Book Library" isLoading={isLoading} contentRootClassName={classes.contentRoot} canScrollToNextSection={!isLastSection}>
-            <Box mb={2}>
-                <Typography variant="h4" align="center">
-                    Shelf "Currently Reading"
-                </Typography>
-            </Box>
+        <SectionWrapper screenHeight={screenHeight} canScrollToNextSection={!isLastSection}>
+            <SectionContentContainer
+                title="Book Library"
+                isLoading={isLoading}
+                contentRootClassName={classes.contentRoot}>
+                <Box mb={2}>
+                    <Typography variant="h4" align="center">
+                        Shelf "Currently Reading"
+                    </Typography>
+                </Box>
 
-            <div className={classes.booksContainer}>
-                {isBooksLoading
-                    ? <CircularProgress />
-                    : <BookList books={books} />}
-            </div>
+                <div className={classes.booksContainer}>
+                    {isBooksLoading
+                        ? <CircularProgress />
+                        : <BookList books={books} />}
+                </div>
 
-            <Box mb={2}>
-                <Typography variant="h4" align="center">
-                    Shelf "Read"
-                </Typography>
-            </Box>
+                <Box mb={2}>
+                    <Typography variant="h4" align="center">
+                        Shelf "Read"
+                    </Typography>
+                </Box>
 
-            <div className={classes.booksContainer}>
-                {isReadBooksLoading
-                    ? <CircularProgress />
-                    : <BookList books={readBooks} />}
-            </div>
+                <div className={classes.booksContainer}>
+                    {isReadBooksLoading
+                        ? <CircularProgress />
+                        : <BookList books={readBooks} />}
+                </div>
 
-            <Box alignSelf="center" mt={4}>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    href={`https://www.goodreads.com/review/list/${goodReadsUserId}?shelf=ALL`}
-                    target="_blank"
-                    startIcon={<LibraryBooksIcon />}>
-                    See all books
-                </Button>
-            </Box>
-        </SectionContentContainer>
+                <Box alignSelf="center" mt={4}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        href={`https://www.goodreads.com/review/list/${goodReadsUserId}?shelf=ALL`}
+                        target="_blank"
+                        startIcon={<LibraryBooksIcon />}>
+                        See all books
+                    </Button>
+                </Box>
+            </SectionContentContainer>
+        </SectionWrapper>
     );
 };
 

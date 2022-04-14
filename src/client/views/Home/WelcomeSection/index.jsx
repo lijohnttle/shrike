@@ -12,7 +12,7 @@ const WelcomeSection = ({ contacts, screenHeight }) => {
 
     const scrollToNextSection = () => {
         if (containerRef.current) {
-            animateScroll.scrollTo(containerRef.current.offsetTop + containerRef.current.clientHeight, smoothScrollOptions);
+            animateScroll.scrollTo(containerRef.current.offsetTop + containerRef.current.offsetHeight, smoothScrollOptions);
         }
     };
 

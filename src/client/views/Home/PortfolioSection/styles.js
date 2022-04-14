@@ -7,9 +7,8 @@ const useStyles = makeStyles(theme => ({
         background: colors.background,
         color: colors.text,
     },
-    contentRoot: ({ screenHeight }) => ({
+    contentRoot: {
         justifyContent: 'center',
-        minHeight: `${screenHeight}px`,
         paddingTop: theme.spacing(12),
         paddingBottom: theme.spacing(8),
 
@@ -17,7 +16,7 @@ const useStyles = makeStyles(theme => ({
             paddingTop: theme.spacing(8),
             paddingBottom: theme.spacing(4)
         },
-    }),
+    },
     projectList: {
         display: 'flex',
         flexFlow: 'row wrap',

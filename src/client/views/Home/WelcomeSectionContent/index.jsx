@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography, IconButton } from '@mui/material';
-import { ArrowDownwardRounded } from '@mui/icons-material'
+import { KeyboardArrowDown } from '@mui/icons-material'
 import { ContactLink } from '../../../components/ContactLink';
 import { Header } from '../../../components/Header';
 import { useStyles } from './styles';
@@ -36,7 +36,7 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
 
             <div className={classes.gotoNextSectionButtonContainer}>
                 <IconButton className={classes.buttonDarkTheme} onClick={gotoNextSection} color="inherit">
-                    <ArrowDownwardRounded fontSize="large" />
+                    <KeyboardArrowDown fontSize="large" />
                 </IconButton>
             </div>
         </div>

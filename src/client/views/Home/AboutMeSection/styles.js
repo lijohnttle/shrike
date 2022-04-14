@@ -6,10 +6,11 @@ const useStyles = makeStyles(theme => ({
     root: {
         background: '#191919',
         color: colors.textComplementary,
-    }, 
-    contentRoot: ({ screenHeight }) => ({
+        borderTop: `8px solid ${colors.brand}`,
+        borderBottom: `8px solid ${colors.brand}`,
+    },
+    contentRoot: {
         justifyContent: 'center',
-        minHeight: `${screenHeight}px`,
         paddingTop: theme.spacing(12),
         paddingBottom: theme.spacing(8),
         paddingLeft: theme.spacing(1),
@@ -19,7 +20,7 @@ const useStyles = makeStyles(theme => ({
             paddingTop: theme.spacing(8),
             paddingBottom: theme.spacing(4)
         },
-    }),
+    },
     split: {
         display: 'flex',
         flexFlow: 'row nowrap',

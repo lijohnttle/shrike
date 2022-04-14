@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(theme => ({
     contentRoot: {
+        flex: '1',
         display: 'flex',
         flexDirection: 'column',
         paddingTop: theme.spacing(2),
@@ -19,18 +20,8 @@ const useStyles = makeStyles(theme => ({
     loader: {
         alignSelf: 'center',
     },
-    topSpace: {
+    space: {
         flex: '1 1 auto',
-    },
-    bottomSpace: {
-        display: 'flex',
-        flexDirection: 'column',
-        flex: '1 1 auto',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    gotoNextSectionButtonContainer: {
-        marginTop: theme.spacing(2),
     },
 }));
 

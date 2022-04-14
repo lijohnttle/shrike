@@ -4,6 +4,7 @@ import { Add as AddIcon } from '@mui/icons-material';
 import { SectionContentContainer } from '../SectionContentContainer';
 import { useStyles } from './styles';
 import { Link } from 'react-router-dom';
+import { SectionWrapper } from '../SectionWrapper';
 
 
 const coreValues = [
@@ -27,29 +28,30 @@ const coreValues = [
 
 
 const CoreValuesSection = ({ screenHeight, isLastSection }) => {
-    const classes = useStyles({ screenHeight });
+    const classes = useStyles();
 
     return (
-        <SectionContentContainer
-            title="CORE VALUES"
-            contentRootClassName={classes.contentRoot}
-            canScrollToNextSection={!isLastSection}>
+        <SectionWrapper screenHeight={screenHeight} canScrollToNextSection={!isLastSection}>
+            <SectionContentContainer
+                title="CORE VALUES"
+                contentRootClassName={classes.contentRoot}>
 
-            <div className={classes.coreValuesList}>
-                {coreValues.map(value => (
-                    <div key={value.title}>
-                        <div className={classes.coreValue}>
-                            <Typography variant="h3" paragraph>
-                                {value.title}
-                            </Typography>
-                            <Typography textAlign="justify" paragraph>
-                                {value.description}
-                            </Typography>
+                <div className={classes.coreValuesList}>
+                    {coreValues.map(value => (
+                        <div key={value.title}>
+                            <div className={classes.coreValue}>
+                                <Typography variant="h3" paragraph>
+                                    {value.title}
+                                </Typography>
+                                <Typography textAlign="justify" paragraph>
+                                    {value.description}
+                                </Typography>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
-        </SectionContentContainer>
+                    ))}
+                </div>
+            </SectionContentContainer>
+        </SectionWrapper>
     );
 };
 
