@@ -3,7 +3,7 @@ import { Button, Checkbox, FormControlLabel } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
 import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
 import { useUserSession } from '../../../hooks';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { urlList } from '../../../../static';
 import { useStyles } from './styles';
 
@@ -11,7 +11,7 @@ import { useStyles } from './styles';
 const BlogToolBar = ({ showUnpublished, setShowUnpublished }) => {
     const [getUserSession] = useUserSession();
     const classes = useStyles();
-    const history = useHistory();
+    const history = useNavigate();
 
     const userSession = getUserSession();
 

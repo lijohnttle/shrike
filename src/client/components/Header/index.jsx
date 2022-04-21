@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Drawer, IconButton, Container, useMediaQuery } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import { useUserSession } from '../../hooks';
@@ -15,7 +15,7 @@ const navigationLinks = [
 const Header = ({ transparent, dark, light }) => {
     const [isMenuOpen, setIsMenuopen] = useState(false);
     const [getUserSession, _, removeUserSession] = useUserSession();
-    const history = useHistory();
+    const history = useNavigate();
     const classes = useStyles({ transparent, light: light });
     const smallScreenMatches = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 

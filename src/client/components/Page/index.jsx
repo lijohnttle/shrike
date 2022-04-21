@@ -4,7 +4,7 @@ import { Footer } from '../Footer';
 import { Header } from '../Header';
 import { useStyles } from './styles';
 import { useUserSession } from '../../hooks';
-import { Redirect, useHistory } from 'react-router';
+import { Navigate, useNavigate } from 'react-router';
 import { verifyAccessToken } from '../../services/security';
 import { urlList } from '../../../static';
 
@@ -22,7 +22,7 @@ class PageOptions {
 const Page = ({ title, hideHeader, hideFooter, authenticated, children }) => {
     const classes = useStyles();
     const [getUserSession, _, removeUserSession] = useUserSession();
-    const history = useHistory();
+    const history = useNavigate();
 
     useEffect(() => {
         if (authenticated) {
@@ -46,7 +46,7 @@ const Page = ({ title, hideHeader, hideFooter, authenticated, children }) => {
     }, [title]);
 
     if (authenticated && !getUserSession()) {
-        return <Redirect to={urlList.SIGN_IN} />;
+        return <Navigate to={urlList.SIGN_IN} />;
     }
 
     return (

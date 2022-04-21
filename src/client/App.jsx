@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { defaultTheme } from './themes';
 import ReactGA from 'react-ga';
@@ -30,17 +30,17 @@ const App = () => {
             <CssBaseline />
             <CookieConsent />
 
-            <Switch>
-                <Route exact path={urlList.ABOUT} component={AboutPage} />
-                <Route exact path={urlList.SIGN_IN} component={SignInPage} />
-                <Route exact path={urlList.ACCOUNT_MANAGEMENT} component={AccountManagementPage} />
-                <Route exact path={urlList.BLOG_POST_NEW} component={NewBlogPostPage} />
-                <Route exact path={urlList.BLOG_POST_EDIT} component={EditBlogPostPage} />
-                <Route exact path={urlList.BLOG} component={BlogPage} />
-                <Route exact path={urlList.BLOG_POST} component={BlogPostPage} />
-                <Route exact path={urlList.HOME} component={HomePage} />
-                <Route component={NotFound} />
-            </Switch>
+            <Routes>
+                <Route path={urlList.ABOUT} element={<AboutPage />} />
+                <Route path={urlList.SIGN_IN} element={<SignInPage />} />
+                <Route path={urlList.ACCOUNT_MANAGEMENT} element={<AccountManagementPage />} />
+                <Route path={urlList.BLOG_POST_NEW} element={<NewBlogPostPage />} />
+                <Route path={urlList.BLOG_POST_EDIT} element={<EditBlogPostPage />} />
+                <Route path={urlList.BLOG} element={<BlogPage />} />
+                <Route path={urlList.BLOG_POST} element={<BlogPostPage />} />
+                <Route path={urlList.HOME} element={<HomePage />} />
+                <Route element={<NotFound />} />
+            </Routes>
         </ThemeProvider >
     );
 }

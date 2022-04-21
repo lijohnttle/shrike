@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Page } from '../../../components/Page';
 import { useUserSession } from '../../../hooks';
 import { queryData } from '../../../services/api';
@@ -105,7 +105,7 @@ const EditBlogPostPage = () => {
     const [isPreviewMode, setIsPreviewMode] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [getUserSession] = useUserSession();
-    const history = useHistory();
+    const history = useNavigate();
     const { slug } = useParams();
 
     useEffect(() => {

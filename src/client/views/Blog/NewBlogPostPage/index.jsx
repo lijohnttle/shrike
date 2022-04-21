@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { Page } from '../../../components/Page';
 import { useUserSession } from '../../../hooks';
 import { queryData } from '../../../services/api';
@@ -15,7 +15,7 @@ const NewBlogPostPage = () => {
     const [blogPostPublish, setBlogPostPublish] = useState(false);
     const [isPreviewMode, setIsPreviewMode] = useState(false);
     const [getUserSession] = useUserSession();
-    const history = useHistory();
+    const history = useNavigate();
 
 
     const saveHandler = async () => {

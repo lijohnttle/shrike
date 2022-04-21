@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Input, InputLabel, TextField } from '@mui/material';
 import { Page } from '../../../components/Page';
 import { signIn } from '../../../services/security.js';
-import { Redirect } from 'react-router';
+import { Navigate } from 'react-router-dom';
 import { useUserSession } from '../../../hooks';
 import { useStyles } from './styles';
 import { urlList } from '../../../../static';
@@ -38,7 +38,7 @@ const SignInPage = () => {
     };
 
     if (getUserSession()) {
-        return <Redirect to={urlList.ACCOUNT_MANAGEMENT} />;
+        return <Navigate to={urlList.ACCOUNT_MANAGEMENT} />;
     }
 
     return (

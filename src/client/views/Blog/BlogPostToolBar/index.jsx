@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { Edit as EditIcon } from '@mui/icons-material';
 import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
 import { useUserSession } from '../../../hooks';
-import { generatePath, useHistory } from 'react-router';
+import { generatePath, useNavigate } from 'react-router';
 import { urlList } from '../../../../static';
 import { useStyles } from './styles';
 
@@ -11,7 +11,7 @@ import { useStyles } from './styles';
 const BlogPostToolBar = ({ slug }) => {
     const [getUserSession] = useUserSession();
     const classes = useStyles();
-    const history = useHistory();
+    const history = useNavigate();
 
     const userSession = getUserSession();
 
