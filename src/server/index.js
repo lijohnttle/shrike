@@ -32,15 +32,6 @@ async function main() {
 
     app.use(cors());
 
-    app.get('/', (_, res) => {
-        console.log("Index file path: " + path.resolve(appContext.rootPath, 'dist/public/index.html'));
-
-        res.setHeader('content-type', 'text/html');
-        res.setHeader('access-control-allow-origin', '*');
-    
-        res.sendFile(path.resolve(appContext.rootPath, 'dist/public/index.html'));
-    });
-
     registerControllers(app, {
         rootPath: process.cwd()
     });

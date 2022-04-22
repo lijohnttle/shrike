@@ -9,8 +9,6 @@ const register = (app, appContext) => {
 
     const getIndexHandler = (_, res) => {
         try {
-            console.log("Index file path: " + path.resolve(appContext.rootPath, 'dist/public/index.html'));
-    
             res.setHeader('content-type', 'text/html');
             res.setHeader('access-control-allow-origin', '*');
         
