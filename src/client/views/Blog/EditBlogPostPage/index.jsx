@@ -105,7 +105,7 @@ const EditBlogPostPage = () => {
     const [isPreviewMode, setIsPreviewMode] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [getUserSession] = useUserSession();
-    const history = useNavigate();
+    const navigate = useNavigate();
     const { slug } = useParams();
 
     useEffect(() => {
@@ -138,7 +138,7 @@ const EditBlogPostPage = () => {
         const isSaved = await saveBlogPost(blogPostId, blogPostTitle, blogPostSlug, blogPostDescription, blogPostContent, blogPostPublish, session);
 
         if (isSaved) {
-            history.push(`/blog/${blogPostSlug}`);
+            navigate(`/blog/${blogPostSlug}`);
         }
     };
 

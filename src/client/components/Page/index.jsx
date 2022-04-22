@@ -22,7 +22,7 @@ class PageOptions {
 const Page = ({ title, hideHeader, hideFooter, authenticated, children }) => {
     const classes = useStyles();
     const [getUserSession, _, removeUserSession] = useUserSession();
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (authenticated) {
@@ -33,7 +33,7 @@ const Page = ({ title, hideHeader, hideFooter, authenticated, children }) => {
                     .then((verified) => {
                         if (!verified) {
                             removeUserSession();
-                            history.push(urlList.SIGN_IN);
+                            navigate(urlList.SIGN_IN);
                         }
                     })
                     .catch((error) => console.error(error));

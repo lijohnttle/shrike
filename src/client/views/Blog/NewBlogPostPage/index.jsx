@@ -15,7 +15,7 @@ const NewBlogPostPage = () => {
     const [blogPostPublish, setBlogPostPublish] = useState(false);
     const [isPreviewMode, setIsPreviewMode] = useState(false);
     const [getUserSession] = useUserSession();
-    const history = useNavigate();
+    const navigate = useNavigate();
 
 
     const saveHandler = async () => {
@@ -41,7 +41,7 @@ const NewBlogPostPage = () => {
             `);
 
             if (response.createBlogPost?.success === true) {
-                history.push(`/blog/${blogPostSlug}`);
+                navigate(`/blog/${blogPostSlug}`);
             }
         }
         catch (error) {

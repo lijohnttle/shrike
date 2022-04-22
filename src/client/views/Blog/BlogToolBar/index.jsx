@@ -11,12 +11,12 @@ import { useStyles } from './styles';
 const BlogToolBar = ({ showUnpublished, setShowUnpublished }) => {
     const [getUserSession] = useUserSession();
     const classes = useStyles();
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const userSession = getUserSession();
 
     const handleAddBlogPost = async () => {
-        history.push(urlList.BLOG_POST_NEW);
+        navigate(urlList.BLOG_POST_NEW);
     };
 
     if (!userSession) {

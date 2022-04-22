@@ -118,7 +118,7 @@ const NavigationVerticalMenu = styled('ul')(({ theme, light }) => ({
 const Header = ({ transparent, dark, light }) => {
     const [isMenuOpen, setIsMenuopen] = useState(false);
     const [getUserSession, _, removeUserSession] = useUserSession();
-    const history = useNavigate();
+    const navigate = useNavigate();
     const smallScreenMatches = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     const signOutClickHandler = async (e) => {
@@ -132,7 +132,7 @@ const Header = ({ transparent, dark, light }) => {
 
                 removeUserSession();
 
-                history.push('/');
+                navigate('/');
             }
         }
         catch (error) {
