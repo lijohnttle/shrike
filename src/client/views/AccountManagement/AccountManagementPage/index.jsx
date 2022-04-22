@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
+import { ContentBlock } from '../../../components/ContentBlock';
 import { Article } from '../../../components/Article';
 import { Page } from '../../../components/Page';
 import { UserProfileSection } from '../UserProfileSection';
@@ -34,7 +34,7 @@ const AccountManagementPage = () => {
     return (
         <Page title="Account Management" authenticated>
             <Article title="ACCOUNT MANAGEMENT">
-                <ArticleContentBlock>
+                <ContentBlock>
                     <div className={classes.sectionsRoot}>
                         <SectionsMenu
                             options={SECTION_LIST}
@@ -45,7 +45,7 @@ const AccountManagementPage = () => {
                             {SECTION_LIST.find((section) => section.id === selectedSectionId)?.render()}
                         </div>
                     </div>
-                </ArticleContentBlock>
+                </ContentBlock>
             </Article>
         </Page>
     );

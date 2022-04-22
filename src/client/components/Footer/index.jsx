@@ -6,7 +6,7 @@ import { Box } from '@mui/system';
 import colors from '../../themes/colors';
 
 
-const Footer = () => {
+export const Footer = () => {
     const data = useData();
 
     return (
@@ -45,9 +45,4 @@ const Footer = () => {
             </Container>
         </Box>
     );
-};
-
-
-export {
-    Footer
 };

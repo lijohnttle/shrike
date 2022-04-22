@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Typography } from '@mui/material';
-import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
+import { ContentBlock } from '../../../components/ContentBlock';
 import { Article } from '../../../components/Article';
 import { Page } from '../../../components/Page';
 import { BlogPostMeta } from '../BlogPostMeta';
@@ -59,11 +59,11 @@ async function loadBlogPostsList(session, showUnpublished) {
 
 const renderBlogPostsPlaceholder = () => {
     return (
-        <ArticleContentBlock compact>
+        <ContentBlock compact>
             <Typography variant="h3" align="center">
                 There are no posts yet
             </Typography>
-        </ArticleContentBlock>
+        </ContentBlock>
     );
 };
 
@@ -101,9 +101,9 @@ const BlogPage = () => {
 
                 {blogPosts.length > 0
                     ? blogPosts.map((post) => (
-                        <ArticleContentBlock key={post.slug} compact>
+                        <ContentBlock key={post.slug} compact>
                             <BlogPostMeta post={post} />
-                        </ArticleContentBlock>
+                        </ContentBlock>
                     ))
                     : renderBlogPostsPlaceholder()}
             </Article>

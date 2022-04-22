@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom'
 import { useUserSession } from '../../../hooks';
 import { queryData } from '../../../services/api';
 import { Article } from '../../../components/Article';
-import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
-import { NotFound } from '../../../components/NotFound';
+import { ContentBlock } from '../../../components/ContentBlock';
+import { NotFound } from '../../../views/NotFound';
 import { Page } from '../../../components/Page';
 import { BlogPostToolBar } from '../BlogPostToolBar';
 
@@ -98,12 +98,12 @@ const BlogPostPage = () => {
 
     return (
         <Page title={blogPost?.title || (isLoading ? 'Loading...' : '')}>
-            <Article title={blogPost?.title || ''} topGutter>
+            <Article title={blogPost?.title || ''}>
                 {!isLoading ? <BlogPostToolBar slug={blogPost.slug} /> : null}
 
-                <ArticleContentBlock>
+                <ContentBlock>
                     {!isLoading ? <ReactMarkdown children={blogPost.content} /> : null}
-                </ArticleContentBlock>
+                </ContentBlock>
             </Article>
         </Page>
     );

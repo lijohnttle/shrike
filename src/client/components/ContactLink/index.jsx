@@ -1,7 +1,7 @@
 import React from 'react';
 import { Facebook, LinkedIn, Email, Instagram, GitHub, Link as LinkIcon, Web } from '@mui/icons-material'
 import { IconButton } from '@mui/material';
-import { useStyles } from './styles';
+import { buildUrlByVendor } from '../../utils/links';
 
 
 /**
@@ -9,56 +9,35 @@ import { useStyles } from './styles';
  * @param {String} vendor Vendor's name.
  * @returns {import('react').ReactElement} 
  */
- function createIconByVendor(vendor, fontSize, className) {
+ function createIconByVendor(vendor, fontSize) {
     switch (vendor) {
         case 'facebook':
-            return <Facebook fontSize={fontSize} className={className} classes={{ root: className }} />
+            return <Facebook fontSize={fontSize} />
         case 'instagram':
-            return <Instagram fontSize={fontSize} className={className} />
+            return <Instagram fontSize={fontSize} />
         case 'linkedin':
-            return <LinkedIn fontSize={fontSize} className={className} />
+            return <LinkedIn fontSize={fontSize} />
         case 'github':
-            return <GitHub fontSize={fontSize} className={className} />
+            return <GitHub fontSize={fontSize} />
         case 'web':
-            return <Web fontSize={fontSize} className={className} />
+            return <Web fontSize={fontSize} />
         case 'email':
-            return <Email fontSize={fontSize} className={className} />
+            return <Email fontSize={fontSize} />
         default:
-            return <LinkIcon fontSize={fontSize} className={className} />;
+            return <LinkIcon fontSize={fontSize} />;
     }
 }
 
-/**
- * Builds a final link according to vendor's name.
- * @param {String} vendor Vendor's name.
- * @param {String} value Original link.
- */
-function buildHRefByVendor(vendor, value) {
-    switch (vendor) {
-        case 'email':
-            return `mailto:${value}`;
-        default:
-            return value;
-    }
-}
-
-const ContactLink = ({ contact, dark, fontSize, iconClassName }) => {
-    const classes = useStyles();
-
-    return (
-        <div>
-            <IconButton
-                className={dark ? classes.buttonDarkTheme : ''}
-                href={buildHRefByVendor(contact.vendor, contact.value)}
-                color="inherit"
-                target="_blank">
-                {createIconByVendor(contact.vendor, fontSize || 'inherit', iconClassName)}
-            </IconButton>
-        </div>
-    );
-};
-
-
-export {
-    ContactLink
-};
+export const ContactLink = ({ contact, dark, fontSize }) => (
+    <IconButton
+        sx={{
+            '&:hover': {
+                background: dark ? '#ffffff33 !important' : '#99999940 !important',
+            }
+        }}
+        href={buildUrlByVendor(contact.vendor, contact.value)}
+        color="inherit"
+        target="_blank">
+        {createIconByVendor(contact.vendor, fontSize || 'inherit')}
+    </IconButton>
+);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import { Edit as EditIcon } from '@mui/icons-material';
-import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
+import { ContentBlock } from '../../../components/ContentBlock';
 import { useUserSession } from '../../../hooks';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { urlList } from '../../../../static';
@@ -24,13 +24,13 @@ const BlogPostToolBar = ({ slug }) => {
     }
 
     return (
-        <ArticleContentBlock compact>
+        <ContentBlock compact>
             <div className={classes.commandsContainer}>
                 <div className={classes.commandContainer}>
                     <Button variant="contained" startIcon={<EditIcon />} onClick={handleEditBlogPost}>Edit</Button>
                 </div>
             </div>
-        </ArticleContentBlock>
+        </ContentBlock>
     );
 };
 

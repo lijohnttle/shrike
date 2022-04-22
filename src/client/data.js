@@ -24,12 +24,6 @@ export default {
             displayName: "Instagram",
             value: "https://www.instagram.com/_lijohnttle",
             types: ["social"]
-        },
-        {
-            vendor: "upwork",
-            displayName: "UpWork",
-            value: "https://www.upwork.com/freelancers/~0125be27d2c250970b",
-            types: ["business"]
         }
     ]
 };

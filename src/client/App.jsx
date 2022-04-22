@@ -14,7 +14,7 @@ import { NewBlogPostPage } from './views/Blog/NewBlogPostPage';
 import { CookieConsent } from './components/CookieConsent';
 import { useUserVisitStatistics, usePageScroll } from './hooks';
 import { urlList } from '../static.js';
-import { NotFound } from './components/NotFound';
+import { NotFound } from './views/NotFound';
 
 
 if (process.env.NODE_ENV === 'production') {
