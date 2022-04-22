@@ -3,7 +3,7 @@ import { Container } from '@mui/material';
 import { Box } from '@mui/system';
 
 
-export const ContentBlock = ({ children, compact, sx, maxWidth }) => {
+export const ContentBlock = ({ children, compact, styles, maxWidth }) => {
     return (
         <Box
             overflow="hidden"
@@ -16,7 +16,7 @@ export const ContentBlock = ({ children, compact, sx, maxWidth }) => {
                     xs: 2,
                     sm: compact ? 2 : 4,
                 },
-            }, sx]}>
+            }, styles]}>
             <Container maxWidth={maxWidth || 'lg'}>
                 {children}
             </Container>

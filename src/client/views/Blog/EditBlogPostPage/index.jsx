@@ -5,7 +5,7 @@ import { useUserSession } from '../../../hooks';
 import { queryData } from '../../../services/api';
 import { EditBlogPostForm } from '../EditBlogPostForm';
 import { EditBlogPostPreview } from '../EditBlogPostPreview';
-import { NotFound } from '../../../components/NotFound';
+import { NotFound } from '../../../views/NotFound';
 
 
 const loadBlogPost = async (slug, session) => {

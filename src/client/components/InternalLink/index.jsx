@@ -1,22 +1,21 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Link } from '@mui/material';
-import { useStyles } from './styles';
 
 
-const InternalLink = ({ to, children, withoutUnderline }) => {
-    const classes = useStyles();
-
+export const InternalLink = ({ to, children }) => {
     return (
-        <div className={`${classes.root} ${withoutUnderline ? classes.withoutUnderline : ''}`}>
-            <Link to={to} component={RouterLink}>
-                {children}
-            </Link>
-        </div>
+        <Link
+            to={to}
+            component={RouterLink}
+            sx={{
+                textDecoration: 'none',
+                
+                '&:hover': {
+                    textDecoration: 'none',
+                },
+            }}>
+            {children}
+        </Link>
     );
-};
-
-
-export {
-    InternalLink
 };

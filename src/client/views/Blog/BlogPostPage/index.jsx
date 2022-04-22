@@ -5,7 +5,7 @@ import { useUserSession } from '../../../hooks';
 import { queryData } from '../../../services/api';
 import { Article } from '../../../components/Article';
 import { ContentBlock } from '../../../components/ContentBlock';
-import { NotFound } from '../../../components/NotFound';
+import { NotFound } from '../../../views/NotFound';
 import { Page } from '../../../components/Page';
 import { BlogPostToolBar } from '../BlogPostToolBar';
 

@@ -19,7 +19,7 @@ const AboutPage = () => {
         <Page title="About">
             <Article title="ABOUT ME" subTitle={<span>(Updated on <b>March 20, 2022</b>)</span>}>
                 <ContentBlock
-                    sx={{
+                    styles={{
                         background: colors.backgroundComplementary,
                         color: colors.textComplementary,
                     }}>

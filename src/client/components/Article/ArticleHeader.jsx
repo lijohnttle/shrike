@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Typography } from '@mui/material';
 
-export const ArticleHeader = ({ title, subTitle, maxWidth }) => (
+export const ArticleHeader = ({ title, subTitle, titleStyles, maxWidth }) => (
     <Container maxWidth={maxWidth}>
-        <Typography variant="h1" fontWeight="bold">
+        <Typography variant="h1" fontWeight="bold" sx={titleStyles}>
             {title}
         </Typography>
 

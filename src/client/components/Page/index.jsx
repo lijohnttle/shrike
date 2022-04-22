@@ -2,25 +2,17 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
-import { useStyles } from './styles';
 import { useUserSession } from '../../hooks';
 import { Navigate, useNavigate } from 'react-router';
 import { verifyAccessToken } from '../../services/security';
 import { urlList } from '../../../static';
+import { Box } from '@mui/system';
 
-
-class PageOptions {
-    constructor() {
-        /** @type {string} */
-        this.title = '';
-    }
-}
 
 /**
  * @param {{ title: string, hideHeader: boolean, hideFooter: boolean, children: any }} 
  */
 const Page = ({ title, hideHeader, hideFooter, authenticated, children }) => {
-    const classes = useStyles();
     const [getUserSession, _, removeUserSession] = useUserSession();
     const navigate = useNavigate();
 
@@ -50,15 +42,21 @@ const Page = ({ title, hideHeader, hideFooter, authenticated, children }) => {
     }
 
     return (
-        <div className={classes.root}>
+        <Box
+            display="flex"
+            flexDirection="column"
+            minHeight="100vh">
             {hideHeader !== true ? <Header light /> : null}
 
-            <div className={classes.pageContent}>
+            <Box 
+                display="flex"
+                flexDirection="column"
+                flex="1 1 auto">
                 {children}
-            </div>
+            </Box>
 
             {hideFooter !== true ? <Footer /> : null}
-        </div>
+        </Box>
     );
 };
 
@@ -71,6 +69,5 @@ Page.propTypes = {
 
 
 export {
-    PageOptions,
     Page
 };

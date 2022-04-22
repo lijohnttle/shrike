@@ -115,7 +115,7 @@ const NavigationVerticalMenu = styled('ul')(({ theme, light }) => ({
     },
 }));
 
-const Header = ({ transparent, dark, light }) => {
+export const Header = ({ transparent, dark, light }) => {
     const [isMenuOpen, setIsMenuopen] = useState(false);
     const [getUserSession, _, removeUserSession] = useUserSession();
     const navigate = useNavigate();
@@ -219,8 +219,4 @@ const Header = ({ transparent, dark, light }) => {
             </Container>
         </Box>
     );
-};
-
-export {
-    Header
 };
