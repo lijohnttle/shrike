@@ -16,7 +16,7 @@ const AboutPage = () => {
     
     return (
         <Page title="About">
-            <Article title="ABOUT ME" updatedOn="March 20, 2022">
+            <Article title="ABOUT ME" subTitle={<span>(Updated on <b>March 20, 2022</b>)</span>}>
                 <ArticleContentBlock className={classes.introductionBlock}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />

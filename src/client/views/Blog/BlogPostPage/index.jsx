@@ -98,7 +98,7 @@ const BlogPostPage = () => {
 
     return (
         <Page title={blogPost?.title || (isLoading ? 'Loading...' : '')}>
-            <Article title={blogPost?.title || ''} topGutter>
+            <Article title={blogPost?.title || ''}>
                 {!isLoading ? <BlogPostToolBar slug={blogPost.slug} /> : null}
 
                 <ArticleContentBlock>

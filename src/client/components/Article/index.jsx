@@ -1,39 +1,24 @@
 import React from 'react';
-import { Container, Typography } from '@mui/material';
-import { useStyles } from './styles';
+import { Box } from '@mui/system';
+import { ArticleHeader } from './ArticleHeader';
 
 
-const Article = ({ title, updatedOn, topGutter, children }) => {
-    const classes = useStyles();
-
-    let updateOnElement = null;
-
-    if (updatedOn) {
-        updateOnElement = (
-            <Typography variant="caption" align="center" color="textSecondary" gutterBottom paragraph>
-                (Updated on <b>{updatedOn}</b>)
-            </Typography>
-        );
-    }
-
+const Article = ({ title, subTitle, topGutter, maxWidth, children }) => {
     return (
-        <div className={classes.root}>
-            <div className={classes.header}>
-                <Container maxWidth="lg">
-                    <div>
-                        <Typography variant="h1" align="center">
-                            {title}
-                        </Typography>
+        <Box display="flex" flexDirection="column" flexWrap="nowrap">
+            <Box paddingTop={8} paddingBottom={4} zIndex={1}>
+                <ArticleHeader title={title} subTitle={subTitle} maxWidth={maxWidth || 'lg'} />
+            </Box>
 
-                        {updateOnElement}
-                    </div>
-                </Container>
-            </div>
-
-            <div className={`${classes.childrenContainer} ${topGutter ? classes.topGutter : ''}`}>
+            <Box
+                display="flex"
+                flexDirection="column"
+                flexGrow={1}
+                paddingBottom={16}
+                zIndex={0}>
                 {children}
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 };
 
