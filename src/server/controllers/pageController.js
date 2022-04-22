@@ -8,10 +8,18 @@ const register = (app, appContext) => {
     console.log(`Registering ${getName()}...`);
 
     const getIndexHandler = (_, res) => {
-        res.setHeader('content-type', 'text/html');
-        res.setHeader('access-control-allow-origin', '*');
+        try {
+            console.log("Index file path: " + path.resolve(appContext.rootPath, 'dist/public/index.html'));
     
-        res.sendFile(path.resolve(appContext.rootPath, 'dist/public/index.html'));
+            res.setHeader('content-type', 'text/html');
+            res.setHeader('access-control-allow-origin', '*');
+        
+            res.sendFile(path.resolve(appContext.rootPath, 'dist/public/index.html'));
+        }
+        catch (ex) {
+            console.log(ex);
+            throw ex;
+        }
     };
 
     console.log('Registering the next pages:');
