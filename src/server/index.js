@@ -48,6 +48,8 @@ async function main() {
     await db.connect();
 
     process.on('SIGINT', function() {
+        console.log('EVENT: SIGINT');
+
         db.disconnect();
         process.exit();
     });
