@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Checkbox, FormControlLabel } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
-import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
+import { ContentBlock } from '../../../components/ContentBlock';
 import { useUserSession } from '../../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { urlList } from '../../../../static';
@@ -24,7 +24,7 @@ const BlogToolBar = ({ showUnpublished, setShowUnpublished }) => {
     }
 
     return (
-        <ArticleContentBlock compact>
+        <ContentBlock compact>
             <div className={classes.commandsContainer}>
                 <div className={classes.commandContainer}>
                     <Button variant="contained" startIcon={<AddIcon />} onClick={handleAddBlogPost}>Create</Button>
@@ -33,7 +33,7 @@ const BlogToolBar = ({ showUnpublished, setShowUnpublished }) => {
                     <FormControlLabel control={<Checkbox checked={showUnpublished} onChange={(e) => setShowUnpublished(e.target.checked)} />} label="Show unpublished" />
                 </div>
             </div>
-        </ArticleContentBlock>
+        </ContentBlock>
     );
 };
 

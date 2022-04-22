@@ -3,7 +3,7 @@ import { Button, Checkbox, FormControlLabel } from '@mui/material';
 import { useStyles } from './styles';
 import ReactMarkdown from 'react-markdown';
 import { Article } from '../../../components/Article';
-import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
+import { ContentBlock } from '../../../components/ContentBlock';
 
 
 const EditBlogPostPreview = ({
@@ -23,7 +23,7 @@ const EditBlogPostPreview = ({
 
     return (
         <Article title={blogPostTitle.toUpperCase()} compact>
-            <ArticleContentBlock>
+            <ContentBlock>
                 <div className={classes.contentRoot}>
                     <ReactMarkdown children={blogPostContent} />
 
@@ -41,7 +41,7 @@ const EditBlogPostPreview = ({
                         </div>
                     </form>
                 </div>
-            </ArticleContentBlock>
+            </ContentBlock>
         </Article>
     );
 };

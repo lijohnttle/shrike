@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import { ArticleHeader } from './ArticleHeader';
 
 
-const Article = ({ title, subTitle, topGutter, maxWidth, children }) => {
+export const Article = ({ title, subTitle, topGutter, maxWidth, children }) => {
     return (
         <Box display="flex" flexDirection="column" flexWrap="nowrap">
             <Box paddingTop={8} paddingBottom={4} zIndex={1}>
@@ -20,9 +20,4 @@ const Article = ({ title, subTitle, topGutter, maxWidth, children }) => {
             </Box>
         </Box>
     );
-};
-
-
-export {
-    Article
 };

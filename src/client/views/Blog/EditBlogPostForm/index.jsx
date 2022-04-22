@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
 import { useStyles } from './styles';
 import { Article } from '../../../components/Article';
-import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
+import { ContentBlock } from '../../../components/ContentBlock';
 
 
 const EditBlogPostForm = ({
@@ -29,7 +29,7 @@ const EditBlogPostForm = ({
 
     return (
         <Article title={isCreation ? 'NEW BLOG POST' : 'EDIT BLOG POST'}>
-            <ArticleContentBlock>
+            <ContentBlock>
                 <form className={classes.form}>
                     <div className={classes.fieldContainer}>
                         <TextField
@@ -76,7 +76,7 @@ const EditBlogPostForm = ({
                         </div>
                     </div>
                 </form>
-            </ArticleContentBlock>
+            </ContentBlock>
         </Article>
     );
 };

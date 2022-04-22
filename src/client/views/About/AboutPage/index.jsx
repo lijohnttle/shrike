@@ -3,9 +3,10 @@ import { Link, Typography } from '@mui/material';
 import { ContactLink } from '../../../components/ContactLink';
 import { Page } from '../../../components/Page';
 import { Article } from '../../../components/Article';
-import { ArticleContentBlock } from '../../../components/ArticleContentBlock';
+import { ContentBlock } from '../../../components/ContentBlock';
 import { useData } from '../../../hooks';
 import { useStyles } from './styles';
+import colors from '../../../themes/colors';
 
 
 const AboutPage = () => {
@@ -17,7 +18,11 @@ const AboutPage = () => {
     return (
         <Page title="About">
             <Article title="ABOUT ME" subTitle={<span>(Updated on <b>March 20, 2022</b>)</span>}>
-                <ArticleContentBlock className={classes.introductionBlock}>
+                <ContentBlock
+                    sx={{
+                        background: colors.backgroundComplementary,
+                        color: colors.textComplementary,
+                    }}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />
                     </div>
@@ -39,9 +44,9 @@ const AboutPage = () => {
                             I have experience of creating Windows desktop applications, web services and API, front-end. I worked with relational DBMS as well as with object-oriented DBMS. I performed migration of the monolithic on-premise web application to the cloud-based microservices. 
                         </Typography>
                     </div>
-                </ArticleContentBlock>
+                </ContentBlock>
 
-                <ArticleContentBlock maxWidth="md">
+                <ContentBlock maxWidth="md">
                     <Typography variant="h2" align="center" gutterBottom paragraph>
                         What I'm Doing Now
                     </Typography>
@@ -68,9 +73,9 @@ const AboutPage = () => {
                             </Typography>
                         </li>
                     </ul>
-                </ArticleContentBlock>
+                </ContentBlock>
 
-                <ArticleContentBlock maxWidth="md">
+                <ContentBlock maxWidth="md">
                     <Typography variant="h2" align="center" gutterBottom paragraph>
                         Interests &amp; Hobbies
                     </Typography>
@@ -102,9 +107,9 @@ const AboutPage = () => {
                             </Typography>
                         </li>
                     </ul>
-                </ArticleContentBlock>
+                </ContentBlock>
 
-                <ArticleContentBlock maxWidth="md">
+                <ContentBlock maxWidth="md">
                     <Typography variant="h2" align="center" gutterBottom paragraph>
                         Contact Me
                     </Typography>
@@ -117,7 +122,7 @@ const AboutPage = () => {
                         {data.contacts.filter(c => c.types.some(ct => ct === 'social')).map(
                             contact => <ContactLink key={contact.vendor} contact={contact} fontSize="large" />)}
                     </div>
-                </ArticleContentBlock>
+                </ContentBlock>
             </Article>
         </Page>
     );

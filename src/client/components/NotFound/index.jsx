@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import React from 'react';
 import { Article } from '../Article';
-import { ArticleContentBlock } from '../ArticleContentBlock';
+import { ContentBlock } from '../ContentBlock';
 import { Page } from '../Page';
 import { useStyles } from './styles';
 
@@ -12,13 +12,13 @@ const NotFound = () => {
     return (
         <Page title="Not Found">
             <Article title="Oops!">
-                <ArticleContentBlock>
+                <ContentBlock>
                     <div className={classes.contentRoot}>
                         <Typography variant="h2">
                             404 - PAGE NOT FOUND
                         </Typography>
                     </div>
-                </ArticleContentBlock>
+                </ContentBlock>
             </Article>
         </Page>
     );
