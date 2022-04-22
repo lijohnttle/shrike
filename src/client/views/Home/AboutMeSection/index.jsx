@@ -1,59 +1,55 @@
 import React from 'react';
-import { Button, Typography } from '@mui/material';
-import { Add as AddIcon } from '@mui/icons-material';
-import { SectionContentContainer } from '../SectionContentContainer';
-import { useStyles } from './styles';
-import { Link } from 'react-router-dom';
-import { ContactLink } from '../../../components/ContactLink';
+import { SectionContentWrapper } from '../SectionContentWrapper';
 import { SectionWrapper } from '../SectionWrapper';
+import colors from '../../../themes/colors';
+import { Box } from '@mui/system';
+import { Summary } from './Summary';
+import { SectionTitle } from './SectionTitle';
+import { Picture } from './Picture';
+import { ContactList } from './ContactList';
+import { LeftContent } from './LeftContent';
+import { RightContent } from './RightContent';
 
 
 const AboutMeSection = ({ contacts, screenHeight, isLastSection }) => {
-    const classes = useStyles();
-
     return (
         <SectionWrapper
             screenHeight={screenHeight}
-            className={classes.root}
+            styles={{
+                background: '#191919',
+                color: colors.textComplementary,
+                borderTop: `8px solid ${colors.brand}`,
+                borderBottom: `8px solid ${colors.brand}`,
+            }}
             canScrollToNextSection={!isLastSection}
             scrollButtonDarkStyle>
 
-            <SectionContentContainer contentRootClassName={classes.contentRoot}>
-                <div className={classes.split}>
-                    <div className={classes.leftColumn}>
-                        <Typography variant='h1' fontWeight="bold">
-                            ABOUT ME
-                        </Typography>
-                        
-                        <div className={classes.summaryContainer}>
-                            <Typography variant="h3" fontWeight="bold" paragraph>
-                                Hi, I am Ivan Cherkasov!
-                            </Typography>
+            <SectionContentWrapper>
+                <Box
+                    display="flex"
+                    flexWrap="nowrap"
+                    justifyContent="space-between"
+                    alignItems="start"
+                    sx={{
+                        flexDirection: {
+                            xs: 'column',
+                            md: 'row',
+                        }    
+                    }}>
 
-                            <Typography fontSize="1.2rem" paragraph>
-                                I am a software engineer, traveller, science lover, Sci-Fi fun.
-                            </Typography>
-                        </div>
+                    <LeftContent>
+                        <SectionTitle />
 
-                        <div className={classes.readMoreButton}>
-                            <Button variant='contained' component={Link} to="/about" endIcon={<AddIcon />} color="brand">
-                                <span>READ MORE</span>
-                            </Button>
-                        </div>
-                    </div>
+                        <Summary />
+                    </LeftContent>
 
-                    <div className={classes.rightColumn}>
-                        <div className={classes.pictureContainer}>
-                            <div className={classes.picture}></div>
-                        </div>
+                    <RightContent>
+                        <Picture />
 
-                        <div className={classes.contactList}>
-                            {contacts.filter(c => c.types.some(ct => ct === 'social')).map(
-                                contact => <ContactLink key={contact.vendor} contact={contact} fontSize="large" />)}
-                        </div>
-                    </div>
-                </div>
-            </SectionContentContainer>
+                        <ContactList contacts={contacts} />
+                    </RightContent>
+                </Box>
+            </SectionContentWrapper>
         </SectionWrapper>
     );
 };

@@ -4,7 +4,8 @@ import { Drawer, IconButton, Container, useMediaQuery } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import { useUserSession } from '../../hooks';
 import { signOut } from '../../services/security.js';
-import { useStyles } from './styles';
+import { Box, styled } from '@mui/system';
+import colors from '../../themes/colors';
 
 
 const navigationLinks = [
@@ -12,11 +13,112 @@ const navigationLinks = [
     { title: 'about', href: '/about', action: undefined },
 ];
 
+const Logo = styled(Link)(({ theme, light }) => ({
+    display: 'flex',
+    flexFlow: 'row nowrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: light ? 'black' : 'inherit',
+    background: light ? colors.background : colors.brand,
+    textDecoration: 'none',
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    fontSize: '32px',
+    textTransform: 'capitalize',
+
+    '&:hover': {
+        textDecoration: 'none',
+    },
+    
+    [theme.breakpoints.down('sm')]: {
+        fontSize: '24px',
+    },
+}));
+
+const NavigationMenu = styled('ul')(({ theme, light }) => ({
+    display: 'flex',
+    flexFlow: 'row nowrap',
+    alignItems: 'stretch',
+    listStyleType: 'none',
+    height: '100%',
+    padding: 0,
+    margin: 0,
+    fontSize: '18px',
+    textTransform: 'uppercase',
+
+    '& li': {
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        alignItems: 'stretch',
+        background: 'transparent',
+
+        '&:hover': {
+            color: light ? 'white' : 'black',
+            background: light ? 'black' : 'white',
+        },
+    },
+
+    '& li a': {
+        display: 'flex',
+        alignItems: 'center',
+        color: 'inherit',
+        textDecoration: 'none',
+        paddingLeft: theme.spacing(2),
+        paddingRight: theme.spacing(2),
+
+        '&:hover': {
+            textDecoration: 'none',
+        },
+    },
+}));
+
+const NavigationVerticalMenu = styled('ul')(({ theme, light }) => ({
+    display: 'flex',
+    flexFlow: 'column nowrap',
+    alignItems: 'stretch',
+    listStyleType: 'none',
+    position: 'absolute',
+    top: '50%',
+    transform: 'translate(0, -50%)',
+    width: '100%',
+    padding: 0,
+    margin: 0,
+    fontSize: '18px',
+    textTransform: 'uppercase',
+    color: 'black',
+
+    '& li': {
+        display: 'flex',
+        flexFlow: 'column nowrap',
+        alignItems: 'stretch',
+        justifyContent: 'center',
+        background: 'transparent',
+
+        '&:hover': {
+            background: 'silver',
+        },
+    },
+
+    '& li a': {
+        display: 'flex',
+        alignItems: 'center',
+        color: 'inherit',
+        textDecoration: 'none',
+        paddingLeft: theme.spacing(2),
+        paddingRight: theme.spacing(2),
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
+
+        '&:hover': {
+            textDecoration: 'none',
+        },
+    },
+}));
+
 const Header = ({ transparent, dark, light }) => {
     const [isMenuOpen, setIsMenuopen] = useState(false);
     const [getUserSession, _, removeUserSession] = useUserSession();
     const history = useNavigate();
-    const classes = useStyles({ transparent, light: light });
     const smallScreenMatches = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     const signOutClickHandler = async (e) => {
@@ -46,41 +148,76 @@ const Header = ({ transparent, dark, light }) => {
 
     let navigationMenu = !smallScreenMatches
         ? (
-            <ul className={classes.navigationMenu}>
+            <NavigationMenu light={light ? 1 : 0}>
                 {menuItems.map((link) => <li key={link.title}><Link to={link.href} onClick={link.action}>{link.title}</Link></li>)}
-            </ul>)
+            </NavigationMenu>)
         : (
             <div>
-                <div className={classes.toggleMenuButtonContainer}>
+                <Box
+                    display="flex"
+                    flexDirection="row"
+                    flexWrap="nowrap"
+                    alignItems="stretch"
+                    height="100%"
+                    color={colors.textComplementary}>
                     <IconButton
                         onClick={() => {
                             setIsMenuopen(!isMenuOpen);
                         }}>
-                        <MenuIcon className={classes.menuIcon} />
+                        <MenuIcon color={light ? 'black' : 'white'} />
                     </IconButton>
-                </div>
+                </Box>
 
-                <Drawer anchor="right" open={isMenuOpen} className={classes.drawer} classes={{ paper: classes.drawerPaper }} onClose={() => setIsMenuopen(false)}>
-                    <ul className={classes.navigationVerticalMenu}>
+                <Drawer
+                    anchor="right"
+                    open={isMenuOpen}
+                    sx={{
+                        width: '240px',
+                        maxWidth: "75%",
+                    }}
+                    classes={{
+                        paper: {
+                            width: '240px',
+                            maxWidth: "75%",
+                        }
+                    }}
+                    onClose={() => setIsMenuopen(false)}>
+                    <NavigationVerticalMenu light={light ? 1 : 0}>
                         {menuItems.map((link) => <li key={link.href}><Link to={link.href} onClick={link.action}>{link.title}</Link></li>)}
-                    </ul>
+                    </NavigationVerticalMenu>
                 </Drawer>
             </div>);
 
     return (
-        <div className={classes.root}>
+        <Box
+            color={light ? colors.text : colors.textComplementary}
+            sx={{
+                background: transparent ? 'transparent' : light  ? 'white' : 'black'
+            }}>
             <Container maxWidth="lg">
-                <div className={classes.content}>
-                    <Link className={classes.logo} to="/">
+                <Box
+                    display="flex"
+                    flexDirection="row"
+                    flexWrap="nowrap"
+                    justifyContent="space-between"
+                    alignItems="stretch"
+                    position="relative"
+                    sx={{
+                        height: {
+                            xs: '48px',
+                            sm: '64px',
+                        }
+                    }}>
+                    <Logo to="/" light={light ? 1 : 0}>
                         LIJOHNTTLE
-                    </Link>
+                    </Logo>
 
                     <div>
                         {navigationMenu}
                     </div>
-                </div>
+                </Box>
             </Container>
-        </div>
+        </Box>
     );
 };
 

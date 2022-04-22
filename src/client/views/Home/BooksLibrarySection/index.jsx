@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import { LibraryBooks as LibraryBooksIcon } from '@mui/icons-material';
-import { SectionContentContainer } from '../SectionContentContainer';
+import { SectionContentWrapper } from '../SectionContentWrapper';
 import { BookList } from '../BookList';
 import { loadBooks } from '../../../services/goodReadsService';
 import { queryData } from '../../../services/api';
-import { useStyles } from './styles';
 import { SectionWrapper } from '../SectionWrapper';
+import { styled } from '@mui/system';
 
+
+const BooksContainer = styled('div')(({ theme }) => ({
+    display: 'flex',
+    flexFlow: 'row wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '160px',
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(8),
+}));
 
 const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
     const [goodReadsUserId, setGoodReadsUserId] = useState(null);
@@ -16,7 +26,6 @@ const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
     const [isReadBooksLoading, setIsReadBooksLoading] = useState(true);
     const [books, setBooks] = useState([]);
     const [readBooks, setReadBooks] = useState([]);
-    const classes = useStyles();
 
     useEffect(() => {
         queryData(`
@@ -65,21 +74,18 @@ const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
 
     return (
         <SectionWrapper screenHeight={screenHeight} canScrollToNextSection={!isLastSection}>
-            <SectionContentContainer
-                title="Book Library"
-                isLoading={isLoading}
-                contentRootClassName={classes.contentRoot}>
+            <SectionContentWrapper title="Book Library" isLoading={isLoading}>
                 <Box mb={2}>
                     <Typography variant="h4" align="center">
                         Shelf "Currently Reading"
                     </Typography>
                 </Box>
 
-                <div className={classes.booksContainer}>
+                <BooksContainer>
                     {isBooksLoading
                         ? <CircularProgress />
                         : <BookList books={books} />}
-                </div>
+                </BooksContainer>
 
                 <Box mb={2}>
                     <Typography variant="h4" align="center">
@@ -87,11 +93,11 @@ const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
                     </Typography>
                 </Box>
 
-                <div className={classes.booksContainer}>
+                <BooksContainer>
                     {isReadBooksLoading
                         ? <CircularProgress />
                         : <BookList books={readBooks} />}
-                </div>
+                </BooksContainer>
 
                 <Box alignSelf="center" mt={4}>
                     <Button
@@ -103,7 +109,7 @@ const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
                         See all books
                     </Button>
                 </Box>
-            </SectionContentContainer>
+            </SectionContentWrapper>
         </SectionWrapper>
     );
 };
