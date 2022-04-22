@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/lijohnttle/personal-website#readme",
   "engines": {
-    "node": "14.x"
+    "node": "14.18"
   },
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
