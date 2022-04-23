@@ -188,3 +188,41 @@ export const createBlogPost = async (blogPost, options) => {
         throw new Error('Server returned empty result');
     }
 };
+
+/**
+ * Deletes a blog post.
+ * @param {String} blogPostId 
+ * @param {Object} [options] Options of the request.
+ * @param {UserSessionModel} [options.userSession] Current user session.
+ * @returns {Promise}
+ */
+export const deleteBlogPost = async (blogPostId, options) => {
+    const response = await queryData(`
+        mutation {
+            deleteBlogPost(
+                blogPostId: "${blogPostId}",
+                accessToken: "${options.userSession.token}")
+            {
+                success
+                errorMessage
+            }
+        }
+    `);
+
+    /**
+     * @type {ResponseDto}
+     */
+     const message = response.deleteBlogPost;
+
+     if (message) {
+        if (message.success) {
+            return;
+        }
+        else {
+            throw new Error(message.errorMessage);
+        }
+    }
+    else {
+        throw new Error('Server returned empty result');
+    }
+};

@@ -5,12 +5,13 @@ import { useUserSession } from '../../../hooks';
 import { EditBlogPostForm } from '../EditBlogPostForm';
 import { EditBlogPostPreview } from '../EditBlogPostPreview';
 import { NotFound } from '../../../views/NotFound';
-import { fetchBlogPost, saveBlogPost } from '../../../services/blogService';
+import { fetchBlogPost, saveBlogPost, deleteBlogPost } from '../../../services/blogService';
 import { BlogPostModel } from '../../../models/BlogPostModel';
 
 
 const EditBlogPostPage = () => {
     const isCancelled = useRef(false);
+    /** @type {[BlogPostModel, Function]} Loading */
     const [blogPost, setBlogPost] = useState(null);
     const [isPreviewMode, setIsPreviewMode] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -38,6 +39,10 @@ const EditBlogPostPage = () => {
             isCancelled.current = true;
         };
     }, []);
+
+    if (!isLoading && !blogPost) {
+        return <NotFound />;
+    }
 
     const changeHandler = (name, value) => {
         switch (name) {
@@ -72,9 +77,18 @@ const EditBlogPostPage = () => {
         }
     };
 
-    if (!isLoading && !blogPost) {
-        return <NotFound />;
-    }
+    const deleteHandler = async () => {
+        const session = getUserSession();
+
+        try {
+            await deleteBlogPost(blogPost.id, { userSession: session });
+
+            navigate(`/blog`);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <Page title="Edit Blog Post" authenticated>
@@ -84,7 +98,8 @@ const EditBlogPostPage = () => {
                     blogPost={blogPost}
                     onChange={changeHandler}
                     onPreview={() => setIsPreviewMode(true)}
-                    onSave={saveHandler} />
+                    onSave={saveHandler}
+                    onDelete={deleteHandler} />
                 : null}
 
             {!isLoading && isPreviewMode ? 

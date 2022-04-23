@@ -5,8 +5,9 @@ const typeDef = `
     }
 
     extend type Mutation {
-        createBlogPost(blogPost: CreateBlogPostInput!, accessToken: String!): CreateBlogPostResult
-        editBlogPost(blogPost: EditBlogPostInput!, accessToken: String!): EditBlogPostResult
+        createBlogPost(blogPost: CreateBlogPostInput!, accessToken: String!): EmptyResult
+        editBlogPost(blogPost: EditBlogPostInput!, accessToken: String!): EmptyResult
+        deleteBlogPost(blogPostId: String!, accessToken: String!): EmptyResult
     }
     
     input CreateBlogPostInput {
@@ -58,16 +59,6 @@ const typeDef = `
     type BlogPostResult {
         success: Boolean!
         blogPost: BlogPost
-        errorMessage: String
-    }
-
-    type CreateBlogPostResult {
-        success: Boolean!
-        errorMessage: String
-    }
-
-    type EditBlogPostResult {
-        success: Boolean!
         errorMessage: String
     }
 `;

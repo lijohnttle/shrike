@@ -1,11 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
-import { useStyles } from './styles';
 import { Article } from '../../../components/Article';
 import { ContentBlock } from '../../../components/ContentBlock';
 import { BlogPostModel } from '../../../models/BlogPostModel';
+import { Box, styled } from '@mui/system';
 
+
+const FieldContainer = styled('div')(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: theme.spacing(2),
+}));
+
+const CommandContainer = styled('div')(({ theme }) => ({
+    marginLeft: theme.spacing(1),
+    marginTop: theme.spacing(2)
+}));
 
 /**
  * @readonly
@@ -32,36 +43,30 @@ const EditMode = {
  * @param {onBlogPostChanged} props.onChange
  * @param {Function} props.onPreview
  * @param {Function} props.onSave
+ * @param {Function} [props.onDelete]
  */
 const EditBlogPostForm = (props) => {
-
-    const classes = useStyles();
-
-    const previewButtonClickHandler = () => {
-        props.onPreview();
-    };
-
     return (
         <Article title={props.mode === EditMode.create ? 'NEW BLOG POST' : 'EDIT BLOG POST'}>
             <ContentBlock>
-                <form className={classes.form}>
-                    <div className={classes.fieldContainer}>
+                <form style={{ display: 'flex', flexDirection: 'column' }}>
+                    <FieldContainer>
                         <TextField
                             required
                             label="Title"
                             name="title"
                             defaultValue={props.blogPost.title}
                             onChange={e => props.onChange(e.target.name, e.target.value)} />
-                    </div>
-                    <div className={classes.fieldContainer}>
+                    </FieldContainer>
+                    <FieldContainer>
                         <TextField
                             required
                             label="Slug"
                             name="slug"
                             defaultValue={props.blogPost.slug}
                             onChange={e => props.onChange(e.target.name, e.target.value)} />
-                    </div>
-                    <div className={classes.fieldContainer}>
+                    </FieldContainer>
+                    <FieldContainer>
                         <TextField
                             required
                             label="Description"
@@ -70,8 +75,8 @@ const EditBlogPostForm = (props) => {
                             name="description"
                             defaultValue={props.blogPost.description}
                             onChange={e => props.onChange(e.target.name, e.target.value)} />
-                    </div>
-                    <div className={classes.fieldContainer}>
+                    </FieldContainer>
+                    <FieldContainer>
                         <TextField
                             required
                             label="Content"
@@ -80,25 +85,31 @@ const EditBlogPostForm = (props) => {
                             name="content"
                             defaultValue={props.blogPost.content}
                             onChange={e => props.onChange(e.target.name, e.target.value)} />
-                    </div>
+                    </FieldContainer>
                     
-                    <div className={classes.commandsContainer}>
-                        <div className={classes.commandContainer}>
+                    <Box display="flex" flexDirection="row" justifyContent="flex-end">
+                        <CommandContainer>
                             <FormControlLabel
                                 control={<Checkbox checked={props.blogPost.published}
                                 name="published"
                                 onChange={(e) => props.onChange(e.target.name, e.target.checked)} />}
                                 label="Publish" />
-                        </div>
-                        <div className={classes.commandContainer}>
-                            <Button color="primary" variant="outlined" onClick={previewButtonClickHandler}>PREVIEW</Button>
-                        </div>
-                        <div className={classes.commandContainer}>
+                        </CommandContainer>
+                        {props.mode === EditMode.edit
+                            ? (
+                                <CommandContainer>
+                                    <Button color="error" variant="outlined" onClick={() => props.onDelete()}>DELETE</Button>
+                                </CommandContainer>
+                            ) : null}
+                        <CommandContainer>
+                            <Button color="primary" variant="outlined" onClick={() => props.onPreview()}>PREVIEW</Button>
+                        </CommandContainer>
+                        <CommandContainer>
                             <Button color="success" variant="contained" onClick={props.onSave}>
                                 {props.mode === EditMode.create ? 'CREATE' : 'SAVE'}
                             </Button>
-                        </div>
-                    </div>
+                        </CommandContainer>
+                    </Box>
                 </form>
             </ContentBlock>
         </Article>
@@ -106,11 +117,12 @@ const EditBlogPostForm = (props) => {
 };
 
 EditBlogPostForm.propTypes = {
-    mode: PropTypes.oneOf(Object.values(EditMode)),
-    blogPost: PropTypes.instanceOf(BlogPostModel),
-    onChange: PropTypes.func,
-    onPreview: PropTypes.func,
-    onSave: PropTypes.func,
+    mode: PropTypes.oneOf(Object.values(EditMode)).isRequired,
+    blogPost: PropTypes.instanceOf(BlogPostModel).isRequired,
+    onChange: PropTypes.func.isRequired,
+    onPreview: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func,
 };
 
 EditBlogPostForm.modes = EditMode;

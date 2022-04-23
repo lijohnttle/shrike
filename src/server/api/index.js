@@ -13,6 +13,11 @@ const Query = `
     type Error {
         message: String!
     }
+
+    type EmptyResult {
+        success: Boolean!
+        errorMessage: String
+    }
 `;
 
 const Mutation = `

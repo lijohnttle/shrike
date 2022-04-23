@@ -150,6 +150,30 @@ const mutationResolvers = {
             ResponseDto.fail('Error occured while saving a blog post');
         }
     },
+    /**
+     * Deletes a blog post.
+     * @param {any} _ 
+     * @param {Object} params 
+     * @param {String} params.blogPostId 
+     * @param {String} params.accessToken 
+     */
+    deleteBlogPost: async (_, params) => {
+        
+        try {
+            if (!getAccessValidator().validateAdminAccess(params.accessToken)) {
+                return ResponseDto.failUnauthorized();
+            }
+
+            await BlogPost.deleteOne({ _id: params.blogPostId });
+
+            return ResponseDto.success();
+        }
+        catch (error) {
+            console.error(error);
+
+            ResponseDto.fail('Error occured while saving a blog post');
+        }
+    },
 };
 
 
