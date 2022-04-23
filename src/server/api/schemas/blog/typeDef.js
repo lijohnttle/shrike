@@ -5,8 +5,9 @@ const typeDef = `
     }
 
     extend type Mutation {
-        createBlogPost(blogPost: CreateBlogPostInput!, accessToken: String!): CreateBlogPostResult
-        editBlogPost(blogPost: EditBlogPostInput!, accessToken: String!): EditBlogPostResult
+        createBlogPost(blogPost: CreateBlogPostInput!, accessToken: String!): EmptyResult
+        editBlogPost(blogPost: EditBlogPostInput!, accessToken: String!): EmptyResult
+        deleteBlogPost(blogPostId: String!, accessToken: String!): EmptyResult
     }
     
     input CreateBlogPostInput {
@@ -14,7 +15,7 @@ const typeDef = `
         slug: String!
         description: String!
         content: String!
-        publish: Boolean
+        published: Boolean
     }
 
     input EditBlogPostInput {
@@ -23,23 +24,30 @@ const typeDef = `
         slug: String!
         description: String!
         content: String!
-        publish: Boolean
+        published: Boolean
     }
 
-    type BlogPostMetadata {
+    type BlogPost {
         id: String!
         title: String!
-        slug: String!
+        content: String!
         description: String!
+        slug: String!
         createdOn: String!
         updatedOn: String!
         publishedOn: String
         published: Boolean!
     }
 
-    type BlogPost {
-        metadata: BlogPostMetadata!
-        content: String!
+    type BlogPostMetadata {
+        id: String!
+        title: String!
+        description: String!
+        slug: String!
+        createdOn: String!
+        updatedOn: String!
+        publishedOn: String
+        published: Boolean!
     }
 
     type BlogPostListResult {
@@ -51,16 +59,6 @@ const typeDef = `
     type BlogPostResult {
         success: Boolean!
         blogPost: BlogPost
-        errorMessage: String
-    }
-
-    type CreateBlogPostResult {
-        success: Boolean!
-        errorMessage: String
-    }
-
-    type EditBlogPostResult {
-        success: Boolean!
         errorMessage: String
     }
 `;

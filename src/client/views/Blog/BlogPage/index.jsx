@@ -6,56 +6,8 @@ import { Page } from '../../../components/Page';
 import { BlogPostMeta } from '../BlogPostMeta';
 import { BlogToolBar } from '../BlogToolBar';
 import { useUserSession } from '../../../hooks';
-import { queryData } from '../../../services/api';
+import { fetchBlogPostList } from '../../../services/blogService';
 
-
-async function loadBlogPostsList(session, showUnpublished) {
-    try {
-        const response = await queryData(`
-            query {
-                blogPostList(
-                    includeUnpublished: ${showUnpublished},
-                    accessToken: "${session?.token || ''}")
-                {
-                    success
-                    blogPosts {
-                        title
-                        slug
-                        description
-                        createdOn
-                        updatedOn
-                        publishedOn
-                        published
-                    }
-                    errorMessage
-                }
-            }
-        `);
-
-        if (response.blogPostList?.success === true) {
-            return response.blogPostList.blogPosts.map((post) => {
-                const result = { ...post };
-
-                result.createdOn = new Date(Date.parse(post.createdOn));
-                result.updatedOn = new Date(Date.parse(post.updatedOn));
-
-                if (result.publishedOn) {
-                    result.publishedOn = new Date(Date.parse(post.publishedOn));
-                }
-
-                return result;
-            });
-        }
-        else {
-            console.error(response.blogPostList?.errorMessage);
-        }
-    }
-    catch (error) {
-        console.error(error);
-    }
-
-    return [];
-}
 
 const renderBlogPostsPlaceholder = () => {
     return (
@@ -86,12 +38,13 @@ const BlogPage = () => {
     const refreshPosts = async () => {
         const session = getUserSession();
 
-        await loadBlogPostsList(session, showUnpublished)
-            .then((data) => {
+        await fetchBlogPostList({ userSession: session, unpublished: showUnpublished })
+            .then(data => {
                 if (!isCancelled.current) {
                     setBlogPosts(data);
                 }
-            });
+            })
+            .catch(error => console.log(error));
     };
 
     return (

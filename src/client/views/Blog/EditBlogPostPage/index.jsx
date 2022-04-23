@@ -2,106 +2,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { Page } from '../../../components/Page';
 import { useUserSession } from '../../../hooks';
-import { queryData } from '../../../services/api';
 import { EditBlogPostForm } from '../EditBlogPostForm';
 import { EditBlogPostPreview } from '../EditBlogPostPreview';
 import { NotFound } from '../../../views/NotFound';
+import { fetchBlogPost, saveBlogPost, deleteBlogPost } from '../../../services/blogService';
+import { BlogPostModel } from '../../../models/BlogPostModel';
 
-
-const loadBlogPost = async (slug, session) => {
-    try {
-        const response = await queryData(`
-            query {
-                blogPost(
-                    slug: "${slug}",
-                    accessToken: "${session?.token || ''}")
-                {
-                    success
-                    blogPost {
-                        metadata {
-                            id
-                            title
-                            slug
-                            description
-                            createdOn
-                            updatedOn
-                            publishedOn
-                            published
-                        }
-                        content
-                    }
-                    errorMessage
-                }
-            }
-        `);
-
-        if (response.blogPost?.success === true) {
-            const post = response.blogPost.blogPost;
-
-            if (!post) {
-                return null;
-            }
-
-            const postMetadata = post.metadata;
-
-            postMetadata.createdOn = new Date(Date.parse(postMetadata.createdOn));
-            postMetadata.updatedOn = new Date(Date.parse(postMetadata.updatedOn));
-
-            if (postMetadata.publishedOn) {
-                postMetadata.publishedOn = new Date(Date.parse(postMetadata.publishedOn));
-            }
-
-            return {
-                ...postMetadata,
-                content: post.content,
-            };
-        }
-    }
-    catch (error) {
-        console.error(error);
-    }
-
-    return null;
-}
-
-const saveBlogPost = async (blogPostId, blogPostTitle, blogPostSlug, blogPostDescription, blogPostContent, blogPostPublish, session) => {
-    try {
-        const response = await queryData(`
-            mutation {
-                editBlogPost(
-                    blogPost: {
-                        id: "${blogPostId}",
-                        title: "${blogPostTitle}",
-                        slug: "${blogPostSlug}",
-                        description: "${blogPostDescription}",
-                        content: "${blogPostContent}",
-                        publish: ${blogPostPublish}
-                    },
-                    accessToken: "${session.token}")
-                {
-                    success
-                    errorMessage
-                }
-            }
-        `);
-
-        return response.editBlogPost?.success === true;
-    }
-    catch (error) {
-        console.error(error);
-
-        return false;
-    }
-};
 
 const EditBlogPostPage = () => {
     const isCancelled = useRef(false);
-    const [blogPostId, setBlogPostId] = useState();
-    const [blogPostTitle, setBlogPostTitle] = useState();
-    const [blogPostSlug, setBlogPostSlug] = useState();
-    const [blogPostDescription, setBlogPostDescription] = useState();
-    const [blogPostContent, setBlogPostContent] = useState();
-    const [blogPostPublish, setBlogPostPublish] = useState(false);
+    /** @type {[BlogPostModel, Function]} Loading */
+    const [blogPost, setBlogPost] = useState(null);
     const [isPreviewMode, setIsPreviewMode] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [getUserSession] = useUserSession();
@@ -111,66 +22,92 @@ const EditBlogPostPage = () => {
     useEffect(() => {
         const session = getUserSession();
 
-        loadBlogPost(slug, session)
-            .then((post) => {
+        fetchBlogPost(slug, { userSession: session })
+            .then(post => {
                 if (!isCancelled.current && post) {
-                    setBlogPostId(post.id);
-                    setBlogPostTitle(post.title);
-                    setBlogPostSlug(post.slug);
-                    setBlogPostDescription(post.description);
-                    setBlogPostContent(post.content);
-                    setBlogPostPublish(post.published);
+                    setBlogPost(new BlogPostModel(post));
                 }
             })
+            .catch(error => console.log(error))
             .finally(() => {
                 if (!isCancelled.current) {
                     setIsLoading(false);
                 }
             });
 
-            return () => {
-                isCancelled.current = true;
-            };
+        return () => {
+            isCancelled.current = true;
+        };
     }, []);
 
-    const saveHandler = async () => {
-        const session = getUserSession();
-        const isSaved = await saveBlogPost(blogPostId, blogPostTitle, blogPostSlug, blogPostDescription, blogPostContent, blogPostPublish, session);
+    if (!isLoading && !blogPost) {
+        return <NotFound />;
+    }
 
-        if (isSaved) {
-            navigate(`/blog/${blogPostSlug}`);
+    const changeHandler = (name, value) => {
+        switch (name) {
+            case 'title':
+                setBlogPost(new BlogPostModel({ ...blogPost, title: value }));
+                break;
+            case 'slug':
+                setBlogPost(new BlogPostModel({ ...blogPost, slug: value }));
+                break;
+            case 'description':
+                setBlogPost(new BlogPostModel({ ...blogPost, description: value }));
+                break;
+            case 'content':
+                setBlogPost(new BlogPostModel({ ...blogPost, content: value }));
+                break;
+            case 'published':
+                setBlogPost(new BlogPostModel({ ...blogPost, published: value }));
+                break;
         }
     };
 
-    if (!isLoading && !blogPostId) {
-        return <NotFound />;
-    }
+    const saveHandler = async () => {
+        const session = getUserSession();
+
+        try {
+            await saveBlogPost(blogPost, { userSession: session });
+
+            navigate(`/blog/${blogPost.slug}`);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
+
+    const deleteHandler = async () => {
+        const session = getUserSession();
+
+        try {
+            await deleteBlogPost(blogPost.id, { userSession: session });
+
+            navigate(`/blog`);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <Page title="Edit Blog Post" authenticated>
             {!isLoading && !isPreviewMode ? 
                 <EditBlogPostForm
-                    isCreation={false}
-                    blogPostTitle={blogPostTitle}
-                    setBlogPostTitle={setBlogPostTitle}
-                    blogPostSlug={blogPostSlug}
-                    setBlogPostSlug={setBlogPostSlug}
-                    blogPostDescription={blogPostDescription}
-                    setBlogPostDescription={setBlogPostDescription}
-                    blogPostContent={blogPostContent}
-                    setBlogPostContent={setBlogPostContent}
-                    blogPostPublish={blogPostPublish}
-                    setBlogPostPublish={setBlogPostPublish}
+                    mode={EditBlogPostForm.modes.edit}
+                    blogPost={blogPost}
+                    onChange={changeHandler}
                     onPreview={() => setIsPreviewMode(true)}
-                    onSave={saveHandler} />
+                    onSave={saveHandler}
+                    onDelete={deleteHandler} />
                 : null}
 
             {!isLoading && isPreviewMode ? 
                 <EditBlogPostPreview
                     isCreation={false}
-                    blogPostTitle={blogPostTitle}
-                    blogPostContent={blogPostContent}
-                    blogPostPublish={blogPostPublish}
+                    blogPostTitle={blogPost.title}
+                    blogPostContent={blogPost.content}
+                    blogPostPublish={blogPost.publish}
                     onEdit={() => setIsPreviewMode(false)}
                     onSave={saveHandler} />
                 : null}
