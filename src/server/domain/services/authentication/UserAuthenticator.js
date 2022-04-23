@@ -3,6 +3,8 @@ import { UserSession } from '../../entities/authentication/UserSession.js';
 import { UserSessionStorage } from '../../entities/authentication/UserSessionStorage.js';
 import { UserSessionCleaner } from '../../entities/authentication/UserSessionCleaner.js';
 import { generateUuidv4 } from '../../../../utils/uuidGenerator.js';
+import { UserContext } from '../../entities/authentication/UserContext';
+import { UserRole } from '../../entities/authentication/UserRole';
 
 
 const DEFAULT_SESSION_LIFETIME = 24 * 60 * 60 * 1000;    // 1 day
@@ -131,6 +133,29 @@ class UserAuthenticator {
     findSession(token) {
         return this._sessionStorage.findByToken(token);
     };
+
+    /**
+     * Returns a user context.
+     * @returns {UserContext}
+     */
+    getUserContext(token) {
+        const session = getUserAuthenticator().findSession(token);
+
+        if (session != null) {
+            return new UserContext({
+                username: session.username,
+                roles: [
+                    UserRole.admin
+                ],
+            });
+        }
+
+        return new UserContext({
+            roles: [
+                UserRole.guest
+            ],
+        });
+    }
 }
 
 

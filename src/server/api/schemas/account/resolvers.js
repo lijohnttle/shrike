@@ -1,4 +1,4 @@
-import { getAccessValidator, getUserAuthenticator } from '../../../domain';
+import { getUserAuthenticator } from '../../../domain';
 
 
 const queryResolvers = {
@@ -6,7 +6,7 @@ const queryResolvers = {
 
         try {
             return {
-                verified: getAccessValidator().validateAdminAccess(accessToken)
+                verified: getUserAuthenticator().getUserContext(accessToken).validateAdminAccess(),
             };
         }
         catch (error) {
