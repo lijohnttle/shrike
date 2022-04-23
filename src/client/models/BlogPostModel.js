@@ -83,7 +83,7 @@ import { BlogPostDto } from '../../contracts';
             createdOn: dto.createdOn ? new Date(Date.parse(dto.createdOn)) : null,
             updatedOn: dto.updatedOn ? new Date(Date.parse(dto.updatedOn)) : null,
             publishedOn: dto.publishedOn ? new Date(Date.parse(dto.publishedOn)) : null,
-            published: dto.publishedm
+            published: dto.published,
         });
     }
 }

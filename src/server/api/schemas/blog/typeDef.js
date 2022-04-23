@@ -14,7 +14,7 @@ const typeDef = `
         slug: String!
         description: String!
         content: String!
-        publish: Boolean
+        published: Boolean
     }
 
     input EditBlogPostInput {
@@ -23,7 +23,7 @@ const typeDef = `
         slug: String!
         description: String!
         content: String!
-        publish: Boolean
+        published: Boolean
     }
 
     type BlogPost {

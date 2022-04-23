@@ -96,14 +96,14 @@ const mutationResolvers = {
             newBlogPost.createdOn = new Date();
             newBlogPost.updatedOn = newBlogPost.createdOn;
 
-            if (blogPost.publish) {
+            if (blogPost.published) {
                 newBlogPost.publishedOn = newBlogPost.createdOn;
                 newBlogPost.published = true;
             }
 
             await newBlogPost.save();
 
-            return ResponseDto.success;
+            return ResponseDto.success();
         }
         catch (error) {
             console.error(error);
@@ -128,7 +128,7 @@ const mutationResolvers = {
             existingBlogPost.description = blogPost.description;
             existingBlogPost.content = blogPost.content;
             existingBlogPost.slug = blogPost.slug;
-            existingBlogPost.published = blogPost.publish;
+            existingBlogPost.published = blogPost.published;
             existingBlogPost.updatedOn = new Date();
 
             if (existingBlogPost.published) {

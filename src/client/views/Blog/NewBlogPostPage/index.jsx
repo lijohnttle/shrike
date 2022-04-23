@@ -2,47 +2,51 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Page } from '../../../components/Page';
 import { useUserSession } from '../../../hooks';
-import { queryData } from '../../../services/api';
+import { BlogPostModel } from '../../../models/BlogPostModel';
+import { createBlogPost } from '../../../services/blogService';
 import { EditBlogPostForm } from '../EditBlogPostForm';
 import { EditBlogPostPreview } from '../EditBlogPostPreview';
 
 
 const NewBlogPostPage = () => {
-    const [blogPostTitle, setBlogPostTitle] = useState('');
-    const [blogPostSlug, setBlogPostSlug] = useState('');
-    const [blogPostDescription, setBlogPostDescription] = useState('');
-    const [blogPostContent, setBlogPostContent] = useState('');
-    const [blogPostPublish, setBlogPostPublish] = useState(false);
+    const [blogPost, setBlogPost] = useState(new BlogPostModel({
+        title: '',
+        slug: '',
+        description: '',
+        content: '',
+        published: false,
+    }));
     const [isPreviewMode, setIsPreviewMode] = useState(false);
     const [getUserSession] = useUserSession();
     const navigate = useNavigate();
 
+    const changeHandler = (name, value) => {
+        switch (name) {
+            case 'title':
+                setBlogPost(new BlogPostModel({ ...blogPost, title: value }));
+                break;
+            case 'slug':
+                setBlogPost(new BlogPostModel({ ...blogPost, slug: value }));
+                break;
+            case 'description':
+                setBlogPost(new BlogPostModel({ ...blogPost, description: value }));
+                break;
+            case 'content':
+                setBlogPost(new BlogPostModel({ ...blogPost, content: value }));
+                break;
+            case 'published':
+                setBlogPost(new BlogPostModel({ ...blogPost, published: value }));
+                break;
+        }
+    };
 
     const saveHandler = async () => {
+        const session = getUserSession();
+
         try {
-            const session = getUserSession();
+            await createBlogPost(blogPost, { userSession: session });
 
-            const response = await queryData(`
-                mutation {
-                    createBlogPost(
-                        blogPost: {
-                            title: "${blogPostTitle}",
-                            slug: "${blogPostSlug}",
-                            description: "${blogPostDescription}",
-                            content: "${blogPostContent}",
-                            publish: ${blogPostPublish}
-                        },
-                        accessToken: "${session.token}")
-                    {
-                        success
-                        errorMessage
-                    }
-                }
-            `);
-
-            if (response.createBlogPost?.success === true) {
-                navigate(`/blog/${blogPostSlug}`);
-            }
+            navigate(`/blog/${blogPost.slug}`);
         }
         catch (error) {
             console.error(error);
@@ -53,17 +57,9 @@ const NewBlogPostPage = () => {
         <Page title="New Blog Post" authenticated>
             {!isPreviewMode ? 
                 <EditBlogPostForm
-                    isCreation={true}
-                    blogPostTitle={blogPostTitle}
-                    setBlogPostTitle={setBlogPostTitle}
-                    blogPostSlug={blogPostSlug}
-                    setBlogPostSlug={setBlogPostSlug}
-                    blogPostDescription={blogPostDescription}
-                    setBlogPostDescription={setBlogPostDescription}
-                    blogPostContent={blogPostContent}
-                    setBlogPostContent={setBlogPostContent}
-                    blogPostPublish={blogPostPublish}
-                    setBlogPostPublish={setBlogPostPublish}
+                    mode={EditBlogPostForm.modes.create}
+                    blogPost={blogPost}
+                    onChange={changeHandler}
                     onPreview={() => setIsPreviewMode(true)}
                     onSave={saveHandler} />
                 : null}
@@ -71,9 +67,9 @@ const NewBlogPostPage = () => {
             {isPreviewMode ? 
                 <EditBlogPostPreview
                     isCreation={true}
-                    blogPostTitle={blogPostTitle}
-                    blogPostContent={blogPostContent}
-                    blogPostPublish={blogPostPublish}
+                    blogPostTitle={blogPost.title}
+                    blogPostContent={blogPost.content}
+                    blogPostPublish={blogPost.publish}
                     onEdit={() => setIsPreviewMode(false)}
                     onSave={saveHandler} />
                 : null}
