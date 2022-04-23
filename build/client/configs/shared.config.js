@@ -11,7 +11,10 @@ export default (env, options) => {
                 {
                     test: /\.(js|jsx)$/,
                     exclude: /node_modules/,
-                    use: ['babel-loader']
+                    use: ['babel-loader'],
+                    resolve: {
+                        fullySpecified: false,
+                    },
                 }
             ]
         },

@@ -26,20 +26,27 @@ const typeDef = `
         publish: Boolean
     }
 
-    type BlogPostMetadata {
+    type BlogPost {
         id: String!
         title: String!
-        slug: String!
+        content: String!
         description: String!
+        slug: String!
         createdOn: String!
         updatedOn: String!
         publishedOn: String
         published: Boolean!
     }
 
-    type BlogPost {
-        metadata: BlogPostMetadata!
-        content: String!
+    type BlogPostMetadata {
+        id: String!
+        title: String!
+        description: String!
+        slug: String!
+        createdOn: String!
+        updatedOn: String!
+        publishedOn: String
+        published: Boolean!
     }
 
     type BlogPostListResult {

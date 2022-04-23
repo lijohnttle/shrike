@@ -1,21 +1,30 @@
 import mongoose from 'mongoose';
+import {
+    ResponseDto,
+    BlogPostDto,
+    BlogPostResponseDto,
+    BlogPostListResponseDto } from '../../../../contracts';
 import { BlogPost } from '../../../data/models/blog/BlogPost';
 import { getAccessValidator } from '../../../domain';
 
 
+/**
+ * Converts data model of a blog post into DTO. 
+ * @param {*} rawBlogPost 
+ * @returns {BlogPostDto}
+ */
 const convertToBlogPostMetadata = (rawBlogPost) => {
-    const result = {
+    return new BlogPostDto({
         id: rawBlogPost._id,
         title: rawBlogPost.title,
         slug: rawBlogPost.slug,
         description: rawBlogPost.description,
+        content: rawBlogPost.content,
         createdOn: rawBlogPost.createdOn.toUTCString(),
         updatedOn: rawBlogPost.updatedOn.toUTCString(),
         publishedOn: rawBlogPost.publishedOn ? rawBlogPost.publishedOn.toUTCString() : null,
-        published: !!rawBlogPost.published
-    };
-
-    return result;
+        published: !!rawBlogPost.published,
+    });
 };
 
 
@@ -25,10 +34,7 @@ const queryResolvers = {
         try {
             if (includeUnpublished) {
                 if (!getAccessValidator().validateAdminAccess(accessToken)) {
-                    return {
-                        success: false,
-                        errorMessage: 'Unauthorized acceess'
-                    };
+                    return ResponseDto.failUnauthorized();
                 }
             }
 
@@ -42,18 +48,12 @@ const queryResolvers = {
 
             const blogPosts = rawBlogPosts.map(convertToBlogPostMetadata);
 
-            return {
-                success: true,
-                blogPosts: blogPosts,
-            };
+            return new BlogPostListResponseDto({ success: true, blogPosts });
         }
         catch (error) {
             console.error(error);
 
-            return {
-                success: false,
-                errorMessage: 'Error occured while retrieving a list of blog posts'
-            };
+            return ResponseDto.fail('Error occured while retrieving a list of blog posts');
         }
     },
     blogPost: async (_, { slug, accessToken }) => {
@@ -62,36 +62,24 @@ const queryResolvers = {
             const rawBlogPost = await BlogPost.findOne({ slug: slug });
 
             if (!rawBlogPost) {
-                return {
-                    success: true,
-                    blogPost: null,
-                };
+                return ResponseDto.success();
             }
 
             if (!rawBlogPost.published) {
                 if (!accessToken || !getAccessValidator().validateAdminAccess(accessToken)) {
-                    return {
-                        success: false,
-                        errorMessage: 'Unauthorized acceess'
-                    };
+                    return ResponseDto.failUnauthorized();
                 }
             }
 
-            return {
+            return new BlogPostResponseDto({
                 success: true,
-                blogPost: {
-                    metadata: convertToBlogPostMetadata(rawBlogPost),
-                    content: rawBlogPost.content,
-                },
-            };
+                blogPost: convertToBlogPostMetadata(rawBlogPost),
+            });
         }
         catch (error) {
             console.error(error);
 
-            return {
-                success: false,
-                errorMessage: 'Error occured while retrieving a blog post'
-            };
+            return ResponseDto.fail('Error occured while retrieving a blog post');
         }
     },
 };
@@ -101,10 +89,7 @@ const mutationResolvers = {
 
         try {
             if (!getAccessValidator().validateAdminAccess(accessToken)) {
-                return {
-                    success: false,
-                    errorMessage: 'Unauthorized acceess'
-                };
+                return ResponseDto.failUnauthorized();
             }
 
             const newBlogPost = new BlogPost(blogPost);
@@ -118,36 +103,25 @@ const mutationResolvers = {
 
             await newBlogPost.save();
 
-            return {
-                success: true
-            };
+            return ResponseDto.success;
         }
         catch (error) {
             console.error(error);
-            
-            return {
-                success: false,
-                errorMessage: 'Error occured while creating a blog post'
-            };
+
+            return ResponseDto.fail('Error occured while creating a blog post');
         }
     },
     editBlogPost: async (_, { blogPost, accessToken }) => {
 
         try {
             if (!getAccessValidator().validateAdminAccess(accessToken)) {
-                return {
-                    success: false,
-                    errorMessage: 'Unauthorized acceess'
-                };
+                return ResponseDto.failUnauthorized();
             }
 
             const existingBlogPost = await BlogPost.findOne({ _id: mongoose.Types.ObjectId(blogPost.id) });
 
             if (!existingBlogPost) {
-                return {
-                    success: false,
-                    errorMessage: 'Blog post has not been found',
-                };
+                return ResponseDto.failNotFound();
             }
 
             existingBlogPost.title = blogPost.title;
@@ -168,17 +142,12 @@ const mutationResolvers = {
 
             await existingBlogPost.save();
 
-            return {
-                success: true
-            };
+            return ResponseDto.success();
         }
         catch (error) {
             console.error(error);
-            
-            return {
-                success: false,
-                errorMessage: 'Error occured while saving a blog post'
-            };
+
+            ResponseDto.fail('Error occured while saving a blog post');
         }
     },
 };

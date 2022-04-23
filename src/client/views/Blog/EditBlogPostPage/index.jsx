@@ -6,6 +6,7 @@ import { queryData } from '../../../services/api';
 import { EditBlogPostForm } from '../EditBlogPostForm';
 import { EditBlogPostPreview } from '../EditBlogPostPreview';
 import { NotFound } from '../../../views/NotFound';
+import { fetchBlogPost } from '../../../services/blogService';
 
 
 const loadBlogPost = async (slug, session) => {
@@ -18,17 +19,15 @@ const loadBlogPost = async (slug, session) => {
                 {
                     success
                     blogPost {
-                        metadata {
-                            id
-                            title
-                            slug
-                            description
-                            createdOn
-                            updatedOn
-                            publishedOn
-                            published
-                        }
+                        id
+                        title
+                        description
                         content
+                        slug
+                        createdOn
+                        updatedOn
+                        publishedOn
+                        published
                     }
                     errorMessage
                 }
@@ -111,7 +110,7 @@ const EditBlogPostPage = () => {
     useEffect(() => {
         const session = getUserSession();
 
-        loadBlogPost(slug, session)
+        fetchBlogPost(slug, { userSession: session })
             .then((post) => {
                 if (!isCancelled.current && post) {
                     setBlogPostId(post.id);
@@ -122,15 +121,16 @@ const EditBlogPostPage = () => {
                     setBlogPostPublish(post.published);
                 }
             })
+            .catch(error => console.log(error))
             .finally(() => {
                 if (!isCancelled.current) {
                     setIsLoading(false);
                 }
             });
 
-            return () => {
-                isCancelled.current = true;
-            };
+        return () => {
+            isCancelled.current = true;
+        };
     }, []);
 
     const saveHandler = async () => {
