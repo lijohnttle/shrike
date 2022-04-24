@@ -1,8 +1,33 @@
-import { UserSessionModel } from '../models';
+import { AttachmentModel, BlogPostModel, UserSessionModel } from '../models';
 import { BlogPostListResponseDto, BlogPostResponseDto, ResponseDto } from '../../contracts';
 import { queryData } from './api';
-import { BlogPostModel } from '../models/BlogPostModel';
+import { toBase64 } from '../utils/filesystem';;
 
+
+/**
+ * Returns the list of attachments ready to upload.
+ * @param {BlogPostModel} blogPost
+ * @returns {Promise<AttachmentModel[]>} 
+ */
+const prepareAttachmentsToUpload = async (blogPost) => {
+    if (!blogPost.attachments || blogPost.attachments.length === 0) {
+        return [];
+    }
+
+    const result = [];
+
+    for (let attachment of blogPost.attachments) {
+        let newAttachment = new AttachmentModel(attachment);
+
+        if (newAttachment.file) {
+            newAttachment.data = await toBase64(newAttachment.file);
+        }
+
+        result.push(newAttachment);
+    }
+
+    return result;
+}
 
 /**
  * Fetches a list blog posts.
@@ -108,6 +133,8 @@ export const fetchBlogPost = async (slug, options) => {
  * @returns {Promise}
  */
 export const saveBlogPost = async (blogPost, options) => {
+    const attachments = await prepareAttachmentsToUpload(blogPost);
+
     const response = await queryData(`
         mutation {
             editBlogPost(
@@ -117,7 +144,16 @@ export const saveBlogPost = async (blogPost, options) => {
                     slug: "${blogPost.slug}",
                     description: "${blogPost.description}",
                     content: "${blogPost.content}",
-                    published: ${blogPost.published}
+                    published: ${blogPost.published},
+                    attachments: [
+                        ${attachments.map(attachment => {
+                            return `{
+                                path: "${attachment.path}",
+                                size: ${attachment.size},
+                                data: "${attachment.data}"
+                            }`;
+                        }).join(', ')}
+                    ]
                 },
                 accessToken: "${options.userSession.token}")
             {
@@ -153,6 +189,8 @@ export const saveBlogPost = async (blogPost, options) => {
  * @returns {Promise}
  */
 export const createBlogPost = async (blogPost, options) => {
+    const attachments = await prepareAttachmentsToUpload(blogPost);
+
     const response = await queryData(`
         mutation {
             createBlogPost(
@@ -161,7 +199,16 @@ export const createBlogPost = async (blogPost, options) => {
                     slug: "${blogPost.slug}",
                     description: "${blogPost.description}",
                     content: "${blogPost.content}",
-                    published: ${blogPost.published}
+                    published: ${blogPost.published},
+                    attachments: [
+                        ${attachments.map(attachment => {
+                            return `{
+                                path: "${attachment.path}",
+                                size: ${attachment.size},
+                                data: "${attachment.data}"
+                            }`;
+                        }).join(', ')}
+                    ]
                 },
                 accessToken: "${options.userSession.token}")
             {

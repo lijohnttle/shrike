@@ -88,7 +88,7 @@ const EditBlogPostForm = (props) => {
                             onChange={e => props.onChange(e.target.name, e.target.value)} />
                     </FieldContainer>
                     <FieldContainer>
-                        <FileUpload label="Attachments" multiple />
+                        <FileUpload label="Attachments" multiple onChange={files => props.onChange('attachments', files)} />
                     </FieldContainer>
                     
                     <Box display="flex" flexDirection="row" justifyContent="flex-end">

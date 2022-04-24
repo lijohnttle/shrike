@@ -6,7 +6,7 @@ import { EditBlogPostForm } from '../EditBlogPostForm';
 import { EditBlogPostPreview } from '../EditBlogPostPreview';
 import { NotFound } from '../../../views/NotFound';
 import { fetchBlogPost, saveBlogPost, deleteBlogPost } from '../../../services/blogService';
-import { BlogPostModel } from '../../../models/BlogPostModel';
+import { AttachmentModel, BlogPostModel } from '../../../models';
 
 
 const EditBlogPostPage = () => {
@@ -60,6 +60,9 @@ const EditBlogPostPage = () => {
                 break;
             case 'published':
                 setBlogPost(new BlogPostModel({ ...blogPost, published: value }));
+                break;
+            case 'attachments':
+                setBlogPost(new BlogPostModel({ ...blogPost, attachments: value.map(file => AttachmentModel.createFromFile(file))}));
                 break;
         }
     };

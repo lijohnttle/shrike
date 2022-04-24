@@ -16,6 +16,7 @@ const typeDef = `
         description: String!
         content: String!
         published: Boolean
+        attachments: [FileAttachmentInput]
     }
 
     input EditBlogPostInput {
@@ -25,6 +26,7 @@ const typeDef = `
         description: String!
         content: String!
         published: Boolean
+        attachments: [FileAttachmentInput]
     }
 
     type BlogPost {

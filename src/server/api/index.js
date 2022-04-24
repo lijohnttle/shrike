@@ -18,6 +18,12 @@ const Query = `
         success: Boolean!
         errorMessage: String
     }
+
+    input FileAttachmentInput {
+        path: String!
+        size: Int!
+        data: String
+    }
 `;
 
 const Mutation = `

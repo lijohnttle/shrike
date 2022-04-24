@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const graphqlApi = axios.create({
-    baseURL: '/graphql'
+    baseURL: '/graphql',
 });
 
 const queryData = async (query) => {

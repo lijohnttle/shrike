@@ -26,7 +26,7 @@ const convertBytesToKB = (bytes) => Math.round(bytes / KILO_BYTES_PER_BYTE);
  * A component to upload files.
  * @param {Object} props 
  * @param {String} props.label
- * @param {Function} props.onFilesUpdate
+ * @param {Function} props.onChange
  * @param {Number} props.maxFileSizeInBytes
  * @param {Boolean} props.multiple
  */
@@ -50,10 +50,10 @@ const FileUpload = (props) => {
         return { ...files };
     };
 
-    const callOnFilesUpdate = (files) => {
-        if (props.onFilesUpdate) {
+    const callOnChange = (files) => {
+        if (props.onChange) {
             const filesAsArray = convertNestedObjectToArray(files);
-            props.onFilesUpdate(filesAsArray);
+            props.onChange(filesAsArray);
         }
     };
 
@@ -62,14 +62,14 @@ const FileUpload = (props) => {
         if (newFiles.length) {
             let updatedFiles = addNewFiles(newFiles);
             setFiles(updatedFiles);
-            callOnFilesUpdate(updatedFiles);
+            callOnChange(updatedFiles);
         }
     };
 
     const removeFile = (fileName) => {
         delete files[fileName];
         setFiles({ ...files });
-        callOnFilesUpdate({ ...files });
+        callOnChange({ ...files });
     };
 
     return (
@@ -83,17 +83,15 @@ const FileUpload = (props) => {
                 <FormField
                     type="file"
                     ref={fileInputField}
-                    onChange={handleNewFileUpload}
                     title=""
                     value=""
-                    {...props} />
+                    onChange={handleNewFileUpload} />
 
                 <Button variant="outlined" color="primary" startIcon={<AddIcon />} onClick={handleUpload}>
                     Upload {props.multiple ? "files" : "a file"}
                 </Button>
             </FileUploadContainer>
             <FilePreviewContainer>
-                {/* <span>To Upload</span> */}
                 <InputLabel>To upload</InputLabel>
                 <PreviewList>
                     {Object.keys(files).map((fileName, index) => {
