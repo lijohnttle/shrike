@@ -1,9 +1,9 @@
-import { queryData } from './api.js';
+import { graphqlRequest } from './api.js';
 
 
 async function fetchUserSessions(username, accessToken, dataFetchedCallback) {
     try {
-        const response = await queryData(`
+        const response = await graphqlRequest(`
             query {
                 userSessions(username: "${username}", accessToken: "${accessToken}") {
                     success
@@ -40,7 +40,7 @@ async function deleteUserSessions(ids, accessToken) {
     }
 
     try {
-        const response = await queryData(`
+        const response = await graphqlRequest(`
             mutation {
                 deleteUserSessions(ids: [${ids.map(id => `"${id}"`).join()}], accessToken: "${accessToken}")
             }
@@ -57,7 +57,7 @@ async function deleteUserSessions(ids, accessToken) {
 
 async function deleteAllUserSessions(accessToken) {
     try {
-        const response = await queryData(`
+        const response = await graphqlRequest(`
             mutation {
                 deleteAllUserSessions(accessToken: "${accessToken}")
             }

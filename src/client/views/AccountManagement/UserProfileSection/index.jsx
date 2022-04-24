@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, CircularProgress, TextField } from '@mui/material';
-import { queryData } from "../../../services/api.js";
+import { graphqlRequest } from "../../../services/api.js";
 import { useUserSession } from '../../../hooks';
 import { SectionHeader } from '../SectionHeader/index.jsx';
 import { useStyles } from './styles';
@@ -8,7 +8,7 @@ import { useStyles } from './styles';
 
 async function loadUserProfile() {
     try {
-        const response = await queryData(`
+        const response = await graphqlRequest(`
             query {
                 userProfile {
                     success
@@ -65,7 +65,7 @@ const UserProfileSection = () => {
     const saveChanges = async () => {
         const accessToken = getUserSession().token;
 
-        await queryData(`
+        await graphqlRequest(`
             mutation {
                 saveUserProfile(userProfile: {
                     goodReadsUserId: "${goodReadsUserId}"
