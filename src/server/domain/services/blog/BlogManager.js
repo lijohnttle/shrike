@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { BlogPostDto } from '../../../../contracts';
+import { AttachmentDto, BlogPostDto } from '../../../../contracts';
 import { Attachment } from '../../../data/models/Attachment';
 import { BlogPost, BlogPostDocument } from '../../../data/models/blog/BlogPost';
 import { UserContext } from '../../entities/authentication/UserContext';
@@ -34,7 +34,7 @@ const mapBlogPostDtoToDocument = (source, dest) => {
 
     if (attachmentsInput.length > 0) {
         // keep attachments that were not removed or reloaded on the client
-        const attachmentsToKeep = new Set(attachmentsInput.filter(t => !t.data).map(t => encodeURI(t.path)));
+        const attachmentsToKeep = new Set(attachmentsInput.filter(t => !t.data).map(t => encodeURI(t.name)));
         
         for (let attachment of existingAttachments.filter(t => attachmentsToKeep.has(t.name))) {
             newAttachments.push(attachment);
@@ -42,7 +42,7 @@ const mapBlogPostDtoToDocument = (source, dest) => {
 
         for (let attachment of attachmentsInput.filter(t => !!t.data)) {
             newAttachments.push({
-                name: encodeURI(attachment.path),
+                name: encodeURI(attachment.name),
                 size: attachment.size,
                 data: Buffer.from(attachment.data, 'base64'),
                 contentType: attachment.contentType,
@@ -55,20 +55,26 @@ const mapBlogPostDtoToDocument = (source, dest) => {
 
 /**
  * Converts data model of a blog post into DTO. 
- * @param {BlogPostDocument} rawBlogPost 
+ * @param {BlogPostDocument} source 
  * @returns {BlogPostDto}
  */
-const mapBlogPostDocumentToDto = (rawBlogPost) => {
+const mapBlogPostDocumentToDto = (source) => {
     return new BlogPostDto({
-        id: rawBlogPost._id,
-        title: rawBlogPost.title,
-        slug: rawBlogPost.slug,
-        description: rawBlogPost.description,
-        content: rawBlogPost.content,
-        createdOn: rawBlogPost.createdOn.toUTCString(),
-        updatedOn: rawBlogPost.updatedOn.toUTCString(),
-        publishedOn: rawBlogPost.publishedOn ? rawBlogPost.publishedOn.toUTCString() : null,
-        published: !!rawBlogPost.published,
+        id: source._id,
+        title: source.title,
+        slug: source.slug,
+        description: source.description,
+        content: source.content,
+        createdOn: source.createdOn.toUTCString(),
+        updatedOn: source.updatedOn.toUTCString(),
+        publishedOn: source.publishedOn ? source.publishedOn.toUTCString() : null,
+        published: !!source.published,
+        attachments: source.attachments?.map(attachment => new AttachmentDto({
+            name: attachment.name,
+            contentType: attachment.contentType,
+            data: null,
+            size: attachment.size,
+        })),
     });
 };
 
@@ -136,6 +142,8 @@ class BlogManager {
                 attachments: 1,
             }
         );
+
+        console.log(`Attachment is null - ${!!blogPostDocument.attachments[0]?.data}`);
 
         if (!blogPostDocument) {
             return null;

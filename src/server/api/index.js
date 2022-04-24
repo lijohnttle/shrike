@@ -20,7 +20,7 @@ const Query = `
     }
 
     input FileAttachmentInput {
-        path: String!
+        name: String!
         size: Int!
         data: String
         contentType: String!

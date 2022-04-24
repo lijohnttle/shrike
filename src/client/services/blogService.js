@@ -148,7 +148,7 @@ export const saveBlogPost = async (blogPost, options) => {
                     attachments: [
                         ${attachments.map(attachment => {
                             return `{
-                                path: "${attachment.path}",
+                                name: "${attachment.name}",
                                 size: ${attachment.size},
                                 data: "${attachment.data}",
                                 contentType: "${attachment.contentType}"
@@ -204,7 +204,7 @@ export const createBlogPost = async (blogPost, options) => {
                     attachments: [
                         ${attachments.map(attachment => {
                             return `{
-                                path: "${attachment.path}",
+                                name: "${attachment.name}",
                                 size: ${attachment.size},
                                 data: "${attachment.data}",
                                 contentType: "${attachment.contentType}"

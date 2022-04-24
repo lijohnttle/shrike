@@ -11,7 +11,7 @@ export class AttachmentModel {
          * @type {String}
          * @public
          */
-        this.path = props?.path;
+        this.name = props?.name;
 
         /**
          * The size of attached data in bytes.
@@ -48,7 +48,7 @@ export class AttachmentModel {
      */
     static createFromFile(file) {
         return new AttachmentModel({
-            path: file.name,
+            name: file.name,
             size: file.size,
             file: file,
             contentType: file.type,

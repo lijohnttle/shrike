@@ -11,7 +11,7 @@
          * @type {String}
          * @public
          */
-        this.path = props?.path;
+        this.name = props?.name;
 
         /**
          * The size of an attachment.
