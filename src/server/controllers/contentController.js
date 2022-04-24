@@ -24,8 +24,6 @@ const register = (app, appContext) => {
             const attachment = await blogPostManager.getAttachment(blogPostSlug, attachmentName);
 
             if (attachment) {
-                fs.writeFileSync("C:/Users/lijoh/Downloads/test.jpg", attachment.data, 'binary');
-
                 res.setHeader('content-type', attachment.contentType);
                 res.write(attachment.data, 'binary');
             }
