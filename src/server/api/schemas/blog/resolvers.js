@@ -89,23 +89,22 @@ const queryResolvers = {
 };
 
 const mutationResolvers = {
-    createBlogPost: async (_, { blogPost, accessToken }) => {
-
+    /**
+     * Creates a new blog post.
+     * @param {any} _ 
+     * @param {Object} params 
+     * @param {BlogPostDto} params.blogPost 
+     * @param {String} params.accessToken 
+     */
+    createBlogPost: async (_, params) => {
         try {
-            if (!getAccessValidator().validateAdminAccess(accessToken)) {
+            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
+
+            if (!userContext.validateAdminAccess()) {
                 return ResponseDto.failUnauthorized();
             }
 
-            const newBlogPost = new BlogPost(blogPost);
-            newBlogPost.createdOn = new Date();
-            newBlogPost.updatedOn = newBlogPost.createdOn;
-
-            if (blogPost.published) {
-                newBlogPost.publishedOn = newBlogPost.createdOn;
-                newBlogPost.published = true;
-            }
-
-            await newBlogPost.save();
+            await blogPostManager.createBlogPost(params.blogPost, userContext);
 
             return ResponseDto.success();
         }
@@ -116,7 +115,7 @@ const mutationResolvers = {
         }
     },
     /**
-     * Deletes a blog post.
+     * Updates a blog post.
      * @param {any} _ 
      * @param {Object} params 
      * @param {BlogPostDto} params.blogPost 

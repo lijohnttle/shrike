@@ -84,6 +84,21 @@ class BlogPostManager {
 
         await existingBlogPost.save();
     }
+
+    /**
+     * Create a new blog post.
+     * @param {BlogPostDto} blogPost Updated blog post.
+     * @param {UserContext} userContext Updated blog post.
+     */
+     async createBlogPost(blogPost, userContext) {
+        userContext.verifyAdminAccess();
+
+        const newBlogPost = new BlogPost();
+
+        mapBlogPostFields(blogPost, newBlogPost);
+
+        await newBlogPost.save();
+    }
 }
 
 

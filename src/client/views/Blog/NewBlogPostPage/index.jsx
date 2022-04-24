@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Page } from '../../../components/Page';
 import { useUserSession } from '../../../hooks';
+import { AttachmentModel } from '../../../models';
 import { BlogPostModel } from '../../../models/BlogPostModel';
 import { createBlogPost } from '../../../services/blogService';
 import { EditBlogPostForm } from '../EditBlogPostForm';
