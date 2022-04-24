@@ -2,7 +2,7 @@ class UserSession {
     /**
      * Represents a session of a user.
      * @param {string} username Username.
-     * @param {*} token Access token.
+     * @param {string} token Access token.
      */
     constructor(username, token) {
         this.id = null;

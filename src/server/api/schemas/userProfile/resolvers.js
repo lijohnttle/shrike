@@ -1,4 +1,4 @@
-import { getAccessValidator, getUserProfileRepository } from '../../../domain';
+import { getUserAuthenticator, getUserProfileRepository } from '../../../domain';
 
 
 const queryResolvers = {
@@ -26,11 +26,13 @@ const queryResolvers = {
 
 const mutationResolvers = {
     saveUserProfile: async (_, { userProfile, accessToken }) => {
-        
-        getAccessValidator().verifyAdminAccess(accessToken);
+
+        const userContext = getUserAuthenticator().getUserContext(accessToken);
+
+        userContext.verifyAdminAccess();
 
         try {
-            await getUserProfileRepository().save(userProfile);
+            await getUserProfileRepository().save(userProfile, userContext);
 
             return true;
         }

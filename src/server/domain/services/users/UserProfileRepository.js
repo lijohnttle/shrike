@@ -1,4 +1,5 @@
 import { UserProfile } from '../../../data/models/users/UserProfile.js';
+import { UserContext } from '../../entities/authentication/UserContext.js';
 
 
 class UserProfileRepository {
@@ -63,9 +64,12 @@ class UserProfileCachedRepository {
     /**
      * Saves user profile changes.
      * @param {UserProfile} changes User profile.
+     * @param {UserContext} userContext User context.
      * @returns {Promise<UserProfile>} User profile.
      */
-    async save(changes) {
+    async save(changes, userContext) {
+        userContext.verifyAdminAccess();
+
         const userProfile = await this._userProfileRepository.save(changes);
 
         if (userProfile) {

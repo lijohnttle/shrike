@@ -63,7 +63,6 @@ let defaultTheme = createTheme({
             }
         },
     },
-    shadows: ["none"],
 });
 
 defaultTheme = responsiveFontSizes(defaultTheme);

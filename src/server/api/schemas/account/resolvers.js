@@ -1,15 +1,19 @@
-import { getAccessValidator, getUserAuthenticator } from '../../../domain';
+import { getUserAuthenticator } from '../../../domain';
 
 
 const queryResolvers = {
     verifyAdminAccess: async (_, { accessToken }) => {
 
         try {
+            const userContext = getUserAuthenticator().getUserContext(accessToken);
+
             return {
-                verified: getAccessValidator().validateAdminAccess(accessToken)
+                verified: userContext.validateAdminAccess(),
             };
         }
         catch (error) {
+            console.log(error);
+
             return {
                 verified: false
             };
