@@ -28,7 +28,7 @@ export class UserContext {
      * Verifies admin role of a user. If fails, then it throws an exception. 
      */
     verifyAdminAccess() {
-        if (!validateAdminAccess()) {
+        if (!this.validateAdminAccess()) {
             throw new Error('Authrorization error');
         }
     }

@@ -5,7 +5,11 @@ import {
     BlogPostResponseDto,
     BlogPostListResponseDto } from '../../../../contracts';
 import { BlogPost } from '../../../data/models/blog/BlogPost';
-import { getAccessValidator } from '../../../domain';
+import { getUserAuthenticator, getAccessValidator } from '../../../domain';
+import { BlogPostManager } from '../../../domain/blog/BlogPostManager';
+
+
+const blogPostManager = new BlogPostManager();
 
 
 /**
@@ -111,43 +115,29 @@ const mutationResolvers = {
             return ResponseDto.fail('Error occured while creating a blog post');
         }
     },
-    editBlogPost: async (_, { blogPost, accessToken }) => {
-
+    /**
+     * Deletes a blog post.
+     * @param {any} _ 
+     * @param {Object} params 
+     * @param {BlogPostDto} params.blogPost 
+     * @param {String} params.accessToken 
+     */
+    editBlogPost: async (_, params) => {
         try {
-            if (!getAccessValidator().validateAdminAccess(accessToken)) {
+            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
+
+            if (!userContext.validateAdminAccess()) {
                 return ResponseDto.failUnauthorized();
             }
 
-            const existingBlogPost = await BlogPost.findOne({ _id: mongoose.Types.ObjectId(blogPost.id) });
-
-            if (!existingBlogPost) {
-                return ResponseDto.failNotFound();
-            }
-
-            existingBlogPost.title = blogPost.title;
-            existingBlogPost.description = blogPost.description;
-            existingBlogPost.content = blogPost.content;
-            existingBlogPost.slug = blogPost.slug;
-            existingBlogPost.published = blogPost.published;
-            existingBlogPost.updatedOn = new Date();
-
-            if (existingBlogPost.published) {
-                if (!existingBlogPost.publishedOn) {
-                    existingBlogPost.publishedOn = existingBlogPost.updatedOn;
-                }
-            }
-            else {
-                existingBlogPost.publishedOn = null;
-            }
-
-            await existingBlogPost.save();
+            await blogPostManager.updateBlogPost(params.blogPost, userContext);
 
             return ResponseDto.success();
         }
         catch (error) {
             console.error(error);
 
-            ResponseDto.fail('Error occured while saving a blog post');
+            return ResponseDto.fail('Error occured while saving a blog post');
         }
     },
     /**
@@ -158,20 +148,21 @@ const mutationResolvers = {
      * @param {String} params.accessToken 
      */
     deleteBlogPost: async (_, params) => {
-        
         try {
-            if (!getAccessValidator().validateAdminAccess(params.accessToken)) {
+            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
+
+            if (!userContext.validateAdminAccess()) {
                 return ResponseDto.failUnauthorized();
             }
 
-            await BlogPost.deleteOne({ _id: params.blogPostId });
+            await blogPostManager.deleteBlogPost(params.blogPostId, userContext);
 
             return ResponseDto.success();
         }
         catch (error) {
             console.error(error);
 
-            ResponseDto.fail('Error occured while saving a blog post');
+            return ResponseDto.fail('Error occured while saving a blog post');
         }
     },
 };
