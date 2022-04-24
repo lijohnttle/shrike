@@ -23,7 +23,7 @@ let defaultTheme = createTheme({
         brand: {
             main: colors.brand,
             contrastText: colors.activeText,
-        }
+        },
     },
     typography: {
         fontFamily: [ 'Roboto', 'Arial Narrow', 'Arial', 'Helvetica' ],

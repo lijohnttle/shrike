@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
+import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material';
 import { Article } from '../../../components/Article';
 import { ContentBlock } from '../../../components/ContentBlock';
 import { BlogPostModel } from '../../../models/BlogPostModel';
 import { Box, styled } from '@mui/system';
+import { FileUpload } from '../../../components/FileUpload';
 
 
 const FieldContainer = styled('div')(({ theme }) => ({
@@ -85,6 +86,9 @@ const EditBlogPostForm = (props) => {
                             name="content"
                             defaultValue={props.blogPost.content}
                             onChange={e => props.onChange(e.target.name, e.target.value)} />
+                    </FieldContainer>
+                    <FieldContainer>
+                        <FileUpload label="Attachments" multiple />
                     </FieldContainer>
                     
                     <Box display="flex" flexDirection="row" justifyContent="flex-end">
