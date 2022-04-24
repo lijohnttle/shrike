@@ -162,10 +162,13 @@ export const Header = ({ transparent, dark, light }) => {
                     color={light ? colors.text : colors.textComplementary}>
                     <IconButton
                         color="inherit"
+                        sx={{
+                            fontSize: '40px',
+                        }}
                         onClick={() => {
                             setIsMenuOpen(!isMenuOpen);
                         }}>
-                        <MenuIcon />
+                        <MenuIcon fontSize="inherit" />
                     </IconButton>
                 </Box>
 
