@@ -5,11 +5,7 @@ import {
     BlogPostResponseDto,
     BlogPostListResponseDto } from '../../../../contracts';
 import { BlogPost } from '../../../data/models/blog/BlogPost';
-import { getUserAuthenticator, getAccessValidator } from '../../../domain';
-import { BlogPostManager } from '../../../domain/blog/BlogPostManager';
-
-
-const blogPostManager = new BlogPostManager();
+import { getUserAuthenticator, getAccessValidator, getBlogPostManager } from '../../../domain';
 
 
 /**
@@ -104,6 +100,8 @@ const mutationResolvers = {
                 return ResponseDto.failUnauthorized();
             }
 
+            const blogPostManager = getBlogPostManager();
+
             await blogPostManager.createBlogPost(params.blogPost, userContext);
 
             return ResponseDto.success();
@@ -128,6 +126,8 @@ const mutationResolvers = {
             if (!userContext.validateAdminAccess()) {
                 return ResponseDto.failUnauthorized();
             }
+
+            const blogPostManager = getBlogPostManager();
 
             await blogPostManager.updateBlogPost(params.blogPost, userContext);
 
@@ -154,6 +154,8 @@ const mutationResolvers = {
                 return ResponseDto.failUnauthorized();
             }
 
+            const blogPostManager = getBlogPostManager();
+            
             await blogPostManager.deleteBlogPost(params.blogPostId, userContext);
 
             return ResponseDto.success();

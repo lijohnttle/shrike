@@ -150,7 +150,8 @@ export const saveBlogPost = async (blogPost, options) => {
                             return `{
                                 path: "${attachment.path}",
                                 size: ${attachment.size},
-                                data: "${attachment.data}"
+                                data: "${attachment.data}",
+                                contentType: "${attachment.contentType}"
                             }`;
                         }).join(', ')}
                     ]
@@ -205,7 +206,8 @@ export const createBlogPost = async (blogPost, options) => {
                             return `{
                                 path: "${attachment.path}",
                                 size: ${attachment.size},
-                                data: "${attachment.data}"
+                                data: "${attachment.data}",
+                                contentType: "${attachment.contentType}"
                             }`;
                         }).join(', ')}
                     ]

@@ -23,6 +23,7 @@ const Query = `
         path: String!
         size: Int!
         data: String
+        contentType: String!
     }
 `;
 

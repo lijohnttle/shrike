@@ -2,6 +2,7 @@ import { UserAuthenticator, Options as UserAuthenticatorOptions } from './servic
 import { UserProfileCachedRepository, UserProfileRepository } from './services/users/UserProfileRepository.js';
 import { UserVisitCounter, Options as UserVisitCounterOptions } from './services/diagnostics/UserVisitCounter.js';
 import { AccessValidator } from './services/authorization/AccessValidator.js';
+import { BlogPostManager } from './services/blog/BlogPostManager';
 
 
 /** @type {UserAuthenticator} */
@@ -12,6 +13,8 @@ let userProfileRepository;
 let userVisitCounter;
 /** @type {AccessValidator} */
 let accessValidator;
+/** @type {BlogPostManager} */
+let blogPosetManager;
 
 class Options {
     /**
@@ -32,6 +35,7 @@ const configure = (options) => {
     userProfileRepository = new UserProfileCachedRepository(new UserProfileRepository());
     userVisitCounter = new UserVisitCounter(options.userVisitCounterOptions);
     accessValidator = new AccessValidator();
+    blogPosetManager = new BlogPostManager();
 
     userVisitCounter.scheduleAggregation();
 };
@@ -40,6 +44,7 @@ const getUserAuthenticator = () => userAuthenticator;
 const getUserProfileRepository = () => userProfileRepository;
 const getUserVisitCounter = () => userVisitCounter;
 const getAccessValidator = () => accessValidator;
+const getBlogPostManager = () => blogPosetManager;
 
 
 export {
@@ -49,4 +54,5 @@ export {
     getUserProfileRepository,
     getUserVisitCounter,
     getAccessValidator,
+    getBlogPostManager,
 };

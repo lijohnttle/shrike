@@ -28,6 +28,13 @@ export class AttachmentModel {
         this.data = props?.data;
 
         /**
+         * The content type.
+         * @type {String}
+         * @public
+         */
+        this.contentType = props?.contentType;
+
+        /**
          * The local file.
          * @type {File}
          * @public
@@ -44,6 +51,7 @@ export class AttachmentModel {
             path: file.name,
             size: file.size,
             file: file,
+            contentType: file.type,
         });
     }
 }

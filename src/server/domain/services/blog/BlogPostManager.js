@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import { BlogPostDto } from '../../../contracts';
-import { Attachment } from '../../data/models/Attachment';
-import { BlogPost, BlogPostDocument } from '../../data/models/blog/BlogPost';
-import { UserContext } from '../entities/authentication/UserContext';
+import { BlogPostDto } from '../../../../contracts';
+import { Attachment } from '../../../data/models/Attachment';
+import { BlogPost, BlogPostDocument } from '../../../data/models/blog/BlogPost';
+import { UserContext } from '../../entities/authentication/UserContext';
 
 
 /**
@@ -34,17 +34,18 @@ const mapBlogPostFields = (source, dest) => {
 
     if (attachmentsInput.length > 0) {
         // keep attachments that were not removed or reloaded on the client
-        const attachmentsToKeep = new Set(attachmentsInput.filter(t => !t.data).map(t => t.path));
+        const attachmentsToKeep = new Set(attachmentsInput.filter(t => !t.data).map(t => encodeURI(t.path)));
         
-        for (let attachment of existingAttachments.filter(t => attachmentsToKeep.has(t.path))) {
+        for (let attachment of existingAttachments.filter(t => attachmentsToKeep.has(t.name))) {
             newAttachments.push(attachment);
         }
 
         for (let attachment of attachmentsInput.filter(t => !!t.data)) {
             newAttachments.push({
-                path: attachment.path,
+                name: encodeURI(attachment.path),
                 size: attachment.size,
                 data: Buffer.from(attachment.data, 'base64'),
+                contentType: attachment.contentType,
             });
         }
     }
@@ -98,6 +99,29 @@ class BlogPostManager {
         mapBlogPostFields(blogPost, newBlogPost);
 
         await newBlogPost.save();
+    }
+
+    /**
+     * @param {String} blogPostSlug
+     * @param {String} attachmentName
+     * @returns {Promise<Attachment>}
+     */
+    async getAttachment(blogPostSlug, attachmentName) {
+        const blogPost = await BlogPost.findOne(
+            {
+                slug: blogPostSlug,
+                "attachments.name": attachmentName,
+            },
+            {
+                attachments: 1
+            }
+        );
+
+        if (blogPost?.attachments?.length > 0) {
+            return blogPost.attachments[0];
+        }
+
+        return null;
     }
 }
 

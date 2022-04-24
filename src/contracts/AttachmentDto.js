@@ -26,5 +26,12 @@
          * @public
          */
         this.data = props?.data;
+
+        /**
+         * The content type of an attachment.
+         * @type {String}
+         * @public
+         */
+        this.contentType = props?.contentType;
     }
 }

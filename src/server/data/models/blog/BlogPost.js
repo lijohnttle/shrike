@@ -35,6 +35,7 @@ const blogPostSchema = new mongoose.Schema({
         name: String,
         size: Number,
         data: Buffer,
+        contentType: String,
     }],
 });
 

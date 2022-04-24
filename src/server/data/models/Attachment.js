@@ -4,7 +4,7 @@ export class Attachment {
          * @type {String}
          * @public
          */
-        this.path = undefined;
+        this.name = undefined;
         
         /**
          * @type {Number}
@@ -17,5 +17,11 @@ export class Attachment {
          * @public
          */
         this.data = undefined;
+
+        /**
+         * @type {String}
+         * @public
+         */
+        this.contentType = undefined;
     }
 }
