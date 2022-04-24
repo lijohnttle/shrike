@@ -5,11 +5,15 @@ const queryResolvers = {
     verifyAdminAccess: async (_, { accessToken }) => {
 
         try {
+            const userContext = getUserAuthenticator().getUserContext(accessToken);
+
             return {
-                verified: getUserAuthenticator().getUserContext(accessToken).validateAdminAccess(),
+                verified: userContext.validateAdminAccess(),
             };
         }
         catch (error) {
+            console.log(error);
+
             return {
                 verified: false
             };

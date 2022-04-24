@@ -5,6 +5,7 @@ import { UserSessionCleaner } from '../../entities/authentication/UserSessionCle
 import { generateUuidv4 } from '../../../../utils/uuidGenerator.js';
 import { UserContext } from '../../entities/authentication/UserContext';
 import { UserRole } from '../../entities/authentication/UserRole';
+import { getUserAuthenticator } from '../../index.js';
 
 
 const DEFAULT_SESSION_LIFETIME = 24 * 60 * 60 * 1000;    // 1 day

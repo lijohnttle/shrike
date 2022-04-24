@@ -78,6 +78,10 @@ const EditBlogPostPage = () => {
     };
 
     const deleteHandler = async () => {
+        if (!window.confirm('Delete blog post?')) {
+            return;
+        }
+
         const session = getUserSession();
 
         try {
