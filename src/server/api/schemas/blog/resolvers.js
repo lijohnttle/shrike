@@ -1,52 +1,32 @@
-import mongoose from 'mongoose';
 import {
     ResponseDto,
     BlogPostDto,
     BlogPostResponseDto,
     BlogPostListResponseDto } from '../../../../contracts';
-import { BlogPost } from '../../../data/models/blog/BlogPost';
-import { getAccessValidator } from '../../../domain';
-
-
-/**
- * Converts data model of a blog post into DTO. 
- * @param {*} rawBlogPost 
- * @returns {BlogPostDto}
- */
-const convertToBlogPostMetadata = (rawBlogPost) => {
-    return new BlogPostDto({
-        id: rawBlogPost._id,
-        title: rawBlogPost.title,
-        slug: rawBlogPost.slug,
-        description: rawBlogPost.description,
-        content: rawBlogPost.content,
-        createdOn: rawBlogPost.createdOn.toUTCString(),
-        updatedOn: rawBlogPost.updatedOn.toUTCString(),
-        publishedOn: rawBlogPost.publishedOn ? rawBlogPost.publishedOn.toUTCString() : null,
-        published: !!rawBlogPost.published,
-    });
-};
+import { getUserAuthenticator, getBlogManager } from '../../../domain';
 
 
 const queryResolvers = {
-    blogPostList: async (_, { includeUnpublished, accessToken }) => {
-
+    /**
+     * Creates a new blog post.
+     * @param {any} _ 
+     * @param {Object} params 
+     * @param {Boolean} params.includeUnpublished 
+     * @param {String} params.accessToken 
+     */
+    blogPostList: async (_, params) => {
         try {
-            if (includeUnpublished) {
-                if (!getAccessValidator().validateAdminAccess(accessToken)) {
+            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
+
+            const requireAdminRole = params.includeUnpublished;
+
+            if (requireAdminRole) {
+                if (!userContext.validateAdminAccess()) {
                     return ResponseDto.failUnauthorized();
                 }
             }
 
-            const filter = { };
-
-            if (!includeUnpublished) {
-                filter.published = true;
-            }
-
-            const rawBlogPosts = await BlogPost.find(filter);
-
-            const blogPosts = rawBlogPosts.map(convertToBlogPostMetadata);
+            const blogPosts = await getBlogManager().getBlogPostList(params.includeUnpublished, userContext);
 
             return new BlogPostListResponseDto({ success: true, blogPosts });
         }
@@ -56,25 +36,30 @@ const queryResolvers = {
             return ResponseDto.fail('Error occured while retrieving a list of blog posts');
         }
     },
-    blogPost: async (_, { slug, accessToken }) => {
-
+    /**
+     * Creates a new blog post.
+     * @param {any} _ 
+     * @param {Object} params 
+     * @param {String} params.slug 
+     * @param {String} params.accessToken 
+     */
+    blogPost: async (_, params) => {
         try {
-            const rawBlogPost = await BlogPost.findOne({ slug: slug });
+            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
 
-            if (!rawBlogPost) {
+            const blogPost = await getBlogManager().getBlogPost(params.slug, userContext);
+
+            if (!blogPost) {
                 return ResponseDto.success();
             }
 
-            if (!rawBlogPost.published) {
-                if (!accessToken || !getAccessValidator().validateAdminAccess(accessToken)) {
+            if (!blogPost.published) {
+                if (!userContext.validateAdminAccess(accessToken)) {
                     return ResponseDto.failUnauthorized();
                 }
             }
 
-            return new BlogPostResponseDto({
-                success: true,
-                blogPost: convertToBlogPostMetadata(rawBlogPost),
-            });
+            return new BlogPostResponseDto({ success: true, blogPost: blogPost });
         }
         catch (error) {
             console.error(error);
@@ -85,23 +70,24 @@ const queryResolvers = {
 };
 
 const mutationResolvers = {
-    createBlogPost: async (_, { blogPost, accessToken }) => {
-
+    /**
+     * Creates a new blog post.
+     * @param {any} _ 
+     * @param {Object} params 
+     * @param {BlogPostDto} params.blogPost 
+     * @param {String} params.accessToken 
+     */
+    createBlogPost: async (_, params) => {
         try {
-            if (!getAccessValidator().validateAdminAccess(accessToken)) {
+            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
+
+            if (!userContext.validateAdminAccess()) {
                 return ResponseDto.failUnauthorized();
             }
 
-            const newBlogPost = new BlogPost(blogPost);
-            newBlogPost.createdOn = new Date();
-            newBlogPost.updatedOn = newBlogPost.createdOn;
+            const blogPostManager = getBlogManager();
 
-            if (blogPost.published) {
-                newBlogPost.publishedOn = newBlogPost.createdOn;
-                newBlogPost.published = true;
-            }
-
-            await newBlogPost.save();
+            await blogPostManager.createBlogPost(params.blogPost, userContext);
 
             return ResponseDto.success();
         }
@@ -111,43 +97,31 @@ const mutationResolvers = {
             return ResponseDto.fail('Error occured while creating a blog post');
         }
     },
-    editBlogPost: async (_, { blogPost, accessToken }) => {
-
+    /**
+     * Updates a blog post.
+     * @param {any} _ 
+     * @param {Object} params 
+     * @param {BlogPostDto} params.blogPost 
+     * @param {String} params.accessToken 
+     */
+    editBlogPost: async (_, params) => {
         try {
-            if (!getAccessValidator().validateAdminAccess(accessToken)) {
+            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
+
+            if (!userContext.validateAdminAccess()) {
                 return ResponseDto.failUnauthorized();
             }
 
-            const existingBlogPost = await BlogPost.findOne({ _id: mongoose.Types.ObjectId(blogPost.id) });
+            const blogPostManager = getBlogManager();
 
-            if (!existingBlogPost) {
-                return ResponseDto.failNotFound();
-            }
-
-            existingBlogPost.title = blogPost.title;
-            existingBlogPost.description = blogPost.description;
-            existingBlogPost.content = blogPost.content;
-            existingBlogPost.slug = blogPost.slug;
-            existingBlogPost.published = blogPost.published;
-            existingBlogPost.updatedOn = new Date();
-
-            if (existingBlogPost.published) {
-                if (!existingBlogPost.publishedOn) {
-                    existingBlogPost.publishedOn = existingBlogPost.updatedOn;
-                }
-            }
-            else {
-                existingBlogPost.publishedOn = null;
-            }
-
-            await existingBlogPost.save();
+            await blogPostManager.updateBlogPost(params.blogPost, userContext);
 
             return ResponseDto.success();
         }
         catch (error) {
             console.error(error);
 
-            ResponseDto.fail('Error occured while saving a blog post');
+            return ResponseDto.fail('Error occured while saving a blog post');
         }
     },
     /**
@@ -158,20 +132,23 @@ const mutationResolvers = {
      * @param {String} params.accessToken 
      */
     deleteBlogPost: async (_, params) => {
-        
         try {
-            if (!getAccessValidator().validateAdminAccess(params.accessToken)) {
+            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
+
+            if (!userContext.validateAdminAccess()) {
                 return ResponseDto.failUnauthorized();
             }
 
-            await BlogPost.deleteOne({ _id: params.blogPostId });
+            const blogPostManager = getBlogManager();
+
+            await blogPostManager.deleteBlogPost(params.blogPostId, userContext);
 
             return ResponseDto.success();
         }
         catch (error) {
             console.error(error);
 
-            ResponseDto.fail('Error occured while saving a blog post');
+            return ResponseDto.fail('Error occured while saving a blog post');
         }
     },
 };

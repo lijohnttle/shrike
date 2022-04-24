@@ -1,4 +1,5 @@
 import { BlogPostDto } from '../../contracts';
+import { AttachmentModel } from './AttachmentModel';
 
 /**
  * Represents a blog post.
@@ -14,54 +15,69 @@ import { BlogPostDto } from '../../contracts';
          * @public
          */
         this.id = props?.id;
+
         /**
          * The title of a blog post.
          * @type {String}
          * @public
          */
         this.title = props?.title;
+
         /**
          * The short description of a blog post.
          * @type {String}
          * @public
          */
         this.description = props?.description;
+
         /**
          * The content of a blog post.
          * @type {String}
          * @public
          */
         this.content = props?.content;
+
         /**
          * The URL slug of a blog post.
          * @type {String}
          * @public
          */
         this.slug = props?.slug;
+        
         /**
          * The creation date of a blog post.
          * @type {Date}
          * @public
          */
         this.createdOn = props?.createdOn;
+
         /**
          * The date of the last update of a blog post.
          * @type {Date}
          * @public
          */
         this.updatedOn = props?.updatedOn;
+
         /**
          * The last publication date of a blog post.
          * @type {Date}
          * @public
          */
         this.publishedOn = props?.publishedOn;
+
         /**
          * The value that indicates if blog post has been published and available for users.
          * @type {Boolean}
          * @public
          */
         this.published = props?.published;
+
+        /**
+         * Atatched files.
+         * @type {AttachmentModel[]}
+         * @public
+         */
+        this.attachments = props?.attachments;
     }
 
     /**
@@ -84,6 +100,13 @@ import { BlogPostDto } from '../../contracts';
             updatedOn: dto.updatedOn ? new Date(Date.parse(dto.updatedOn)) : null,
             publishedOn: dto.publishedOn ? new Date(Date.parse(dto.publishedOn)) : null,
             published: dto.published,
+            attachments: dto.attachments?.map(attachment => new AttachmentModel({
+                name: attachment.name,
+                url: attachment.url,
+                contentType: attachment.contentType,
+                size: attachment.size,
+                data: attachment.data,
+            })),
         });
     }
 }

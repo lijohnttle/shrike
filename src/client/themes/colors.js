@@ -11,4 +11,7 @@ export default {
     activeDark: '#0060bd',
     activeText: '#ffffff',
     brand: '#00adff',
+    grayText: 'gray',
+    formBorder: 'lightgray',
+    formBorderActive: 'gray',
 };
