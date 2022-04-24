@@ -1,11 +1,11 @@
-import { queryData } from './api.js';
+import { graphqlRequest } from './api.js';
 
 
-async function fetchUserVisits(count, accessToken, dataFetchedCallback) {
+async function fetchUserVisits(count, userToken, dataFetchedCallback) {
     try {
-        const response = await queryData(`
+        const response = await graphqlRequest(`
             query {
-                userVisits(numVisits: ${count}, accessToken: "${accessToken}") {
+                userVisits(numVisits: ${count}, userToken: "${userToken}") {
                     success
                     userVisits {
                         id
@@ -34,15 +34,15 @@ async function fetchUserVisits(count, accessToken, dataFetchedCallback) {
     }
 }
 
-async function deleteUserVisits(userVisitIds, accessToken) {
+async function deleteUserVisits(userVisitIds, userToken) {
     if (userVisitIds.lentgh === 0) {
         return false;
     }
 
     try {
-        const response = await queryData(`
+        const response = await graphqlRequest(`
             mutation {
-                deleteUserVisits(userVisitIds: [${userVisitIds.map(id => `"${id}"`).join()}], accessToken: "${accessToken}")
+                deleteUserVisits(userVisitIds: [${userVisitIds.map(id => `"${id}"`).join()}], userToken: "${userToken}")
             }
         `);
 
@@ -55,11 +55,11 @@ async function deleteUserVisits(userVisitIds, accessToken) {
     }
 }
 
-async function deleteAllUserVisits(accessToken) {
+async function deleteAllUserVisits(userToken) {
     try {
-        const response = await queryData(`
+        const response = await graphqlRequest(`
             mutation {
-                clearAllUserVisits(accessToken: "${accessToken}")
+                clearAllUserVisits(userToken: "${userToken}")
             }
         `);
 

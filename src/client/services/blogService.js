@@ -1,6 +1,6 @@
 import { AttachmentModel, BlogPostModel, UserSessionModel } from '../models';
 import { BlogPostListResponseDto, BlogPostResponseDto, ResponseDto } from '../../contracts';
-import { queryData } from './api';
+import { graphqlRequest } from './api';
 import { toBase64 } from '../utils/filesystem';
 
 
@@ -37,11 +37,14 @@ const prepareAttachmentsToUpload = async (blogPost) => {
  * @returns {Promise<BlogPostModel[]>}
  */
 export const fetchBlogPostList = async (options) => {
-    const response = await queryData(`
-        query {
+    const response = await graphqlRequest(`
+        query BlogPostList(
+            $unpublished: Boolean,
+            $userToken: String)
+        {
             blogPostList(
-                includeUnpublished: ${!!options?.unpublished},
-                accessToken: "${options?.userSession?.token || ''}")
+                includeUnpublished: $unpublished,
+                userToken: $userToken)
             {
                 success
                 blogPosts {
@@ -56,7 +59,11 @@ export const fetchBlogPostList = async (options) => {
                 errorMessage
             }
         }
-    `);
+    `,
+    {
+        unpublished: !!options.unpublished,
+        userToken: options?.userSession?.token || '',
+    });
 
     /**
      * @type {BlogPostListResponseDto}
@@ -84,11 +91,15 @@ export const fetchBlogPostList = async (options) => {
  * @returns {Promise<BlogPostModel>}
  */
 export const fetchBlogPost = async (slug, options) => {
-    const response = await queryData(`
-        query {
+    const response = await graphqlRequest(`
+        query BlogPost(
+            $slug: String!,
+            $userToken: String
+        )
+        {
             blogPost(
-                slug: "${slug}",
-                accessToken: "${options?.userSession?.token || ''}")
+                slug: $slug,
+                userToken: $userToken)
             {
                 success
                 blogPost {
@@ -111,7 +122,11 @@ export const fetchBlogPost = async (slug, options) => {
                 errorMessage
             }
         }
-    `);
+    `,
+    {
+        slug: slug,
+        userToken: options?.userSession?.token || '',
+    });
 
     /**
      * @type {BlogPostResponseDto}
@@ -141,39 +156,54 @@ export const fetchBlogPost = async (slug, options) => {
 export const saveBlogPost = async (blogPost, options) => {
     const attachments = await prepareAttachmentsToUpload(blogPost);
 
-    const response = await queryData(`
-        mutation {
-            editBlogPost(
+    const response = await graphqlRequest(`
+        mutation ChangeBlogPost(
+            $id: String!,
+            $title: String!,
+            $slug: String!,
+            $description: String!,
+            $content: String!,
+            $published: Boolean,
+            $attachments: [FileAttachmentInput],
+            $userToken: String!)
+        {
+            changeBlogPost(
                 blogPost: {
-                    id: "${blogPost.id}",
-                    title: "${blogPost.title}",
-                    slug: "${blogPost.slug}",
-                    description: "${blogPost.description}",
-                    content: "${blogPost.content}",
-                    published: ${blogPost.published},
-                    attachments: [
-                        ${attachments.map(attachment => {
-                            return `{
-                                name: "${attachment.name}",
-                                size: ${attachment.size},
-                                data: "${attachment.data}",
-                                contentType: "${attachment.contentType}"
-                            }`;
-                        }).join(', ')}
-                    ]
+                    id: $id,
+                    title: $title,
+                    slug: $slug,
+                    description: $description,
+                    content: $content,
+                    published: $published,
+                    attachments: $attachments
                 },
-                accessToken: "${options.userSession.token}")
+                userToken: $userToken)
             {
                 success
                 errorMessage
             }
         }
-    `);
+    `,
+    {
+        id: blogPost.id,
+        title: blogPost.title,
+        slug: blogPost.slug,
+        description: blogPost.description,
+        content: blogPost.content,
+        published: blogPost.published,
+        attachments: attachments?.map(attachment => ({
+            name: attachment.name,
+            size: attachment.size,
+            data: attachment.data,
+            contentType: attachment.contentType,
+        })),
+        userToken: options.userSession.token,
+    });
 
     /**
      * @type {ResponseDto}
      */
-     const message = response.editBlogPost;
+     const message = response.changeBlogPost;
 
      if (message) {
         if (message.success) {
@@ -198,33 +228,47 @@ export const saveBlogPost = async (blogPost, options) => {
 export const createBlogPost = async (blogPost, options) => {
     const attachments = await prepareAttachmentsToUpload(blogPost);
 
-    const response = await queryData(`
-        mutation {
+    const response = await graphqlRequest(`
+        mutation CreateBlogPost(
+            $title: String!,
+            $slug: String!,
+            $description: String!,
+            $content: String!,
+            $published: Boolean,
+            $attachments: [FileAttachmentInput],
+            $userToken: String!
+        )
+        {
             createBlogPost(
                 blogPost: {
-                    title: "${blogPost.title}",
-                    slug: "${blogPost.slug}",
-                    description: "${blogPost.description}",
-                    content: "${blogPost.content}",
-                    published: ${blogPost.published},
-                    attachments: [
-                        ${attachments.map(attachment => {
-                            return `{
-                                name: "${attachment.name}",
-                                size: ${attachment.size},
-                                data: "${attachment.data}",
-                                contentType: "${attachment.contentType}"
-                            }`;
-                        }).join(', ')}
-                    ]
+                    title: $title,
+                    slug: $slug,
+                    description: $description,
+                    content: $content,
+                    published: $published,
+                    attachments: $attachments
                 },
-                accessToken: "${options.userSession.token}")
+                userToken: $userToken)
             {
                 success
                 errorMessage
             }
         }
-    `);
+    `,
+    {
+        title: blogPost.title,
+        slug: blogPost.slug,
+        description: blogPost.description,
+        content: blogPost.content,
+        published: blogPost.published,
+        attachments: attachments?.map(attachment => ({
+            name: attachment.name,
+            size: attachment.size,
+            data: attachment.data,
+            contentType: attachment.contentType,
+        })),
+        userToken: options.userSession.token,
+    });
 
     /**
      * @type {ResponseDto}
@@ -252,17 +296,25 @@ export const createBlogPost = async (blogPost, options) => {
  * @returns {Promise}
  */
 export const deleteBlogPost = async (blogPostId, options) => {
-    const response = await queryData(`
-        mutation {
+    const response = await graphqlRequest(`
+        mutation DeleteBlogPost(
+            $blogPostId: String!,
+            $userToken: String!
+        )
+        {
             deleteBlogPost(
-                blogPostId: "${blogPostId}",
-                accessToken: "${options.userSession.token}")
+                blogPostId: $blogPostId,
+                userToken: $userToken)
             {
                 success
                 errorMessage
             }
         }
-    `);
+    `,
+    {
+        blogPostId: blogPostId,
+        userToken: options.userSession.token,
+    });
 
     /**
      * @type {ResponseDto}

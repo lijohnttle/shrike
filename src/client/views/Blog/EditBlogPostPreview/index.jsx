@@ -1,14 +1,15 @@
 import React from 'react';
 import { Button, Checkbox, FormControlLabel } from '@mui/material';
 import { useStyles } from './styles';
-import ReactMarkdown from 'react-markdown';
 import { Article } from '../../../components/Article';
 import { ContentBlock } from '../../../components/ContentBlock';
+import { BlogMarkdown } from '../../../components/BlogMarkdown';
 
 
 const EditBlogPostPreview = ({
         isCreation,
         blogPostTitle,
+        blogPostAttachments,
         blogPostContent,
         blogPostPublish,
         onEdit,
@@ -25,7 +26,7 @@ const EditBlogPostPreview = ({
         <Article title={blogPostTitle.toUpperCase()} compact>
             <ContentBlock>
                 <div className={classes.contentRoot}>
-                    <ReactMarkdown children={blogPostContent} />
+                    <BlogMarkdown attachments={blogPostAttachments} children={blogPostContent} />
 
                     <form className={classes.form}>
                         <div className={classes.commandsContainer}>

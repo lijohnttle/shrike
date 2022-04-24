@@ -25,9 +25,9 @@ const queryResolvers = {
 };
 
 const mutationResolvers = {
-    saveUserProfile: async (_, { userProfile, accessToken }) => {
+    saveUserProfile: async (_, { userProfile, userToken }) => {
 
-        const userContext = getUserAuthenticator().getUserContext(accessToken);
+        const userContext = getUserAuthenticator().getUserContext(userToken);
 
         userContext.verifyAdminAccess();
 

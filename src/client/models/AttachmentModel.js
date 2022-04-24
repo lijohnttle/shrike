@@ -61,4 +61,16 @@ export class AttachmentModel {
             contentType: file.type,
         });
     }
+
+    /**
+     * Returns a URL that could be used in HTML.
+     * @returns {String}
+     */
+    getUrl() {
+        if (this.file) {
+            return URL.createObjectURL(this.file);
+        }
+
+        return this.url;
+    }
 }

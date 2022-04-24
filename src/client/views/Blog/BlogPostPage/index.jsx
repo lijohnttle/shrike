@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom'
 import { useUserSession } from '../../../hooks';
 import { Article } from '../../../components/Article';
@@ -8,6 +7,7 @@ import { NotFound } from '../../../views/NotFound';
 import { Page } from '../../../components/Page';
 import { BlogPostToolBar } from '../BlogPostToolBar';
 import { fetchBlogPost } from '../../../services/blogService';
+import { BlogMarkdown } from '../../../components/BlogMarkdown';
 
 
 const BlogPostPage = () => {
@@ -48,7 +48,7 @@ const BlogPostPage = () => {
                 {!isLoading ? <BlogPostToolBar slug={blogPost.slug} /> : null}
 
                 <ContentBlock>
-                    {!isLoading ? <ReactMarkdown children={blogPost.content} /> : null}
+                    {!isLoading ? <BlogMarkdown blogPostSlug={blogPost.slug} children={blogPost.content} /> : null}
                 </ContentBlock>
             </Article>
         </Page>
