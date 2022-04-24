@@ -62,7 +62,7 @@ const EditBlogPostPage = () => {
                 setBlogPost(new BlogPostModel({ ...blogPost, published: value }));
                 break;
             case 'attachments':
-                setBlogPost(new BlogPostModel({ ...blogPost, attachments: value.map(file => AttachmentModel.createFromFile(file))}));
+                setBlogPost(new BlogPostModel({ ...blogPost, attachments: value }));
                 break;
         }
     };

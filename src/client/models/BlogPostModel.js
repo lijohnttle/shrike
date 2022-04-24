@@ -100,6 +100,13 @@ import { AttachmentModel } from './AttachmentModel';
             updatedOn: dto.updatedOn ? new Date(Date.parse(dto.updatedOn)) : null,
             publishedOn: dto.publishedOn ? new Date(Date.parse(dto.publishedOn)) : null,
             published: dto.published,
+            attachments: dto.attachments?.map(attachment => new AttachmentModel({
+                name: attachment.name,
+                url: attachment.url,
+                contentType: attachment.contentType,
+                size: attachment.size,
+                data: attachment.data,
+            })),
         });
     }
 }

@@ -95,17 +95,9 @@ export const FileMetaData = styled('div', { shouldForwardProp: (prop) => !prop.s
 
 export const PreviewContainer = styled('div')(({ theme }) => ({
     padding: '0.25rem',
-    width: '20%',
+    width: '192px',
     height: '120px',
     boxSizing: 'border-box',
-
-    '&:hover': {
-        opacity: '0.55',
-
-        FileMetaData: {
-            display: 'flex',
-        },
-    },
 
     '& > div:first-of-type': {
         height: '100%',

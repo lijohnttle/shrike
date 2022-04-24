@@ -1,7 +1,7 @@
 import { AttachmentModel, BlogPostModel, UserSessionModel } from '../models';
 import { BlogPostListResponseDto, BlogPostResponseDto, ResponseDto } from '../../contracts';
 import { queryData } from './api';
-import { toBase64 } from '../utils/filesystem';;
+import { toBase64 } from '../utils/filesystem';
 
 
 /**
@@ -101,6 +101,12 @@ export const fetchBlogPost = async (slug, options) => {
                     updatedOn
                     publishedOn
                     published
+                    attachments {
+                        name
+                        url
+                        size
+                        contentType
+                    }
                 }
                 errorMessage
             }

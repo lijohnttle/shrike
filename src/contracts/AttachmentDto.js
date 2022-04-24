@@ -33,5 +33,12 @@
          * @public
          */
         this.contentType = props?.contentType;
+
+        /**
+         * The URL of the resource.
+         * @type {String}
+         * @public
+         */
+        this.url = props?.url;
     }
 }

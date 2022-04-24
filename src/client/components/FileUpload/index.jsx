@@ -1,5 +1,5 @@
 import { Button, IconButton, Typography } from '@mui/material';
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { RemoveCircle as RemoveIcon, Add as AddIcon } from '@mui/icons-material';
 import {
     FileUploadContainer,
@@ -10,14 +10,11 @@ import {
     FileMetaData,
     InputLabel
 } from "./index.styles";
-import { Box } from '@mui/system';
 import colors from '../../themes/colors';
+import { AttachmentModel } from '../../models';
 
 const KILO_BYTES_PER_BYTE = 1000;
 const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 1048576; // 1 MB
-
-const convertNestedObjectToArray = (nestedObj) =>
-    Object.keys(nestedObj).map((key) => nestedObj[key]);
 
 const convertBytesToKB = (bytes) => Math.round(bytes / KILO_BYTES_PER_BYTE);
 
@@ -26,50 +23,61 @@ const convertBytesToKB = (bytes) => Math.round(bytes / KILO_BYTES_PER_BYTE);
  * A component to upload files.
  * @param {Object} props 
  * @param {String} props.label
+ * @param {AttachmentModel[]} props.attachments
  * @param {Function} props.onChange
  * @param {Number} props.maxFileSizeInBytes
  * @param {Boolean} props.multiple
  */
 const FileUpload = (props) => {
     const fileInputField = useRef(null);
-    const [files, setFiles] = useState({});
 
     const handleUpload = () => {
         fileInputField.current.click();
     };
 
     const addNewFiles = (newFiles) => {
+        const files = [];
+
         for (let file of newFiles) {
             if (file.size < (props.maxFileSizeInBytes || DEFAULT_MAX_FILE_SIZE_IN_BYTES)) {
+                files.push(file);
+
                 if (!props.multiple) {
-                    return { file };
+                    break;
                 }
-                files[file.name] = file;
             }
         }
-        return { ...files };
+        return files;
     };
 
-    const callOnChange = (files) => {
+    const callOnChange = (attachments) => {
         if (props.onChange) {
-            const filesAsArray = convertNestedObjectToArray(files);
-            props.onChange(filesAsArray);
+            props.onChange(attachments);
         }
     };
 
-    const handleNewFileUpload = (e) => {
+    const addAttachments = (e) => {
         const { files: newFiles } = e.target;
+
         if (newFiles.length) {
-            let updatedFiles = addNewFiles(newFiles);
-            setFiles(updatedFiles);
-            callOnChange(updatedFiles);
+            const attachmentsByName = props.attachments.reduce((map, attachment) => { 
+                map[attachment.name] = attachment;
+                return map;
+            }, { })
+
+            const updatedFiles = addNewFiles(newFiles);
+            const newAttachments = updatedFiles
+                .map(file => AttachmentModel.createFromFile(file))
+                .filter(attachment => !(attachment.name in attachmentsByName));
+            callOnChange([
+                ...props.attachments,
+                ...newAttachments
+            ]);
         }
     };
 
-    const removeFile = (fileName) => {
-        delete files[fileName];
-        setFiles({ ...files });
-        callOnChange({ ...files });
+    const removeAttachment = (attachment) => {
+        callOnChange(props.attachments.filter(t => t !== attachment));
     };
 
     return (
@@ -85,7 +93,8 @@ const FileUpload = (props) => {
                     ref={fileInputField}
                     title=""
                     value=""
-                    onChange={handleNewFileUpload} />
+                    multiple={props.multiple}
+                    onChange={addAttachments} />
 
                 <Button variant="outlined" color="primary" startIcon={<AddIcon />} onClick={handleUpload}>
                     Upload {props.multiple ? "files" : "a file"}
@@ -94,15 +103,15 @@ const FileUpload = (props) => {
             <FilePreviewContainer>
                 <InputLabel>To upload</InputLabel>
                 <PreviewList>
-                    {Object.keys(files).map((fileName, index) => {
-                        let file = files[fileName];
-                        let isImageFile = file.type.split("/")[0] === "image";
+                    {props.attachments.map((attachment, index) => {
+                        let isImageFile = attachment.contentType.split('/')[0] === 'image';
+
                         return (
-                            <PreviewContainer key={fileName}>
+                            <PreviewContainer key={attachment.name}>
                                 <div>
                                     {isImageFile && (
                                         <img
-                                            src={URL.createObjectURL(file)}
+                                            src={attachment.file ? URL.createObjectURL(attachment.file) : attachment.url}
                                             alt={`file preview ${index}`}
                                             style={{
                                                 backgroundColor: 'black',
@@ -112,15 +121,18 @@ const FileUpload = (props) => {
                                             }} />
                                     )}
                                     <FileMetaData $isImageFile={isImageFile}>
-                                        <span>{file.name}</span>
+                                        <span>{attachment.name}</span>
                                         <aside>
-                                            <span>{convertBytesToKB(file.size)} kb</span>
+                                            <span>{convertBytesToKB(attachment.size)} kb</span>
                                             <IconButton
                                                 color="inherit"
                                                 sx={{
-                                                    fontSize: '32px',
+                                                    position: 'absolute',
+                                                    top: 0,
+                                                    right: 0,
+                                                    fontSize: '24px',
                                                 }}
-                                                onClick={() => removeFile(fileName)}>
+                                                onClick={() => removeAttachment(attachment)}>
                                                 <RemoveIcon fontSize="inherit" />
                                             </IconButton>
                                         </aside>

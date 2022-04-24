@@ -39,6 +39,7 @@ const typeDef = `
         updatedOn: String!
         publishedOn: String
         published: Boolean!
+        attachments: [FileAttachmentOutput]
     }
 
     type BlogPostMetadata {

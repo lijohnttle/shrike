@@ -40,6 +40,13 @@ export class AttachmentModel {
          * @public
          */
         this.file = props?.file;
+
+        /**
+         * The URL to the resource.
+         * @type {String}
+         * @public
+         */
+        this.url = props?.url;
     }
 
     /**
@@ -48,7 +55,7 @@ export class AttachmentModel {
      */
     static createFromFile(file) {
         return new AttachmentModel({
-            name: file.name,
+            name: encodeURI(file.name),
             size: file.size,
             file: file,
             contentType: file.type,

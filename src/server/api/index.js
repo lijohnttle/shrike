@@ -25,6 +25,13 @@ const Query = `
         data: String
         contentType: String!
     }
+
+    type FileAttachmentOutput {
+        name: String!
+        size: Int!
+        url: String!
+        contentType: String!
+    }
 `;
 
 const Mutation = `

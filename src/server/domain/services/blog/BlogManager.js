@@ -34,7 +34,7 @@ const mapBlogPostDtoToDocument = (source, dest) => {
 
     if (attachmentsInput.length > 0) {
         // keep attachments that were not removed or reloaded on the client
-        const attachmentsToKeep = new Set(attachmentsInput.filter(t => !t.data).map(t => encodeURI(t.name)));
+        const attachmentsToKeep = new Set(attachmentsInput.filter(t => !t.data).map(t => t.name));
         
         for (let attachment of existingAttachments.filter(t => attachmentsToKeep.has(t.name))) {
             newAttachments.push(attachment);
@@ -42,7 +42,7 @@ const mapBlogPostDtoToDocument = (source, dest) => {
 
         for (let attachment of attachmentsInput.filter(t => !!t.data)) {
             newAttachments.push({
-                name: encodeURI(attachment.name),
+                name: attachment.name,
                 size: attachment.size,
                 data: Buffer.from(attachment.data, 'base64'),
                 contentType: attachment.contentType,
@@ -74,6 +74,7 @@ const mapBlogPostDocumentToDto = (source) => {
             contentType: attachment.contentType,
             data: null,
             size: attachment.size,
+            url: `/content/blog/${source.slug}/attachments/${attachment.name}`
         })),
     });
 };
@@ -143,8 +144,6 @@ class BlogManager {
             }
         );
 
-        console.log(`Attachment is null - ${!!blogPostDocument.attachments[0]?.data}`);
-
         if (!blogPostDocument) {
             return null;
         }
@@ -212,7 +211,6 @@ class BlogManager {
         const blogPost = await BlogPost.findOne(
             {
                 slug: blogPostSlug,
-                "attachments.name": attachmentName,
             },
             {
                 attachments: 1
@@ -220,7 +218,7 @@ class BlogManager {
         );
 
         if (blogPost?.attachments?.length > 0) {
-            return blogPost.attachments[0];
+            return blogPost.attachments.find(attachment => attachment.name === attachmentName);
         }
 
         return null;
