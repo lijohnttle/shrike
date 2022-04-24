@@ -59,8 +59,10 @@ const FileUpload = (props) => {
     const addAttachments = (e) => {
         const { files: newFiles } = e.target;
 
+        let attachments = props.attachments || [];
+
         if (newFiles.length) {
-            const attachmentsByName = props.attachments.reduce((map, attachment) => { 
+            const attachmentsByName = attachments.reduce((map, attachment) => { 
                 map[attachment.name] = attachment;
                 return map;
             }, { })
@@ -70,14 +72,14 @@ const FileUpload = (props) => {
                 .map(file => AttachmentModel.createFromFile(file))
                 .filter(attachment => !(attachment.name in attachmentsByName));
             callOnChange([
-                ...props.attachments,
+                ...attachments,
                 ...newAttachments
             ]);
         }
     };
 
     const removeAttachment = (attachment) => {
-        callOnChange(props.attachments.filter(t => t !== attachment));
+        callOnChange((props.attachments || []).filter(t => t !== attachment));
     };
 
     return (
@@ -103,7 +105,7 @@ const FileUpload = (props) => {
             <FilePreviewContainer>
                 <InputLabel>To upload</InputLabel>
                 <PreviewList>
-                    {props.attachments.map((attachment, index) => {
+                    {(props.attachments || []).map((attachment, index) => {
                         let isImageFile = attachment.contentType.split('/')[0] === 'image';
 
                         return (
