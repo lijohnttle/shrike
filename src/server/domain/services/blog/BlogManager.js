@@ -10,7 +10,7 @@ import { UserContext } from '../../entities/authentication/UserContext';
  * @param {BlogPostDto} source 
  * @param {BlogPostDocument} dest 
  */
-const mapBlogPostFields = (source, dest) => {
+const mapBlogPostDtoToDocument = (source, dest) => {
     dest.title = source.title;
     dest.description = source.description;
     dest.content = source.content;
@@ -53,7 +53,101 @@ const mapBlogPostFields = (source, dest) => {
     dest.attachments = newAttachments;
 };
 
-class BlogPostManager {
+/**
+ * Converts data model of a blog post into DTO. 
+ * @param {BlogPostDocument} rawBlogPost 
+ * @returns {BlogPostDto}
+ */
+const mapBlogPostDocumentToDto = (rawBlogPost) => {
+    return new BlogPostDto({
+        id: rawBlogPost._id,
+        title: rawBlogPost.title,
+        slug: rawBlogPost.slug,
+        description: rawBlogPost.description,
+        content: rawBlogPost.content,
+        createdOn: rawBlogPost.createdOn.toUTCString(),
+        updatedOn: rawBlogPost.updatedOn.toUTCString(),
+        publishedOn: rawBlogPost.publishedOn ? rawBlogPost.publishedOn.toUTCString() : null,
+        published: !!rawBlogPost.published,
+    });
+};
+
+
+class BlogManager {
+    /**
+     * Returns the list of blog posts.
+     * @param {Boolean} includeUnpublished
+     * @param {UserContext} userContext 
+     * @returns {Resolver<BlogPostDto[]>}
+     */
+    async getBlogPostList(includeUnpublished, userContext) {
+        const requireAdminRole = includeUnpublished;
+
+        if (requireAdminRole) {
+            userContext.verifyAdminAccess();
+        }
+
+        const filter = {};
+
+        if (!includeUnpublished) {
+            filter.published = true;
+        }
+
+        /** @type {BlogPostDocument[]} */
+        const blogPostDocuments = await BlogPost.find(
+            filter,
+            {
+                _id: 1,
+                title: 1,
+                slug: 1,
+                description: 1,
+                createdOn: 1,
+                updatedOn: 1,
+                publishedOn: 1,
+                published: 1,
+            }
+        );
+
+        return blogPostDocuments.map(mapBlogPostDocumentToDto);
+    }
+
+    /**
+     * Returns the list of blog posts.
+     * @param {String} slug 
+     * @param {UserContext} userContext 
+     * @returns {Resolver<BlogPostDto>}
+     */
+    async getBlogPost(slug, userContext) {
+        /** @type {BlogPostDocument} */
+        const blogPostDocument = await BlogPost.findOne(
+            {
+                slug: slug
+            },
+            {
+                _id: 1,
+                title: 1,
+                slug: 1,
+                description: 1,
+                content: 1,
+                createdOn: 1,
+                updatedOn: 1,
+                publishedOn: 1,
+                published: 1,
+                attachments: 1,
+            }
+        );
+
+        if (!blogPostDocument) {
+            return null;
+        }
+
+        if (!blogPostDocument.published) {
+            userContext.verifyAdminAccess();
+        }
+
+        return mapBlogPostDocumentToDto(blogPostDocument);
+    }
+
     /**
      * Deletes a blog post by Id.
      * @param {String} blogPostId 
@@ -81,7 +175,7 @@ class BlogPostManager {
             throw new Error('Not found');
         }
 
-        mapBlogPostFields(blogPost, existingBlogPost);
+        mapBlogPostDtoToDocument(blogPost, existingBlogPost);
 
         await existingBlogPost.save();
     }
@@ -96,7 +190,7 @@ class BlogPostManager {
 
         const newBlogPost = new BlogPost();
 
-        mapBlogPostFields(blogPost, newBlogPost);
+        mapBlogPostDtoToDocument(blogPost, newBlogPost);
 
         await newBlogPost.save();
     }
@@ -127,5 +221,5 @@ class BlogPostManager {
 
 
 export {
-    BlogPostManager
+    BlogManager
 };

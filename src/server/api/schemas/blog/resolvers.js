@@ -1,52 +1,32 @@
-import mongoose from 'mongoose';
 import {
     ResponseDto,
     BlogPostDto,
     BlogPostResponseDto,
     BlogPostListResponseDto } from '../../../../contracts';
-import { BlogPost } from '../../../data/models/blog/BlogPost';
-import { getUserAuthenticator, getAccessValidator, getBlogPostManager } from '../../../domain';
-
-
-/**
- * Converts data model of a blog post into DTO. 
- * @param {*} rawBlogPost 
- * @returns {BlogPostDto}
- */
-const convertToBlogPostMetadata = (rawBlogPost) => {
-    return new BlogPostDto({
-        id: rawBlogPost._id,
-        title: rawBlogPost.title,
-        slug: rawBlogPost.slug,
-        description: rawBlogPost.description,
-        content: rawBlogPost.content,
-        createdOn: rawBlogPost.createdOn.toUTCString(),
-        updatedOn: rawBlogPost.updatedOn.toUTCString(),
-        publishedOn: rawBlogPost.publishedOn ? rawBlogPost.publishedOn.toUTCString() : null,
-        published: !!rawBlogPost.published,
-    });
-};
+import { getUserAuthenticator, getBlogManager } from '../../../domain';
 
 
 const queryResolvers = {
-    blogPostList: async (_, { includeUnpublished, accessToken }) => {
-
+    /**
+     * Creates a new blog post.
+     * @param {any} _ 
+     * @param {Object} params 
+     * @param {Boolean} params.includeUnpublished 
+     * @param {String} params.accessToken 
+     */
+    blogPostList: async (_, params) => {
         try {
-            if (includeUnpublished) {
-                if (!getAccessValidator().validateAdminAccess(accessToken)) {
+            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
+
+            const requireAdminRole = params.includeUnpublished;
+
+            if (requireAdminRole) {
+                if (!userContext.validateAdminAccess()) {
                     return ResponseDto.failUnauthorized();
                 }
             }
 
-            const filter = { };
-
-            if (!includeUnpublished) {
-                filter.published = true;
-            }
-
-            const rawBlogPosts = await BlogPost.find(filter);
-
-            const blogPosts = rawBlogPosts.map(convertToBlogPostMetadata);
+            const blogPosts = await getBlogManager().getBlogPostList(params.includeUnpublished, userContext);
 
             return new BlogPostListResponseDto({ success: true, blogPosts });
         }
@@ -56,25 +36,30 @@ const queryResolvers = {
             return ResponseDto.fail('Error occured while retrieving a list of blog posts');
         }
     },
-    blogPost: async (_, { slug, accessToken }) => {
-
+    /**
+     * Creates a new blog post.
+     * @param {any} _ 
+     * @param {Object} params 
+     * @param {String} params.slug 
+     * @param {String} params.accessToken 
+     */
+    blogPost: async (_, params) => {
         try {
-            const rawBlogPost = await BlogPost.findOne({ slug: slug });
+            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
 
-            if (!rawBlogPost) {
+            const blogPost = await getBlogManager().getBlogPost(params.slug, userContext);
+
+            if (!blogPost) {
                 return ResponseDto.success();
             }
 
-            if (!rawBlogPost.published) {
-                if (!accessToken || !getAccessValidator().validateAdminAccess(accessToken)) {
+            if (!blogPost.published) {
+                if (!userContext.validateAdminAccess(accessToken)) {
                     return ResponseDto.failUnauthorized();
                 }
             }
 
-            return new BlogPostResponseDto({
-                success: true,
-                blogPost: convertToBlogPostMetadata(rawBlogPost),
-            });
+            return new BlogPostResponseDto({ success: true, blogPost: blogPost });
         }
         catch (error) {
             console.error(error);
@@ -100,7 +85,7 @@ const mutationResolvers = {
                 return ResponseDto.failUnauthorized();
             }
 
-            const blogPostManager = getBlogPostManager();
+            const blogPostManager = getBlogManager();
 
             await blogPostManager.createBlogPost(params.blogPost, userContext);
 
@@ -127,7 +112,7 @@ const mutationResolvers = {
                 return ResponseDto.failUnauthorized();
             }
 
-            const blogPostManager = getBlogPostManager();
+            const blogPostManager = getBlogManager();
 
             await blogPostManager.updateBlogPost(params.blogPost, userContext);
 
@@ -154,8 +139,8 @@ const mutationResolvers = {
                 return ResponseDto.failUnauthorized();
             }
 
-            const blogPostManager = getBlogPostManager();
-            
+            const blogPostManager = getBlogManager();
+
             await blogPostManager.deleteBlogPost(params.blogPostId, userContext);
 
             return ResponseDto.success();

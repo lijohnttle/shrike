@@ -142,7 +142,7 @@ class UserAuthenticator {
     getUserContext(token) {
         const session = getUserAuthenticator().findSession(token);
 
-        if (session != null) {
+        if (session) {
             return new UserContext({
                 username: session.username,
                 roles: [

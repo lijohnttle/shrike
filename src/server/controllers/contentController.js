@@ -1,6 +1,6 @@
 import express from 'express';
 import { contentUrlList } from '../../static';
-import { getBlogPostManager } from '../domain';
+import { getBlogManager } from '../domain';
 import fs from 'fs';
 
 const getName = () => 'Content Controller';
@@ -19,7 +19,7 @@ const register = (app, appContext) => {
         const attachmentName = req.params.name;
 
         if (blogPostSlug || attachmentName) {
-            const blogPostManager = getBlogPostManager();
+            const blogPostManager = getBlogManager();
 
             const attachment = await blogPostManager.getAttachment(blogPostSlug, attachmentName);
 

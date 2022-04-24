@@ -2,7 +2,7 @@ import { UserAuthenticator, Options as UserAuthenticatorOptions } from './servic
 import { UserProfileCachedRepository, UserProfileRepository } from './services/users/UserProfileRepository.js';
 import { UserVisitCounter, Options as UserVisitCounterOptions } from './services/diagnostics/UserVisitCounter.js';
 import { AccessValidator } from './services/authorization/AccessValidator.js';
-import { BlogPostManager } from './services/blog/BlogPostManager';
+import { BlogManager } from './services/blog/BlogManager';
 
 
 /** @type {UserAuthenticator} */
@@ -13,8 +13,8 @@ let userProfileRepository;
 let userVisitCounter;
 /** @type {AccessValidator} */
 let accessValidator;
-/** @type {BlogPostManager} */
-let blogPosetManager;
+/** @type {BlogManager} */
+let blogManager;
 
 class Options {
     /**
@@ -35,7 +35,7 @@ const configure = (options) => {
     userProfileRepository = new UserProfileCachedRepository(new UserProfileRepository());
     userVisitCounter = new UserVisitCounter(options.userVisitCounterOptions);
     accessValidator = new AccessValidator();
-    blogPosetManager = new BlogPostManager();
+    blogManager = new BlogManager();
 
     userVisitCounter.scheduleAggregation();
 };
@@ -44,7 +44,7 @@ const getUserAuthenticator = () => userAuthenticator;
 const getUserProfileRepository = () => userProfileRepository;
 const getUserVisitCounter = () => userVisitCounter;
 const getAccessValidator = () => accessValidator;
-const getBlogPostManager = () => blogPosetManager;
+const getBlogManager = () => blogManager;
 
 
 export {
@@ -54,5 +54,5 @@ export {
     getUserProfileRepository,
     getUserVisitCounter,
     getAccessValidator,
-    getBlogPostManager,
+    getBlogManager,
 };
