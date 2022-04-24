@@ -1,13 +1,13 @@
 const typeDef = `
     extend type Query {
-        blogPostList(includeUnpublished: Boolean, accessToken: String): BlogPostListResult
-        blogPost(slug: String!, accessToken: String): BlogPostResult
+        blogPostList(includeUnpublished: Boolean, userToken: String): BlogPostListResult
+        blogPost(slug: String!, userToken: String): BlogPostResult
     }
 
     extend type Mutation {
-        createBlogPost(blogPost: CreateBlogPostInput!, accessToken: String!): EmptyResult
-        editBlogPost(blogPost: EditBlogPostInput!, accessToken: String!): EmptyResult
-        deleteBlogPost(blogPostId: String!, accessToken: String!): EmptyResult
+        createBlogPost(blogPost: CreateBlogPostInput!, userToken: String!): EmptyResult
+        editBlogPost(blogPost: EditBlogPostInput!, userToken: String!): EmptyResult
+        deleteBlogPost(blogPostId: String!, userToken: String!): EmptyResult
     }
     
     input CreateBlogPostInput {

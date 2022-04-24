@@ -44,7 +44,7 @@ export const fetchBlogPostList = async (options) => {
         {
             blogPostList(
                 includeUnpublished: $unpublished,
-                accessToken: $userToken)
+                userToken: $userToken)
             {
                 success
                 blogPosts {
@@ -99,7 +99,7 @@ export const fetchBlogPost = async (slug, options) => {
         {
             blogPost(
                 slug: $slug,
-                accessToken: $userToken)
+                userToken: $userToken)
             {
                 success
                 blogPost {
@@ -177,7 +177,7 @@ export const saveBlogPost = async (blogPost, options) => {
                         }).join(', ')}
                     ]
                 },
-                accessToken: "${options.userSession.token}")
+                userToken: "${options.userSession.token}")
             {
                 success
                 errorMessage
@@ -233,7 +233,7 @@ export const createBlogPost = async (blogPost, options) => {
                         }).join(', ')}
                     ]
                 },
-                accessToken: "${options.userSession.token}")
+                userToken: "${options.userSession.token}")
             {
                 success
                 errorMessage
@@ -271,7 +271,7 @@ export const deleteBlogPost = async (blogPostId, options) => {
         mutation {
             deleteBlogPost(
                 blogPostId: "${blogPostId}",
-                accessToken: "${options.userSession.token}")
+                userToken: "${options.userSession.token}")
             {
                 success
                 errorMessage

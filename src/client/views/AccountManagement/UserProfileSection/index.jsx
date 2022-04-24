@@ -63,13 +63,13 @@ const UserProfileSection = () => {
     }, []);
 
     const saveChanges = async () => {
-        const accessToken = getUserSession().token;
+        const userToken = getUserSession().token;
 
         await graphqlRequest(`
             mutation {
                 saveUserProfile(userProfile: {
                     goodReadsUserId: "${goodReadsUserId}"
-                }, accessToken: "${accessToken}")
+                }, userToken: "${userToken}")
             }`
         );
     };

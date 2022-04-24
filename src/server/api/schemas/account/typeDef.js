@@ -1,6 +1,6 @@
 const typeDef = `
     extend type Query {
-        verifyAdminAccess(accessToken: String!): VerificationResult
+        verifyAdminAccess(userToken: String!): VerificationResult
     }
 
     extend type Mutation {

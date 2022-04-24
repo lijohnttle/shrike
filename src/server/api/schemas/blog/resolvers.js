@@ -12,11 +12,11 @@ const queryResolvers = {
      * @param {any} _ 
      * @param {Object} params 
      * @param {Boolean} params.includeUnpublished 
-     * @param {String} params.accessToken 
+     * @param {String} params.userToken 
      */
     blogPostList: async (_, params) => {
         try {
-            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
+            const userContext = getUserAuthenticator().getUserContext(params.userToken);
 
             const requireAdminRole = params.includeUnpublished;
 
@@ -41,11 +41,11 @@ const queryResolvers = {
      * @param {any} _ 
      * @param {Object} params 
      * @param {String} params.slug 
-     * @param {String} params.accessToken 
+     * @param {String} params.userToken 
      */
     blogPost: async (_, params) => {
         try {
-            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
+            const userContext = getUserAuthenticator().getUserContext(params.userToken);
 
             const blogPost = await getBlogManager().getBlogPost(params.slug, userContext);
 
@@ -54,7 +54,7 @@ const queryResolvers = {
             }
 
             if (!blogPost.published) {
-                if (!userContext.validateAdminAccess(accessToken)) {
+                if (!userContext.validateAdminAccess(userToken)) {
                     return ResponseDto.failUnauthorized();
                 }
             }
@@ -75,11 +75,11 @@ const mutationResolvers = {
      * @param {any} _ 
      * @param {Object} params 
      * @param {BlogPostDto} params.blogPost 
-     * @param {String} params.accessToken 
+     * @param {String} params.userToken 
      */
     createBlogPost: async (_, params) => {
         try {
-            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
+            const userContext = getUserAuthenticator().getUserContext(params.userToken);
 
             if (!userContext.validateAdminAccess()) {
                 return ResponseDto.failUnauthorized();
@@ -102,11 +102,11 @@ const mutationResolvers = {
      * @param {any} _ 
      * @param {Object} params 
      * @param {BlogPostDto} params.blogPost 
-     * @param {String} params.accessToken 
+     * @param {String} params.userToken 
      */
     editBlogPost: async (_, params) => {
         try {
-            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
+            const userContext = getUserAuthenticator().getUserContext(params.userToken);
 
             if (!userContext.validateAdminAccess()) {
                 return ResponseDto.failUnauthorized();
@@ -129,11 +129,11 @@ const mutationResolvers = {
      * @param {any} _ 
      * @param {Object} params 
      * @param {String} params.blogPostId 
-     * @param {String} params.accessToken 
+     * @param {String} params.userToken 
      */
     deleteBlogPost: async (_, params) => {
         try {
-            const userContext = getUserAuthenticator().getUserContext(params.accessToken);
+            const userContext = getUserAuthenticator().getUserContext(params.userToken);
 
             if (!userContext.validateAdminAccess()) {
                 return ResponseDto.failUnauthorized();

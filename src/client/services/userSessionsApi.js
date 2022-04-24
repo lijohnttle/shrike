@@ -1,11 +1,11 @@
 import { graphqlRequest } from './api.js';
 
 
-async function fetchUserSessions(username, accessToken, dataFetchedCallback) {
+async function fetchUserSessions(username, userToken, dataFetchedCallback) {
     try {
         const response = await graphqlRequest(`
             query {
-                userSessions(username: "${username}", accessToken: "${accessToken}") {
+                userSessions(username: "${username}", userToken: "${userToken}") {
                     success
                     payload {
                         id
@@ -34,7 +34,7 @@ async function fetchUserSessions(username, accessToken, dataFetchedCallback) {
     }
 }
 
-async function deleteUserSessions(ids, accessToken) {
+async function deleteUserSessions(ids, userToken) {
     if (ids.lentgh === 0) {
         return false;
     }
@@ -42,7 +42,7 @@ async function deleteUserSessions(ids, accessToken) {
     try {
         const response = await graphqlRequest(`
             mutation {
-                deleteUserSessions(ids: [${ids.map(id => `"${id}"`).join()}], accessToken: "${accessToken}")
+                deleteUserSessions(ids: [${ids.map(id => `"${id}"`).join()}], userToken: "${userToken}")
             }
         `);
 
@@ -55,11 +55,11 @@ async function deleteUserSessions(ids, accessToken) {
     }
 }
 
-async function deleteAllUserSessions(accessToken) {
+async function deleteAllUserSessions(userToken) {
     try {
         const response = await graphqlRequest(`
             mutation {
-                deleteAllUserSessions(accessToken: "${accessToken}")
+                deleteAllUserSessions(userToken: "${userToken}")
             }
         `);
 

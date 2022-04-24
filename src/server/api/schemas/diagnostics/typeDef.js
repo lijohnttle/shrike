@@ -1,15 +1,15 @@
 const typeDef = `
     extend type Query {
-        userVisits(numVisits: Int!, accessToken: String!): UserVisitsResult
-        userSessions(username: String!, accessToken: String!): UserSessionResult
+        userVisits(numVisits: Int!, userToken: String!): UserVisitsResult
+        userSessions(username: String!, userToken: String!): UserSessionResult
     }
 
     extend type Mutation {
         recordUserVisit(userVisit: UserVisitInput!): Boolean
-        clearAllUserVisits(accessToken: String!): Boolean
-        deleteUserVisits(userVisitIds: [String!]!, accessToken: String!): Boolean
-        deleteUserSessions(ids: [String!]!, accessToken: String!): Boolean
-        deleteAllUserSessions(accessToken: String!): Boolean
+        clearAllUserVisits(userToken: String!): Boolean
+        deleteUserVisits(userVisitIds: [String!]!, userToken: String!): Boolean
+        deleteUserSessions(ids: [String!]!, userToken: String!): Boolean
+        deleteAllUserSessions(userToken: String!): Boolean
     }
 
     type UserVisit {

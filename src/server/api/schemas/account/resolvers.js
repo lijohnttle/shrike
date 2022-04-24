@@ -2,10 +2,10 @@ import { getUserAuthenticator } from '../../../domain';
 
 
 const queryResolvers = {
-    verifyAdminAccess: async (_, { accessToken }) => {
+    verifyAdminAccess: async (_, { userToken }) => {
 
         try {
-            const userContext = getUserAuthenticator().getUserContext(accessToken);
+            const userContext = getUserAuthenticator().getUserContext(userToken);
 
             return {
                 verified: userContext.validateAdminAccess(),

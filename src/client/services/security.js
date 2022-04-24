@@ -1,10 +1,10 @@
 import { graphqlRequest } from './api.js';
 
 
-async function verifyAccessToken(accessToken, removeUserSession) {
+async function verifyAccessToken(userToken, removeUserSession) {
     const response = await graphqlRequest(`
         query {
-            verifyAdminAccess(accessToken: "${accessToken}") {
+            verifyAdminAccess(userToken: "${userToken}") {
                 verified
             }
         }
