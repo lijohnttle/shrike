@@ -116,7 +116,7 @@ const NavigationVerticalMenu = styled('ul')(({ theme, light }) => ({
 }));
 
 export const Header = ({ transparent, dark, light }) => {
-    const [isMenuOpen, setIsMenuopen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [getUserSession, _, removeUserSession] = useUserSession();
     const navigate = useNavigate();
     const smallScreenMatches = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -159,29 +159,29 @@ export const Header = ({ transparent, dark, light }) => {
                     flexWrap="nowrap"
                     alignItems="stretch"
                     height="100%"
-                    color={colors.textComplementary}>
+                    color={light ? colors.text : colors.textComplementary}>
                     <IconButton
+                        color="inherit"
+                        sx={{
+                            fontSize: '40px',
+                        }}
                         onClick={() => {
-                            setIsMenuopen(!isMenuOpen);
+                            setIsMenuOpen(!isMenuOpen);
                         }}>
-                        <MenuIcon color={light ? 'black' : 'white'} />
+                        <MenuIcon fontSize="inherit" />
                     </IconButton>
                 </Box>
 
                 <Drawer
                     anchor="right"
                     open={isMenuOpen}
-                    sx={{
-                        width: '240px',
-                        maxWidth: "75%",
-                    }}
-                    classes={{
-                        paper: {
-                            width: '240px',
-                            maxWidth: "75%",
+                    PaperProps={{
+                        sx: {
+                            width: '75%',
+                            maxWidth: "75%"
                         }
                     }}
-                    onClose={() => setIsMenuopen(false)}>
+                    onClose={() => setIsMenuOpen(false)}>
                     <NavigationVerticalMenu light={light ? 1 : 0}>
                         {menuItems.map((link) => <li key={link.href}><Link to={link.href} onClick={link.action}>{link.title}</Link></li>)}
                     </NavigationVerticalMenu>
