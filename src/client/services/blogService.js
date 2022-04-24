@@ -157,38 +157,53 @@ export const saveBlogPost = async (blogPost, options) => {
     const attachments = await prepareAttachmentsToUpload(blogPost);
 
     const response = await graphqlRequest(`
-        mutation {
-            editBlogPost(
+        mutation ChangeBlogPost(
+            $id: String!,
+            $title: String!,
+            $slug: String!,
+            $description: String!,
+            $content: String!,
+            $published: Boolean,
+            $attachments: [FileAttachmentInput],
+            $userToken: String!)
+        {
+            changeBlogPost(
                 blogPost: {
-                    id: "${blogPost.id}",
-                    title: "${blogPost.title}",
-                    slug: "${blogPost.slug}",
-                    description: "${blogPost.description}",
-                    content: "${blogPost.content}",
-                    published: ${blogPost.published},
-                    attachments: [
-                        ${attachments.map(attachment => {
-                            return `{
-                                name: "${attachment.name}",
-                                size: ${attachment.size},
-                                data: "${attachment.data}",
-                                contentType: "${attachment.contentType}"
-                            }`;
-                        }).join(', ')}
-                    ]
+                    id: $id,
+                    title: $title,
+                    slug: $slug,
+                    description: $description,
+                    content: $content,
+                    published: $published,
+                    attachments: $attachments
                 },
-                userToken: "${options.userSession.token}")
+                userToken: $userToken)
             {
                 success
                 errorMessage
             }
         }
-    `);
+    `,
+    {
+        id: blogPost.id,
+        title: blogPost.title,
+        slug: blogPost.slug,
+        description: blogPost.description,
+        content: blogPost.content,
+        published: blogPost.published,
+        attachments: attachments?.map(attachment => ({
+            name: attachment.name,
+            size: attachment.size,
+            data: attachment.data,
+            contentType: attachment.contentType,
+        })),
+        userToken: options.userSession.token,
+    });
 
     /**
      * @type {ResponseDto}
      */
-     const message = response.editBlogPost;
+     const message = response.changeBlogPost;
 
      if (message) {
         if (message.success) {
@@ -214,32 +229,46 @@ export const createBlogPost = async (blogPost, options) => {
     const attachments = await prepareAttachmentsToUpload(blogPost);
 
     const response = await graphqlRequest(`
-        mutation {
+        mutation CreateBlogPost(
+            $title: String!,
+            $slug: String!,
+            $description: String!,
+            $content: String!,
+            $published: Boolean,
+            $attachments: [FileAttachmentInput],
+            $userToken: String!
+        )
+        {
             createBlogPost(
                 blogPost: {
-                    title: "${blogPost.title}",
-                    slug: "${blogPost.slug}",
-                    description: "${blogPost.description}",
-                    content: "${blogPost.content}",
-                    published: ${blogPost.published},
-                    attachments: [
-                        ${attachments.map(attachment => {
-                            return `{
-                                name: "${attachment.name}",
-                                size: ${attachment.size},
-                                data: "${attachment.data}",
-                                contentType: "${attachment.contentType}"
-                            }`;
-                        }).join(', ')}
-                    ]
+                    title: $title,
+                    slug: $slug,
+                    description: $description,
+                    content: $content,
+                    published: $published,
+                    attachments: $attachments
                 },
-                userToken: "${options.userSession.token}")
+                userToken: $userToken)
             {
                 success
                 errorMessage
             }
         }
-    `);
+    `,
+    {
+        title: blogPost.title,
+        slug: blogPost.slug,
+        description: blogPost.description,
+        content: blogPost.content,
+        published: blogPost.published,
+        attachments: attachments?.map(attachment => ({
+            name: attachment.name,
+            size: attachment.size,
+            data: attachment.data,
+            contentType: attachment.contentType,
+        })),
+        userToken: options.userSession.token,
+    });
 
     /**
      * @type {ResponseDto}
@@ -268,16 +297,24 @@ export const createBlogPost = async (blogPost, options) => {
  */
 export const deleteBlogPost = async (blogPostId, options) => {
     const response = await graphqlRequest(`
-        mutation {
+        mutation DeleteBlogPost(
+            $blogPostId: String!,
+            $userToken: String!
+        )
+        {
             deleteBlogPost(
-                blogPostId: "${blogPostId}",
-                userToken: "${options.userSession.token}")
+                blogPostId: $blogPostId,
+                userToken: $userToken)
             {
                 success
                 errorMessage
             }
         }
-    `);
+    `,
+    {
+        blogPostId: blogPostId,
+        userToken: options.userSession.token,
+    });
 
     /**
      * @type {ResponseDto}

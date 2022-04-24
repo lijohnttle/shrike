@@ -54,7 +54,7 @@ const queryResolvers = {
             }
 
             if (!blogPost.published) {
-                if (!userContext.validateAdminAccess(userToken)) {
+                if (!userContext.validateAdminAccess(params.userToken)) {
                     return ResponseDto.failUnauthorized();
                 }
             }
@@ -104,7 +104,7 @@ const mutationResolvers = {
      * @param {BlogPostDto} params.blogPost 
      * @param {String} params.userToken 
      */
-    editBlogPost: async (_, params) => {
+    changeBlogPost: async (_, params) => {
         try {
             const userContext = getUserAuthenticator().getUserContext(params.userToken);
 

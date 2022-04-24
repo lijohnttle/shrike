@@ -113,7 +113,7 @@ const FileUpload = (props) => {
                                 <div>
                                     {isImageFile && (
                                         <img
-                                            src={attachment.file ? URL.createObjectURL(attachment.file) : attachment.url}
+                                            src={attachment.getUrl()}
                                             alt={`file preview ${index}`}
                                             style={{
                                                 backgroundColor: 'black',

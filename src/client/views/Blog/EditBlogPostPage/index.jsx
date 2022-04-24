@@ -113,6 +113,7 @@ const EditBlogPostPage = () => {
                 <EditBlogPostPreview
                     isCreation={false}
                     blogPostTitle={blogPost.title}
+                    blogPostAttachments={blogPost.attachments}
                     blogPostContent={blogPost.content}
                     blogPostPublish={blogPost.publish}
                     onEdit={() => setIsPreviewMode(false)}

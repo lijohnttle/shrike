@@ -6,7 +6,7 @@ const typeDef = `
 
     extend type Mutation {
         createBlogPost(blogPost: CreateBlogPostInput!, userToken: String!): EmptyResult
-        editBlogPost(blogPost: EditBlogPostInput!, userToken: String!): EmptyResult
+        changeBlogPost(blogPost: ChangeBlogPostInput!, userToken: String!): EmptyResult
         deleteBlogPost(blogPostId: String!, userToken: String!): EmptyResult
     }
     
@@ -19,7 +19,7 @@ const typeDef = `
         attachments: [FileAttachmentInput]
     }
 
-    input EditBlogPostInput {
+    input ChangeBlogPostInput {
         id: String!
         title: String!
         slug: String!
