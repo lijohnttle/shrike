@@ -154,8 +154,6 @@ class BlogManager {
             userContext.verifyAdminAccess();
         }
 
-        console.log(blogPostDocument.attachments);
-
         return mapBlogPostDocumentToDto(blogPostDocument);
     }
 
