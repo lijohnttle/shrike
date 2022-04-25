@@ -140,7 +140,9 @@ class BlogManager {
                 updatedOn: 1,
                 publishedOn: 1,
                 published: 1,
-                attachments: 1,
+                "attachments.name": 1,
+                "attachments.size": 1,
+                "attachments.contentType": 1,
             }
         );
 
@@ -151,6 +153,8 @@ class BlogManager {
         if (!blogPostDocument.published) {
             userContext.verifyAdminAccess();
         }
+
+        console.log(blogPostDocument.attachments);
 
         return mapBlogPostDocumentToDto(blogPostDocument);
     }
