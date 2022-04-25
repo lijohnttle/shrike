@@ -213,7 +213,11 @@ class BlogManager {
                 slug: blogPostSlug,
             },
             {
-                attachments: 1
+                attachments: {
+                    $elemMatch: {
+                        name: attachmentName,
+                    },
+                },
             }
         );
 
