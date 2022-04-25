@@ -140,7 +140,9 @@ class BlogManager {
                 updatedOn: 1,
                 publishedOn: 1,
                 published: 1,
-                attachments: 1,
+                "attachments.name": 1,
+                "attachments.size": 1,
+                "attachments.contentType": 1,
             }
         );
 
@@ -213,7 +215,11 @@ class BlogManager {
                 slug: blogPostSlug,
             },
             {
-                attachments: 1
+                attachments: {
+                    $elemMatch: {
+                        name: attachmentName,
+                    },
+                },
             }
         );
 
