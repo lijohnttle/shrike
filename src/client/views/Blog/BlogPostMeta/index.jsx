@@ -1,45 +1,60 @@
 import React from 'react';
-import { Button, Typography } from '@mui/material';
-import { ReadMore as ReadMoreIcon } from '@mui/icons-material';
+import { Typography } from '@mui/material';
 import { InternalLink } from '../../../components/InternalLink';
-import { useStyles } from './styles';
-import { Link as RouterLink } from 'react-router-dom';
+import { Box } from '@mui/system';
+import { BlogPostModel } from '../../../models';
+import { getBlogPostUrl, getBlogPostAttachmentUrl } from '../../../../utils/urlBuilder';
+import colors from '../../../themes/colors';
 
 
-const BlogPostMeta = ({ post }) => {
-    const classes = useStyles();
-
+/**
+ * Component to render a blog post details.
+ * @param {Object} props 
+ * @param {BlogPostModel} props.blogPost 
+ * @returns 
+ */
+const BlogPostMeta = (props) => {
     return (
-        <div className={classes.root}>
-            <div className={classes.publishedOn}>
-                <Typography variant="caption" align="justify">
-                    {post.publishedOn?.toLocaleDateString() ?? ''}
+        <Box display="flex" flexDirection="column">
+            <Typography variant="caption" align="justify" marginBottom={1}>
+                {props.blogPost.publishedOn?.toLocaleDateString() ?? ''}
 
-                    {!post.published ? ' (Not published)' : ''}
-                </Typography>
-            </div>
-            
-            <InternalLink to={`/blog/${post.slug}`} withoutUnderline>
-                <Typography variant="h3" gutterBottom>
-                    {post.title.toUpperCase()}
-                </Typography>
-            </InternalLink>
-                        
-            <Typography variant="body1" align="justify" paragraph>
-                {post.description}
+                {!props.blogPost.published ? ' (Not published)' : ''}
             </Typography>
 
-            <div className={classes.bottomToolBar}>
-                <Button
-                    component={RouterLink}
-                    variant="outlined"
-                    color="primary"
-                    to={`/blog/${post.slug}`}
-                    startIcon={<ReadMoreIcon />}>
-                    Read More
-                </Button>
-            </div>
-        </div>
+            <InternalLink
+                to={getBlogPostUrl(props.blogPost.slug)}
+                sx={{
+                    display: 'block',
+                    overflow: 'hidden',
+                    aspectRatio: '4/3',
+                    marginBottom: 2,
+                    backgroundColor: colors.selectionBackground,
+                }}>
+                {props.blogPost.descriptionImage
+                    ? (
+                        <img
+                            src={getBlogPostAttachmentUrl(props.blogPost.slug, props.blogPost.descriptionImage)}
+                            style={{
+                                objectFit: 'cover',
+                                objectPosition: 'center',
+                                width: '100%',
+                                height: '100%',
+                            }} />
+                    ) : null}
+            </InternalLink>
+
+            <InternalLink
+                to={getBlogPostUrl(props.blogPost.slug)}
+                withoutUnderline
+                sx={{
+                    color: colors.text,
+                }}>
+                <Typography variant="h3" gutterBottom>
+                    {props.blogPost.title.toUpperCase()}
+                </Typography>
+            </InternalLink>
+        </Box>
     );
 };
 

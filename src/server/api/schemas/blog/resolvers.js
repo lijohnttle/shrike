@@ -1,184 +1,154 @@
-import mongoose from 'mongoose';
-import { BlogPost } from '../../../data/models/blog/BlogPost';
-import { getAccessValidator } from '../../../domain';
-
-
-const convertToBlogPostMetadata = (rawBlogPost) => {
-    const result = {
-        id: rawBlogPost._id,
-        title: rawBlogPost.title,
-        slug: rawBlogPost.slug,
-        description: rawBlogPost.description,
-        createdOn: rawBlogPost.createdOn.toUTCString(),
-        updatedOn: rawBlogPost.updatedOn.toUTCString(),
-        publishedOn: rawBlogPost.publishedOn ? rawBlogPost.publishedOn.toUTCString() : null,
-        published: !!rawBlogPost.published
-    };
-
-    return result;
-};
+import {
+    ResponseDto,
+    BlogPostDto,
+    BlogPostResponseDto,
+    BlogPostListResponseDto } from '../../../../contracts';
+import { getUserAuthenticator, getBlogManager } from '../../../domain';
 
 
 const queryResolvers = {
-    blogPostList: async (_, { includeUnpublished, accessToken }) => {
-
+    /**
+     * Creates a new blog post.
+     * @param {any} _ 
+     * @param {Object} params 
+     * @param {Boolean} params.includeUnpublished 
+     * @param {String} params.userToken 
+     */
+    blogPostList: async (_, params) => {
         try {
-            if (includeUnpublished) {
-                if (!getAccessValidator().validateAdminAccess(accessToken)) {
-                    return {
-                        success: false,
-                        errorMessage: 'Unauthorized acceess'
-                    };
+            const userContext = getUserAuthenticator().getUserContext(params.userToken);
+
+            const requireAdminRole = params.includeUnpublished;
+
+            if (requireAdminRole) {
+                if (!userContext.validateAdminAccess()) {
+                    return ResponseDto.failUnauthorized();
                 }
             }
 
-            const filter = { };
+            const blogPosts = await getBlogManager().getBlogPostList(params.includeUnpublished, userContext);
 
-            if (!includeUnpublished) {
-                filter.published = true;
-            }
-
-            const rawBlogPosts = await BlogPost.find(filter);
-
-            const blogPosts = rawBlogPosts.map(convertToBlogPostMetadata);
-
-            return {
-                success: true,
-                blogPosts: blogPosts,
-            };
+            return new BlogPostListResponseDto({ success: true, blogPosts });
         }
         catch (error) {
             console.error(error);
 
-            return {
-                success: false,
-                errorMessage: 'Error occured while retrieving a list of blog posts'
-            };
+            return ResponseDto.fail('Error occured while retrieving a list of blog posts');
         }
     },
-    blogPost: async (_, { slug, accessToken }) => {
-
+    /**
+     * Creates a new blog post.
+     * @param {any} _ 
+     * @param {Object} params 
+     * @param {String} params.slug 
+     * @param {String} params.userToken 
+     */
+    blogPost: async (_, params) => {
         try {
-            const rawBlogPost = await BlogPost.findOne({ slug: slug });
+            const userContext = getUserAuthenticator().getUserContext(params.userToken);
 
-            if (!rawBlogPost) {
-                return {
-                    success: true,
-                    blogPost: null,
-                };
+            const blogPost = await getBlogManager().getBlogPost(params.slug, userContext);
+
+            if (!blogPost) {
+                return ResponseDto.success();
             }
 
-            if (!rawBlogPost.published) {
-                if (!accessToken || !getAccessValidator().validateAdminAccess(accessToken)) {
-                    return {
-                        success: false,
-                        errorMessage: 'Unauthorized acceess'
-                    };
+            if (!blogPost.published) {
+                if (!userContext.validateAdminAccess(params.userToken)) {
+                    return ResponseDto.failUnauthorized();
                 }
             }
 
-            return {
-                success: true,
-                blogPost: {
-                    metadata: convertToBlogPostMetadata(rawBlogPost),
-                    content: rawBlogPost.content,
-                },
-            };
+            return new BlogPostResponseDto({ success: true, blogPost: blogPost });
         }
         catch (error) {
             console.error(error);
 
-            return {
-                success: false,
-                errorMessage: 'Error occured while retrieving a blog post'
-            };
+            return ResponseDto.fail('Error occured while retrieving a blog post');
         }
     },
 };
 
 const mutationResolvers = {
-    createBlogPost: async (_, { blogPost, accessToken }) => {
-
+    /**
+     * Creates a new blog post.
+     * @param {any} _ 
+     * @param {Object} params 
+     * @param {BlogPostDto} params.blogPost 
+     * @param {String} params.userToken 
+     */
+    createBlogPost: async (_, params) => {
         try {
-            if (!getAccessValidator().validateAdminAccess(accessToken)) {
-                return {
-                    success: false,
-                    errorMessage: 'Unauthorized acceess'
-                };
+            const userContext = getUserAuthenticator().getUserContext(params.userToken);
+
+            if (!userContext.validateAdminAccess()) {
+                return ResponseDto.failUnauthorized();
             }
 
-            const newBlogPost = new BlogPost(blogPost);
-            newBlogPost.createdOn = new Date();
-            newBlogPost.updatedOn = newBlogPost.createdOn;
+            const blogPostManager = getBlogManager();
 
-            if (blogPost.publish) {
-                newBlogPost.publishedOn = newBlogPost.createdOn;
-                newBlogPost.published = true;
-            }
+            await blogPostManager.createBlogPost(params.blogPost, userContext);
 
-            await newBlogPost.save();
-
-            return {
-                success: true
-            };
+            return ResponseDto.success();
         }
         catch (error) {
             console.error(error);
-            
-            return {
-                success: false,
-                errorMessage: 'Error occured while creating a blog post'
-            };
+
+            return ResponseDto.fail('Error occured while creating a blog post');
         }
     },
-    editBlogPost: async (_, { blogPost, accessToken }) => {
-
+    /**
+     * Updates a blog post.
+     * @param {any} _ 
+     * @param {Object} params 
+     * @param {BlogPostDto} params.blogPost 
+     * @param {String} params.userToken 
+     */
+    changeBlogPost: async (_, params) => {
         try {
-            if (!getAccessValidator().validateAdminAccess(accessToken)) {
-                return {
-                    success: false,
-                    errorMessage: 'Unauthorized acceess'
-                };
+            const userContext = getUserAuthenticator().getUserContext(params.userToken);
+
+            if (!userContext.validateAdminAccess()) {
+                return ResponseDto.failUnauthorized();
             }
 
-            const existingBlogPost = await BlogPost.findOne({ _id: mongoose.Types.ObjectId(blogPost.id) });
+            const blogPostManager = getBlogManager();
 
-            if (!existingBlogPost) {
-                return {
-                    success: false,
-                    errorMessage: 'Blog post has not been found',
-                };
-            }
+            await blogPostManager.updateBlogPost(params.blogPost, userContext);
 
-            existingBlogPost.title = blogPost.title;
-            existingBlogPost.description = blogPost.description;
-            existingBlogPost.content = blogPost.content;
-            existingBlogPost.slug = blogPost.slug;
-            existingBlogPost.published = blogPost.publish;
-            existingBlogPost.updatedOn = new Date();
-
-            if (existingBlogPost.published) {
-                if (!existingBlogPost.publishedOn) {
-                    existingBlogPost.publishedOn = existingBlogPost.updatedOn;
-                }
-            }
-            else {
-                existingBlogPost.publishedOn = null;
-            }
-
-            await existingBlogPost.save();
-
-            return {
-                success: true
-            };
+            return ResponseDto.success();
         }
         catch (error) {
             console.error(error);
-            
-            return {
-                success: false,
-                errorMessage: 'Error occured while saving a blog post'
-            };
+
+            return ResponseDto.fail('Error occured while saving a blog post');
+        }
+    },
+    /**
+     * Deletes a blog post.
+     * @param {any} _ 
+     * @param {Object} params 
+     * @param {String} params.blogPostId 
+     * @param {String} params.userToken 
+     */
+    deleteBlogPost: async (_, params) => {
+        try {
+            const userContext = getUserAuthenticator().getUserContext(params.userToken);
+
+            if (!userContext.validateAdminAccess()) {
+                return ResponseDto.failUnauthorized();
+            }
+
+            const blogPostManager = getBlogManager();
+
+            await blogPostManager.deleteBlogPost(params.blogPostId, userContext);
+
+            return ResponseDto.success();
+        }
+        catch (error) {
+            console.error(error);
+
+            return ResponseDto.fail('Error occured while saving a blog post');
         }
     },
 };

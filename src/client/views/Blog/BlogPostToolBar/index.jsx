@@ -8,7 +8,7 @@ import { urlList } from '../../../../static';
 import { useStyles } from './styles';
 
 
-const BlogPostToolBar = ({ slug }) => {
+const BlogPostToolBar = ({ slug, maxWidth }) => {
     const [getUserSession] = useUserSession();
     const classes = useStyles();
     const navigate = useNavigate();
@@ -24,7 +24,7 @@ const BlogPostToolBar = ({ slug }) => {
     }
 
     return (
-        <ContentBlock compact>
+        <ContentBlock compact maxWidth={maxWidth || 'md'}>
             <div className={classes.commandsContainer}>
                 <div className={classes.commandContainer}>
                     <Button variant="contained" startIcon={<EditIcon />} onClick={handleEditBlogPost}>Edit</Button>

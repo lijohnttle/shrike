@@ -4,11 +4,20 @@ import path from 'path';
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
 import { registerControllers } from './controllers/index.js';
 import { configure as configureDomain } from './domain/index.js';
 import db from './services/db.js';
 
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+
 const isDevelopment = !process.env.PORT;
+
+if (isDevelopment) {
+    process.env.NODE_ENV = 'development';
+}
+
+console.log(`Mode: ${process.env.NODE_ENV}`);
 
 async function main() {
 
@@ -31,6 +40,9 @@ async function main() {
     const app = express();
 
     app.use(cors());
+    app.use(bodyParser.json({
+        limit: '15mb'
+    }));
 
     registerControllers(app, {
         rootPath: process.cwd()

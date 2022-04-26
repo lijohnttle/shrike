@@ -1,10 +1,10 @@
-import { queryData } from './api.js';
+import { graphqlRequest } from './api.js';
 
 
-async function verifyAccessToken(accessToken, removeUserSession) {
-    const response = await queryData(`
+async function verifyAccessToken(userToken, removeUserSession) {
+    const response = await graphqlRequest(`
         query {
-            verifyAdminAccess(accessToken: "${accessToken}") {
+            verifyAdminAccess(userToken: "${userToken}") {
                 verified
             }
         }
@@ -22,7 +22,7 @@ async function verifyAccessToken(accessToken, removeUserSession) {
 }
 
 async function signIn(username, password) {
-    const response = await queryData(`
+    const response = await graphqlRequest(`
         mutation {
             signIn(credentials: {
                     username: "${username}",
@@ -39,7 +39,7 @@ async function signIn(username, password) {
 };
 
 async function signOut(username, token) {
-    const response = await queryData(`
+    const response = await graphqlRequest(`
         mutation {
             signOut(session: {
                     username: "${username}",

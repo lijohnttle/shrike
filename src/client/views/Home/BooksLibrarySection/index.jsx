@@ -4,7 +4,7 @@ import { LibraryBooks as LibraryBooksIcon } from '@mui/icons-material';
 import { SectionContentWrapper } from '../SectionContentWrapper';
 import { BookList } from '../BookList';
 import { loadBooks } from '../../../services/goodReadsService';
-import { queryData } from '../../../services/api';
+import { graphqlRequest } from '../../../services/api';
 import { SectionWrapper } from '../SectionWrapper';
 import { styled } from '@mui/system';
 
@@ -28,7 +28,7 @@ const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
     const [readBooks, setReadBooks] = useState([]);
 
     useEffect(() => {
-        queryData(`
+        graphqlRequest(`
                 query {
                     userProfile {
                         success

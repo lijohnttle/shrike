@@ -9,6 +9,10 @@ const urlList = {
     BLOG_POST_EDIT: '/management/blog/edit/:slug',
 };
 
+const contentUrlList = {
+    BLOG_POST: '/content/blog/:slug/attachments/:name',
+};
+
 const cookieKeys = {
     AUTH_TOKEN: 'auth-token',
     AUTH_USERNAME: 'auth-username',
@@ -17,5 +21,6 @@ const cookieKeys = {
 
 export {
     urlList,
+    contentUrlList,
     cookieKeys
 };

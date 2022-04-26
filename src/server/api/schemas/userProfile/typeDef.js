@@ -4,7 +4,7 @@ const typeDef = `
     }
 
     extend type Mutation {
-        saveUserProfile(userProfile: UserProfileInput!, accessToken: String!): Boolean
+        saveUserProfile(userProfile: UserProfileInput!, userToken: String!): Boolean
     }
 
     type UserProfileResult {

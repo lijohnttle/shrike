@@ -6,56 +6,10 @@ import { Page } from '../../../components/Page';
 import { BlogPostMeta } from '../BlogPostMeta';
 import { BlogToolBar } from '../BlogToolBar';
 import { useUserSession } from '../../../hooks';
-import { queryData } from '../../../services/api';
+import { fetchBlogPostList } from '../../../services/blogService';
+import { BlogPostModel } from '../../../models';
+import { Box } from '@mui/system';
 
-
-async function loadBlogPostsList(session, showUnpublished) {
-    try {
-        const response = await queryData(`
-            query {
-                blogPostList(
-                    includeUnpublished: ${showUnpublished},
-                    accessToken: "${session?.token || ''}")
-                {
-                    success
-                    blogPosts {
-                        title
-                        slug
-                        description
-                        createdOn
-                        updatedOn
-                        publishedOn
-                        published
-                    }
-                    errorMessage
-                }
-            }
-        `);
-
-        if (response.blogPostList?.success === true) {
-            return response.blogPostList.blogPosts.map((post) => {
-                const result = { ...post };
-
-                result.createdOn = new Date(Date.parse(post.createdOn));
-                result.updatedOn = new Date(Date.parse(post.updatedOn));
-
-                if (result.publishedOn) {
-                    result.publishedOn = new Date(Date.parse(post.publishedOn));
-                }
-
-                return result;
-            });
-        }
-        else {
-            console.error(response.blogPostList?.errorMessage);
-        }
-    }
-    catch (error) {
-        console.error(error);
-    }
-
-    return [];
-}
 
 const renderBlogPostsPlaceholder = () => {
     return (
@@ -69,6 +23,7 @@ const renderBlogPostsPlaceholder = () => {
 
 const BlogPage = () => {
     const isCancelled = useRef(false);
+    /** @type {[BlogPostModel, Function]} */
     const [blogPosts, setBlogPosts] = useState([]);
     const [showUnpublished, setShowUnpublished] = useState(false);
     const [getUserSession] = useUserSession();
@@ -86,12 +41,13 @@ const BlogPage = () => {
     const refreshPosts = async () => {
         const session = getUserSession();
 
-        await loadBlogPostsList(session, showUnpublished)
-            .then((data) => {
+        await fetchBlogPostList({ userSession: session, unpublished: showUnpublished })
+            .then(data => {
                 if (!isCancelled.current) {
                     setBlogPosts(data);
                 }
-            });
+            })
+            .catch(error => console.log(error));
     };
 
     return (
@@ -100,11 +56,42 @@ const BlogPage = () => {
                 <BlogToolBar showUnpublished={showUnpublished} setShowUnpublished={setShowUnpublished} />
 
                 {blogPosts.length > 0
-                    ? blogPosts.map((post) => (
-                        <ContentBlock key={post.slug} compact>
-                            <BlogPostMeta post={post} />
+                    ? (
+                        <ContentBlock compact>
+                            <Box
+                                display="flex"
+                                flexDireaction="row"
+                                flexWrap="wrap"
+                                sx={{
+                                    '& > div:nth-of-type(odd)': {
+                                        paddingRight: {
+                                            xs: 0,
+                                            sm: 2
+                                        },
+                                    },
+                                    '& > div:nth-of-type(even)': {
+                                        paddingLeft: {
+                                            xs: 0,
+                                            sm: 2
+                                        },
+                                    },
+                                }}>
+                                {blogPosts.map((post) => (
+                                    <Box
+                                        key={post.slug}
+                                        sx={{
+                                            paddingBottom: 2,
+                                            width: {
+                                                xs: '100%',
+                                                sm: '50%',
+                                            },
+                                        }}>
+                                        <BlogPostMeta blogPost={post} />
+                                    </Box>
+                                ))}
+                            </Box>
                         </ContentBlock>
-                    ))
+                    )
                     : renderBlogPostsPlaceholder()}
             </Article>
         </Page>

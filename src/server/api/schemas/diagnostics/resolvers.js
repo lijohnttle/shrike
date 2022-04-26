@@ -3,10 +3,10 @@ import { getAccessValidator, getUserVisitCounter, getUserAuthenticator } from '.
 
 
 const queryResolvers = {
-    userVisits: async (_, { numVisits, accessToken }) => {
+    userVisits: async (_, { numVisits, userToken }) => {
 
         try {
-            getAccessValidator().verifyAdminAccess(accessToken);
+            getAccessValidator().verifyAdminAccess(userToken);
 
             try {
                 const rawUserVisits = await getUserVisitCounter().getVisits(numVisits);
@@ -49,10 +49,10 @@ const queryResolvers = {
             };
         }
     },
-    userSessions: async (_, { username, accessToken }) => {
+    userSessions: async (_, { username, userToken }) => {
 
         try {
-            getAccessValidator().verifyAdminAccess(accessToken);
+            getAccessValidator().verifyAdminAccess(userToken);
 
             try {
                 const rawUserSessions = await getUserAuthenticator().findSessions(username);
@@ -121,9 +121,9 @@ const mutationResolvers = {
             throw new Error('Error occured while recording a user visit');
         }
     },
-    clearAllUserVisits: async (_, { accessToken }) => {
+    clearAllUserVisits: async (_, { userToken }) => {
         try {
-            getAccessValidator().verifyAdminAccess(accessToken);
+            getAccessValidator().verifyAdminAccess(userToken);
 
             await getUserVisitCounter().clearAll();
 
@@ -135,9 +135,9 @@ const mutationResolvers = {
             return false;
         }
     },
-    deleteUserVisits: async (_, { userVisitIds, accessToken }) => {
+    deleteUserVisits: async (_, { userVisitIds, userToken }) => {
         try {
-            getAccessValidator().verifyAdminAccess(accessToken);
+            getAccessValidator().verifyAdminAccess(userToken);
 
             if (userVisitIds.length === 0) {
                 return false;
@@ -153,9 +153,9 @@ const mutationResolvers = {
             return false;
         }
     },
-    deleteUserSessions: async (_, { ids, accessToken }) => {
+    deleteUserSessions: async (_, { ids, userToken }) => {
         try {
-            getAccessValidator().verifyAdminAccess(accessToken);
+            getAccessValidator().verifyAdminAccess(userToken);
 
             if (ids.length === 0) {
                 return false;
@@ -175,9 +175,9 @@ const mutationResolvers = {
             return false;
         }
     },
-    deleteAllUserSessions: async (_, { accessToken }) => {
+    deleteAllUserSessions: async (_, { userToken }) => {
         try {
-            getAccessValidator().verifyAdminAccess(accessToken);
+            getAccessValidator().verifyAdminAccess(userToken);
 
             await getUserAuthenticator().signOutEveryone();
 
