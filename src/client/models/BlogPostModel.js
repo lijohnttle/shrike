@@ -31,6 +31,13 @@ import { AttachmentModel } from './AttachmentModel';
         this.description = props?.description;
 
         /**
+         * The image to be displayed in a blog post head.
+         * @type {String}
+         * @public
+         */
+        this.descriptionImage = props?.descriptionImage;
+
+        /**
          * The content of a blog post.
          * @type {String}
          * @public
@@ -94,6 +101,7 @@ import { AttachmentModel } from './AttachmentModel';
             id: dto.id,
             title: dto.title,
             description: dto.description,
+            descriptionImage: dto.descriptionImage,
             content: dto.content,
             slug: dto.slug,
             createdOn: dto.createdOn ? new Date(Date.parse(dto.createdOn)) : null,

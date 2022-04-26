@@ -14,6 +14,7 @@ const typeDef = `
         title: String!
         slug: String!
         description: String!
+        descriptionImage: String
         content: String!
         published: Boolean
         attachments: [FileAttachmentInput]
@@ -24,6 +25,7 @@ const typeDef = `
         title: String!
         slug: String!
         description: String!
+        descriptionImage: String
         content: String!
         published: Boolean
         attachments: [FileAttachmentInput]
@@ -34,6 +36,7 @@ const typeDef = `
         title: String!
         content: String!
         description: String!
+        descriptionImage: String
         slug: String!
         createdOn: String!
         updatedOn: String!
@@ -46,6 +49,7 @@ const typeDef = `
         id: String!
         title: String!
         description: String!
+        descriptionImage: String
         slug: String!
         createdOn: String!
         updatedOn: String!

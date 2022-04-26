@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import { getBlogPostAttachmentUrl } from '../../../utils/urlBuilder';
 import { AttachmentModel } from '../../models';
 
 
@@ -29,7 +30,7 @@ export const BlogMarkdown = (props) => {
                             }
                         }
                         else if (props.blogPostSlug) {
-                            url = `/content/blog/${props.blogPostSlug}/attachments/${src}`;
+                            url = getBlogPostAttachmentUrl(props.blogPostSlug, src);
                         }
 
                         return (

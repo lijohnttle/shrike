@@ -9,7 +9,7 @@ import { BlogPostToolBar } from '../BlogPostToolBar';
 import { fetchBlogPost } from '../../../services/blogService';
 import { BlogMarkdown } from '../../../components/BlogMarkdown';
 import { BlogPostModel } from '../../../models';
-import { Typography } from '@mui/material';
+import { getBlogPostAttachmentUrl } from '../../../../utils/urlBuilder';
 
 
 const BlogPostPage = () => {
@@ -54,6 +54,12 @@ const BlogPostPage = () => {
                 {!isLoading ? <BlogPostToolBar slug={blogPost.slug} maxWidth="md" /> : null}
 
                 <ContentBlock compact maxWidth="md">
+                    {!isLoading && blogPost.descriptionImage
+                        ? <img
+                            src={getBlogPostAttachmentUrl(blogPost.slug, blogPost.descriptionImage)}
+                            style={{ maxWidth: '100%' }} />
+                        : null}
+
                     {!isLoading ? <BlogMarkdown blogPostSlug={blogPost.slug} children={blogPost.content} /> : null}
                 </ContentBlock>
             </Article>

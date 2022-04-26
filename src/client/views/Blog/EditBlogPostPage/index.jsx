@@ -55,6 +55,9 @@ const EditBlogPostPage = () => {
             case 'description':
                 setBlogPost(new BlogPostModel({ ...blogPost, description: value }));
                 break;
+            case 'descriptionImage':
+                setBlogPost(new BlogPostModel({ ...blogPost, descriptionImage: value }));
+                break;
             case 'content':
                 setBlogPost(new BlogPostModel({ ...blogPost, content: value }));
                 break;

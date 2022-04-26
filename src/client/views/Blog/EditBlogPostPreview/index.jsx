@@ -6,6 +6,7 @@ import { BlogMarkdown } from '../../../components/BlogMarkdown';
 import { EditMode } from '../EditBlogPostForm';
 import { BlogPostModel } from '../../../models';
 import { Box, styled } from '@mui/system';
+import { getBlogPostAttachmentUrl } from '../../../../utils/urlBuilder';
 
 
 const CommandContainer = styled('div')(({ theme }) => ({
@@ -26,37 +27,41 @@ const CommandContainer = styled('div')(({ theme }) => ({
  */
 const EditBlogPostPreview = (props) => {
     return (
-        <Article title={props.blogPost.title.toUpperCase()} compact>
-            <ContentBlock>
-                {/* <div className={classes.contentRoot}> */}
-                    <BlogMarkdown attachments={props.blogPost.attachments} children={props.blogPost.content} />
+        <Article title={props.blogPost.title.toUpperCase()} compact titleMaxWidth="md">
+            <ContentBlock maxWidth="md">
+                {props.blogPost.descriptionImage
+                    ? <img
+                        src={getBlogPostAttachmentUrl(props.blogPost.slug, props.blogPost.descriptionImage)}
+                        style={{ maxWidth: '100%' }} />
+                    : null}
 
-                    <form style={{ display: 'flex', flexDirection: 'column' }}>
-                        <Box display="flex" flexDirection="row" justifyContent="flex-end">
+                <BlogMarkdown attachments={props.blogPost.attachments} children={props.blogPost.content} />
+
+                <form style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Box display="flex" flexDirection="row" justifyContent="flex-end">
+                        <CommandContainer>
+                            <FormControlLabel
+                                control={<Checkbox checked={props.blogPost.published}
+                                name="published"
+                                onChange={(e) => props.onChange(e.target.name, e.target.checked)} />}
+                                label="Publish" />
+                        </CommandContainer>
+                        {props.mode === EditMode.edit
+                        ? (
                             <CommandContainer>
-                                <FormControlLabel
-                                    control={<Checkbox checked={props.blogPost.published}
-                                    name="published"
-                                    onChange={(e) => props.onChange(e.target.name, e.target.checked)} />}
-                                    label="Publish" />
+                                <Button color="error" variant="outlined" onClick={props.onDelete}>DELETE</Button>
                             </CommandContainer>
-                            {props.mode === EditMode.edit
-                            ? (
-                                <CommandContainer>
-                                    <Button color="error" variant="outlined" onClick={props.onDelete}>DELETE</Button>
-                                </CommandContainer>
-                            ) : null}
-                            <CommandContainer>
-                                <Button color="primary" variant="outlined" onClick={props.onEdit}>EDIT</Button>
-                            </CommandContainer>
-                            <CommandContainer>
-                                <Button color="success" variant="contained" onClick={props.onSave}>
-                                    {props.mode === EditMode.create ? 'CREATE' : 'SAVE'}
-                                </Button>
-                            </CommandContainer>
-                        </Box>
-                    </form>
-                {/* </div> */}
+                        ) : null}
+                        <CommandContainer>
+                            <Button color="primary" variant="outlined" onClick={props.onEdit}>EDIT</Button>
+                        </CommandContainer>
+                        <CommandContainer>
+                            <Button color="success" variant="contained" onClick={props.onSave}>
+                                {props.mode === EditMode.create ? 'CREATE' : 'SAVE'}
+                            </Button>
+                        </CommandContainer>
+                    </Box>
+                </form>
             </ContentBlock>
         </Article>
     );

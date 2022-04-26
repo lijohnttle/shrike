@@ -48,8 +48,8 @@ export const EditMode = {
  */
 const EditBlogPostForm = (props) => {
     return (
-        <Article title={props.mode === EditMode.create ? 'NEW BLOG POST' : 'EDIT BLOG POST'}>
-            <ContentBlock>
+        <Article title={props.mode === EditMode.create ? 'NEW BLOG POST' : 'EDIT BLOG POST'} titleMaxWidth="md">
+            <ContentBlock maxWidth="md">
                 <form style={{ display: 'flex', flexDirection: 'column' }}>
                     <FieldContainer>
                         <TextField
@@ -75,6 +75,13 @@ const EditBlogPostForm = (props) => {
                             maxRows={4}
                             name="description"
                             defaultValue={props.blogPost.description}
+                            onChange={e => props.onChange(e.target.name, e.target.value)} />
+                    </FieldContainer>
+                    <FieldContainer>
+                        <TextField
+                            label="Description Image"
+                            name="descriptionImage"
+                            defaultValue={props.blogPost.descriptionImage}
                             onChange={e => props.onChange(e.target.name, e.target.value)} />
                     </FieldContainer>
                     <FieldContainer>

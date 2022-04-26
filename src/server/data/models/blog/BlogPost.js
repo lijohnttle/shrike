@@ -11,6 +11,7 @@ const blogPostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    descriptionImage: String,
     content: {
         type: String,
         required: true,
@@ -32,10 +33,22 @@ const blogPostSchema = new mongoose.Schema({
     publishedOn: Date,
     published: Boolean,
     attachments: [{
-        name: String,
-        size: Number,
-        data: Buffer,
-        contentType: String,
+        name: {
+            type: String,
+            required: true,
+        },
+        size: {
+            type: Number,
+            required: true,
+        },
+        data: {
+            type: Buffer,
+            required: true,
+        },
+        contentType: {
+            type: String,
+            required: true,
+        },
     }],
 });
 
@@ -57,6 +70,12 @@ class BlogPostDocument extends mongoose.Document {
          * @public
          */
         this.description = undefined;
+
+        /**
+         * @type {String}
+         * @public
+         */
+         this.descriptionImage = undefined;
         
         /**
          * @type {String}
