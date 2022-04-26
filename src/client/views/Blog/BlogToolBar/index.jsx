@@ -13,29 +13,35 @@ const CommandGroupContainer = styled('div')(({ theme }) => ({
     flexFlow: 'row wrap',
     alignItems: 'center',
     marginBottom: theme.spacing(2),
-})); 
+}));
 
 const CommandContainer = styled('div')(({ theme }) => ({
     display: 'flex',
     flexFlow: 'row wrap',
     alignItems: 'center',
     marginRight: theme.spacing(1),
-})); 
+}));
 
-
-const BlogToolBar = ({ showUnpublished, setShowUnpublished }) => {
+/**
+ * 
+ * @param {Object} props
+ * @param {Boolean} props.showUnpublished Flag determines to show unpublished blog posts.
+ * @param {Function} props.onShowUnpublishedChange Callback that is called on show unpublished flag change.
+ * @returns {React.ReactNode}
+ */
+const BlogToolBar = (props) => {
     const [getUserSession] = useUserSession();
     const navigate = useNavigate();
-    useAuthenticated(showUnpublished);
-
     const userSession = getUserSession();
+
+    useAuthenticated(props.showUnpublished);
 
     const handleAddBlogPost = () => {
         navigate(urlList.BLOG_POST_NEW);
     };
 
     const handleShowUnpublished = (_, value) => {
-        setShowUnpublished(value);
+        props.onShowUnpublishedChange(value);
     };
 
     if (!userSession) {
@@ -63,7 +69,7 @@ const BlogToolBar = ({ showUnpublished, setShowUnpublished }) => {
                         <Tooltip title="Show published/unpublished blog posts">
                             <ToggleButtonGroup
                                 color="primary"
-                                value={showUnpublished}
+                                value={props.showUnpublished}
                                 exclusive
                                 size="small"
                                 onChange={handleShowUnpublished}>
