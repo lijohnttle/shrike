@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { AttachmentModel } from '../../models';
@@ -35,6 +36,18 @@ export const BlogMarkdown = (props) => {
                             <img src={url} {...otherProps} style={{ maxWidth: '100%' }} />
                         );
                     }
+                },
+                p:  (elementProps) => {
+                    return (<Typography variant="body1" paragraph sx={{ marginTop: 1, marginBottom: 2 }}>{elementProps.children}</Typography>)
+                },
+                h2: (elementProps) => {
+                    return (<Typography variant="h2" sx={{ marginTop: 4, marginBottom: 2 }}>{elementProps.children}</Typography>)
+                },
+                h3: (elementProps) => {
+                    return (<Typography variant="h3" sx={{ marginTop: 1, marginBottom: 2 }}>{elementProps.children}</Typography>)
+                },
+                h4: (elementProps) => {
+                    return (<Typography variant="h4" sx={{ marginTop: 1, marginBottom: 2 }}>{elementProps.children}</Typography>)
                 },
             }}
             />

@@ -74,7 +74,7 @@ const NewBlogPostPage = () => {
                     blogPostTitle={blogPost.title}
                     blogPostAttachments={blogPost.attachments}
                     blogPostContent={blogPost.content}
-                    blogPostPublish={blogPost.publish}
+                    blogPostPublish={blogPost.published}
                     onEdit={() => setIsPreviewMode(false)}
                     onSave={saveHandler} />
                 : null}

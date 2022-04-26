@@ -34,7 +34,7 @@ const Page = ({ title, hideHeader, hideFooter, authenticated, children }) => {
     }, []);
 
     useEffect(() => {
-        document.title = title ? `lijohnttle - ${title}` : 'lijohnttle';
+        document.title = title ? `${title} | lijohnttle` : 'lijohnttle';
     }, [title]);
 
     if (authenticated && !getUserSession()) {
