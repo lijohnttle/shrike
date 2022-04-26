@@ -24,6 +24,10 @@ let defaultTheme = createTheme({
             main: colors.brand,
             contrastText: colors.activeText,
         },
+        complementary: {
+            main: colors.backgroundComplementary,
+            mani: colors.textComplementary,
+        },
     },
     typography: {
         fontFamily: [ 'Roboto', 'Arial Narrow', 'Arial', 'Helvetica' ],

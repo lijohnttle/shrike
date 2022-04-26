@@ -4,7 +4,7 @@
  * @returns 
  */
  export function getBlogPostUrl(slug) {
-    return `/content/blog/${slug}`;
+    return `/blog/${slug}`;
 }
 
 /**

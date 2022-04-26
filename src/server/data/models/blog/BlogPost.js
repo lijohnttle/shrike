@@ -57,6 +57,8 @@ blogPostSchema.index({ slug: 1 }, { unique: true });
 
 const BlogPost = mongoose.model('BlogPost', blogPostSchema);
 
+BlogPost.syncIndexes();
+
 class BlogPostDocument extends mongoose.Document {
     constructor() {
         /**
