@@ -1,6 +1,6 @@
 const typeDef = `
     extend type Query {
-        blogPostList(includeUnpublished: Boolean, userToken: String): BlogPostListResult
+        blogPostList(showUnpublished: Boolean, userToken: String): BlogPostListResult
         blogPost(slug: String!, userToken: String): BlogPostResult
     }
 

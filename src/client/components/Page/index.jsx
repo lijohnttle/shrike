@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
-import { useUserSession } from '../../hooks';
-import { Navigate, useNavigate } from 'react-router';
-import { verifyAccessToken } from '../../services/security';
+import { useAuthenticated, useUserSession } from '../../hooks';
+import { Navigate } from 'react-router';
 import { urlList } from '../../../static';
 import { Box } from '@mui/system';
 
@@ -13,25 +12,8 @@ import { Box } from '@mui/system';
  * @param {{ title: string, hideHeader: boolean, hideFooter: boolean, children: any }} 
  */
 const Page = ({ title, hideHeader, hideFooter, authenticated, children }) => {
-    const [getUserSession, _, removeUserSession] = useUserSession();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (authenticated) {
-            const session = getUserSession();
-
-            if (session) {
-                verifyAccessToken(session.token, removeUserSession)
-                    .then((verified) => {
-                        if (!verified) {
-                            removeUserSession();
-                            navigate(urlList.SIGN_IN);
-                        }
-                    })
-                    .catch((error) => console.error(error));
-            }
-        }
-    }, []);
+    const [getUserSession] = useUserSession();
+    useAuthenticated(authenticated);
 
     useEffect(() => {
         document.title = title ? `${title} | lijohnttle` : 'lijohnttle';
