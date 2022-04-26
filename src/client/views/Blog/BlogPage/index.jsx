@@ -7,6 +7,8 @@ import { BlogPostMeta } from '../BlogPostMeta';
 import { BlogToolBar } from '../BlogToolBar';
 import { useUserSession } from '../../../hooks';
 import { fetchBlogPostList } from '../../../services/blogService';
+import { BlogPostModel } from '../../../models';
+import { Box } from '@mui/system';
 
 
 const renderBlogPostsPlaceholder = () => {
@@ -21,6 +23,7 @@ const renderBlogPostsPlaceholder = () => {
 
 const BlogPage = () => {
     const isCancelled = useRef(false);
+    /** @type {[BlogPostModel, Function]} */
     const [blogPosts, setBlogPosts] = useState([]);
     const [showUnpublished, setShowUnpublished] = useState(false);
     const [getUserSession] = useUserSession();
@@ -53,11 +56,42 @@ const BlogPage = () => {
                 <BlogToolBar showUnpublished={showUnpublished} setShowUnpublished={setShowUnpublished} />
 
                 {blogPosts.length > 0
-                    ? blogPosts.map((post) => (
-                        <ContentBlock key={post.slug} compact>
-                            <BlogPostMeta post={post} />
+                    ? (
+                        <ContentBlock compact>
+                            <Box
+                                display="flex"
+                                flexDireaction="row"
+                                flexWrap="wrap"
+                                sx={{
+                                    '& > div:nth-of-type(odd)': {
+                                        paddingRight: {
+                                            xs: 0,
+                                            sm: 2
+                                        },
+                                    },
+                                    '& > div:nth-of-type(even)': {
+                                        paddingLeft: {
+                                            xs: 0,
+                                            sm: 2
+                                        },
+                                    },
+                                }}>
+                                {blogPosts.map((post) => (
+                                    <Box
+                                        key={post.slug}
+                                        sx={{
+                                            paddingBottom: 2,
+                                            width: {
+                                                xs: '100%',
+                                                sm: '50%',
+                                            },
+                                        }}>
+                                        <BlogPostMeta blogPost={post} />
+                                    </Box>
+                                ))}
+                            </Box>
                         </ContentBlock>
-                    ))
+                    )
                     : renderBlogPostsPlaceholder()}
             </Article>
         </Page>

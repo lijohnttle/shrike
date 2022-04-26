@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { AttachmentDto, BlogPostDto } from '../../../../contracts';
+import { getBlogPostAttachmentUrl } from '../../../../utils/urlBuilder';
 import { Attachment } from '../../../data/models/Attachment';
 import { BlogPost, BlogPostDocument } from '../../../data/models/blog/BlogPost';
 import { UserContext } from '../../entities/authentication/UserContext';
@@ -13,6 +14,7 @@ import { UserContext } from '../../entities/authentication/UserContext';
 const mapBlogPostDtoToDocument = (source, dest) => {
     dest.title = source.title;
     dest.description = source.description;
+    dest.descriptionImage = source.descriptionImage;
     dest.content = source.content;
     dest.slug = source.slug;
     dest.published = source.published;
@@ -64,6 +66,7 @@ const mapBlogPostDocumentToDto = (source) => {
         title: source.title,
         slug: source.slug,
         description: source.description,
+        descriptionImage: source.descriptionImage,
         content: source.content,
         createdOn: source.createdOn.toUTCString(),
         updatedOn: source.updatedOn.toUTCString(),
@@ -72,9 +75,9 @@ const mapBlogPostDocumentToDto = (source) => {
         attachments: source.attachments?.map(attachment => new AttachmentDto({
             name: attachment.name,
             contentType: attachment.contentType,
-            data: null,
+            data: attachment.data,
             size: attachment.size,
-            url: `/content/blog/${source.slug}/attachments/${attachment.name}`
+            url: getBlogPostAttachmentUrl(source.slug, attachment.name),
         })),
     });
 };
@@ -108,6 +111,7 @@ class BlogManager {
                 title: 1,
                 slug: 1,
                 description: 1,
+                descriptionImage: 1,
                 createdOn: 1,
                 updatedOn: 1,
                 publishedOn: 1,
@@ -135,6 +139,7 @@ class BlogManager {
                 title: 1,
                 slug: 1,
                 description: 1,
+                descriptionImage: 1,
                 content: 1,
                 createdOn: 1,
                 updatedOn: 1,

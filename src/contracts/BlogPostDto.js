@@ -30,6 +30,13 @@ export class BlogPostDto {
         this.description = props?.description;
 
         /**
+         * The image to be displayed in a blog post head.
+         * @type {String}
+         * @public
+         */
+         this.descriptionImage = props?.descriptionImage;
+
+        /**
          * The content of a blog post.
          * @type {String}
          * @public
@@ -76,6 +83,6 @@ export class BlogPostDto {
          * @type {AttachmentDto[]}
          * @public
          */
-         this.attachments = props?.attachments;
+        this.attachments = props?.attachments;
     }
 }

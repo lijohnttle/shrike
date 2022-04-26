@@ -8,7 +8,7 @@ export const ArticleHeader = ({ title, subTitle, titleStyles, maxWidth }) => (
         </Typography>
 
         {subTitle ? (
-            <Typography variant="caption" color="textSecondary" gutterBottom paragraph>
+            <Typography variant="caption" color="textSecondary" fontSize="1.3em">
                 {subTitle}
             </Typography>
         ) : null}

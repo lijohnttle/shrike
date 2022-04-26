@@ -22,6 +22,7 @@ const AboutPage = () => {
                     styles={{
                         background: colors.backgroundComplementary,
                         color: colors.textComplementary,
+                        marginTop: 4,
                     }}>
                     <div className={classes.pictureContainer}>
                         <img className={classes.picture} src="/assets/images/me_large.jpg" />

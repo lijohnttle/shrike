@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { Page } from '../../../components/Page';
 import { useUserSession } from '../../../hooks';
-import { EditBlogPostForm } from '../EditBlogPostForm';
+import { EditBlogPostForm, EditMode } from '../EditBlogPostForm';
 import { EditBlogPostPreview } from '../EditBlogPostPreview';
 import { NotFound } from '../../../views/NotFound';
 import { fetchBlogPost, saveBlogPost, deleteBlogPost } from '../../../services/blogService';
-import { AttachmentModel, BlogPostModel } from '../../../models';
+import { BlogPostModel } from '../../../models';
+import { getBlogPostUrl } from '../../../../utils/urlBuilder';
 
 
 const EditBlogPostPage = () => {
@@ -55,6 +56,9 @@ const EditBlogPostPage = () => {
             case 'description':
                 setBlogPost(new BlogPostModel({ ...blogPost, description: value }));
                 break;
+            case 'descriptionImage':
+                setBlogPost(new BlogPostModel({ ...blogPost, descriptionImage: value }));
+                break;
             case 'content':
                 setBlogPost(new BlogPostModel({ ...blogPost, content: value }));
                 break;
@@ -73,7 +77,7 @@ const EditBlogPostPage = () => {
         try {
             await saveBlogPost(blogPost, { userSession: session });
 
-            navigate(`/blog/${blogPost.slug}`);
+            navigate(getBlogPostUrl(blogPost.slug));
         }
         catch (error) {
             console.log(error);
@@ -101,7 +105,7 @@ const EditBlogPostPage = () => {
         <Page title="Edit Blog Post" authenticated>
             {!isLoading && !isPreviewMode ? 
                 <EditBlogPostForm
-                    mode={EditBlogPostForm.modes.edit}
+                    mode={EditMode.edit}
                     blogPost={blogPost}
                     onChange={changeHandler}
                     onPreview={() => setIsPreviewMode(true)}
@@ -111,13 +115,12 @@ const EditBlogPostPage = () => {
 
             {!isLoading && isPreviewMode ? 
                 <EditBlogPostPreview
-                    isCreation={false}
-                    blogPostTitle={blogPost.title}
-                    blogPostAttachments={blogPost.attachments}
-                    blogPostContent={blogPost.content}
-                    blogPostPublish={blogPost.publish}
+                    mode={EditMode.edit}
+                    blogPost={blogPost}
+                    onChange={changeHandler}
                     onEdit={() => setIsPreviewMode(false)}
-                    onSave={saveHandler} />
+                    onSave={saveHandler}
+                    onDelete={deleteHandler} />
                 : null}
         </Page>
     );

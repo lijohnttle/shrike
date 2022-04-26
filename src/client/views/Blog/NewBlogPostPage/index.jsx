@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { getBlogPostUrl } from '../../../../utils/urlBuilder';
 import { Page } from '../../../components/Page';
 import { useUserSession } from '../../../hooks';
-import { AttachmentModel } from '../../../models';
 import { BlogPostModel } from '../../../models/BlogPostModel';
 import { createBlogPost } from '../../../services/blogService';
-import { EditBlogPostForm } from '../EditBlogPostForm';
+import { EditBlogPostForm, EditMode } from '../EditBlogPostForm';
 import { EditBlogPostPreview } from '../EditBlogPostPreview';
 
 
@@ -32,6 +32,9 @@ const NewBlogPostPage = () => {
             case 'description':
                 setBlogPost(new BlogPostModel({ ...blogPost, description: value }));
                 break;
+            case 'descriptionImage':
+                setBlogPost(new BlogPostModel({ ...blogPost, descriptionImage: value }));
+                break;
             case 'content':
                 setBlogPost(new BlogPostModel({ ...blogPost, content: value }));
                 break;
@@ -50,7 +53,7 @@ const NewBlogPostPage = () => {
         try {
             await createBlogPost(blogPost, { userSession: session });
 
-            navigate(`/blog/${blogPost.slug}`);
+            navigate(getBlogPostUrl(blogPost.slug));
         }
         catch (error) {
             console.error(error);
@@ -61,7 +64,7 @@ const NewBlogPostPage = () => {
         <Page title="New Blog Post" authenticated>
             {!isPreviewMode ? 
                 <EditBlogPostForm
-                    mode={EditBlogPostForm.modes.create}
+                    mode={EditMode.create}
                     blogPost={blogPost}
                     onChange={changeHandler}
                     onPreview={() => setIsPreviewMode(true)}
@@ -70,11 +73,9 @@ const NewBlogPostPage = () => {
 
             {isPreviewMode ? 
                 <EditBlogPostPreview
-                    isCreation={true}
-                    blogPostTitle={blogPost.title}
-                    blogPostAttachments={blogPost.attachments}
-                    blogPostContent={blogPost.content}
-                    blogPostPublish={blogPost.publish}
+                    mode={EditMode.create}
+                    blogPost={blogPost}
+                    onChange={changeHandler}
                     onEdit={() => setIsPreviewMode(false)}
                     onSave={saveHandler} />
                 : null}

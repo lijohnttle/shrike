@@ -51,6 +51,7 @@ export const fetchBlogPostList = async (options) => {
                     title
                     slug
                     description
+                    descriptionImage
                     createdOn
                     updatedOn
                     publishedOn
@@ -108,6 +109,7 @@ export const fetchBlogPost = async (slug, options) => {
                     content
                     slug
                     description
+                    descriptionImage
                     createdOn
                     updatedOn
                     publishedOn
@@ -162,6 +164,7 @@ export const saveBlogPost = async (blogPost, options) => {
             $title: String!,
             $slug: String!,
             $description: String!,
+            $descriptionImage: String,
             $content: String!,
             $published: Boolean,
             $attachments: [FileAttachmentInput],
@@ -173,6 +176,7 @@ export const saveBlogPost = async (blogPost, options) => {
                     title: $title,
                     slug: $slug,
                     description: $description,
+                    descriptionImage: $descriptionImage,
                     content: $content,
                     published: $published,
                     attachments: $attachments
@@ -189,6 +193,7 @@ export const saveBlogPost = async (blogPost, options) => {
         title: blogPost.title,
         slug: blogPost.slug,
         description: blogPost.description,
+        descriptionImage: blogPost.descriptionImage,
         content: blogPost.content,
         published: blogPost.published,
         attachments: attachments?.map(attachment => ({
@@ -233,6 +238,7 @@ export const createBlogPost = async (blogPost, options) => {
             $title: String!,
             $slug: String!,
             $description: String!,
+            $descriptionImage: String,
             $content: String!,
             $published: Boolean,
             $attachments: [FileAttachmentInput],
@@ -244,6 +250,7 @@ export const createBlogPost = async (blogPost, options) => {
                     title: $title,
                     slug: $slug,
                     description: $description,
+                    descriptionImage: $descriptionImage,
                     content: $content,
                     published: $published,
                     attachments: $attachments
@@ -259,6 +266,7 @@ export const createBlogPost = async (blogPost, options) => {
         title: blogPost.title,
         slug: blogPost.slug,
         description: blogPost.description,
+        descriptionImage: blogPost.descriptionImage,
         content: blogPost.content,
         published: blogPost.published,
         attachments: attachments?.map(attachment => ({

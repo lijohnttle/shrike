@@ -23,7 +23,7 @@ const CommandContainer = styled('div')(({ theme }) => ({
  * @readonly
  * @enum {String}
  */
-const EditMode = {
+export const EditMode = {
     create: 'create',
     edit: 'edit',
 };
@@ -48,8 +48,8 @@ const EditMode = {
  */
 const EditBlogPostForm = (props) => {
     return (
-        <Article title={props.mode === EditMode.create ? 'NEW BLOG POST' : 'EDIT BLOG POST'}>
-            <ContentBlock>
+        <Article title={props.mode === EditMode.create ? 'NEW BLOG POST' : 'EDIT BLOG POST'} titleMaxWidth="md">
+            <ContentBlock maxWidth="md">
                 <form style={{ display: 'flex', flexDirection: 'column' }}>
                     <FieldContainer>
                         <TextField
@@ -75,6 +75,13 @@ const EditBlogPostForm = (props) => {
                             maxRows={4}
                             name="description"
                             defaultValue={props.blogPost.description}
+                            onChange={e => props.onChange(e.target.name, e.target.value)} />
+                    </FieldContainer>
+                    <FieldContainer>
+                        <TextField
+                            label="Description Image"
+                            name="descriptionImage"
+                            defaultValue={props.blogPost.descriptionImage}
                             onChange={e => props.onChange(e.target.name, e.target.value)} />
                     </FieldContainer>
                     <FieldContainer>
@@ -106,11 +113,11 @@ const EditBlogPostForm = (props) => {
                         {props.mode === EditMode.edit
                             ? (
                                 <CommandContainer>
-                                    <Button color="error" variant="outlined" onClick={() => props.onDelete()}>DELETE</Button>
+                                    <Button color="error" variant="outlined" onClick={props.onDelete}>DELETE</Button>
                                 </CommandContainer>
                             ) : null}
                         <CommandContainer>
-                            <Button color="primary" variant="outlined" onClick={() => props.onPreview()}>PREVIEW</Button>
+                            <Button color="primary" variant="outlined" onClick={props.onPreview}>PREVIEW</Button>
                         </CommandContainer>
                         <CommandContainer>
                             <Button color="success" variant="contained" onClick={props.onSave}>
