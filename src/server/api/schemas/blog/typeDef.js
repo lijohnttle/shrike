@@ -1,6 +1,6 @@
 const typeDef = `
     extend type Query {
-        blogPostList(includeUnpublished: Boolean, userToken: String): BlogPostListResult
+        blogPostList(showUnpublished: Boolean, userToken: String): BlogPostListResult
         blogPost(slug: String!, userToken: String): BlogPostResult
     }
 
@@ -43,6 +43,7 @@ const typeDef = `
         publishedOn: String
         published: Boolean!
         attachments: [FileAttachmentOutput]
+        visits: Int
     }
 
     type BlogPostMetadata {
@@ -55,6 +56,7 @@ const typeDef = `
         updatedOn: String!
         publishedOn: String
         published: Boolean!
+        visits: Int
     }
 
     type BlogPostListResult {

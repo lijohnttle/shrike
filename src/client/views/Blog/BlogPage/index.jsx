@@ -53,7 +53,7 @@ const BlogPage = () => {
     return (
         <Page title="Blog">
             <Article title="BLOG">
-                <BlogToolBar showUnpublished={showUnpublished} setShowUnpublished={setShowUnpublished} />
+                <BlogToolBar showUnpublished={showUnpublished} onShowUnpublishedChange={setShowUnpublished} />
 
                 {blogPosts.length > 0
                     ? (

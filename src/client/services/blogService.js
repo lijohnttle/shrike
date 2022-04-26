@@ -9,7 +9,7 @@ import { toBase64 } from '../utils/filesystem';
  * @param {BlogPostModel} blogPost
  * @returns {Promise<AttachmentModel[]>} 
  */
-const prepareAttachmentsToUpload = async (blogPost) => {
+async function prepareAttachmentsToUpload(blogPost) {
     if (!blogPost.attachments || blogPost.attachments.length === 0) {
         return [];
     }
@@ -36,14 +36,14 @@ const prepareAttachmentsToUpload = async (blogPost) => {
  * @param {Boolean} [options.unpublished] Get unpublished blog posts. {@link options.userSession} is requried.
  * @returns {Promise<BlogPostModel[]>}
  */
-export const fetchBlogPostList = async (options) => {
+export async function fetchBlogPostList (options) {
     const response = await graphqlRequest(`
         query BlogPostList(
             $unpublished: Boolean,
             $userToken: String)
         {
             blogPostList(
-                includeUnpublished: $unpublished,
+                showUnpublished: $unpublished,
                 userToken: $userToken)
             {
                 success
@@ -56,6 +56,7 @@ export const fetchBlogPostList = async (options) => {
                     updatedOn
                     publishedOn
                     published
+                    visits
                 }
                 errorMessage
             }
@@ -91,7 +92,7 @@ export const fetchBlogPostList = async (options) => {
  * @param {UserSessionModel} [options.userSession] Current user session.
  * @returns {Promise<BlogPostModel>}
  */
-export const fetchBlogPost = async (slug, options) => {
+export async function fetchBlogPost(slug, options) {
     const response = await graphqlRequest(`
         query BlogPost(
             $slug: String!,
@@ -120,6 +121,7 @@ export const fetchBlogPost = async (slug, options) => {
                         size
                         contentType
                     }
+                    visits
                 }
                 errorMessage
             }
@@ -155,7 +157,7 @@ export const fetchBlogPost = async (slug, options) => {
  * @param {UserSessionModel} [options.userSession] Current user session.
  * @returns {Promise}
  */
-export const saveBlogPost = async (blogPost, options) => {
+export async function saveBlogPost(blogPost, options) {
     const attachments = await prepareAttachmentsToUpload(blogPost);
 
     const response = await graphqlRequest(`
@@ -230,7 +232,7 @@ export const saveBlogPost = async (blogPost, options) => {
  * @param {UserSessionModel} [options.userSession] Current user session.
  * @returns {Promise}
  */
-export const createBlogPost = async (blogPost, options) => {
+export async function createBlogPost(blogPost, options) {
     const attachments = await prepareAttachmentsToUpload(blogPost);
 
     const response = await graphqlRequest(`
@@ -303,7 +305,7 @@ export const createBlogPost = async (blogPost, options) => {
  * @param {UserSessionModel} [options.userSession] Current user session.
  * @returns {Promise}
  */
-export const deleteBlogPost = async (blogPostId, options) => {
+export async function deleteBlogPost(blogPostId, options) {
     const response = await graphqlRequest(`
         mutation DeleteBlogPost(
             $blogPostId: String!,
