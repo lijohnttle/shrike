@@ -56,6 +56,7 @@ export async function fetchBlogPostList (options) {
                     updatedOn
                     publishedOn
                     published
+                    visits
                 }
                 errorMessage
             }
@@ -120,6 +121,7 @@ export async function fetchBlogPost(slug, options) {
                         size
                         contentType
                     }
+                    visits
                 }
                 errorMessage
             }

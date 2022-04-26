@@ -85,6 +85,13 @@ import { AttachmentModel } from './AttachmentModel';
          * @public
          */
         this.attachments = props?.attachments;
+
+        /**
+         * Blog post visits.
+         * @type {Number}
+         * @public
+         */
+        this.visits = props?.visits;
     }
 
     /**
@@ -115,6 +122,7 @@ import { AttachmentModel } from './AttachmentModel';
                 size: attachment.size,
                 data: attachment.data,
             })),
+            visits: dto.visits,
         });
     }
 }

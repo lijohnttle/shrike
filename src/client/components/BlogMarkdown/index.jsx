@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { getBlogPostAttachmentUrl } from '../../../utils/urlBuilder';
+import { getBlogPostAttachmentUrlPath } from '../../../utils/urlBuilder';
 import { BlogPostModel } from '../../models';
 
 
@@ -35,7 +35,7 @@ export const BlogMarkdown = (props) => {
                             }
                         }
                         else if (props.blogPost.slug) {
-                            url = getBlogPostAttachmentUrl(props.blogPostSlug, src);
+                            url = getBlogPostAttachmentUrlPath(props.blogPostSlug, src);
                         }
 
                         return (

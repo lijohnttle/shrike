@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { getAccessValidator, getUserVisitCounter, getUserAuthenticator } from '../../../domain';
+import { UserVisitRegistrationDto } from '../../../../contracts';
+import { extractBlogPostSlugFromUrl } from '../../../../utils/urlBuilder';
+import {
+    getAccessValidator,
+    getUserVisitCounter,
+    getUserAuthenticator,
+    getBlogManager } from '../../../domain';
 
 
 const queryResolvers = {
@@ -91,6 +97,14 @@ const queryResolvers = {
 };
 
 const mutationResolvers = {
+    /**
+     * Registers user visits.
+     * @param {*} _ 
+     * @param {Object} params
+     * @param {UserVisitRegistrationDto} params.userVisit
+     * @param {*} context 
+     * @returns 
+     */
     recordUserVisit: async (_, { userVisit }, context) => {
         try {
             let country = '';
@@ -113,6 +127,13 @@ const mutationResolvers = {
             }
 
             await getUserVisitCounter().recordVisit(userVisit.path, country, city);
+
+            const blogPostSlug = extractBlogPostSlugFromUrl(userVisit.path);
+
+            if (blogPostSlug) {
+                await getBlogManager().registerVisit(blogPostSlug);
+            }
+
             return true;
         }
         catch (error) {

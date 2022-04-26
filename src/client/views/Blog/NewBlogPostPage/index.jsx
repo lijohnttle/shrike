@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { getBlogPostUrl } from '../../../../utils/urlBuilder';
+import { getBlogPostUrlPath } from '../../../../utils/urlBuilder';
 import { Page } from '../../../components/Page';
 import { useUserSession } from '../../../hooks';
 import { BlogPostModel } from '../../../models/BlogPostModel';
@@ -53,7 +53,7 @@ const NewBlogPostPage = () => {
         try {
             await createBlogPost(blogPost, { userSession: session });
 
-            navigate(getBlogPostUrl(blogPost.slug));
+            navigate(getBlogPostUrlPath(blogPost.slug));
         }
         catch (error) {
             console.error(error);

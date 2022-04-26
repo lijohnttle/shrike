@@ -50,6 +50,7 @@ const blogPostSchema = new mongoose.Schema({
             required: true,
         },
     }],
+    visits: Number,
 });
 
 blogPostSchema.index({ publishedOn: 1 });
@@ -60,66 +61,75 @@ const BlogPost = mongoose.model('BlogPost', blogPostSchema);
 BlogPost.syncIndexes();
 
 class BlogPostDocument extends mongoose.Document {
-    constructor() {
+    /**
+     * @param {BlogPostDocument} document 
+     */
+    constructor(document) {
         /**
          * @type {String}
          * @public
          */
-        this.title = undefined;
+        this.title = document?.title;
         
         /**
          * @type {String}
          * @public
          */
-        this.description = undefined;
+        this.description = document?.description;
 
         /**
          * @type {String}
          * @public
          */
-         this.descriptionImage = undefined;
+         this.descriptionImage = document?.descriptionImage;
         
         /**
          * @type {String}
          * @public
          */
-        this.content = undefined;
+        this.content = document?.content;
         
         /**
          * @type {String}
          * @public
          */
-        this.slug = undefined;
+        this.slug = document?.slug;
         
         /**
          * @type {Date}
          * @public
          */
-        this.createdOn = undefined;
+        this.createdOn = document?.createdOn;
         
         /**
          * @type {Date}
          * @public
          */
-        this.updatedOn = undefined;
+        this.updatedOn = document?.updatedOn;
         
         /**
          * @type {Date}
          * @public
          */
-        this.publishedOn = undefined;
+        this.publishedOn = document?.publishedOn;
         
         /**
          * @type {Boolean}
          * @public
          */
-        this.published = undefined;
+        this.published = document?.published;
         
         /**
          * @type {Attachment[]}
          * @public
          */
-        this.attachments = undefined;
+        this.attachments = document?.attachments;
+
+        /**
+         * @type {Number}
+         * @public
+         */
+        this.visits = undefined;
     }
 }
 

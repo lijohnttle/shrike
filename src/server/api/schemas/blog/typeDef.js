@@ -43,6 +43,7 @@ const typeDef = `
         publishedOn: String
         published: Boolean!
         attachments: [FileAttachmentOutput]
+        visits: Int
     }
 
     type BlogPostMetadata {
@@ -55,6 +56,7 @@ const typeDef = `
         updatedOn: String!
         publishedOn: String
         published: Boolean!
+        visits: Int
     }
 
     type BlogPostListResult {

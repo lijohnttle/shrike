@@ -7,7 +7,7 @@ import { EditBlogPostPreview } from '../EditBlogPostPreview';
 import { NotFound } from '../../../views/NotFound';
 import { fetchBlogPost, saveBlogPost, deleteBlogPost } from '../../../services/blogService';
 import { BlogPostModel } from '../../../models';
-import { getBlogPostUrl } from '../../../../utils/urlBuilder';
+import { getBlogPostUrlPath } from '../../../../utils/urlBuilder';
 
 
 const EditBlogPostPage = () => {
@@ -77,7 +77,7 @@ const EditBlogPostPage = () => {
         try {
             await saveBlogPost(blogPost, { userSession: session });
 
-            navigate(getBlogPostUrl(blogPost.slug));
+            navigate(getBlogPostUrlPath(blogPost.slug));
         }
         catch (error) {
             console.log(error);

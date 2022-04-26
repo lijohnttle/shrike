@@ -2,10 +2,34 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import { InternalLink } from '../../../components/InternalLink';
 import { Box } from '@mui/system';
-import { BlogPostModel } from '../../../models';
-import { getBlogPostUrl, getBlogPostAttachmentUrl } from '../../../../utils/urlBuilder';
+import { BlogPostModel, UserSessionModel } from '../../../models';
+import { getBlogPostUrlPath, getBlogPostAttachmentUrlPath } from '../../../../utils/urlBuilder';
 import colors from '../../../themes/colors';
+import { useUserSession } from '../../../hooks';
 
+
+/**
+ * @param {BlogPostModel} blogPost 
+ * @param {UserSessionModel} session 
+ * @return {String}
+ */
+function buildSubTitle(blogPost, session) {
+    const subTitle = [];
+
+    if (blogPost.publishedOn) {
+        subTitle.push(blogPost.publishedOn.toLocaleDateString());
+    }
+
+    if (!blogPost.published) {
+        subTitle.push('Not published');
+    }
+
+    if (session) {
+        subTitle.push(`Visits: ${blogPost.visits ?? 0}`);
+    }
+
+    return subTitle.join(' | ');
+}
 
 /**
  * Component to render a blog post details.
@@ -14,16 +38,18 @@ import colors from '../../../themes/colors';
  * @returns 
  */
 const BlogPostMeta = (props) => {
+    const [getUserSession] = useUserSession();
+
+    const userSession = getUserSession();
+
     return (
         <Box display="flex" flexDirection="column">
             <Typography variant="caption" align="justify" marginBottom={1}>
-                {props.blogPost.publishedOn?.toLocaleDateString() ?? ''}
-
-                {!props.blogPost.published ? ' (Not published)' : ''}
+                {buildSubTitle(props.blogPost, userSession)}
             </Typography>
 
             <InternalLink
-                to={getBlogPostUrl(props.blogPost.slug)}
+                to={getBlogPostUrlPath(props.blogPost.slug)}
                 sx={{
                     display: 'block',
                     overflow: 'hidden',
@@ -34,7 +60,7 @@ const BlogPostMeta = (props) => {
                 {props.blogPost.descriptionImage
                     ? (
                         <img
-                            src={getBlogPostAttachmentUrl(props.blogPost.slug, props.blogPost.descriptionImage)}
+                            src={getBlogPostAttachmentUrlPath(props.blogPost.slug, props.blogPost.descriptionImage)}
                             style={{
                                 objectFit: 'cover',
                                 objectPosition: 'center',
@@ -45,7 +71,7 @@ const BlogPostMeta = (props) => {
             </InternalLink>
 
             <InternalLink
-                to={getBlogPostUrl(props.blogPost.slug)}
+                to={getBlogPostUrlPath(props.blogPost.slug)}
                 withoutUnderline
                 sx={{
                     color: colors.text,
