@@ -23,7 +23,7 @@ const CommandContainer = styled('div')(({ theme }) => ({
  * @readonly
  * @enum {String}
  */
-const EditMode = {
+export const EditMode = {
     create: 'create',
     edit: 'edit',
 };
@@ -106,11 +106,11 @@ const EditBlogPostForm = (props) => {
                         {props.mode === EditMode.edit
                             ? (
                                 <CommandContainer>
-                                    <Button color="error" variant="outlined" onClick={() => props.onDelete()}>DELETE</Button>
+                                    <Button color="error" variant="outlined" onClick={props.onDelete}>DELETE</Button>
                                 </CommandContainer>
                             ) : null}
                         <CommandContainer>
-                            <Button color="primary" variant="outlined" onClick={() => props.onPreview()}>PREVIEW</Button>
+                            <Button color="primary" variant="outlined" onClick={props.onPreview}>PREVIEW</Button>
                         </CommandContainer>
                         <CommandContainer>
                             <Button color="success" variant="contained" onClick={props.onSave}>

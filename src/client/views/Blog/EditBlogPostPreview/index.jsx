@@ -1,47 +1,62 @@
 import React from 'react';
 import { Button, Checkbox, FormControlLabel } from '@mui/material';
-import { useStyles } from './styles';
 import { Article } from '../../../components/Article';
 import { ContentBlock } from '../../../components/ContentBlock';
 import { BlogMarkdown } from '../../../components/BlogMarkdown';
+import { EditMode } from '../EditBlogPostForm';
+import { BlogPostModel } from '../../../models';
+import { Box, styled } from '@mui/system';
 
 
-const EditBlogPostPreview = ({
-        isCreation,
-        blogPostTitle,
-        blogPostAttachments,
-        blogPostContent,
-        blogPostPublish,
-        onEdit,
-        onSave
-    }) => {
+const CommandContainer = styled('div')(({ theme }) => ({
+    marginLeft: theme.spacing(1),
+    marginTop: theme.spacing(2)
+}));
 
-    const classes = useStyles();
 
-    const editButtonClickHandler = () => {
-        onEdit();
-    };
-
+/**
+ * Form for editing an existing or adding a new blog post.
+ * @param {Object} props 
+ * @param {EditMode} props.mode
+ * @param {BlogPostModel} props.blogPost
+ * @param {onBlogPostChanged} props.onChange
+ * @param {Function} props.onEdit
+ * @param {Function} props.onSave
+ * @param {Function} [props.onDelete]
+ */
+const EditBlogPostPreview = (props) => {
     return (
-        <Article title={blogPostTitle.toUpperCase()} compact>
+        <Article title={props.blogPost.title.toUpperCase()} compact>
             <ContentBlock>
-                <div className={classes.contentRoot}>
-                    <BlogMarkdown attachments={blogPostAttachments} children={blogPostContent} />
+                {/* <div className={classes.contentRoot}> */}
+                    <BlogMarkdown attachments={props.blogPost.attachments} children={props.blogPost.content} />
 
-                    <form className={classes.form}>
-                        <div className={classes.commandsContainer}>
-                            <div className={classes.commandContainer}>
-                                <FormControlLabel control={<Checkbox checked={blogPostPublish} onChange={(e) => setBlogPostPublish(e.target.checked)} />} label="Publish" />
-                            </div>
-                            <div className={classes.commandContainer}>
-                                <Button color="primary" variant="outlined" onClick={editButtonClickHandler}>EDIT</Button>
-                            </div>
-                            <div className={classes.commandContainer}>
-                                <Button color="success" variant="contained" onClick={onSave}>{isCreation ? 'CREATE' : 'SAVE'}</Button>
-                            </div>
-                        </div>
+                    <form style={{ display: 'flex', flexDirection: 'column' }}>
+                        <Box display="flex" flexDirection="row" justifyContent="flex-end">
+                            <CommandContainer>
+                                <FormControlLabel
+                                    control={<Checkbox checked={props.blogPost.published}
+                                    name="published"
+                                    onChange={(e) => props.onChange(e.target.name, e.target.checked)} />}
+                                    label="Publish" />
+                            </CommandContainer>
+                            {props.mode === EditMode.edit
+                            ? (
+                                <CommandContainer>
+                                    <Button color="error" variant="outlined" onClick={props.onDelete}>DELETE</Button>
+                                </CommandContainer>
+                            ) : null}
+                            <CommandContainer>
+                                <Button color="primary" variant="outlined" onClick={props.onEdit}>EDIT</Button>
+                            </CommandContainer>
+                            <CommandContainer>
+                                <Button color="success" variant="contained" onClick={props.onSave}>
+                                    {props.mode === EditMode.create ? 'CREATE' : 'SAVE'}
+                                </Button>
+                            </CommandContainer>
+                        </Box>
                     </form>
-                </div>
+                {/* </div> */}
             </ContentBlock>
         </Article>
     );

@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { Page } from '../../../components/Page';
 import { useUserSession } from '../../../hooks';
-import { EditBlogPostForm } from '../EditBlogPostForm';
+import { EditBlogPostForm, EditMode } from '../EditBlogPostForm';
 import { EditBlogPostPreview } from '../EditBlogPostPreview';
 import { NotFound } from '../../../views/NotFound';
 import { fetchBlogPost, saveBlogPost, deleteBlogPost } from '../../../services/blogService';
-import { AttachmentModel, BlogPostModel } from '../../../models';
+import { BlogPostModel } from '../../../models';
 
 
 const EditBlogPostPage = () => {
@@ -101,7 +101,7 @@ const EditBlogPostPage = () => {
         <Page title="Edit Blog Post" authenticated>
             {!isLoading && !isPreviewMode ? 
                 <EditBlogPostForm
-                    mode={EditBlogPostForm.modes.edit}
+                    mode={EditMode.edit}
                     blogPost={blogPost}
                     onChange={changeHandler}
                     onPreview={() => setIsPreviewMode(true)}
@@ -111,13 +111,12 @@ const EditBlogPostPage = () => {
 
             {!isLoading && isPreviewMode ? 
                 <EditBlogPostPreview
-                    isCreation={false}
-                    blogPostTitle={blogPost.title}
-                    blogPostAttachments={blogPost.attachments}
-                    blogPostContent={blogPost.content}
-                    blogPostPublish={blogPost.published}
+                    mode={EditMode.edit}
+                    blogPost={blogPost}
+                    onChange={changeHandler}
                     onEdit={() => setIsPreviewMode(false)}
-                    onSave={saveHandler} />
+                    onSave={saveHandler}
+                    onDelete={deleteHandler} />
                 : null}
         </Page>
     );
