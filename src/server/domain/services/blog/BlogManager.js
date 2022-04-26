@@ -86,38 +86,40 @@ const mapBlogPostDocumentToDto = (source) => {
 class BlogManager {
     /**
      * Returns the list of blog posts.
-     * @param {Boolean} includeUnpublished
+     * @param {Boolean} showUnpublished
      * @param {UserContext} userContext 
      * @returns {Resolver<BlogPostDto[]>}
      */
-    async getBlogPostList(includeUnpublished, userContext) {
-        const requireAdminRole = includeUnpublished;
+    async getBlogPostList(showUnpublished, userContext) {
+        const requireAdminRole = showUnpublished;
 
         if (requireAdminRole) {
             userContext.verifyAdminAccess();
         }
 
-        const filter = {};
-
-        if (!includeUnpublished) {
-            filter.published = true;
-        }
-
         /** @type {BlogPostDocument[]} */
-        const blogPostDocuments = await BlogPost.find(
-            filter,
-            {
-                _id: 1,
-                title: 1,
-                slug: 1,
-                description: 1,
-                descriptionImage: 1,
-                createdOn: 1,
-                updatedOn: 1,
-                publishedOn: 1,
-                published: 1,
-            }
-        );
+        const blogPostDocuments = await BlogPost
+            .find(
+                {
+                    published: !showUnpublished,
+                },
+                {
+                    _id: 1,
+                    title: 1,
+                    slug: 1,
+                    description: 1,
+                    descriptionImage: 1,
+                    createdOn: 1,
+                    updatedOn: 1,
+                    publishedOn: 1,
+                    published: 1,
+                }
+            )
+            .sort({
+                publishedOn: showUnpublished ? 0 : -1,
+                updatedOn: -1
+            })
+            .exec();
 
         return blogPostDocuments.map(mapBlogPostDocumentToDto);
     }
@@ -130,26 +132,28 @@ class BlogManager {
      */
     async getBlogPost(slug, userContext) {
         /** @type {BlogPostDocument} */
-        const blogPostDocument = await BlogPost.findOne(
-            {
-                slug: slug
-            },
-            {
-                _id: 1,
-                title: 1,
-                slug: 1,
-                description: 1,
-                descriptionImage: 1,
-                content: 1,
-                createdOn: 1,
-                updatedOn: 1,
-                publishedOn: 1,
-                published: 1,
-                "attachments.name": 1,
-                "attachments.size": 1,
-                "attachments.contentType": 1,
-            }
-        );
+        const blogPostDocument = await BlogPost
+            .findOne(
+                {
+                    slug: slug
+                },
+                {
+                    _id: 1,
+                    title: 1,
+                    slug: 1,
+                    description: 1,
+                    descriptionImage: 1,
+                    content: 1,
+                    createdOn: 1,
+                    updatedOn: 1,
+                    publishedOn: 1,
+                    published: 1,
+                    "attachments.name": 1,
+                    "attachments.size": 1,
+                    "attachments.contentType": 1,
+                }
+            )
+            .exec();
 
         if (!blogPostDocument) {
             return null;
@@ -171,7 +175,7 @@ class BlogManager {
     async deleteBlogPost(blogPostId, userContext) {
         userContext.verifyAdminAccess();
 
-        await BlogPost.deleteOne({ _id: blogPostId });
+        await BlogPost.deleteOne({ _id: blogPostId }).exec();
     }
 
     /**
@@ -183,7 +187,7 @@ class BlogManager {
         userContext.verifyAdminAccess();
 
         /** @type {BlogPostDocument} */
-        const existingBlogPost = await BlogPost.findOne({ _id: mongoose.Types.ObjectId(blogPost.id) });
+        const existingBlogPost = await BlogPost.findOne({ _id: mongoose.Types.ObjectId(blogPost.id) }).exec();
 
         if (!existingBlogPost) {
             throw new Error('Not found');
@@ -215,18 +219,20 @@ class BlogManager {
      * @returns {Promise<Attachment>}
      */
     async getAttachment(blogPostSlug, attachmentName) {
-        const blogPost = await BlogPost.findOne(
-            {
-                slug: blogPostSlug,
-            },
-            {
-                attachments: {
-                    $elemMatch: {
-                        name: attachmentName,
-                    },
+        const blogPost = await BlogPost
+            .findOne(
+                {
+                    slug: blogPostSlug,
                 },
-            }
-        );
+                {
+                    attachments: {
+                        $elemMatch: {
+                            name: attachmentName,
+                        },
+                    },
+                }
+            )
+            .exec();
 
         if (blogPost?.attachments?.length > 0) {
             return blogPost.attachments.find(attachment => attachment.name === attachmentName);

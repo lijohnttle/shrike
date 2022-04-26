@@ -43,7 +43,7 @@ export const fetchBlogPostList = async (options) => {
             $userToken: String)
         {
             blogPostList(
-                includeUnpublished: $unpublished,
+                showUnpublished: $unpublished,
                 userToken: $userToken)
             {
                 success

@@ -11,14 +11,14 @@ const queryResolvers = {
      * Creates a new blog post.
      * @param {any} _ 
      * @param {Object} params 
-     * @param {Boolean} params.includeUnpublished 
+     * @param {Boolean} params.showUnpublished 
      * @param {String} params.userToken 
      */
     blogPostList: async (_, params) => {
         try {
             const userContext = getUserAuthenticator().getUserContext(params.userToken);
 
-            const requireAdminRole = params.includeUnpublished;
+            const requireAdminRole = params.showUnpublished;
 
             if (requireAdminRole) {
                 if (!userContext.validateAdminAccess()) {
@@ -26,7 +26,7 @@ const queryResolvers = {
                 }
             }
 
-            const blogPosts = await getBlogManager().getBlogPostList(params.includeUnpublished, userContext);
+            const blogPosts = await getBlogManager().getBlogPostList(params.showUnpublished, userContext);
 
             return new BlogPostListResponseDto({ success: true, blogPosts });
         }
