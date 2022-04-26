@@ -6,7 +6,6 @@ import { BlogMarkdown } from '../../../components/BlogMarkdown';
 import { EditMode } from '../EditBlogPostForm';
 import { BlogPostModel } from '../../../models';
 import { Box, styled } from '@mui/system';
-import { getBlogPostAttachmentUrl } from '../../../../utils/urlBuilder';
 
 
 const CommandContainer = styled('div')(({ theme }) => ({
@@ -29,13 +28,7 @@ const EditBlogPostPreview = (props) => {
     return (
         <Article title={props.blogPost.title.toUpperCase()} compact titleMaxWidth="md">
             <ContentBlock maxWidth="md">
-                {props.blogPost.descriptionImage
-                    ? <img
-                        src={getBlogPostAttachmentUrl(props.blogPost.slug, props.blogPost.descriptionImage)}
-                        style={{ maxWidth: '100%' }} />
-                    : null}
-
-                <BlogMarkdown attachments={props.blogPost.attachments} children={props.blogPost.content} />
+                <BlogMarkdown blogPost={props.blogPost} />
 
                 <form style={{ display: 'flex', flexDirection: 'column' }}>
                     <Box display="flex" flexDirection="row" justifyContent="flex-end">

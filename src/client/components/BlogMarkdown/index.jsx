@@ -2,19 +2,24 @@ import { Typography } from '@mui/material';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { getBlogPostAttachmentUrl } from '../../../utils/urlBuilder';
-import { AttachmentModel } from '../../models';
+import { BlogPostModel } from '../../models';
 
 
 /**
  * 
  * @param {Object} props
- * @param {String} props.blogPostSlug
- * @param {AttachmentModel[]} props.attachments
+ * @param {BlogPostModel} props.blogPost
  */
 export const BlogMarkdown = (props) => {
+    let content = props.blogPost.content;
+
+    if (props.blogPost.descriptionImage) {
+        content = `![](${props.blogPost.descriptionImage})` + "\n\n" + content;
+    }
+
     return (
         <ReactMarkdown
-            children={props.children}
+            children={content}
             components={{
                 img: ({ src, ...otherProps }) => {
                     const linkToAttachment = src.indexOf('/') < 0;
@@ -22,14 +27,14 @@ export const BlogMarkdown = (props) => {
                     if (linkToAttachment) {
                         let url = src;
 
-                        if (props.attachments) {
-                            const foundAttachment = props.attachments.find(t => t.name === src);
+                        if (props.blogPost.attachments) {
+                            const foundAttachment = props.blogPost.attachments.find(t => t.name === src);
 
                             if (foundAttachment) {
                                 url = foundAttachment.getUrl();
                             }
                         }
-                        else if (props.blogPostSlug) {
+                        else if (props.blogPost.slug) {
                             url = getBlogPostAttachmentUrl(props.blogPostSlug, src);
                         }
 
