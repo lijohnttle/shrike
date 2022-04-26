@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Drawer, IconButton, Container, useMediaQuery } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import { useUserSession } from '../../hooks';
-import { signOut } from '../../services/security.js';
+import { signOut } from '../../services/securityService';
 import { Box, styled } from '@mui/system';
 import colors from '../../themes/colors';
 

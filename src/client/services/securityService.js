@@ -1,6 +1,12 @@
 import { graphqlRequest } from './api.js';
 
 
+/**
+ * Verifies that a user is logged in and their sesion has not expired. 
+ * @param {String} userToken User token.
+ * @param {*} removeUserSession 
+ * @returns 
+ */
 async function verifyAccessToken(userToken, removeUserSession) {
     const response = await graphqlRequest(`
         query {

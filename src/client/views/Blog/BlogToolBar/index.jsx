@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
 import { ContentBlock } from '../../../components/ContentBlock';
-import { useUserSession } from '../../../hooks';
+import { useAuthenticated, useUserSession } from '../../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { urlList } from '../../../../static';
 import { Box, styled } from '@mui/system';
@@ -26,6 +26,7 @@ const CommandContainer = styled('div')(({ theme }) => ({
 const BlogToolBar = ({ showUnpublished, setShowUnpublished }) => {
     const [getUserSession] = useUserSession();
     const navigate = useNavigate();
+    useAuthenticated(showUnpublished);
 
     const userSession = getUserSession();
 

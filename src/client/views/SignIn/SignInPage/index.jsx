@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Input, InputLabel, TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { Page } from '../../../components/Page';
-import { signIn } from '../../../services/security.js';
+import { signIn } from '../../../services/securityService';
 import { Navigate } from 'react-router-dom';
 import { useUserSession } from '../../../hooks';
 import { useStyles } from './styles';
