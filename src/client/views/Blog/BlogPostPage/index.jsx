@@ -11,6 +11,33 @@ import { BlogMarkdown } from '../../../components/BlogMarkdown';
 import { BlogPostModel } from '../../../models';
 
 
+/**
+ * @param {BlogPostModel} blogPost 
+ * @param {UserSessionModel} session 
+ * @return {String}
+ */
+function buildSubTitle(blogPost, session) {
+    if (!blogPost) {
+        return '';
+    }
+
+    const subTitle = [];
+
+    if (blogPost.publishedOn) {
+        subTitle.push(blogPost.publishedOn?.toLocaleDateString(undefined, { dateStyle: 'long' }));
+    }
+
+    if (!blogPost.published) {
+        subTitle.push('Not published');
+    }
+
+    if (session) {
+        subTitle.push(`Visits: ${blogPost.visits ?? 0}`);
+    }
+
+    return subTitle.join(' | ');
+}
+
 const BlogPostPage = () => {
     const isCancelled = useRef(false);
     /** @type {[BlogPostModel, Function]} */
@@ -44,11 +71,13 @@ const BlogPostPage = () => {
         return <NotFound />;
     }
 
+    const userSession = getUserSession();
+
     return (
         <Page title={blogPost?.title || (isLoading ? 'Loading...' : '')}>
             <Article
                 title={(blogPost?.title || '').toUpperCase()}
-                subTitle={<span>{blogPost?.publishedOn?.toLocaleDateString(undefined, { dateStyle: 'long' })}</span>}
+                subTitle={<span>{buildSubTitle(blogPost, userSession)}</span>}
                 titleMaxWidth="md">
                 {!isLoading ? <BlogPostToolBar slug={blogPost.slug} maxWidth="md" /> : null}
 

@@ -84,5 +84,12 @@ export class BlogPostDto {
          * @public
          */
         this.attachments = props?.attachments;
+
+        /**
+         * Blog post visits.
+         * @type {String}
+         * @public
+         */
+        this.visits = props?.visits;
     }
 }
