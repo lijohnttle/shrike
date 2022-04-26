@@ -6,6 +6,7 @@ import { BooksLibrarySection } from '../BooksLibrarySection';
 import { AboutMeSection } from '../AboutMeSection';
 import { useData } from '../../../hooks';
 import { useStyles } from './styles';
+import { BlogSection } from '../BlogSection';
 
 
 const HomePage = () => {
@@ -55,6 +56,8 @@ const HomePage = () => {
                 </div>
 
                 <AboutMeSection contacts={data.contacts} screenHeight={screenHeight} />
+
+                <BlogSection />
 
                 <PortfolioSection screenHeight={screenHeight} />
 
