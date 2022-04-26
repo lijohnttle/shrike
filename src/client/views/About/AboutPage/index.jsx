@@ -7,7 +7,7 @@ import { ContentBlock } from '../../../components/ContentBlock';
 import { useData } from '../../../hooks';
 import colors from '../../../themes/colors';
 import { Box } from '@mui/system';
-import { CheckCircleOutline } from '@mui/icons-material';
+import { Check } from '@mui/icons-material';
 
 
 /**
@@ -63,8 +63,8 @@ const SectionList = (props) => (
  */
  const SectionListItem = (props) => (
     <ListItem disablePadding>
-        <ListItemIcon>
-            <CheckCircleOutline />
+        <ListItemIcon sx={{ minWidth: 'auto', paddingRight: 2 }}>
+            <Check fontSize='12px' htmlColor='green' />
         </ListItemIcon>
         <ListItemText primary={props.children} />
     </ListItem>
