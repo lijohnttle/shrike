@@ -13,7 +13,7 @@ import { EditBlogPostPage } from './views/Blog/EditBlogPostPage';
 import { NewBlogPostPage } from './views/Blog/NewBlogPostPage';
 import { CookieConsent } from './components/CookieConsent';
 import { useUserVisitStatistics, usePageScroll } from './hooks';
-import { urlList } from '../static.js';
+import { urlList,  } from '../static.js';
 import { NotFound } from './views/NotFound';
 
 
