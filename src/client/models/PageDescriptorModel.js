@@ -1,9 +1,9 @@
 /**
  * The model of an page descriptor.
  */
-export class PageDescriptiorModel {
+export class PageDescriptorModel {
     /**
-     * @param {PageDescriptiorModel} props 
+     * @param {PageDescriptorModel} props 
      */
     constructor(props) {
         /**

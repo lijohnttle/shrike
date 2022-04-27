@@ -4,7 +4,7 @@ import { Footer } from '../Footer';
 import { Header } from '../Header';
 import { useAuthenticated, useUserSession } from '../../hooks';
 import { Navigate } from 'react-router';
-import { urlList } from '../../../static';
+import { pagesDescriptors } from '../../../static';
 import { Box } from '@mui/system';
 
 
@@ -20,7 +20,7 @@ const Page = ({ title, hideHeader, hideFooter, authenticated, children }) => {
     }, [title]);
 
     if (authenticated && !getUserSession()) {
-        return <Navigate to={urlList.SIGN_IN} />;
+        return <Navigate to={pagesDescriptors.SIGN_IN.path} />;
     }
 
     return (

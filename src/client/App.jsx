@@ -13,7 +13,7 @@ import { EditBlogPostPage } from './views/Blog/EditBlogPostPage';
 import { NewBlogPostPage } from './views/Blog/NewBlogPostPage';
 import { CookieConsent } from './components/CookieConsent';
 import { useUserVisitStatistics, usePageScroll } from './hooks';
-import { urlList,  } from '../static.js';
+import { pagesDescriptors } from '../static.js';
 import { NotFound } from './views/NotFound';
 
 
@@ -31,14 +31,14 @@ const App = () => {
             <CookieConsent />
 
             <Routes>
-                <Route path={urlList.ABOUT} element={<AboutPage />} />
-                <Route path={urlList.SIGN_IN} element={<SignInPage />} />
-                <Route path={urlList.ACCOUNT_MANAGEMENT} element={<AccountManagementPage />} />
-                <Route path={urlList.BLOG_POST_NEW} element={<NewBlogPostPage />} />
-                <Route path={urlList.BLOG_POST_EDIT} element={<EditBlogPostPage />} />
-                <Route path={urlList.BLOG} element={<BlogPage />} />
-                <Route path={urlList.BLOG_POST} element={<BlogPostPage />} />
-                <Route path={urlList.HOME} element={<HomePage />} />
+                <Route path={pagesDescriptors.ABOUT.path} element={<AboutPage />} />
+                <Route path={pagesDescriptors.SIGN_IN.path} element={<SignInPage />} />
+                <Route path={pagesDescriptors.ACCOUNT_MANAGEMENT.path} element={<AccountManagementPage />} />
+                <Route path={pagesDescriptors.BLOG_POST_NEW.path} element={<NewBlogPostPage />} />
+                <Route path={pagesDescriptors.BLOG_POST_EDIT.path} element={<EditBlogPostPage />} />
+                <Route path={pagesDescriptors.BLOG.path} element={<BlogPage />} />
+                <Route path={pagesDescriptors.BLOG_POST.path} element={<BlogPostPage />} />
+                <Route path={pagesDescriptors.HOME.path} element={<HomePage />} />
                 <Route element={<NotFound />} />
             </Routes>
         </ThemeProvider >

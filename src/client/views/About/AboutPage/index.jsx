@@ -8,6 +8,8 @@ import { useData } from '../../../hooks';
 import colors from '../../../themes/colors';
 import { Box } from '@mui/system';
 import { Check } from '@mui/icons-material';
+import { BreadCrumbs } from '../../../components/BreadCrumbs';
+import { pagesDescriptors } from '../../../../static';
 
 
 /**
@@ -78,6 +80,8 @@ export const AboutPage = () => {
     
     return (
         <Page title="About">
+            <BreadCrumbs pageDescriptor={pagesDescriptors.ABOUT} />
+
             <Article title="ABOUT ME" subTitle={<span>(Updated on <b>March 20, 2022</b>)</span>}>
                 <ContentBlock
                     styles={{
