@@ -29,7 +29,7 @@ export const Summary = () => (
             </Typography>
 
             <Typography fontSize="1.2rem" paragraph>
-                I am a software engineer, traveller, science lover, Sci-Fi fun.
+                I am a software engineer, traveller, science lover, Sci-Fi fan.
             </Typography>
         </Box>
 
