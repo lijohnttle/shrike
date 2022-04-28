@@ -8,7 +8,7 @@ const pagesDescriptors = {
     }),
     ABOUT: new PageDescriptorModel({
         name: 'ABOUT',
-        title: 'About',
+        title: 'About Me',
         path: '/about',
         parent: 'HOME',
     }),

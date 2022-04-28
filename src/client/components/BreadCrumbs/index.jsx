@@ -1,8 +1,10 @@
-import { Container } from '@mui/material';
-import { Box, Breakpoint } from '@mui/system';
 import React from 'react';
+import { Container, Typography } from '@mui/material';
+import { Box, Breakpoint } from '@mui/system';
+import { InternalLink } from '../InternalLink';
 import { pagesDescriptors } from '../../../static';
 import { PageDescriptorModel } from '../../models';
+import colors from '../../themes/colors';
 
 
 /**
@@ -24,8 +26,36 @@ function getPageDescriptors(currentPageDescriptor) {
         descriptors.push(descriptor);
     }
 
-    return descriptors.reverse();
+    return descriptors.slice(1).reverse();
 }
+
+/**
+ * Renders a bread crumb.
+ * @param {Object} param0 
+ * @param {PageDescriptorModel} param0.pageDescriptor 
+ * @returns {React.ReactNode}
+ */
+const BreadCrumb = ({ pageDescriptor }) => {
+    return (
+        <Box display="flex" flexDirection="row" marginBottom={2}>
+            <InternalLink
+                to={pageDescriptor.path}
+                sx={{
+                    color: colors.grayText,
+                    
+                    '&:hover': {
+                        color: colors.activeLight
+                    },
+                }}>
+                {pageDescriptor.title.toUpperCase()}
+            </InternalLink>
+
+            <Typography sx={{ color: colors.grayText, fontSize: 'inherit' }} marginLeft={1} marginRight={1}>
+                /
+            </Typography>
+        </Box>
+    );
+};
 
 /**
  * 
@@ -35,12 +65,19 @@ function getPageDescriptors(currentPageDescriptor) {
  * @returns {React.ReactNode}
  */
 const BreadCrumbs = (props) => {
+    if (!props.pageDescriptor?.parent) {
+        return null;
+    }
+
     const pageDescriptors = getPageDescriptors(props.pageDescriptor);
 
     return (
         <Container maxWidth={props.maxWidth || 'lg'}>
-            <Box display="flex" flexDirection="row" flexWrap="wrap">
-                Bread Crumbs
+            <Box display="flex" flexDirection="row" flexWrap="wrap" fontSize="0.75rem">
+                {pageDescriptors.map(pageDescriptor => 
+                    <BreadCrumb
+                        key={pageDescriptor.name}
+                        pageDescriptor={pageDescriptor} />)}
             </Box>
         </Container>
     );

@@ -1,17 +1,34 @@
 import React from 'react';
-import { Box } from '@mui/system';
+import { Box, SxProps, Breakpoint } from '@mui/system';
 import { ArticleHeader } from './ArticleHeader';
+import { PageDescriptorModel } from '../../models';
+import { BreadCrumbs } from '../BreadCrumbs';
 
 
-export const Article = ({ title, subTitle, titleStyles, titleMaxWidth, children }) => {
+/**
+ * An article.
+ * @param {Object} props 
+ * @param {PageDescriptorModel} props.pageDescriptor 
+ * @param {String} props.title 
+ * @param {React.ReactNode} props.subTitle 
+ * @param {SxProps} props.titleStyles
+ * @param {Breakpoint} props.titleMaxWidth
+ * @param {React.ReactNode} props.children
+ * @returns {React.ReactNode}
+ */
+export const Article = (props) => {
     return (
         <Box display="flex" flexDirection="column" flexWrap="nowrap">
             <Box paddingTop={8} zIndex={1}>
+                {props.pageDescriptor
+                    ? <BreadCrumbs pageDescriptor={props.pageDescriptor} maxWidth={props.titleMaxWidth} />
+                    : null}
+
                 <ArticleHeader
-                    title={title}
-                    subTitle={subTitle}
-                    titleStyles={titleStyles}
-                    maxWidth={titleMaxWidth || 'lg'} />
+                    title={props.title || props.pageDescriptor?.title?.toUpperCase() || ''}
+                    subTitle={props.subTitle}
+                    titleStyles={props.titleStyles}
+                    maxWidth={props.titleMaxWidth} />
             </Box>
 
             <Box
@@ -20,7 +37,7 @@ export const Article = ({ title, subTitle, titleStyles, titleMaxWidth, children 
                 flexGrow={1}
                 paddingBottom={16}
                 zIndex={0}>
-                {children}
+                {props.children}
             </Box>
         </Box>
     );
