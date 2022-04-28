@@ -4,7 +4,7 @@ import { Edit as EditIcon } from '@mui/icons-material';
 import { ContentBlock } from '../../../components/ContentBlock';
 import { useUserSession } from '../../../hooks';
 import { generatePath, useNavigate } from 'react-router-dom';
-import { urlList } from '../../../../static';
+import { pagesDescriptors } from '../../../../static';
 import { Box, styled, Breakpoint } from '@mui/system';
 
 
@@ -36,7 +36,7 @@ const BlogPostToolBar = (props) => {
     const userSession = getUserSession();
 
     const handleEditBlogPost = async () => {
-        navigate(generatePath(urlList.BLOG_POST_EDIT, { slug: props.slug }));
+        navigate(generatePath(pagesDescriptors.BLOG_POST_EDIT.path, { slug: props.slug }));
     };
 
     if (!userSession) {

@@ -12,6 +12,7 @@ export class UserSessionModel {
          * @public
          */
         this.username = username;
+        
         /**
          * @type {String}
          * @public

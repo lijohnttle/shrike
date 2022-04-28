@@ -5,7 +5,7 @@ import { signIn } from '../../../services/securityService';
 import { Navigate } from 'react-router-dom';
 import { useUserSession } from '../../../hooks';
 import { useStyles } from './styles';
-import { urlList } from '../../../../static';
+import { pagesDescriptors } from '../../../../static';
 
 
 const SignInPage = () => {
@@ -38,7 +38,7 @@ const SignInPage = () => {
     };
 
     if (getUserSession()) {
-        return <Navigate to={urlList.ACCOUNT_MANAGEMENT} />;
+        return <Navigate to={pagesDescriptors.ACCOUNT_MANAGEMENT.path} />;
     }
 
     return (

@@ -7,6 +7,7 @@ import { UserVisitsSection } from '../UserVisitsSection';
 import { useStyles } from './styles.js';
 import { SectionsMenu } from '../SectionsMenu';
 import { UserSessionsSection } from '../UserSessionsSection';
+import { pagesDescriptors } from '../../../../static';
 
 
 const SECTION_LIST = [
@@ -33,7 +34,7 @@ const AccountManagementPage = () => {
 
     return (
         <Page title="Account Management" authenticated>
-            <Article title="ACCOUNT MANAGEMENT">
+            <Article pageDescriptor={pagesDescriptors.ACCOUNT_MANAGEMENT}>
                 <ContentBlock>
                     <div className={classes.sectionsRoot}>
                         <SectionsMenu

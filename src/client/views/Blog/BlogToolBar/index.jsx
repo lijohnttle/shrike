@@ -4,7 +4,7 @@ import { Add as AddIcon } from '@mui/icons-material';
 import { ContentBlock } from '../../../components/ContentBlock';
 import { useAuthenticated, useUserSession } from '../../../hooks';
 import { useNavigate } from 'react-router-dom';
-import { urlList } from '../../../../static';
+import { pagesDescriptors } from '../../../../static';
 import { Box, styled } from '@mui/system';
 
 
@@ -37,7 +37,7 @@ const BlogToolBar = (props) => {
     useAuthenticated(props.showUnpublished);
 
     const handleAddBlogPost = () => {
-        navigate(urlList.BLOG_POST_NEW);
+        navigate(pagesDescriptors.BLOG_POST_NEW.path);
     };
 
     const handleShowUnpublished = (_, value) => {
