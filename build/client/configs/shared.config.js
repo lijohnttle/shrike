@@ -1,4 +1,5 @@
 import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default (env, options) => {
     const rootPath = process.env.INIT_CWD;
@@ -24,7 +25,13 @@ export default (env, options) => {
         output: {
             path: path.resolve(rootPath, 'dist/public/assets'),
             publicPath: '/assets/',
-            filename: 'scripts/bundle.js'
+            filename: 'scripts/bundle.[contenthash].js'
         },
+        plugins: [
+            new HtmlWebpackPlugin({
+                template: path.resolve(rootPath, 'dist/templates/index.html'),
+                filename: path.resolve(rootPath, 'dist/public/index.html'),
+            })
+        ]
     };
 };

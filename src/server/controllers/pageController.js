@@ -1,5 +1,5 @@
 import path from 'path';
-import { urlList } from '../../static.js';
+import { pagesDescriptors } from '../../static.js';
 
 
 const getName = () => 'Page Controller';
@@ -21,9 +21,9 @@ const register = (app, appContext) => {
     };
 
     console.log('Registering the next pages:');
-    Object.values(urlList).forEach(url => {
-        app.get(url, getIndexHandler);
-        console.log(url);
+    Object.values(pagesDescriptors).forEach(pageDescriptor => {
+        app.get(pageDescriptor.path, getIndexHandler);
+        console.log(pageDescriptor.path);
     });
     console.log(`Registered ${getName()}`);
 };

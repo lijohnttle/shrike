@@ -6,6 +6,7 @@ import { BlogMarkdown } from '../../../components/BlogMarkdown';
 import { EditMode } from '../EditBlogPostForm';
 import { BlogPostModel } from '../../../models';
 import { Box, styled } from '@mui/system';
+import { pagesDescriptors } from '../../../../static';
 
 
 const CommandContainer = styled('div')(({ theme }) => ({
@@ -26,7 +27,10 @@ const CommandContainer = styled('div')(({ theme }) => ({
  */
 const EditBlogPostPreview = (props) => {
     return (
-        <Article title={props.blogPost.title.toUpperCase()} compact titleMaxWidth="md">
+        <Article
+            pageDescriptor={props.mode === EditMode.create ? pagesDescriptors.BLOG_POST_NEW : pagesDescriptors.BLOG_POST_EDIT}
+            title={props.blogPost.title.toUpperCase()}
+            titleMaxWidth="md">
             <ContentBlock maxWidth="md">
                 <BlogMarkdown blogPost={props.blogPost} />
 

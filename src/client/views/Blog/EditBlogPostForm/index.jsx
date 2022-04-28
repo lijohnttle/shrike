@@ -6,6 +6,7 @@ import { ContentBlock } from '../../../components/ContentBlock';
 import { BlogPostModel } from '../../../models/BlogPostModel';
 import { Box, styled } from '@mui/system';
 import { FileUpload } from '../../../components/FileUpload';
+import { pagesDescriptors } from '../../../../static';
 
 
 const FieldContainer = styled('div')(({ theme }) => ({
@@ -48,7 +49,10 @@ export const EditMode = {
  */
 const EditBlogPostForm = (props) => {
     return (
-        <Article title={props.mode === EditMode.create ? 'NEW BLOG POST' : 'EDIT BLOG POST'} titleMaxWidth="md">
+        <Article
+            pageDescriptor={props.mode === EditMode.create ? pagesDescriptors.BLOG_POST_NEW : pagesDescriptors.BLOG_POST_EDIT}
+            title={props.mode === EditMode.create ? 'NEW BLOG POST' : 'EDIT BLOG POST'}
+            titleMaxWidth="md">
             <ContentBlock maxWidth="md">
                 <form style={{ display: 'flex', flexDirection: 'column' }}>
                     <FieldContainer>

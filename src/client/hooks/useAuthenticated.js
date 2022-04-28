@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { urlList } from '../../static';
+import { pagesDescriptors } from '../../static';
 import { verifyAccessToken } from '../services/securityService';
 import { useUserSession } from './useUserSession';
 
@@ -17,13 +17,13 @@ export function useAuthenticated(authenticated) {
                     .then((verified) => {
                         if (!verified) {
                             removeUserSession();
-                            navigate(urlList.SIGN_IN);
+                            navigate(pagesDescriptors.SIGN_IN.path);
                         }
                     })
                     .catch((error) => console.error(error));
             }
             else {
-                navigate(urlList.SIGN_IN);
+                navigate(pagesDescriptors.SIGN_IN.path);
             }
         }
     }, [authenticated]);
