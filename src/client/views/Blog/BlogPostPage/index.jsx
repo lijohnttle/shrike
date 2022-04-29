@@ -9,6 +9,7 @@ import { BlogPostToolBar } from '../BlogPostToolBar';
 import { fetchBlogPost } from '../../../services/blogService';
 import { BlogMarkdown } from '../../../components/BlogMarkdown';
 import { BlogPostModel } from '../../../models';
+import { pagesDescriptors } from '../../../../static';
 
 
 /**
@@ -76,6 +77,7 @@ const BlogPostPage = () => {
     return (
         <Page title={blogPost?.title || (isLoading ? 'Loading...' : '')}>
             <Article
+                pageDescriptor={pagesDescriptors.BLOG_POST}
                 title={(blogPost?.title || '').toUpperCase()}
                 subTitle={<span>{buildSubTitle(blogPost, userSession)}</span>}
                 titleMaxWidth="md">

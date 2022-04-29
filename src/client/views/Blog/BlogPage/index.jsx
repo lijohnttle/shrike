@@ -9,6 +9,7 @@ import { useUserSession } from '../../../hooks';
 import { fetchBlogPostList } from '../../../services/blogService';
 import { BlogPostModel } from '../../../models';
 import { Box } from '@mui/system';
+import { pagesDescriptors } from '../../../../static';
 
 
 const renderBlogPostsPlaceholder = () => {
@@ -52,7 +53,7 @@ const BlogPage = () => {
 
     return (
         <Page title="Blog">
-            <Article title="BLOG">
+            <Article pageDescriptor={pagesDescriptors.BLOG}>
                 <BlogToolBar showUnpublished={showUnpublished} onShowUnpublishedChange={setShowUnpublished} />
 
                 {blogPosts.length > 0
