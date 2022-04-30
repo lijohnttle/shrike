@@ -1,7 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { Typography } from '@mui/material';
+import { Box } from '@mui/system';
 import { SectionContentWrapper } from '../SectionContentWrapper';
 import { SectionWrapper } from '../SectionWrapper';
+import { fetchBlogPostList } from '../../../services/blogService';
+import { BlogPostModel } from '../../../models';
+import { useDataLoader } from '../../../hooks';
 
+
+const RecentBlogMeta = () => {
+    return (
+        <Box>
+
+        </Box>
+    );
+};
 
 /**
  * 
@@ -11,16 +24,26 @@ import { SectionWrapper } from '../SectionWrapper';
  * @returns {React.ReactNode}
  */
 const BlogSection = (props) => {
-    const [isLoading, setIsLoading] = useState(true);
+    /** @type {[BlogPostModel[], Function]} */
+    const [blogPosts, setBlogPosts] = useState([]);
 
-    useEffect(() => {
-        setIsLoading(false);
-    });
+    const blogPostsAreLoading = useDataLoader(fetchBlogPostList({
+
+    }), setBlogPosts);
 
     return (
         <SectionWrapper screenHeight={props.screenHeight} canScrollToNextSection={props.showScrollToNextSection}>
-            <SectionContentWrapper title="BLOG" isLoading={isLoading} maxWidth="md">
-                
+            <SectionContentWrapper isLoading={blogPostsAreLoading.current} maxWidth="md">
+                <Typography variant="h1" fontWeight="bold" gutterBottom>
+                    BLOG
+                </Typography>
+
+                <Box>
+                    {!blogPostsAreLoading.current
+                        ? blogPosts?.map((blogPost) => {
+                            return <div key={blogPost.slug}>{blogPost.title}</div>;
+                        }) : null}
+                </Box>
             </SectionContentWrapper>
         </SectionWrapper>
     );

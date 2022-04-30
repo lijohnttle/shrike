@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { Page } from '../../../components/Page';
-import { useUserSession } from '../../../hooks';
+import { useIsCancelled, useUserSession } from '../../../hooks';
 import { EditBlogPostForm, EditMode } from '../EditBlogPostForm';
 import { EditBlogPostPreview } from '../EditBlogPostPreview';
 import { NotFound } from '../../../views/NotFound';
@@ -11,7 +11,7 @@ import { getBlogPostUrlPath } from '../../../../utils/urlBuilder';
 
 
 const EditBlogPostPage = () => {
-    const isCancelled = useRef(false);
+    const isCancelled = useIsCancelled();
     /** @type {[BlogPostModel, Function]} Loading */
     const [blogPost, setBlogPost] = useState(null);
     const [isPreviewMode, setIsPreviewMode] = useState(false);
@@ -35,10 +35,6 @@ const EditBlogPostPage = () => {
                     setIsLoading(false);
                 }
             });
-
-        return () => {
-            isCancelled.current = true;
-        };
     }, []);
 
     if (!isLoading && !blogPost) {

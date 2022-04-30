@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 import { ContentBlock } from '../../../components/ContentBlock';
 import { Article } from '../../../components/Article';
 import { Page } from '../../../components/Page';
 import { BlogPostMeta } from '../BlogPostMeta';
 import { BlogToolBar } from '../BlogToolBar';
-import { useUserSession } from '../../../hooks';
+import { useIsCancelled, useUserSession } from '../../../hooks';
 import { fetchBlogPostList } from '../../../services/blogService';
 import { BlogPostModel } from '../../../models';
 import { Box } from '@mui/system';
@@ -23,17 +23,11 @@ const renderBlogPostsPlaceholder = () => {
 };
 
 const BlogPage = () => {
-    const isCancelled = useRef(false);
+    const isCancelled = useIsCancelled();
     /** @type {[BlogPostModel, Function]} */
     const [blogPosts, setBlogPosts] = useState([]);
     const [showUnpublished, setShowUnpublished] = useState(false);
     const [getUserSession] = useUserSession();
-
-    useEffect(() => {
-        return () => {
-            isCancelled.current = true;
-        };
-    }, []);
 
     useEffect(() => {
         refreshPosts();
@@ -42,7 +36,7 @@ const BlogPage = () => {
     const refreshPosts = async () => {
         const session = getUserSession();
 
-        await fetchBlogPostList({ userSession: session, unpublished: showUnpublished })
+        await fetchBlogPostList({ userToken: session?.token, unpublished: showUnpublished })
             .then(data => {
                 if (!isCancelled.current) {
                     setBlogPosts(data);

@@ -1,5 +1,5 @@
 import { AttachmentModel, BlogPostModel, UserSessionModel } from '../models';
-import { BlogPostListResponseDto, BlogPostResponseDto, ResponseDto } from '../../contracts';
+import { BlogPostListOptions, BlogPostListResponseDto, BlogPostResponseDto, ResponseDto } from '../../contracts';
 import { graphqlRequest } from './api';
 import { toBase64 } from '../utils/filesystem';
 
@@ -31,9 +31,7 @@ async function prepareAttachmentsToUpload(blogPost) {
 
 /**
  * Fetches a list blog posts.
- * @param {Object} [options] Options of the request.
- * @param {UserSessionModel} [options.userSession] Current user session.
- * @param {Boolean} [options.unpublished] Get unpublished blog posts. {@link options.userSession} is requried.
+ * @param {BlogPostListOptions} [options] Options of the request.
  * @returns {Promise<BlogPostModel[]>}
  */
 export async function fetchBlogPostList (options) {
@@ -64,7 +62,7 @@ export async function fetchBlogPostList (options) {
     `,
     {
         unpublished: !!options.unpublished,
-        userToken: options?.userSession?.token || '',
+        userToken: options?.userToken || '',
     });
 
     /**
