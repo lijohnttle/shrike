@@ -1,6 +1,7 @@
 import React from 'react';
-import { CircularProgress, Container, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { Loader } from '../../../components/Loader';
 
 
 const renderTitle = (title) => (
@@ -8,12 +9,6 @@ const renderTitle = (title) => (
         <Typography variant="h1" fontWeight="bold" align="center">
             {title?.toUpperCase()}
         </Typography>
-    </Box>
-);
-
-const renderLoader = () => (
-    <Box alignSelf="center">
-        <CircularProgress />
     </Box>
 );
 
@@ -53,7 +48,7 @@ const SectionContentWrapper = ({
 
                 {title ? renderTitle(title) : null}
 
-                {isLoading ? renderLoader() : children}
+                {isLoading ? <Loader /> : children}
 
                 <Box flex="1 1 auto" />
             </Box>

@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 import { ContentBlock } from '../../../components/ContentBlock';
 import { Article } from '../../../components/Article';
 import { Page } from '../../../components/Page';
 import { BlogPostMeta } from '../BlogPostMeta';
 import { BlogToolBar } from '../BlogToolBar';
-import { useIsCancelled, useUserSession } from '../../../hooks';
+import { useDataLoader, useUserSession } from '../../../hooks';
 import { fetchBlogPostList } from '../../../services/blogService';
-import { BlogPostModel } from '../../../models';
+import { BlogPostListModel } from '../../../models';
 import { Box } from '@mui/system';
 import { pagesDescriptors } from '../../../../static';
+import { Loader } from '../../../components/Loader';
 
 
-const renderBlogPostsPlaceholder = () => {
+const BlogPostsPlaceholder = () => {
     return (
         <ContentBlock compact>
             <Typography variant="h3" align="center">
@@ -23,34 +24,25 @@ const renderBlogPostsPlaceholder = () => {
 };
 
 const BlogPage = () => {
-    const isCancelled = useIsCancelled();
-    /** @type {[BlogPostModel, Function]} */
-    const [blogPosts, setBlogPosts] = useState([]);
+    /** @type {[BlogPostListModel, Function]} */
+    const [blogPostList, setBlogPostList] = useState();
     const [showUnpublished, setShowUnpublished] = useState(false);
     const [getUserSession] = useUserSession();
+    const blogPostsAreLoading = useDataLoader(() => fetchBlogPostList({
+        userToken: getUserSession()?.token,
+        unpublished: showUnpublished,
+    }), setBlogPostList, [showUnpublished]);
 
-    useEffect(() => {
-        refreshPosts();
-    }, [showUnpublished]);
-
-    const refreshPosts = async () => {
-        const session = getUserSession();
-
-        await fetchBlogPostList({ userToken: session?.token, unpublished: showUnpublished })
-            .then(data => {
-                if (!isCancelled.current) {
-                    setBlogPosts(data);
-                }
-            })
-            .catch(error => console.log(error));
-    };
+    console.log(blogPostsAreLoading);
 
     return (
         <Page title="Blog">
             <Article pageDescriptor={pagesDescriptors.BLOG}>
                 <BlogToolBar showUnpublished={showUnpublished} onShowUnpublishedChange={setShowUnpublished} />
 
-                {blogPosts.length > 0
+                {blogPostsAreLoading ? <Loader /> : null}
+
+                {!blogPostsAreLoading && blogPostList?.blogPosts?.length > 0
                     ? (
                         <ContentBlock compact>
                             <Box
@@ -71,7 +63,7 @@ const BlogPage = () => {
                                         },
                                     },
                                 }}>
-                                {blogPosts.map((post) => (
+                                {blogPostList.blogPosts.map((post) => (
                                     <Box
                                         key={post.slug}
                                         sx={{
@@ -87,7 +79,11 @@ const BlogPage = () => {
                             </Box>
                         </ContentBlock>
                     )
-                    : renderBlogPostsPlaceholder()}
+                    : null}
+
+                {!blogPostsAreLoading && blogPostList?.blogPosts?.length === 0
+                    ? <BlogPostsPlaceholder />
+                    : null }
             </Article>
         </Page>
     )

@@ -1,5 +1,5 @@
-import { ResponseDto } from './ResponseDto';
-import { BlogPostDto } from './BlogPostDto';
+import { ResponseDto } from '../ResponseDto';
+import { BlogPostListResultDto } from './BlogPostListResultDto';
 
 /**
  * Represents a list of blog posts.
@@ -12,10 +12,10 @@ import { BlogPostDto } from './BlogPostDto';
         super(props);
 
         /**
-         * The list of blog posts.
-         * @type {BlogPostDto[]}
+         * The result of the request.
+         * @type {BlogPostListResultDto}
          * @public
          */
-        this.blogPosts = props?.blogPosts;
+        this.result = props?.result;
     }
 }

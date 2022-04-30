@@ -1,6 +1,6 @@
 const typeDef = `
     extend type Query {
-        blogPostList(showUnpublished: Boolean, userToken: String): BlogPostListResult
+        blogPostList(options: BlogPostListOptions): BlogPostListRsponse
         blogPost(slug: String!, userToken: String): BlogPostResult
     }
 
@@ -8,6 +8,13 @@ const typeDef = `
         createBlogPost(blogPost: CreateBlogPostInput!, userToken: String!): EmptyResult
         changeBlogPost(blogPost: ChangeBlogPostInput!, userToken: String!): EmptyResult
         deleteBlogPost(blogPostId: String!, userToken: String!): EmptyResult
+    }
+
+    input BlogPostListOptions {
+        unpublished: Boolean
+        userToken: String
+        skip: Int
+        take: Int
     }
     
     input CreateBlogPostInput {
@@ -60,8 +67,13 @@ const typeDef = `
     }
 
     type BlogPostListResult {
-        success: Boolean!
         blogPosts: [BlogPostMetadata]
+        totalCount: Int!
+    }
+
+    type BlogPostListRsponse {
+        success: Boolean!
+        result: BlogPostListResult
         errorMessage: String
     }
 

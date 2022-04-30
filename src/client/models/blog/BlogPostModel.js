@@ -1,5 +1,5 @@
-import { BlogPostDto } from '../../contracts';
-import { AttachmentModel } from './AttachmentModel';
+import { BlogPostDto } from '../../../contracts';
+import { AttachmentModel } from '../AttachmentModel';
 
 /**
  * Represents a blog post.

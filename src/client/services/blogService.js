@@ -1,5 +1,5 @@
-import { AttachmentModel, BlogPostModel, UserSessionModel } from '../models';
-import { BlogPostListOptions, BlogPostListResponseDto, BlogPostResponseDto, ResponseDto } from '../../contracts';
+import { AttachmentModel, BlogPostListModel, BlogPostModel, UserSessionModel } from '../models';
+import { BlogPostListOptionsDto, BlogPostListResponseDto, BlogPostResponseDto, ResponseDto } from '../../contracts';
 import { graphqlRequest } from './api';
 import { toBase64 } from '../utils/filesystem';
 
@@ -31,38 +31,36 @@ async function prepareAttachmentsToUpload(blogPost) {
 
 /**
  * Fetches a list blog posts.
- * @param {BlogPostListOptions} [options] Options of the request.
- * @returns {Promise<BlogPostModel[]>}
+ * @param {BlogPostListOptionsDto} [options] Options of the request.
+ * @returns {Promise<BlogPostListModel>}
  */
 export async function fetchBlogPostList (options) {
     const response = await graphqlRequest(`
-        query BlogPostList(
-            $unpublished: Boolean,
-            $userToken: String)
+        query BlogPostList($options: BlogPostListOptions)
         {
-            blogPostList(
-                showUnpublished: $unpublished,
-                userToken: $userToken)
+            blogPostList(options: $options)
             {
                 success
-                blogPosts {
-                    title
-                    slug
-                    description
-                    descriptionImage
-                    createdOn
-                    updatedOn
-                    publishedOn
-                    published
-                    visits
+                result {
+                    blogPosts {
+                        title
+                        slug
+                        description
+                        descriptionImage
+                        createdOn
+                        updatedOn
+                        publishedOn
+                        published
+                        visits
+                    }
+                    totalCount
                 }
                 errorMessage
             }
         }
     `,
     {
-        unpublished: !!options.unpublished,
-        userToken: options?.userToken || '',
+        options: options,
     });
 
     /**
@@ -72,7 +70,10 @@ export async function fetchBlogPostList (options) {
 
     if (message) {
         if (message.success) {
-            return message.blogPosts.map(dto => BlogPostModel.createFromDto(dto));
+            return new BlogPostListModel({
+                blogPosts: message.result.blogPosts.map(dto => BlogPostModel.createFromDto(dto)),
+                totalCount: message.result.totalCount,
+            });
         }
         else {
             throw new Error(message.errorMessage);

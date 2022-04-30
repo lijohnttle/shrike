@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 import { SectionContentWrapper } from '../SectionContentWrapper';
 import { SectionWrapper } from '../SectionWrapper';
 import { fetchBlogPostList } from '../../../services/blogService';
-import { BlogPostModel } from '../../../models';
+import { BlogPostListModel } from '../../../models';
 import { useDataLoader } from '../../../hooks';
 
 
@@ -24,12 +24,12 @@ const RecentBlogMeta = () => {
  * @returns {React.ReactNode}
  */
 const BlogSection = (props) => {
-    /** @type {[BlogPostModel[], Function]} */
-    const [blogPosts, setBlogPosts] = useState([]);
+    /** @type {[BlogPostListModel, Function]} */
+    const [blogPostList, setBlogPostList] = useState();
 
-    const blogPostsAreLoading = useDataLoader(fetchBlogPostList({
-
-    }), setBlogPosts);
+    const blogPostsAreLoading = useDataLoader(() => fetchBlogPostList({
+        take: 1,
+    }), setBlogPostList);
 
     return (
         <SectionWrapper screenHeight={props.screenHeight} canScrollToNextSection={props.showScrollToNextSection}>
@@ -39,8 +39,8 @@ const BlogSection = (props) => {
                 </Typography>
 
                 <Box>
-                    {!blogPostsAreLoading.current
-                        ? blogPosts?.map((blogPost) => {
+                    {!blogPostsAreLoading
+                        ? blogPostList?.blogPosts?.map((blogPost) => {
                             return <div key={blogPost.slug}>{blogPost.title}</div>;
                         }) : null}
                 </Box>

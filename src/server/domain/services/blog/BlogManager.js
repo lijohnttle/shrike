@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { BlogPostDto } from '../../../../contracts';
+import { BlogPostDto, BlogPostListOptionsDto, BlogPostListResultDto } from '../../../../contracts';
 import { Attachment } from '../../../data/models/Attachment';
 import { BlogPost, BlogPostDocument } from '../../../data/models/blog/BlogPost';
 import { UserContext } from '../../entities/authentication/UserContext';
@@ -9,23 +9,24 @@ import { mapBlogPostDocumentToDto, mapBlogPostDtoToDocument } from './mappers';
 class BlogManager {
     /**
      * Returns the list of blog posts.
-     * @param {Boolean} showUnpublished
-     * @param {UserContext} userContext 
-     * @returns {Resolver<BlogPostDto[]>}
+     * @param {BlogPostListOptionsDto} options Request options.
+     * @param {UserContext} userContext Current user context.
+     * @returns {Resolver<BlogPostListResultDto>}
      */
-    async getBlogPostList(showUnpublished, userContext) {
-        const requireAdminRole = showUnpublished;
+    async getBlogPostList(options, userContext) {
+        const requireAdminRole = options.unpublished;
 
         if (requireAdminRole) {
             userContext.verifyAdminAccess();
         }
 
-        /** @type {BlogPostDocument[]} */
-        const blogPostDocuments = await BlogPost
+        const query = {
+            published: !options.unpublished,
+        };
+
+        let requestBuilder = BlogPost
             .find(
-                {
-                    published: !showUnpublished,
-                },
+                query,
                 {
                     _id: 1,
                     title: 1,
@@ -40,12 +41,28 @@ class BlogManager {
                 }
             )
             .sort({
-                publishedOn: showUnpublished ? 0 : -1,
+                publishedOn: options.published ? 0 : -1,
                 updatedOn: -1
-            })
-            .exec();
+            });
 
-        return blogPostDocuments.map(mapBlogPostDocumentToDto);
+        if (options.skip) {
+            requestBuilder.skip(options.skip);
+        }
+
+        if (options.take) {
+            requestBuilder = requestBuilder.limit(options.take);
+        }
+
+        /** @type {BlogPostDocument[]} */
+        const blogPostDocuments = await requestBuilder.exec();
+        const totalCount = await BlogPost.countDocuments(query).exec();
+
+        const blogPosts = blogPostDocuments.map(mapBlogPostDocumentToDto);
+
+        return new BlogPostListResultDto({
+            blogPosts: blogPosts,
+            totalCount: totalCount,
+        });
     }
 
     /**

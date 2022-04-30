@@ -1,20 +1,22 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 /**
  * 
- * @param {Promise} loadPromise Promise to load data.
+ * @param {Function} loadPromiseSelector Function to return a promise to load data.
  * @param {Function} resultCallback Called when data successfuly loaded if the component is still mounted.
  * @param {Function} doneCallback Called in the end of the request if the component is still mounted.
+ * @param {React.DependencyList} [dependencies] Dependencies that trigger data load.
  * @returns {React.MutableRefObject<Boolean>} Indicator if component is still loading.
  */
-export function useDataLoader(loadPromise, resultCallback) {
+export function useDataLoader(loadPromiseSelector, resultCallback, dependencies) {
+    const [isLoading, setIsLoading] = useState(true);
     const isCancelled = useRef(false);
-    const isLoading = useRef(true);
 
     useEffect(() => {
-        console.log('Called');
+        /** @type {Promise} */
+        const promise = loadPromiseSelector();
 
-        loadPromise
+        promise
             .then(data => {
                 if (!isCancelled.current) {
                     resultCallback(data);
@@ -26,9 +28,13 @@ export function useDataLoader(loadPromise, resultCallback) {
                 }
             })
             .finally(() => {
-                isLoading.current = false;
+                if (!isCancelled.current) {
+                    setIsLoading(false);
+                }
             });
+    }, dependencies || []);
 
+    useEffect(() => {
         return () => {
             isCancelled.current = true;
         };

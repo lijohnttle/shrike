@@ -2,7 +2,8 @@ import {
     ResponseDto,
     BlogPostDto,
     BlogPostResponseDto,
-    BlogPostListResponseDto } from '../../../../contracts';
+    BlogPostListResponseDto, 
+    BlogPostListOptionsDto} from '../../../../contracts';
 import { getUserAuthenticator, getBlogManager } from '../../../domain';
 
 
@@ -11,14 +12,13 @@ const queryResolvers = {
      * Creates a new blog post.
      * @param {any} _ 
      * @param {Object} params 
-     * @param {Boolean} params.showUnpublished 
-     * @param {String} params.userToken 
+     * @param {BlogPostListOptionsDto} params.options 
      */
     blogPostList: async (_, params) => {
         try {
-            const userContext = getUserAuthenticator().getUserContext(params.userToken);
+            const userContext = getUserAuthenticator().getUserContext(params.options?.userToken);
 
-            const requireAdminRole = params.showUnpublished;
+            const requireAdminRole = params.options?.unpublished;
 
             if (requireAdminRole) {
                 if (!userContext.validateAdminAccess()) {
@@ -26,9 +26,9 @@ const queryResolvers = {
                 }
             }
 
-            const blogPosts = await getBlogManager().getBlogPostList(params.showUnpublished, userContext);
+            const result = await getBlogManager().getBlogPostList(params.options, userContext);
 
-            return new BlogPostListResponseDto({ success: true, blogPosts });
+            return new BlogPostListResponseDto({ success: true, result: result });
         }
         catch (error) {
             console.error(error);
