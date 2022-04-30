@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography } from '@mui/material';
-import { InternalLink } from '../../../components/InternalLink';
+import { InternalLink } from '../../../components';
 import { Box } from '@mui/system';
 import { BlogPostModel, UserSessionModel } from '../../../models';
 import { getBlogPostUrlPath, getBlogPostAttachmentUrlPath } from '../../../../utils/urlBuilder';

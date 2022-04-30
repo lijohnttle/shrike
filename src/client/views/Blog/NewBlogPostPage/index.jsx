@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { getBlogPostUrlPath } from '../../../../utils/urlBuilder';
-import { Page } from '../../../components/Page';
+import { Page } from '../../../components';
 import { useUserSession } from '../../../hooks';
 import { BlogPostModel } from '../../../models';
 import { createBlogPost } from '../../../services/blogService';

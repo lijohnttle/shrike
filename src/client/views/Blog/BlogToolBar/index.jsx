@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
-import { ContentBlock } from '../../../components/ContentBlock';
+import { ContentBlock } from '../../../components';
 import { useAuthenticated, useUserSession } from '../../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { pagesDescriptors } from '../../../../static';

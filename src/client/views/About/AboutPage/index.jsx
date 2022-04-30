@@ -1,9 +1,6 @@
 import React from 'react';
 import { Container, Link, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
-import { ContactLink } from '../../../components/ContactLink';
-import { Page } from '../../../components/Page';
-import { Article } from '../../../components/Article';
-import { ContentBlock } from '../../../components/ContentBlock';
+import { Article, ContactLink, ContentBlock, Page } from '../../../components';
 import { useData } from '../../../hooks';
 import colors from '../../../themes/colors';
 import { Box } from '@mui/system';

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Page } from '../../../components/Page';
+import { Page } from '../../../components';
 import { WelcomeSection } from '../WelcomeSection';
 import { PortfolioSection } from '../PortfolioSection';
 import { BooksLibrarySection } from '../BooksLibrarySection';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { Loader } from '../../../components/Loader';
+import { Loader } from '../../../components';
 
 
 const renderTitle = (title) => (

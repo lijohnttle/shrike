@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import { Box, styled } from '@mui/system';
 import React, { useEffect, useState } from 'react';
-import { ContactLink } from '../../../components/ContactLink';
+import { ContactLink } from '../../../components';
 import colors from '../../../themes/colors';
 import { SectionContentWrapper } from '../SectionContentWrapper';
 import { SectionWrapper } from '../SectionWrapper';

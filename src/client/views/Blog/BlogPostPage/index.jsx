@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import { useIsCancelled, useUserSession } from '../../../hooks';
-import { Article } from '../../../components/Article';
-import { ContentBlock } from '../../../components/ContentBlock';
+import { Article, BlogMarkdown, ContentBlock, Page } from '../../../components';
 import { NotFound } from '../../../views/NotFound';
-import { Page } from '../../../components/Page';
 import { BlogPostToolBar } from '../BlogPostToolBar';
 import { fetchBlogPost } from '../../../services/blogService';
-import { BlogMarkdown } from '../../../components/BlogMarkdown';
 import { BlogPostModel } from '../../../models';
 import { pagesDescriptors } from '../../../../static';
 

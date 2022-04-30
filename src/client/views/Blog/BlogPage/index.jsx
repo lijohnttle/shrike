@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
-import { ContentBlock } from '../../../components/ContentBlock';
-import { Article } from '../../../components/Article';
-import { Page } from '../../../components/Page';
+import { Article, ContentBlock, Loader, Page } from '../../../components';
 import { BlogPostMeta } from '../BlogPostMeta';
 import { BlogToolBar } from '../BlogToolBar';
 import { useDataLoader, useUserSession } from '../../../hooks';
@@ -10,7 +8,6 @@ import { fetchBlogPostList } from '../../../services/blogService';
 import { BlogPostListModel } from '../../../models';
 import { Box } from '@mui/system';
 import { pagesDescriptors } from '../../../../static';
-import { Loader } from '../../../components/Loader';
 
 
 const BlogPostsPlaceholder = () => {
@@ -32,8 +29,6 @@ const BlogPage = () => {
         userToken: getUserSession()?.token,
         unpublished: showUnpublished,
     }), setBlogPostList, [showUnpublished]);
-
-    console.log(blogPostsAreLoading);
 
     return (
         <Page title="Blog">

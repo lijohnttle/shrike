@@ -6,6 +6,7 @@ import { SectionWrapper } from '../SectionWrapper';
 import { fetchBlogPostList } from '../../../services/blogService';
 import { BlogPostListModel } from '../../../models';
 import { useDataLoader } from '../../../hooks';
+import { Loader } from '../../../components';
 
 
 const RecentBlogMeta = () => {
@@ -37,6 +38,8 @@ const BlogSection = (props) => {
                 <Typography variant="h1" fontWeight="bold" gutterBottom>
                     BLOG
                 </Typography>
+
+                {blogPostsAreLoading ? <Loader /> : null}
 
                 <Box>
                     {!blogPostsAreLoading

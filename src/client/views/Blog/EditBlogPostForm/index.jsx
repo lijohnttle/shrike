@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material';
-import { Article } from '../../../components/Article';
-import { ContentBlock } from '../../../components/ContentBlock';
+import { Article, ContentBlock, FileUpload } from '../../../components';
 import { BlogPostModel } from '../../../models';
 import { Box, styled } from '@mui/system';
-import { FileUpload } from '../../../components/FileUpload';
 import { pagesDescriptors } from '../../../../static';
 
 

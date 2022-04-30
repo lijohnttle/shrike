@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { Page } from '../../../components/Page';
+import { Page } from '../../../components';
 import { useIsCancelled, useUserSession } from '../../../hooks';
 import { EditBlogPostForm, EditMode } from '../EditBlogPostForm';
 import { EditBlogPostPreview } from '../EditBlogPostPreview';
