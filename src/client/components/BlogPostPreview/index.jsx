@@ -1,11 +1,10 @@
 import React from 'react';
-import { Typography } from '@mui/material';
-import { InternalLink } from '../../../components';
-import { Box } from '@mui/system';
-import { BlogPostModel, UserSessionModel } from '../../../models';
-import { getBlogPostUrlPath, getBlogPostAttachmentUrlPath } from '../../../../utils/urlBuilder';
-import colors from '../../../themes/colors';
-import { useUserSession } from '../../../hooks';
+import { Box, Typography } from '@mui/material';
+import { InternalLink } from '../';
+import { useUserSession } from '../../hooks';
+import { BlogPostModel, UserSessionModel } from '../../models';
+import * as urlUtils from '../../../utils/urlBuilder';
+import { colors } from '../../themes';
 
 
 /**
@@ -13,7 +12,7 @@ import { useUserSession } from '../../../hooks';
  * @param {UserSessionModel} session 
  * @return {String}
  */
-function buildSubTitle(blogPost, session) {
+ function buildSubTitle(blogPost, session) {
     const subTitle = [];
 
     if (blogPost.publishedOn) {
@@ -32,12 +31,14 @@ function buildSubTitle(blogPost, session) {
 }
 
 /**
- * Component to render a blog post details.
- * @param {Object} props 
- * @param {BlogPostModel} props.blogPost 
- * @returns 
+ * Represents a blog post preview.
+ * @param {Object} param0 
+ * @param {BlogPostModel} param0.blogPost 
+ * @returns {React.ReactNode}
  */
-const BlogPostMeta = (props) => {
+export function BlogPostPreview({ 
+    blogPost
+}) {
     const [getUserSession] = useUserSession();
 
     const userSession = getUserSession();
@@ -45,11 +46,11 @@ const BlogPostMeta = (props) => {
     return (
         <Box display="flex" flexDirection="column">
             <Typography variant="caption" align="justify" marginBottom={1}>
-                {buildSubTitle(props.blogPost, userSession)}
+                {buildSubTitle(blogPost, userSession)}
             </Typography>
 
             <InternalLink
-                to={getBlogPostUrlPath(props.blogPost.slug)}
+                to={urlUtils.getBlogPostUrlPath(blogPost.slug)}
                 sx={{
                     display: 'block',
                     overflow: 'hidden',
@@ -57,10 +58,10 @@ const BlogPostMeta = (props) => {
                     marginBottom: 2,
                     backgroundColor: colors.selectionBackground,
                 }}>
-                {props.blogPost.descriptionImage
+                {blogPost.descriptionImage
                     ? (
                         <img
-                            src={getBlogPostAttachmentUrlPath(props.blogPost.slug, props.blogPost.descriptionImage)}
+                            src={urlUtils.getBlogPostAttachmentUrlPath(blogPost.slug, blogPost.descriptionImage)}
                             style={{
                                 objectFit: 'cover',
                                 objectPosition: 'center',
@@ -71,20 +72,15 @@ const BlogPostMeta = (props) => {
             </InternalLink>
 
             <InternalLink
-                to={getBlogPostUrlPath(props.blogPost.slug)}
+                to={urlUtils.getBlogPostUrlPath(blogPost.slug)}
                 withoutUnderline
                 sx={{
                     color: colors.text,
                 }}>
                 <Typography variant="h3" gutterBottom>
-                    {props.blogPost.title.toUpperCase()}
+                    {blogPost.title.toUpperCase()}
                 </Typography>
             </InternalLink>
         </Box>
     );
-};
-
-
-export {
-    BlogPostMeta
-};
+}

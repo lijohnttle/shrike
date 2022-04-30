@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Typography } from '@mui/material';
-import { Article, ContentBlock, Loader, Page } from '../../../components';
-import { BlogPostMeta } from '../BlogPostMeta';
+import { Article, BlogPostPreview, ContentBlock, Loader, Page } from '../../../components';
 import { BlogToolBar } from '../BlogToolBar';
 import { useDataLoader, useUserSession } from '../../../hooks';
 import { fetchBlogPostList } from '../../../services/blogService';
@@ -68,7 +67,7 @@ const BlogPage = () => {
                                                 sm: '50%',
                                             },
                                         }}>
-                                        <BlogPostMeta blogPost={post} />
+                                        <BlogPostPreview blogPost={post} />
                                     </Box>
                                 ))}
                             </Box>

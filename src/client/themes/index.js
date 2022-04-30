@@ -1,8 +1,10 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/index.js';
-import colors from './colors.js';
+import themeColors from './colors.js';
 
 
-let defaultTheme = createTheme({
+export const colors = themeColors;
+
+export const defaultTheme = responsiveFontSizes(createTheme({
     palette: {
         primary: {
             light: colors.activeLight,
@@ -67,8 +69,4 @@ let defaultTheme = createTheme({
             }
         },
     },
-});
-
-defaultTheme = responsiveFontSizes(defaultTheme);
-
-export { defaultTheme };
+}));
