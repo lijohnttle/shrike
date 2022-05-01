@@ -6,16 +6,17 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 function clearScripts(rootPath) {
     try {
         const directory = path.resolve(rootPath, 'dist/public/assets/scripts');
-        const files = fs.readdirSync(directory);
 
-        for (const file of files) {
-            fs.unlinkSync(path.join(directory, file));
+        if (fs.existsSync(directory)) {
+            const files = fs.readdirSync(directory);
+    
+            for (const file of files) {
+                fs.unlinkSync(path.join(directory, file));
+            }
         }
     }
     catch (error) {
         console.log(error);
-
-        throw error;
     }
 }
 
