@@ -11,7 +11,7 @@ import { LeftContent } from './LeftContent';
 import { RightContent } from './RightContent';
 
 
-const AboutMeSection = ({ contacts, screenHeight, isLastSection }) => {
+const AboutMeSection = ({ contacts, screenHeight, showScrollToNextSection }) => {
     return (
         <SectionWrapper
             screenHeight={screenHeight}
@@ -21,7 +21,7 @@ const AboutMeSection = ({ contacts, screenHeight, isLastSection }) => {
                 borderTop: `8px solid ${colors.brand}`,
                 borderBottom: `8px solid ${colors.brand}`,
             }}
-            canScrollToNextSection={!isLastSection}
+            canScrollToNextSection={showScrollToNextSection}
             scrollButtonDarkStyle>
 
             <SectionContentWrapper>

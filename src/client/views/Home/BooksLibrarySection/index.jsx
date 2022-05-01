@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
-import { LibraryBooks as LibraryBooksIcon } from '@mui/icons-material';
+import { Add as AddIcon } from '@mui/icons-material';
 import { SectionContentWrapper } from '../SectionContentWrapper';
 import { BookList } from '../BookList';
 import { loadBooks } from '../../../services/goodReadsService';
@@ -19,7 +19,7 @@ const BooksContainer = styled('div')(({ theme }) => ({
     marginBottom: theme.spacing(8),
 }));
 
-const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
+const BooksLibrarySection = ({ screenHeight, showScrollToNextSection }) => {
     const [goodReadsUserId, setGoodReadsUserId] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isBooksLoading, setIsBooksLoading] = useState(true);
@@ -73,7 +73,7 @@ const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
     }, []);
 
     return (
-        <SectionWrapper screenHeight={screenHeight} canScrollToNextSection={!isLastSection}>
+        <SectionWrapper screenHeight={screenHeight} canScrollToNextSection={showScrollToNextSection}>
             <SectionContentWrapper title="Book Library" isLoading={isLoading}>
                 <Box mb={2}>
                     <Typography variant="h4" align="center">
@@ -99,16 +99,30 @@ const BooksLibrarySection = ({ screenHeight, isLastSection }) => {
                         : <BookList books={readBooks} />}
                 </BooksContainer>
 
-                <Box alignSelf="center" mt={4}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        href={`https://www.goodreads.com/review/list/${goodReadsUserId}?shelf=ALL`}
-                        target="_blank"
-                        startIcon={<LibraryBooksIcon />}>
-                        See all books
-                    </Button>
-                </Box>
+                <Button
+                    variant="outlined"
+                    href={`https://www.goodreads.com/review/list/${goodReadsUserId}?shelf=ALL`}
+                    endIcon={<AddIcon />}
+                    color="brand"
+                    target="_blank"
+                    sx={{
+                        fontSize: '1.2rem',
+                        alignSelf: 'center',
+                        marginLeft: {
+                            xs: 0,
+                            sm: 'auto',
+                        },
+                        marginRight: {
+                            xs: 0,
+                            sm: 'auto',
+                        },
+                        paddingLeft: 4,
+                        paddingRight: 4,
+                        paddingTop: 1,
+                        paddingBottom: 1,
+                    }}>
+                    SEE MORE
+                </Button>
             </SectionContentWrapper>
         </SectionWrapper>
     );

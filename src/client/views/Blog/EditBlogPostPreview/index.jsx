@@ -1,8 +1,6 @@
 import React from 'react';
 import { Button, Checkbox, FormControlLabel } from '@mui/material';
-import { Article } from '../../../components/Article';
-import { ContentBlock } from '../../../components/ContentBlock';
-import { BlogMarkdown } from '../../../components/BlogMarkdown';
+import { Article, BlogMarkdown, ContentBlock } from '../../../components';
 import { EditMode } from '../EditBlogPostForm';
 import { BlogPostModel } from '../../../models';
 import { Box, styled } from '@mui/system';

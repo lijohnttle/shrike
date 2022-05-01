@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/system';
-import { ContactLink } from '../../../components/ContactLink';
+import { ContactLink } from '../../../components';
 
 export const ContactList = ({ contacts }) => (
     <Box

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, TextField } from '@mui/material';
-import { Page } from '../../../components/Page';
+import { Page } from '../../../components';
 import { signIn } from '../../../services/securityService';
 import { Navigate } from 'react-router-dom';
 import { useUserSession } from '../../../hooks';

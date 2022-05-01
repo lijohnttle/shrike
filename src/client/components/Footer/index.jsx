@@ -12,8 +12,8 @@ export const Footer = () => {
     return (
         <Box
             color={colors.textComplementary}
-            marginTop="auto"
-            paddingTop={4}
+            marginTop={4}
+            paddingTop={2}
             paddingBottom={2}
             sx={{
                 background: colors.backgroundComplementary,

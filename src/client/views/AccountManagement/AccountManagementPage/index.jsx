@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { ContentBlock } from '../../../components/ContentBlock';
-import { Article } from '../../../components/Article';
-import { Page } from '../../../components/Page';
+import { Article, ContentBlock, Page } from '../../../components';
 import { UserProfileSection } from '../UserProfileSection';
 import { UserVisitsSection } from '../UserVisitsSection';
 import { useStyles } from './styles.js';
