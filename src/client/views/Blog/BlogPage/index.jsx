@@ -69,7 +69,7 @@ const BlogPage = () => {
                                                 sm: '50%',
                                             },
                                         }}>
-                                        <BlogPostPreview blogPost={post} />
+                                        <BlogPostPreview blogPost={post} showDescription />
                                     </Box>
                                 ))}
                             </Box>
