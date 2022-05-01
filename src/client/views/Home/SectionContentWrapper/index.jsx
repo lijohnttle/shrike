@@ -17,7 +17,8 @@ const SectionContentWrapper = ({
     contentRootStyles,
     title,
     isLoading,
-    maxWidth }) => {
+    maxWidth,
+    disableBottomGutter }) => {
 
     return (
         <Container maxWidth={maxWidth || 'lg'} style={{ display: 'flex', flex: '1' }}>
@@ -32,8 +33,8 @@ const SectionContentWrapper = ({
                         sm: 12,
                     },
                     paddingBottom: {
-                        xs: 4,
-                        sm: 8,
+                        xs: disableBottomGutter ? 0 : 4,
+                        sm: disableBottomGutter ? 0 : 8,
                     },
                     paddingLeft: {
                         xs: 1,

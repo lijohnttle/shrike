@@ -140,7 +140,7 @@ const CoreValuesList = styled('div')(({ theme }) => ({
     },
 }));
 
-const PortfolioSection = ({ screenHeight, isLastSection }) => {
+const PortfolioSection = ({ screenHeight, disableBottomGutter, showScrollToNextSection }) => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -148,8 +148,8 @@ const PortfolioSection = ({ screenHeight, isLastSection }) => {
     });
 
     return (
-        <SectionWrapper screenHeight={screenHeight} canScrollToNextSection={!isLastSection}>
-            <SectionContentWrapper isLoading={isLoading} maxWidth="md">
+        <SectionWrapper screenHeight={screenHeight} canScrollToNextSection={showScrollToNextSection}>
+            <SectionContentWrapper isLoading={isLoading} maxWidth="md" disableBottomGutter={disableBottomGutter}>
 
                 <Typography variant="h1" fontWeight="bold" paragraph>
                     PORTFOLIO

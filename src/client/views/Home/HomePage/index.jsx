@@ -55,13 +55,13 @@ const HomePage = () => {
                     <WelcomeSection contacts={data.contacts} screenHeight={screenHeight} />
                 </div>
 
-                <AboutMeSection contacts={data.contacts} screenHeight={screenHeight} />
+                <AboutMeSection contacts={data.contacts} screenHeight={screenHeight} showScrollToNextSection />
 
-                <BlogSection />
+                <BlogSection disableBottomGutter />
 
-                <PortfolioSection screenHeight={screenHeight} />
+                <PortfolioSection disableBottomGutter />
 
-                <BooksLibrarySection screenHeight={screenHeight} isLastSection />
+                <BooksLibrarySection screenHeight={screenHeight} />
             </div>
         </Page>
     );

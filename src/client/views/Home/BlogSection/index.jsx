@@ -21,7 +21,15 @@ import { pagesDescriptors } from '../../../../static';
 const RecentBlogPosts = ({ blogPosts }) => {
     return (
         <>
-            <Typography variant="h3" sx={{ color: colors.grayText }} marginBottom={4}>
+            <Typography
+                variant="h3"
+                sx={{
+                    color: colors.grayText,
+                    marginBottom: {
+                        xs: 2,
+                        sm: 4
+                    },
+                }}>
                 RECENT
             </Typography>
 
@@ -95,12 +103,12 @@ const RecentBlogPosts = ({ blogPosts }) => {
                                             md: index === 1 ? 1 : 0,
                                         },
                                         marginRight: {
-                                            xs: index === 0 ? 1 : 0,
+                                            xs: 0,
                                             sm: index === 0 ? 1 : 0,
                                             md: 0,
                                         },
                                         marginLeft: {
-                                            xs: index === 1 ? 1 : 0,
+                                            xs: 0,
                                             sm: index === 1 ? 1 : 0,
                                             md: 0,
                                         },
@@ -120,7 +128,11 @@ const RecentBlogPosts = ({ blogPosts }) => {
                 color="brand"
                 sx={{
                     fontSize: '1.2rem',
-                    marginTop: 8,
+                    marginTop: {
+                        xs: 2,
+                        sm: 4,
+                        md: 8,
+                    },
                     marginLeft: {
                         xs: 0,
                         sm: 'auto',
@@ -144,11 +156,13 @@ const RecentBlogPosts = ({ blogPosts }) => {
  * 
  * @param {Object} param0
  * @param {Number} param0.screenHeight
+ * @param {Boolean} param0.disableBottomGutter Removes bottom padding.
  * @param {Boolean} param0.showScrollToNextSection
  * @returns {React.ReactNode}
  */
 export function BlogSection({
     screenHeight,
+    disableBottomGutter,
     showScrollToNextSection,
 }) {
     /** @type {[BlogPostListModel, Function]} */
@@ -159,8 +173,13 @@ export function BlogSection({
     }), setBlogPostList);
 
     return (
-        <SectionWrapper screenHeight={screenHeight} canScrollToNextSection={showScrollToNextSection}>
-            <SectionContentWrapper isLoading={blogPostsAreLoading.current} maxWidth="md">
+        <SectionWrapper
+            screenHeight={screenHeight}
+            canScrollToNextSection={showScrollToNextSection}>
+            <SectionContentWrapper
+                isLoading={blogPostsAreLoading.current}
+                maxWidth="md"
+                disableBottomGutter={disableBottomGutter}>
                 <Typography variant="h1" fontWeight="bold" marginBottom={4}>
                     BLOG
                 </Typography>
