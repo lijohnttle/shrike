@@ -47,19 +47,21 @@ const BlogPage = () => {
                                     '& > div:nth-of-type(odd)': {
                                         paddingRight: {
                                             xs: 0,
-                                            sm: 2
+                                            sm: 1
                                         },
                                     },
                                     '& > div:nth-of-type(even)': {
                                         paddingLeft: {
                                             xs: 0,
-                                            sm: 2
+                                            sm: 1
                                         },
                                     },
                                 }}>
                                 {blogPostList.blogPosts.map((post) => (
                                     <Box
                                         key={post.slug}
+                                        display="flex"
+                                        alignItems="stretach"
                                         sx={{
                                             paddingBottom: 2,
                                             width: {

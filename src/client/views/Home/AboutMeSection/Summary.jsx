@@ -33,20 +33,21 @@ export const Summary = () => (
             </Typography>
         </Box>
 
-        <Box
-            marginTop={8}
-            alignSelf="end"
-            sx={{
-                '& a': {
+        <Box marginTop={8} alignSelf="end">
+            <Button
+                variant='contained'
+                component={Link}
+                to="/about"
+                endIcon={<AddIcon />}
+                color="brand"
+                sx={{
                     fontSize: '1.2rem',
                     paddingLeft: 4,
                     paddingRight: 4,
                     paddingTop: 1,
                     paddingBottom: 1,
-                },
-            }}>
-            <Button variant='contained' component={Link} to="/about" endIcon={<AddIcon />} color="brand">
-                <span>READ MORE</span>
+                }}>
+                READ MORE
             </Button>
         </Box>
     </React.Fragment>

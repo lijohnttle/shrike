@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { Box, Button, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Add as AddIcon } from '@mui/icons-material';
 import { BlogPostPreview, Loader } from '../../../components';
 import { SectionContentWrapper } from '../SectionContentWrapper';
 import { SectionWrapper } from '../SectionWrapper';
 import { fetchBlogPostList } from '../../../services/blogService';
 import { BlogPostListModel, BlogPostModel } from '../../../models';
 import { useDataLoader } from '../../../hooks';
+import { colors } from '../../../themes';
+import { pagesDescriptors } from '../../../../static';
 
 
 /**
@@ -17,79 +20,123 @@ import { useDataLoader } from '../../../hooks';
  */
 const RecentBlogPosts = ({ blogPosts }) => {
     return (
-        <Box
-            display="flex"
-            sx={{
-                flexDirection: {
-                    xs: 'column',
-                    md: 'row',
-                },
-            }}>
+        <>
+            <Typography variant="h3" sx={{ color: colors.grayText }} marginBottom={4}>
+                RECENT
+            </Typography>
 
-            {/* Left panel */}
             <Box
-                flex="1 2"
-                sx={{
-                    marginRight: {
-                        xs: 0,
-                        md: blogPosts.length > 1 ? 4 : 0,
-                    },
-                    marginBottom: {
-                        xs: blogPosts.length > 1 ? 2 : 0,
-                        md: 0,
-                    },
-                }}>
-                
-                {blogPosts.length > 0
-                    ? <BlogPostPreview blogPost={blogPosts[0]} showDescription />
-                    : null}
-                
-            </Box>
-
-            {/* Right panel */}
-            <Box
-                display={blogPosts.length > 1 ? 'flex' : 'none'}
+                display="flex"
                 sx={{
                     flexDirection: {
                         xs: 'column',
-                        sm: 'row',
-                        md: 'column',
-                    },
-                    flex: {
-                        xs: '1',
-                        md: '0.4 1',
+                        md: 'row',
                     },
                 }}>
-                {blogPosts.slice(1).map((blogPost, index) => (
+
+                {/* Left panel */}
+                <Box
+                    display="flex"
+                    alignItems="stretach"
+                    sx={{
+                        width: {
+                            xs: 'unset',
+                            md: blogPosts.length > 1 ? 'calc(100% * 2 / 3)' : 'unset',
+                        },
+                    }}>
                     <Box
-                        key={blogPost.slug}
-                        flex="1"
+                        display="flex"
+                        alignItems="stretach"
                         sx={{
-                            marginBottom: {
-                                xs: index === 0 ? 1 : 0,
-                                sm: 0,
-                                md: index === 0 ? 1 : 0,
-                            },
-                            marginTop: {
-                                xs: index === 1 ? 1 : 0,
-                                sm: 0,
-                                md: index === 1 ? 1 : 0,
-                            },
                             marginRight: {
-                                xs: index === 0 ? 1 : 0,
-                                sm: index === 0 ? 1 : 0,
-                                md: 0,
+                                xs: 0,
+                                md: blogPosts.length > 1 ? 2 : 0,
                             },
-                            marginLeft: {
-                                xs: index === 1 ? 1 : 0,
-                                sm: index === 1 ? 1 : 0,
+                            marginBottom: {
+                                xs: blogPosts.length > 1 ? 2 : 0,
                                 md: 0,
                             },
                         }}>
-                        <BlogPostPreview blogPost={blogPost} />
-                    </Box>))}
+                        {blogPosts.length > 0
+                            ? <BlogPostPreview blogPost={blogPosts[0]} showDescription />
+                            : null}
+                    </Box>
+                </Box>
+
+                {/* Right panel */}
+                {blogPosts.length > 1
+                    ? (
+                        <Box
+                            display="flex"
+                            sx={{
+                                flexDirection: {
+                                    xs: 'column',
+                                    sm: 'row',
+                                    md: 'column',
+                                },
+                                width: {
+                                    xs: 'unset',
+                                    md: 'calc(100% * 1 / 3)',
+                                },
+                            }}>
+                            {blogPosts.slice(1).map((blogPost, index) => (
+                                <Box
+                                    key={blogPost.slug}
+                                    flex="1"
+                                    sx={{
+                                        marginBottom: {
+                                            xs: index === 0 ? 1 : 0,
+                                            sm: 0,
+                                            md: index === 0 ? 1 : 0,
+                                        },
+                                        marginTop: {
+                                            xs: index === 1 ? 1 : 0,
+                                            sm: 0,
+                                            md: index === 1 ? 1 : 0,
+                                        },
+                                        marginRight: {
+                                            xs: index === 0 ? 1 : 0,
+                                            sm: index === 0 ? 1 : 0,
+                                            md: 0,
+                                        },
+                                        marginLeft: {
+                                            xs: index === 1 ? 1 : 0,
+                                            sm: index === 1 ? 1 : 0,
+                                            md: 0,
+                                        },
+                                    }}>
+                                    <BlogPostPreview blogPost={blogPost} compact />
+                                </Box>))
+                            }
+                        </Box>
+                    ) : null}
             </Box>
-        </Box>
+
+            <Button
+                variant="outlined"
+                component={Link}
+                to={pagesDescriptors.BLOG.path}
+                endIcon={<AddIcon />}
+                color="brand"
+                sx={{
+                    fontSize: '1.2rem',
+                    marginTop: 8,
+                    marginLeft: {
+                        xs: 0,
+                        sm: 'auto',
+                    },
+                    marginRight: {
+                        xs: 0,
+                        sm: 'auto',
+                    },
+                    paddingLeft: 4,
+                    paddingRight: 4,
+                    paddingTop: 1,
+                    paddingBottom: 1,
+                }}>
+                SEE MORE
+            </Button>
+        </>
     );
 };
 
@@ -114,7 +161,7 @@ export function BlogSection({
     return (
         <SectionWrapper screenHeight={screenHeight} canScrollToNextSection={showScrollToNextSection}>
             <SectionContentWrapper isLoading={blogPostsAreLoading.current} maxWidth="md">
-                <Typography variant="h1" fontWeight="bold" gutterBottom>
+                <Typography variant="h1" fontWeight="bold" marginBottom={4}>
                     BLOG
                 </Typography>
 

@@ -23,7 +23,9 @@ export const defaultTheme = responsiveFontSizes(createTheme({
             paper: colors.paperBackground,
         },
         brand: {
+            light: colors.brandLight,
             main: colors.brand,
+            dark: colors.brandDark,
             contrastText: colors.activeText,
         },
         complementary: {
@@ -58,6 +60,11 @@ export const defaultTheme = responsiveFontSizes(createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: 0,
+                    boxShadow: 'none',
+
+                    '&:hover': {
+                        boxShadow: 'none',
+                    },
                 }, 
             },
         },
