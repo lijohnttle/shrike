@@ -1,13 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
-import { useUserSession } from '../../../hooks';
-import { Article } from '../../../components/Article';
-import { ContentBlock } from '../../../components/ContentBlock';
+import { useIsCancelled, useUserSession } from '../../../hooks';
+import { Article, BlogMarkdown, ContentBlock, Page } from '../../../components';
 import { NotFound } from '../../../views/NotFound';
-import { Page } from '../../../components/Page';
 import { BlogPostToolBar } from '../BlogPostToolBar';
 import { fetchBlogPost } from '../../../services/blogService';
-import { BlogMarkdown } from '../../../components/BlogMarkdown';
 import { BlogPostModel } from '../../../models';
 import { pagesDescriptors } from '../../../../static';
 
@@ -40,7 +37,7 @@ function buildSubTitle(blogPost, session) {
 }
 
 const BlogPostPage = () => {
-    const isCancelled = useRef(false);
+    const isCancelled = useIsCancelled();
     /** @type {[BlogPostModel, Function]} */
     const [blogPost, setBlogPost] = useState();
     const [isLoading, setIsLoading] = useState(true);
@@ -62,10 +59,6 @@ const BlogPostPage = () => {
                     setIsLoading(false);
                 }
             });
-
-            return () => {
-                isCancelled.current = true;
-            };
     }, []);
 
     if (!isLoading && !blogPost) {

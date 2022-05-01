@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography, IconButton } from '@mui/material';
 import { KeyboardArrowDown } from '@mui/icons-material'
-import { ContactLink } from '../../../components/ContactLink';
-import { Header } from '../../../components/Header';
+import { ContactLink, Header } from '../../../components';
 import { styled } from '@mui/system';
 
 

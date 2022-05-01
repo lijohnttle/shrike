@@ -1,9 +1,7 @@
 import { Typography } from '@mui/material';
 import { Box, textAlign } from '@mui/system';
 import React from 'react';
-import { Article } from '../../components/Article';
-import { ContentBlock } from '../../components/ContentBlock';
-import { Page } from '../../components/Page';
+import { Article, ContentBlock, Page } from '../../components';
 
 
 export const NotFound = () => (

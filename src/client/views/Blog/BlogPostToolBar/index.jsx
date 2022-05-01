@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Tooltip } from '@mui/material';
 import { Edit as EditIcon } from '@mui/icons-material';
-import { ContentBlock } from '../../../components/ContentBlock';
+import { ContentBlock } from '../../../components';
 import { useUserSession } from '../../../hooks';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { pagesDescriptors } from '../../../../static';

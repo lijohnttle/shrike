@@ -1,6 +1,7 @@
 import React from 'react';
-import { CircularProgress, Container, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { Loader } from '../../../components';
 
 
 const renderTitle = (title) => (
@@ -11,18 +12,13 @@ const renderTitle = (title) => (
     </Box>
 );
 
-const renderLoader = () => (
-    <Box alignSelf="center">
-        <CircularProgress />
-    </Box>
-);
-
 const SectionContentWrapper = ({
     children,
     contentRootStyles,
     title,
     isLoading,
-    maxWidth }) => {
+    maxWidth,
+    disableBottomGutter }) => {
 
     return (
         <Container maxWidth={maxWidth || 'lg'} style={{ display: 'flex', flex: '1' }}>
@@ -37,8 +33,8 @@ const SectionContentWrapper = ({
                         sm: 12,
                     },
                     paddingBottom: {
-                        xs: 4,
-                        sm: 8,
+                        xs: disableBottomGutter ? 0 : 4,
+                        sm: disableBottomGutter ? 0 : 8,
                     },
                     paddingLeft: {
                         xs: 1,
@@ -53,7 +49,7 @@ const SectionContentWrapper = ({
 
                 {title ? renderTitle(title) : null}
 
-                {isLoading ? renderLoader() : children}
+                {isLoading ? <Loader /> : children}
 
                 <Box flex="1 1 auto" />
             </Box>

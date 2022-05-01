@@ -1,8 +1,10 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/index.js';
-import colors from './colors.js';
+import themeColors from './colors.js';
 
 
-let defaultTheme = createTheme({
+export const colors = themeColors;
+
+export const defaultTheme = responsiveFontSizes(createTheme({
     palette: {
         primary: {
             light: colors.activeLight,
@@ -21,7 +23,9 @@ let defaultTheme = createTheme({
             paper: colors.paperBackground,
         },
         brand: {
+            light: colors.brandLight,
             main: colors.brand,
+            dark: colors.brandDark,
             contrastText: colors.activeText,
         },
         complementary: {
@@ -56,6 +60,11 @@ let defaultTheme = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: 0,
+                    boxShadow: 'none',
+
+                    '&:hover': {
+                        boxShadow: 'none',
+                    },
                 }, 
             },
         },
@@ -67,8 +76,4 @@ let defaultTheme = createTheme({
             }
         },
     },
-});
-
-defaultTheme = responsiveFontSizes(defaultTheme);
-
-export { defaultTheme };
+}));
