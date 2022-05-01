@@ -24,13 +24,12 @@ const RecentBlogPosts = ({ blogPosts }) => {
             <Typography
                 variant="h3"
                 sx={{
-                    color: colors.grayText,
                     marginBottom: {
                         xs: 2,
                         sm: 4
                     },
                 }}>
-                RECENT
+                LAST UPDATES
             </Typography>
 
             <Box
