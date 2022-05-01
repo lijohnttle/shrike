@@ -33,11 +33,13 @@ import { colors } from '../../themes';
 /**
  * Represents a blog post preview.
  * @param {Object} param0 
- * @param {BlogPostModel} param0.blogPost 
+ * @param {BlogPostModel} param0.blogPost Blog post.
+ * @param {Boolean} param0.showDescription Displays blog description.
  * @returns {React.ReactNode}
  */
 export function BlogPostPreview({ 
-    blogPost
+    blogPost,
+    showDescription,
 }) {
     const [getUserSession] = useUserSession();
 
@@ -80,6 +82,14 @@ export function BlogPostPreview({
                 <Typography variant="h3" gutterBottom>
                     {blogPost.title.toUpperCase()}
                 </Typography>
+
+                {showDescription
+                    ? (
+                        <Typography variant="body1" gutterBottom>
+                            {blogPost.description}
+                        </Typography>
+                    )
+                    : null}
             </InternalLink>
         </Box>
     );

@@ -32,7 +32,7 @@ const RecentBlogPosts = ({ blogPosts }) => {
                 sx={{
                     marginRight: {
                         xs: 0,
-                        md: blogPosts.length > 1 ? 2 : 0,
+                        md: blogPosts.length > 1 ? 4 : 0,
                     },
                     marginBottom: {
                         xs: blogPosts.length > 1 ? 2 : 0,
@@ -41,7 +41,7 @@ const RecentBlogPosts = ({ blogPosts }) => {
                 }}>
                 
                 {blogPosts.length > 0
-                    ? <BlogPostPreview blogPost={blogPosts[0]} />
+                    ? <BlogPostPreview blogPost={blogPosts[0]} showDescription />
                     : null}
                 
             </Box>
