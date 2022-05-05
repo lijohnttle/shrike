@@ -4,7 +4,7 @@ import { Article, ContactLink, ContentBlock, Page } from '../../../components';
 import { useData } from '../../../hooks';
 import colors from '../../../themes/colors';
 import { Box } from '@mui/system';
-import { Check } from '@mui/icons-material';
+import { CheckBox } from '@mui/icons-material';
 import { pagesDescriptors } from '../../../../static';
 
 
@@ -62,7 +62,7 @@ const SectionList = (props) => (
  const SectionListItem = (props) => (
     <ListItem disablePadding>
         <ListItemIcon sx={{ minWidth: 'auto', paddingRight: 2 }}>
-            <Check fontSize='12px' htmlColor='green' />
+            <CheckBox fontSize="small" htmlColor={colors.text} />
         </ListItemIcon>
         <ListItemText primary={props.children} />
     </ListItem>
