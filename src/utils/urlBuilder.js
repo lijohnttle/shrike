@@ -4,7 +4,7 @@
  * @returns {String}
  */
  export function getBlogPostUrlPath(slug) {
-    return `/blog/${slug}`;
+    return `/blog/posts/${slug}`;
 }
 
 /**
@@ -14,7 +14,7 @@
  * @returns {String}
  */
 export function getBlogPostAttachmentUrlPath(slug, attachmentName) {
-    return `/content/blog/${slug}/attachments/${attachmentName}`;
+    return `/content/blog/posts/${slug}/attachments/${attachmentName}`;
 }
 
 /**
@@ -23,7 +23,7 @@ export function getBlogPostAttachmentUrlPath(slug, attachmentName) {
  * @returns {String}
  */
 export function extractBlogPostSlugFromUrl(urlPath) {
-    const matches = /^\/blog\/(?<slug>[^\s!?\/.*#|]+)/.exec(urlPath);
+    const matches = /^\/blog\/\/posts\/(?<slug>[^\s!?\/.*#|]+)/.exec(urlPath);
 
     return matches?.groups?.slug || '';
 }
