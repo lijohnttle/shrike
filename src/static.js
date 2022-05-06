@@ -33,25 +33,25 @@ const pagesDescriptors = {
     BLOG_POST: new PageDescriptorModel({
         name: 'BLOG_POST',
         title: 'Blog Post',
-        path: '/blog/:slug',
+        path: '/blog/posts/:slug',
         parent: 'BLOG',
     }),
     BLOG_POST_NEW: new PageDescriptorModel({
         name: 'BLOG_POST_NEW',
         title: 'New Blog Post',
-        path: '/management/blog/new',
+        path: '/management/blog/posts/new',
         parent: 'BLOG',
     }),
     BLOG_POST_EDIT: new PageDescriptorModel({
         name: 'BLOG_POST_EDIT',
         title: 'Edit Blog Post',
-        path: '/management/blog/edit/:slug',
+        path: '/management/blog/posts/edit/:slug',
         parent: 'BLOG',
     }),
 };
 
 const contentUrlList = {
-    BLOG_POST: '/content/blog/:slug/attachments/:name',
+    BLOG_POST: '/content/blog/posts/:slug/attachments/:name',
 };
 
 const cookieKeys = {
