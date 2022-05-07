@@ -38,6 +38,7 @@ class BlogManager {
                     publishedOn: 1,
                     published: 1,
                     visits: 1,
+                    category: 1,
                 }
             )
             .sort({
@@ -93,6 +94,7 @@ class BlogManager {
                     "attachments.size": 1,
                     "attachments.contentType": 1,
                     visits: 1,
+                    category: 1,
                 }
             )
             .exec();

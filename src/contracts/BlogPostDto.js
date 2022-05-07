@@ -87,9 +87,16 @@ export class BlogPostDto {
 
         /**
          * Blog post visits.
-         * @type {String}
+         * @type {Number}
          * @public
          */
         this.visits = props?.visits;
+
+        /**
+         * Blog post category.
+         * @type {String}
+         * @public
+         */
+         this.category = props?.category;
     }
 }

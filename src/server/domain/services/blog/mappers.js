@@ -15,6 +15,7 @@ export function mapBlogPostDtoToDocument(source, dest) {
     dest.slug = source.slug;
     dest.published = source.published;
     dest.updatedOn = new Date();
+    dest.category = source.category;
 
     if (dest.published) {
         if (!dest.publishedOn) {
@@ -76,5 +77,6 @@ export function mapBlogPostDocumentToDto(source) {
             url: getBlogPostAttachmentUrlPath(source.slug, attachment.name),
         })),
         visits: source.visits,
+        category: source.category,
     });
 };
