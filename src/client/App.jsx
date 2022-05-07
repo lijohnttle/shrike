@@ -38,7 +38,7 @@ const App = () => {
                 <Route path={pagesDescriptors.BLOG.path} element={<BlogPage />} />
                 <Route path={pagesDescriptors.BLOG_POST.path} element={<BlogPostPage />} />
                 <Route path={pagesDescriptors.HOME.path} element={<HomePage />} />
-                <Route element={<NotFound />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </ThemeProvider >
     );
