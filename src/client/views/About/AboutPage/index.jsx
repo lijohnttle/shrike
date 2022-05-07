@@ -78,7 +78,7 @@ export const AboutPage = () => {
         <Page title="About">
             <Article
                 pageDescriptor={pagesDescriptors.ABOUT}
-                subTitle={<span>(Updated on <b>March 20, 2022</b>)</span>}>
+                subTitle={<span>MARCH 20, 2022</span>}>
                 <ContentBlock
                     styles={{
                         background: colors.backgroundComplementary,

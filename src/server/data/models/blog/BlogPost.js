@@ -51,10 +51,12 @@ const blogPostSchema = new mongoose.Schema({
         },
     }],
     visits: Number,
+    category: String,
 });
 
 blogPostSchema.index({ publishedOn: 1 });
 blogPostSchema.index({ slug: 1 }, { unique: true });
+blogPostSchema.index({ category: 1 });
 
 const BlogPost = mongoose.model('BlogPost', blogPostSchema);
 
@@ -129,7 +131,13 @@ class BlogPostDocument extends mongoose.Document {
          * @type {Number}
          * @public
          */
-        this.visits = undefined;
+        this.visits = document?.visits;
+
+        /**
+         * @type {String}
+         * @public
+         */
+        this.category = document?.category;
     }
 }
 

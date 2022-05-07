@@ -52,6 +52,7 @@ export async function fetchBlogPostList (options) {
                         publishedOn
                         published
                         visits
+                        category
                     }
                     totalCount
                 }
@@ -121,6 +122,7 @@ export async function fetchBlogPost(slug, options) {
                         contentType
                     }
                     visits
+                    category
                 }
                 errorMessage
             }
@@ -150,47 +152,16 @@ export async function fetchBlogPost(slug, options) {
 };
 
 /**
- * Saves a blog post.
+ * Updates or creates a blog post.
  * @param {BlogPostModel} blogPost 
  * @param {Object} [options] Options of the request.
  * @param {UserSessionModel} [options.userSession] Current user session.
  * @returns {Promise}
  */
-export async function saveBlogPost(blogPost, options) {
+export async function saveBlogPost(blogPost, isCreating, options) {
     const attachments = await prepareAttachmentsToUpload(blogPost);
 
-    const response = await graphqlRequest(`
-        mutation ChangeBlogPost(
-            $id: String!,
-            $title: String!,
-            $slug: String!,
-            $description: String!,
-            $descriptionImage: String,
-            $content: String!,
-            $published: Boolean,
-            $attachments: [FileAttachmentInput],
-            $userToken: String!)
-        {
-            changeBlogPost(
-                blogPost: {
-                    id: $id,
-                    title: $title,
-                    slug: $slug,
-                    description: $description,
-                    descriptionImage: $descriptionImage,
-                    content: $content,
-                    published: $published,
-                    attachments: $attachments
-                },
-                userToken: $userToken)
-            {
-                success
-                errorMessage
-            }
-        }
-    `,
-    {
-        id: blogPost.id,
+    const blogPostInput = {
         title: blogPost.title,
         slug: blogPost.slug,
         description: blogPost.description,
@@ -203,86 +174,55 @@ export async function saveBlogPost(blogPost, options) {
             data: attachment.data,
             contentType: attachment.contentType,
         })),
-        userToken: options.userSession.token,
-    });
+        category: blogPost.category,
+    };
 
-    /**
-     * @type {ResponseDto}
-     */
-     const message = response.changeBlogPost;
+    if (!isCreating) {
+        blogPostInput.id = blogPost.id;
+    }
 
-     if (message) {
-        if (message.success) {
-            return;
-        }
-        else {
-            throw new Error(message.errorMessage);
-        }
+    let query;
+
+    if (isCreating) {
+        query = `
+            mutation CreateBlogPost(
+                $blogPost: CreateBlogPostInput!,
+                $userToken: String!)
+            {
+                createBlogPost(blogPost: $blogPost, userToken: $userToken)
+                {
+                    success
+                    errorMessage
+                }
+            }
+        `;
     }
     else {
-        throw new Error('Server returned empty result');
-    }
-};
-
-/**
- * Saves a new blog post.
- * @param {BlogPostModel} blogPost 
- * @param {Object} [options] Options of the request.
- * @param {UserSessionModel} [options.userSession] Current user session.
- * @returns {Promise}
- */
-export async function createBlogPost(blogPost, options) {
-    const attachments = await prepareAttachmentsToUpload(blogPost);
-
-    const response = await graphqlRequest(`
-        mutation CreateBlogPost(
-            $title: String!,
-            $slug: String!,
-            $description: String!,
-            $descriptionImage: String,
-            $content: String!,
-            $published: Boolean,
-            $attachments: [FileAttachmentInput],
-            $userToken: String!
-        )
-        {
-            createBlogPost(
-                blogPost: {
-                    title: $title,
-                    slug: $slug,
-                    description: $description,
-                    descriptionImage: $descriptionImage,
-                    content: $content,
-                    published: $published,
-                    attachments: $attachments
-                },
-                userToken: $userToken)
+        query = `
+            mutation ChangeBlogPost(
+                $blogPost: ChangeBlogPostInput!,
+                $userToken: String!)
             {
-                success
-                errorMessage
+                changeBlogPost(blogPost: $blogPost, userToken: $userToken)
+                {
+                    success
+                    errorMessage
+                }
             }
-        }
-    `,
-    {
-        title: blogPost.title,
-        slug: blogPost.slug,
-        description: blogPost.description,
-        descriptionImage: blogPost.descriptionImage,
-        content: blogPost.content,
-        published: blogPost.published,
-        attachments: attachments?.map(attachment => ({
-            name: attachment.name,
-            size: attachment.size,
-            data: attachment.data,
-            contentType: attachment.contentType,
-        })),
-        userToken: options.userSession.token,
-    });
+        `;
+    }
+
+    const response = await graphqlRequest(
+        query,
+        {
+            blogPost: blogPostInput,
+            userToken: options.userSession.token,
+        });
 
     /**
      * @type {ResponseDto}
      */
-     const message = response.createBlogPost;
+     const message = isCreating ? response.createBlogPost : response.changeBlogPost;
 
      if (message) {
         if (message.success) {

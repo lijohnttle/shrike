@@ -10,7 +10,6 @@ import { AccountManagementPage } from './views/AccountManagement/AccountManageme
 import { BlogPage } from './views/Blog/BlogPage';
 import { BlogPostPage } from './views/Blog/BlogPostPage';
 import { EditBlogPostPage } from './views/Blog/EditBlogPostPage';
-import { NewBlogPostPage } from './views/Blog/NewBlogPostPage';
 import { CookieConsent } from './components';
 import { useUserVisitStatistics, usePageScroll } from './hooks';
 import { pagesDescriptors } from '../static.js';
@@ -34,12 +33,12 @@ const App = () => {
                 <Route path={pagesDescriptors.ABOUT.path} element={<AboutPage />} />
                 <Route path={pagesDescriptors.SIGN_IN.path} element={<SignInPage />} />
                 <Route path={pagesDescriptors.ACCOUNT_MANAGEMENT.path} element={<AccountManagementPage />} />
-                <Route path={pagesDescriptors.BLOG_POST_NEW.path} element={<NewBlogPostPage />} />
+                <Route path={pagesDescriptors.BLOG_POST_NEW.path} element={<EditBlogPostPage isCreating />} />
                 <Route path={pagesDescriptors.BLOG_POST_EDIT.path} element={<EditBlogPostPage />} />
                 <Route path={pagesDescriptors.BLOG.path} element={<BlogPage />} />
                 <Route path={pagesDescriptors.BLOG_POST.path} element={<BlogPostPage />} />
                 <Route path={pagesDescriptors.HOME.path} element={<HomePage />} />
-                <Route element={<NotFound />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </ThemeProvider >
     );

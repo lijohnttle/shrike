@@ -13,7 +13,7 @@ import { colors } from '../../themes';
  * @param {UserSessionModel} session 
  * @return {String}
  */
- function buildSubTitle(blogPost, session) {
+function buildSubTitle(blogPost, session) {
     const subTitle = [];
 
     if (blogPost.publishedOn) {
@@ -135,6 +135,10 @@ export function BlogPostPreview({
                         </Typography>
                     )
                     : null}
+
+                <Typography variant="body1" marginTop={1} fontWeight="bold">
+                    {blogPost.category || <>&nbsp;</>}
+                </Typography>
             </InternalLink>
         </Box>
     );

@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { Page } from '../../../components';
+import { Loader, Page } from '../../../components';
 import { useIsCancelled, useUserSession } from '../../../hooks';
 import { EditBlogPostForm, EditMode } from '../EditBlogPostForm';
 import { EditBlogPostPreview } from '../EditBlogPostPreview';
 import { NotFound } from '../../../views/NotFound';
-import { fetchBlogPost, saveBlogPost, deleteBlogPost } from '../../../services/blogService';
+import { fetchBlogPost, saveBlogPost } from '../../../services/blogService';
 import { BlogPostModel } from '../../../models';
 import { getBlogPostUrlPath } from '../../../../utils/urlBuilder';
 
 
-const EditBlogPostPage = () => {
+/**
+ * The page to edit a blog post.
+ * @param {Object} param0 
+ * @param {Boolean} param0.isCreating Determines if the blog is being created instead of being updated.
+ * @returns 
+ */
+const EditBlogPostPage = ({ isCreating }) => {
     const isCancelled = useIsCancelled();
-    /** @type {[BlogPostModel, Function]} Loading */
+    /** @type {[BlogPostModel, Function]} */
     const [blogPost, setBlogPost] = useState(null);
     const [isPreviewMode, setIsPreviewMode] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -21,20 +27,39 @@ const EditBlogPostPage = () => {
     const { slug } = useParams();
 
     useEffect(() => {
-        const session = getUserSession();
+        if (isCreating) {
+            setBlogPost(new BlogPostModel({
+                title: '',
+                slug: '',
+                description: '',
+                descriptionImage: '',
+                category: '',
+                content: '',
+                published: false,
+            }));
 
-        fetchBlogPost(slug, { userSession: session })
-            .then(post => {
-                if (!isCancelled.current && post) {
-                    setBlogPost(new BlogPostModel(post));
-                }
-            })
-            .catch(error => console.log(error))
-            .finally(() => {
-                if (!isCancelled.current) {
-                    setIsLoading(false);
-                }
-            });
+            setIsLoading(false);
+        }
+        else {
+            const session = getUserSession();
+
+            fetchBlogPost(slug, { userSession: session })
+                .then(post => {
+                    if (!isCancelled.current && post) {
+                        setBlogPost(new BlogPostModel(post));
+                    }
+                })
+                .catch(error => {
+                    if (!isCancelled.current) {
+                        console.error(error);
+                    }
+                })
+                .finally(() => {
+                    if (!isCancelled.current) {
+                        setIsLoading(false);
+                    }
+                });
+        }
     }, []);
 
     if (!isLoading && !blogPost) {
@@ -64,6 +89,9 @@ const EditBlogPostPage = () => {
             case 'attachments':
                 setBlogPost(new BlogPostModel({ ...blogPost, attachments: value }));
                 break;
+            case 'category':
+                setBlogPost(new BlogPostModel({ ...blogPost, category: value }));
+                break;
         }
     };
 
@@ -71,17 +99,17 @@ const EditBlogPostPage = () => {
         const session = getUserSession();
 
         try {
-            await saveBlogPost(blogPost, { userSession: session });
+            await saveBlogPost(blogPost, isCreating, { userSession: session });
 
             navigate(getBlogPostUrlPath(blogPost.slug));
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     };
 
     const deleteHandler = async () => {
-        if (!window.confirm('Delete blog post?')) {
+        if (isCreating || !window.confirm('Delete blog post?')) {
             return;
         }
 
@@ -93,15 +121,17 @@ const EditBlogPostPage = () => {
             navigate(`/blog`);
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     };
 
     return (
         <Page title="Edit Blog Post" authenticated>
+            {isLoading ? <Loader /> : null}
+
             {!isLoading && !isPreviewMode ? 
                 <EditBlogPostForm
-                    mode={EditMode.edit}
+                    mode={isCreating ? EditMode.create : EditMode.edit}
                     blogPost={blogPost}
                     onChange={changeHandler}
                     onPreview={() => setIsPreviewMode(true)}
@@ -111,7 +141,7 @@ const EditBlogPostPage = () => {
 
             {!isLoading && isPreviewMode ? 
                 <EditBlogPostPreview
-                    mode={EditMode.edit}
+                    mode={isCreating ? EditMode.create : EditMode.edit}
                     blogPost={blogPost}
                     onChange={changeHandler}
                     onEdit={() => setIsPreviewMode(false)}
