@@ -10,13 +10,13 @@ import { BreadCrumbs } from '../BreadCrumbs';
  * @param {Object} props 
  * @param {PageDescriptorModel} props.pageDescriptor 
  * @param {String} props.title 
- * @param {React.ReactNode} props.subTitle 
+ * @param {any} props.subTitle 
  * @param {SxProps} props.titleStyles
  * @param {Breakpoint} props.titleMaxWidth
  * @param {React.ReactNode} props.children
  * @returns {React.ReactNode}
  */
-export const Article = (props) => {
+export function Article(props) {
     return (
         <Box display="flex" flexDirection="column" flexWrap="nowrap">
             <Box paddingTop={8} zIndex={1}>

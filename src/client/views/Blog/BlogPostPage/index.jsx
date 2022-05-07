@@ -28,12 +28,16 @@ function buildSubTitle(blogPost, session) {
     if (!blogPost.published) {
         subTitle.push('Not published');
     }
+    
+    if (blogPost.category) {
+        subTitle.push(blogPost.category);
+    }
 
     if (session) {
         subTitle.push(`Visits: ${blogPost.visits ?? 0}`);
     }
 
-    return subTitle.join(' | ');
+    return subTitle.join('\u00a0\u00a0•\u00a0\u00a0').toUpperCase();
 }
 
 const BlogPostPage = () => {
@@ -72,7 +76,7 @@ const BlogPostPage = () => {
             <Article
                 pageDescriptor={pagesDescriptors.BLOG_POST}
                 title={(blogPost?.title || '').toUpperCase()}
-                subTitle={<span>{buildSubTitle(blogPost, userSession)}</span>}
+                subTitle={buildSubTitle(blogPost, userSession)}
                 titleMaxWidth="md">
                 {!isLoading ? <BlogPostToolBar slug={blogPost.slug} maxWidth="md" /> : null}
 
