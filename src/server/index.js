@@ -39,6 +39,18 @@ async function main() {
 
     const app = express();
 
+    if (!isDevelopment) {
+        // redirect to www
+        app.all(/.*/, (req, res, next) => {
+            var host = req.header("host");
+            if (host.match(/^www\..*/i)) {
+                next();
+            } else {
+                res.redirect(301, "https://www." + host + req.url);
+            }
+        });
+    }
+
     app.use(cors());
     app.use(bodyParser.json({
         limit: '15mb'
