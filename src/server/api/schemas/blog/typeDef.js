@@ -25,6 +25,7 @@ const typeDef = `
         content: String!
         published: Boolean
         attachments: [FileAttachmentInput]
+        category: String
     }
 
     input ChangeBlogPostInput {
@@ -36,6 +37,7 @@ const typeDef = `
         content: String!
         published: Boolean
         attachments: [FileAttachmentInput]
+        category: String
     }
 
     type BlogPost {
@@ -51,9 +53,10 @@ const typeDef = `
         published: Boolean!
         attachments: [FileAttachmentOutput]
         visits: Int
+        category: String
     }
 
-    type BlogPostMetadata {
+    type BlogPostPreview {
         id: String!
         title: String!
         description: String!
@@ -64,10 +67,11 @@ const typeDef = `
         publishedOn: String
         published: Boolean!
         visits: Int
+        category: String
     }
 
     type BlogPostListResult {
-        blogPosts: [BlogPostMetadata]
+        blogPosts: [BlogPostPreview]
         totalCount: Int!
     }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material';
+import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
 import { Article, ContentBlock, FileUpload } from '../../../components';
 import { BlogPostModel } from '../../../models';
 import { Box, styled } from '@mui/system';
@@ -67,6 +67,13 @@ const EditBlogPostForm = (props) => {
                             label="Slug"
                             name="slug"
                             defaultValue={props.blogPost.slug}
+                            onChange={e => props.onChange(e.target.name, e.target.value)} />
+                    </FieldContainer>
+                    <FieldContainer>
+                        <TextField
+                            label="Category"
+                            name="category"
+                            defaultValue={props.blogPost.category}
                             onChange={e => props.onChange(e.target.name, e.target.value)} />
                     </FieldContainer>
                     <FieldContainer>

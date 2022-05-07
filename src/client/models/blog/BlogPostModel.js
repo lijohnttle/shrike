@@ -92,6 +92,13 @@ import { AttachmentModel } from '../AttachmentModel';
          * @public
          */
         this.visits = props?.visits;
+
+        /**
+         * Blog post category.
+         * @type {String}
+         * @public
+         */
+         this.category = props?.category;
     }
 
     /**
@@ -123,6 +130,7 @@ import { AttachmentModel } from '../AttachmentModel';
                 data: attachment.data,
             })),
             visits: dto.visits,
+            category: dto.category,
         });
     }
 }
