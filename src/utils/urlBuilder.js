@@ -23,7 +23,7 @@ export function getBlogPostAttachmentUrlPath(slug, attachmentName) {
  * @returns {String}
  */
 export function extractBlogPostSlugFromUrl(urlPath) {
-    const matches = /^\/blog\/\/posts\/(?<slug>[^\s!?\/.*#|]+)/.exec(urlPath);
+    const matches = /^\/blog\/posts\/(?<slug>[^\s!?\/.*#|]+)/.exec(urlPath);
 
     return matches?.groups?.slug || '';
 }
