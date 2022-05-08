@@ -1,10 +1,9 @@
 import React from 'react';
-import { Container, Link, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { Box, Container, Link, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { AccessTimeOutlined, CheckBox } from '@mui/icons-material';
 import { Article, ContactLink, ContentBlock, Page } from '../../../components';
 import { useData } from '../../../hooks';
 import colors from '../../../themes/colors';
-import { Box } from '@mui/system';
-import { CheckBox } from '@mui/icons-material';
 import { pagesDescriptors } from '../../../../static';
 
 
@@ -73,12 +72,19 @@ export const AboutPage = () => {
     const data = useData();
 
     const instagramLink = data.contacts.find((contact) => contact.vendor === 'instagram');
-    
+
     return (
         <Page title="About">
             <Article
                 pageDescriptor={pagesDescriptors.ABOUT}
-                subTitle={<span>MARCH 20, 2022</span>}>
+                subTitle={
+                    <span>
+                        <AccessTimeOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 1 }} />
+                        <span>
+                            MARCH 20, 2022
+                        </span>
+                    </span>
+                }>
                 <ContentBlock
                     styles={{
                         background: colors.backgroundComplementary,

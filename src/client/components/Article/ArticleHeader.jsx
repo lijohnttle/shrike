@@ -20,7 +20,7 @@ export function ArticleHeader({ title, subTitle, titleStyles, maxWidth }) {
     
             {subTitle
                 ? (
-                    <Typography variant="caption" color="textSecondary" fontSize="1.2rem">
+                    <Typography variant="caption" color="textSecondary" fontSize="1.1rem">
                         {subTitle}
                     </Typography>
                 )
