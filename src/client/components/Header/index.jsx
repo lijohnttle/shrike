@@ -18,12 +18,12 @@ const Logo = styled(Link)(({ theme, light }) => ({
     flexFlow: 'row nowrap',
     justifyContent: 'center',
     alignItems: 'center',
-    color: light ? 'black' : 'inherit',
-    background: light ? colors.background : colors.brand,
+    color: colors.text,
+    background: colors.background,
     textDecoration: 'none',
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
-    fontSize: '32px',
+    fontSize: '2rem',
     textTransform: 'capitalize',
 
     '&:hover': {
@@ -31,7 +31,7 @@ const Logo = styled(Link)(({ theme, light }) => ({
     },
     
     [theme.breakpoints.down('sm')]: {
-        fontSize: '24px',
+        fontSize: '1.5rem',
     },
 }));
 
