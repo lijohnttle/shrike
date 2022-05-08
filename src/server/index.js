@@ -43,7 +43,7 @@ async function main() {
         // redirect to www
         app.all(/.*/, (req, res, next) => {
             var host = req.header("host");
-            if (host.match(/^www\..*/i)) {
+            if (host.match(/^www\..*/i) || host.match(/^localhost.*/i)) {
                 next();
             } else {
                 res.redirect(301, "https://www." + host + req.url);

@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { Box, Tooltip, Typography } from '@mui/material';
+import { AccessTimeOutlined, FolderOutlined, VisibilityOutlined } from '@mui/icons-material';
 import { InternalLink } from '../';
 import { useNavigate } from 'react-router';
 import { useUserSession } from '../../hooks';
@@ -14,21 +15,32 @@ import { colors } from '../../themes';
  * @return {String}
  */
 function buildSubTitle(blogPost, session) {
-    const subTitle = [];
+    const publishedDate = blogPost.publishedOn
+        ? blogPost.publishedOn.toLocaleDateString(undefined, { dateStyle: 'long' }).toUpperCase()
+        : 'NOT PUBLISHED';
 
-    if (blogPost.publishedOn) {
-        subTitle.push(blogPost.publishedOn.toLocaleDateString());
-    }
+    return (
+        <>
+            <span>
+                <AccessTimeOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 0.5, fontSize: '1.16em' }} />
+                <span style={{ textAlign: 'middle' }}>
+                    {publishedDate}
+                </span>
+            </span>
 
-    if (!blogPost.published) {
-        subTitle.push('Not published');
-    }
-
-    if (session) {
-        subTitle.push(`Visits: ${blogPost.visits ?? 0}`);
-    }
-
-    return subTitle.join(' | ');
+            {session
+                ? (
+                    <span>
+                        <span>{'\u00a0\u00a0•\u00a0\u00a0'}</span>
+                        <VisibilityOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 0.5, fontSize: '1.16em' }} />
+                        <span style={{ textAlign: 'middle' }}>
+                            {blogPost.visits}
+                        </span>
+                    </span>
+                )
+                : null}
+        </>
+    );
 }
 
 /**
@@ -137,7 +149,16 @@ export function BlogPostPreview({
                     : null}
 
                 <Typography variant="body1" marginTop={1} fontWeight="bold">
-                    {blogPost.category || <>&nbsp;</>}
+                    {blogPost.category
+                        ? (
+                            <>
+                                <FolderOutlined sx={{ verticalAlign: 'middle', marginRight: 1 }} />
+                                <span style={{ verticalAlign: 'middle' }}>
+                                    {blogPost.category}
+                                </span>
+                            </>
+                        )
+                        : <>&nbsp;</>}
                 </Typography>
             </InternalLink>
         </Box>

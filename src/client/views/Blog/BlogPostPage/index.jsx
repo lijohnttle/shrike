@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
+import { AccessTimeOutlined, FolderOutlined, VisibilityOutlined } from '@mui/icons-material';
 import { useIsCancelled, useUserSession } from '../../../hooks';
 import { Article, BlogMarkdown, ContentBlock, Page } from '../../../components';
 import { NotFound } from '../../../views/NotFound';
@@ -19,25 +20,44 @@ function buildSubTitle(blogPost, session) {
         return '';
     }
 
-    const subTitle = [];
+    const publishedDate = blogPost.publishedOn
+        ? blogPost.publishedOn.toLocaleDateString(undefined, { dateStyle: 'long' }).toUpperCase()
+        : 'NOT PUBLISHED';
 
-    if (blogPost.publishedOn) {
-        subTitle.push(blogPost.publishedOn?.toLocaleDateString(undefined, { dateStyle: 'long' }));
-    }
+    return (
+        <>
+            <span>
+                <AccessTimeOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 1 }} />
+                <span>
+                    {publishedDate}
+                </span>
+            </span>
 
-    if (!blogPost.published) {
-        subTitle.push('Not published');
-    }
-    
-    if (blogPost.category) {
-        subTitle.push(blogPost.category);
-    }
+            {blogPost.category
+                ? (
+                    <span>
+                        <span>{'\u00a0\u00a0•\u00a0\u00a0'}</span>
+                        <FolderOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 1 }} />
+                        <span>
+                            {blogPost.category.toUpperCase()}
+                        </span>
+                    </span>
+                )
+                : null}
 
-    if (session) {
-        subTitle.push(`Visits: ${blogPost.visits ?? 0}`);
-    }
-
-    return subTitle.join('\u00a0\u00a0•\u00a0\u00a0').toUpperCase();
+            {session
+                ? (
+                    <span>
+                        <span>{'\u00a0\u00a0•\u00a0\u00a0'}</span>
+                        <VisibilityOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 1 }} />
+                        <span>
+                            {blogPost.visits}
+                        </span>
+                    </span>
+                )
+                : null}
+        </>
+    );
 }
 
 const BlogPostPage = () => {
