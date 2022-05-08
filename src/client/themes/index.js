@@ -36,7 +36,7 @@ export const defaultTheme = responsiveFontSizes(createTheme({
     typography: {
         fontFamily: [ 'Roboto', 'Arial Narrow', 'Arial', 'Helvetica' ],
         h1: {
-            fontSize: '4rem'
+            fontSize: '3rem'
         },
         h2: {
             fontSize: '2.5rem'
