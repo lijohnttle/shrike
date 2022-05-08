@@ -34,7 +34,7 @@ function buildSubTitle(blogPost, session) {
                         <span>{'\u00a0\u00a0•\u00a0\u00a0'}</span>
                         <VisibilityOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 0.5, fontSize: '1.16em' }} />
                         <span style={{ textAlign: 'middle' }}>
-                            {blogPost.visits}
+                            {blogPost.visits || 0}
                         </span>
                     </span>
                 )
