@@ -1,6 +1,7 @@
 import React from 'react';
-import { Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { SxProps, Breakpoint } from '@mui/system';
+import { colors } from '../../themes';
 
 
 /**
@@ -20,9 +21,9 @@ export function ArticleHeader({ title, subTitle, titleStyles, maxWidth }) {
     
             {subTitle
                 ? (
-                    <Typography variant="caption" color="textSecondary" fontSize="1.1rem">
+                    <Box sx={{ fontSize: '1.1rem', marginTop: 1 }}>
                         {subTitle}
-                    </Typography>
+                    </Box>
                 )
                 : null}
         </Container>

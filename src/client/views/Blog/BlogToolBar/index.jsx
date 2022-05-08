@@ -12,7 +12,6 @@ const CommandGroupContainer = styled('div')(({ theme }) => ({
     display: 'flex',
     flexFlow: 'row wrap',
     alignItems: 'center',
-    marginBottom: theme.spacing(2),
 }));
 
 const CommandContainer = styled('div')(({ theme }) => ({

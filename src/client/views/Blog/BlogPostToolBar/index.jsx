@@ -12,7 +12,6 @@ const CommandGroupContainer = styled('div')(({ theme }) => ({
     display: 'flex',
     flexFlow: 'row wrap',
     alignItems: 'center',
-    marginBottom: theme.spacing(2),
 }));
 
 const CommandContainer = styled('div')(({ theme }) => ({
@@ -57,7 +56,6 @@ const BlogPostToolBar = (props) => {
                                 Edit
                             </Button>
                         </Tooltip>
-                        {/* <Button variant="contained" startIcon={<EditIcon />} onClick={handleEditBlogPost}>Edit</Button> */}
                     </CommandContainer>
                 </CommandGroupContainer>
             </Box>
