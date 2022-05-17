@@ -94,19 +94,19 @@ export const BlogMarkdown = (props) => {
                 },
                 h2: (elementProps) => {
                     return (
-                        <Typography variant="h2" sx={{ overflow: 'auto', marginTop: 4, marginBottom: 2 }}>
+                        <Typography variant="h2" sx={{ overflow: 'auto', marginTop: 6, marginBottom: 4 }}>
                             {elementProps.children}
                         </Typography>)
                 },
                 h3: (elementProps) => {
                     return (
-                        <Typography variant="h3" sx={{ overflow: 'auto', marginTop: 1, marginBottom: 2 }}>
+                        <Typography variant="h3" sx={{ overflow: 'auto', marginTop: 6, marginBottom: 3 }}>
                             {elementProps.children}
                         </Typography>)
                 },
                 h4: (elementProps) => {
                     return (
-                        <Typography variant="h4" sx={{ overflow: 'auto', marginTop: 1, marginBottom: 2 }}>
+                        <Typography variant="h4" sx={{ overflow: 'auto', marginTop: 2, marginBottom: 2 }}>
                             {elementProps.children}
                         </Typography>)
                 },
@@ -118,7 +118,15 @@ export const BlogMarkdown = (props) => {
                 },
                 blockquote: (elementProps) => {
                     return (
-                        <blockquote style={{ color: colors.grayText, fontStyle: 'italic' }}>
+                        <blockquote
+                            style={{
+                                color: colors.grayText,
+                                fontStyle: 'italic',
+                                margin: 0,
+                                padding: '0.5em 40px',
+                                background: 'whitesmoke',
+                                borderLeft: `8px solid ${colors.grayText}`,
+                            }}>
                             {elementProps.children}
                         </blockquote>)
                 },
