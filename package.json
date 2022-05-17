@@ -12,7 +12,7 @@
     "build": "npm run build-dev",
     "start": "node --experimental-specifier-resolution=node ./src/server/index.js",
     "restart": "npm run build && npm start",
-    "test": "jest --testEnvironment=node --runInBand ./src/tests --config ./src/tests/jest.config.js"
+    "test": "jest --testEnvironment=node --config ./src/tests/jest.config.js"
   },
   "repository": {
     "type": "git",

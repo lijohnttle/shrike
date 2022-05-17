@@ -1,4 +1,5 @@
 import { UserRole } from './UserRole';
+import { AuthorizationError } from '../../../../contracts/errors';
 
 
 export class UserContext {
@@ -25,11 +26,12 @@ export class UserContext {
     }
 
     /**
-     * Verifies admin role of a user. If fails, then it throws an exception. 
+     * Verifies admin role of a user. If fails, then it throws an exception.
+     * @throws {Error}
      */
     verifyAdminAccess() {
         if (!this.validateAdminAccess()) {
-            throw new Error('Authrorization error');
+            throw new AuthorizationError();
         }
     }
 

@@ -1,11 +1,10 @@
-import db from '../../../../db.js';
 import { UserVisitCounter } from '../../../../../server/domain/services/diagnostics/UserVisitCounter.js';
 import { UserVisit } from '../../../../../server/data/models/diagnostics/UserVisit.js';
 
 
-beforeAll(async () => await db.connect());
-afterEach(async () => await db.clear());
-afterAll(async () => await db.disconnect());
+beforeAll(async () => await connectDb());
+afterEach(async () => await clearDb());
+afterAll(async () => await disconnectDb());
 
 
 describe('Record visits', () => {
@@ -281,8 +280,6 @@ describe('Get records', () => {
 
             const actual = await userVisitCounter.getVisits(2);
 
-            console.log(actual);
-
             expect(actual).toMatchObject(expected);
         });
 
@@ -309,8 +306,6 @@ describe('Get records', () => {
             await userVisitCounter.recordVisit('/about', 'country1', 'city1');
 
             const actual = await userVisitCounter.getVisits(1);
-
-            console.log(actual);
 
             expect(actual).toMatchObject(expected);
         });

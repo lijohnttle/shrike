@@ -6,7 +6,7 @@ import { UserContext } from '../../entities/authentication/UserContext';
 import { mapBlogPostDocumentToDto, mapBlogPostDtoToDocument } from './mappers';
 
 
-class BlogManager {
+export class BlogManager {
     /**
      * Returns the list of blog posts.
      * @param {BlogPostListOptionsDto} options Request options.
@@ -205,8 +205,3 @@ class BlogManager {
             .exec();
     }
 }
-
-
-export {
-    BlogManager
-};
