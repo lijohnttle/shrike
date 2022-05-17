@@ -32,9 +32,12 @@ export const defaultTheme = responsiveFontSizes(createTheme({
             main: colors.backgroundComplementary,
             mani: colors.textComplementary,
         },
+        text: {
+            main: colors.text,
+        },
     },
     typography: {
-        fontFamily: [ 'Roboto', 'Arial Narrow', 'Arial', 'Helvetica' ],
+        fontFamily: ['sans-serif', 'Arial', 'Arial Narrow', 'Helvetica', 'Roboto' ],
         h1: {
             fontSize: '3rem'
         },
@@ -53,7 +56,10 @@ export const defaultTheme = responsiveFontSizes(createTheme({
         h6: {
             fontSize: '1rem',
             fontWeight: 'bold'
-        }
+        },
+        body1: {
+            color: colors.text,
+        },
     },
     components: {
         MuiButton: {

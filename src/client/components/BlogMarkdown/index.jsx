@@ -1,4 +1,4 @@
-import { Theme, Typography, useTheme } from '@mui/material';
+import { Link, Theme, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import RehypeRaw from 'rehype-raw';
@@ -30,6 +30,19 @@ function parseImageProps(query, props, theme) {
 }
 
 /**
+ * @param {Object} param0 
+ * @param {BlogPostModel} param0.blogPost 
+ * @returns 
+ */
+function RenderDescription({ blogPost }) {
+    return (
+        <Typography variant="body1" fontStyle="italic" margin="1em 0">
+            {blogPost.description}
+        </Typography>
+    );
+}
+
+/**
  * 
  * @param {Object} props
  * @param {BlogPostModel} props.blogPost
@@ -42,11 +55,11 @@ export const BlogMarkdown = (props) => {
     let descriptionContent = '';
 
     if (props.blogPost.descriptionImage) {
-        descriptionImageContent = `![](${props.blogPost.descriptionImage})` + "\n\n"
+        descriptionImageContent = `![](${props.blogPost.descriptionImage})` + "\n\n";
     }
 
     if (props.blogPost.description) {
-        descriptionContent = `> *${props.blogPost.description}*` + "\n\n"
+        descriptionContent = `![](##description)` + "\n\n";
     }
 
     content = descriptionImageContent + descriptionContent + content;
@@ -56,7 +69,14 @@ export const BlogMarkdown = (props) => {
             children={content}
             rehypePlugins={[RehypeRaw]}
             components={{
+                a: (elementProps) => {
+                    return <Link {...elementProps} />;
+                },
                 img: ({ src, ...otherProps }) => {
+                    if (src === '##description') {
+                        return <RenderDescription blogPost={props.blogPost} />;
+                    }
+
                     const linkToAttachment = src.indexOf('/') < 0;
 
                     if (linkToAttachment) {
@@ -87,26 +107,35 @@ export const BlogMarkdown = (props) => {
                     }
                 },
                 p:  (elementProps) => {
+                    // unwrap images
+                    if (elementProps.children
+                        && elementProps.children.length === 1
+                        && elementProps.children[0].props
+                        && elementProps.children[0].props.src) { // rendering media without p wrapper
+                    
+                        return elementProps.children;
+                    }
+
                     return (
-                        <Typography variant="body1" paragraph sx={{ overflow: 'auto', marginTop: 1, marginBottom: 2 }}>
+                        <Typography variant="body1" paragraph sx={{ overflow: 'auto', marginTop: 0, marginBottom: 3 }}>
                             {elementProps.children}
                         </Typography>)
                 },
                 h2: (elementProps) => {
                     return (
-                        <Typography variant="h2" sx={{ overflow: 'auto', marginTop: 6, marginBottom: 4 }}>
+                        <Typography variant="h2" fontWeight="bold" sx={{ overflow: 'auto', marginTop: 6, marginBottom: 3 }}>
                             {elementProps.children}
                         </Typography>)
                 },
                 h3: (elementProps) => {
                     return (
-                        <Typography variant="h3" sx={{ overflow: 'auto', marginTop: 6, marginBottom: 3 }}>
+                        <Typography variant="h3" fontWeight="bold" sx={{ overflow: 'auto', marginTop: 6, marginBottom: 3 }}>
                             {elementProps.children}
                         </Typography>)
                 },
                 h4: (elementProps) => {
                     return (
-                        <Typography variant="h4" sx={{ overflow: 'auto', marginTop: 2, marginBottom: 2 }}>
+                        <Typography variant="h4" fontWeight="bold" sx={{ overflow: 'auto', marginTop: 4, marginBottom: 2 }}>
                             {elementProps.children}
                         </Typography>)
                 },

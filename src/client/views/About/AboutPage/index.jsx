@@ -118,15 +118,15 @@ export const AboutPage = () => {
                             Hi, I'm Ivan Cherkasov
                         </Typography>
 
-                        <Typography gutterBottom paragraph>
+                        <Typography color="inherit" gutterBottom paragraph>
                             Since I was a kid, I have been passionate about software development. It started when I saw Visual Basic code listings for the first time in one of the books my dad bought me when I was a kid. My curiosity took over and now here I am.
                         </Typography>
 
-                        <Typography gutterBottom paragraph>
+                        <Typography color="inherit" gutterBottom paragraph>
                             The first language that I studied was C++. When I was 13 I started learning C#, and now, for the last <b>{new Date().getFullYear() - 2013}+ years of my professional career</b>, .NET is the main stack of technologies I work with, but I constantly learn new stuff.
                         </Typography>
 
-                        <Typography gutterBottom paragraph>
+                        <Typography color="inherit" gutterBottom paragraph>
                             I have experience of creating Windows desktop applications, web services and API, front-end. I worked with relational DBMS as well as with object-oriented DBMS. I performed migration of the monolithic on-premise web application to the cloud-based microservices. 
                         </Typography>
                     </div>
