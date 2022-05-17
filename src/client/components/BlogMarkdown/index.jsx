@@ -1,8 +1,10 @@
 import { Theme, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import RehypeRaw from 'rehype-raw';
 import { getBlogPostAttachmentUrlPath } from '../../../utils/urlBuilder';
 import { BlogPostModel } from '../../models';
+import { colors } from '../../themes';
 
 
 /**
@@ -36,14 +38,23 @@ export const BlogMarkdown = (props) => {
     const theme = useTheme();
 
     let content = props.blogPost.content;
+    let descriptionImageContent = '';
+    let descriptionContent = '';
 
     if (props.blogPost.descriptionImage) {
-        content = `![](${props.blogPost.descriptionImage})` + "\n\n" + content;
+        descriptionImageContent = `![](${props.blogPost.descriptionImage})` + "\n\n"
     }
+
+    if (props.blogPost.description) {
+        descriptionContent = `> *${props.blogPost.description}*` + "\n\n"
+    }
+
+    content = descriptionImageContent + descriptionContent + content;
 
     return (
         <ReactMarkdown
             children={content}
+            rehypePlugins={[RehypeRaw]}
             components={{
                 img: ({ src, ...otherProps }) => {
                     const linkToAttachment = src.indexOf('/') < 0;
@@ -105,7 +116,13 @@ export const BlogMarkdown = (props) => {
                             {elementProps.children}
                         </ul>)
                 },
+                blockquote: (elementProps) => {
+                    return (
+                        <blockquote style={{ color: colors.grayText, fontStyle: 'italic' }}>
+                            {elementProps.children}
+                        </blockquote>)
+                },
             }}
-            />
+        />
     )
 };
