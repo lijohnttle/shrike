@@ -75,6 +75,7 @@ const RecentBlogPosts = ({ blogPosts }) => {
                     ? (
                         <Box
                             display="flex"
+                            justifyContent="space-evenly"
                             sx={{
                                 flexDirection: {
                                     xs: 'column',
@@ -83,13 +84,13 @@ const RecentBlogPosts = ({ blogPosts }) => {
                                 },
                                 width: {
                                     xs: 'unset',
-                                    md: 'calc(100% * 1 / 3)',
+                                    md: 'calc(100% / 3)',
                                 },
                             }}>
                             {blogPosts.slice(1).map((blogPost, index) => (
                                 <Box
                                     key={blogPost.slug}
-                                    flex="1"
+                                    display="flex"
                                     sx={{
                                         marginBottom: {
                                             xs: index === 0 ? 1 : 0,

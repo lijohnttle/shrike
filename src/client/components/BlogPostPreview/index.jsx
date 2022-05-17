@@ -70,6 +70,7 @@ export function BlogPostPreview({
             sx={{
                 flex: '1',
                 background: '#fafafa',
+                border: '1px solid #efefef',
                 cursor: 'pointer',
                 padding: {
                     xs: 2,
@@ -113,6 +114,9 @@ export function BlogPostPreview({
                 sx={{
                     position: 'relative',
                     color: colors.text,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flex: 1,
                 }}>
 
                 {compact
@@ -147,6 +151,8 @@ export function BlogPostPreview({
                         </Typography>
                     )
                     : null}
+
+                <Box flex={1} />
 
                 <Typography variant="body1" marginTop={1} fontWeight="bold">
                     {blogPost.category
