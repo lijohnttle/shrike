@@ -81,7 +81,7 @@ export const AboutPage = () => {
                     <span>
                         <AccessTimeOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 1 }} />
                         <span>
-                            MARCH 20, 2022
+                            MAY 21, 2022
                         </span>
                     </span>
                 }>
