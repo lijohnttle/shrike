@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Article, BlogPostPreview, ContentBlock, Loader, Page } from '../../../components';
 import { BlogToolBar } from '../BlogToolBar';
 import { useDataLoader, useUserSession } from '../../../hooks';
@@ -28,6 +28,8 @@ const BlogPage = () => {
         userToken: getUserSession()?.token,
         unpublished: showUnpublished,
     }), setBlogPostList, [showUnpublished]);
+    const theme = useTheme();
+    const displayMode = useMediaQuery(theme.breakpoints.up('md')) ? BlogPostPreview.displayMode.list : BlogPostPreview.displayMode.tiles;
 
     return (
         <Page title="Blog">
@@ -42,34 +44,18 @@ const BlogPage = () => {
                             <Box
                                 display="flex"
                                 flexDireaction="row"
-                                flexWrap="wrap"
-                                sx={{
-                                    '& > div:nth-of-type(odd)': {
-                                        paddingRight: {
-                                            xs: 0,
-                                            sm: 1
-                                        },
-                                    },
-                                    '& > div:nth-of-type(even)': {
-                                        paddingLeft: {
-                                            xs: 0,
-                                            sm: 1
-                                        },
-                                    },
-                                }}>
+                                flexWrap="wrap">
                                 {blogPostList.blogPosts.map((post) => (
                                     <Box
                                         key={post.slug}
                                         display="flex"
                                         alignItems="stretach"
-                                        sx={{
-                                            paddingBottom: 2,
-                                            width: {
-                                                xs: '100%',
-                                                sm: '50%',
-                                            },
-                                        }}>
-                                        <BlogPostPreview blogPost={post} showDescription />
+                                        marginBottom={1}
+                                        width="100%">
+                                        <BlogPostPreview
+                                            blogPost={post}
+                                            showDescription
+                                            displayMode={displayMode} />
                                     </Box>
                                 ))}
                             </Box>

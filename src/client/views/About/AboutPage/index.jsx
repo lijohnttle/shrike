@@ -136,7 +136,7 @@ export const AboutPage = () => {
                     <Section title="What I'm Doing Now">
                         <SectionList>
                             <SectionListItem>
-                                Right now I live in <b>Wroclaw, Poland</b>, but I am about to move to <b>Toronto, Canada.</b>
+                                Right now I live in <b>Wroclaw, Poland</b>, but I am about to move to <b>Singapore</b>, and then, after a few months, to <b>Australia</b>.
                             </SectionListItem>
                             <SectionListItem>
                                 Working as a <b>Senior Software Engineer</b> in a Swiss multinational bank.
