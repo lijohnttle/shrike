@@ -19,11 +19,12 @@ import { colors } from '../../themes';
 };
 
 /**
- * @param {BlogPostModel} blogPost 
- * @param {UserSessionModel} session 
+ * @param {Object} param0 
+ * @param {BlogPostModel} param0.blogPost 
+ * @param {UserSessionModel} param0.userSession 
  * @return {String}
  */
-function SubTitle(blogPost, session) {
+function SubTitle({ blogPost, userSession }) {
     const publishedDate = blogPost.publishedOn
         ? blogPost.publishedOn.toLocaleDateString(undefined, { dateStyle: 'long' }).toUpperCase()
         : 'NOT PUBLISHED';
@@ -37,7 +38,7 @@ function SubTitle(blogPost, session) {
                 </span>
             </span>
 
-            {session
+            {userSession
                 ? (
                     <span>
                         <span>{'\u00a0\u00a0•\u00a0\u00a0'}</span>
@@ -58,15 +59,21 @@ function SubTitle(blogPost, session) {
  * @param {BlogPostModel} param0.blogPost Blog post.
  * @param {Boolean} param0.showDescription Displays blog description.
  * @param {Boolean} param0.compact Displays in compact mode.
+ * @param {UserSessionModel} param0.userSession Current user session.
  * @returns {React.ReactNode}
  */
 function TileView({ 
     blogPost,
     showDescription,
     compact,
+    userSession
 }) {
     return (
         <Box display="flex" flexDirection="column">
+            <Typography variant="caption" align="justify" marginBottom={1}>
+                <SubTitle blogPost={blogPost} userSession={userSession} />
+            </Typography>
+
             <InternalLink
                 to={urlUtils.getBlogPostUrlPath(blogPost.slug)}
                 sx={{
@@ -158,12 +165,14 @@ function TileView({
  * @param {BlogPostModel} param0.blogPost Blog post.
  * @param {Boolean} param0.showDescription Displays blog description.
  * @param {Boolean} param0.compact Displays in compact mode.
+ * @param {UserSessionModel} param0.userSession Current user session.
  * @returns {React.ReactNode}
  */
 function ListView({ 
     blogPost,
     showDescription,
     compact,
+    userSession
 }) {
     return (
         <Box display="flex" flexDirection="row" flexWrap="nowrap">
@@ -200,6 +209,10 @@ function ListView({
                     flexDirection: 'column',
                     flex: 1,
                 }}>
+                
+                <Typography variant="caption" align="justify" marginBottom={1}>
+                    <SubTitle blogPost={blogPost} userSession={userSession} />
+                </Typography>
 
                 {compact
                     ? (
@@ -295,13 +308,9 @@ export function BlogPostPreview({
                 },
             }}
             onClick={handleClick}>
-            <Typography variant="caption" align="justify" marginBottom={1}>
-                <SubTitle blogPost={blogPost} userSession={userSession} />
-            </Typography>
-
             {displayMode === DisplayMode.tiles
-                ? <TileView blogPost={blogPost} showDescription={showDescription} compact={compact} />
-                : <ListView blogPost={blogPost} showDescription={showDescription} compact={compact} />}
+                ? <TileView blogPost={blogPost} showDescription={showDescription} compact={compact} userSession={userSession} />
+                : <ListView blogPost={blogPost} showDescription={showDescription} compact={compact} userSession={userSession} />}
         </Box>
     );
 }
