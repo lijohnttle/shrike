@@ -1,6 +1,13 @@
 import axios from 'axios';
 import { JSDOM } from 'jsdom';
+import { BookDto, BookListResultDto, BookShelf } from '../../contracts/books';
 
+
+/**
+ * Parses HTML widget to retrieve books details.
+ * @param {String} widgetContent 
+ * @returns {BookListResultDto}
+ */
 function parseWidget(widgetContent) {
     let content = widgetContent.split('\n')[0];
     const startHtmlIndex = content.indexOf('\'') + 1;
@@ -13,9 +20,7 @@ function parseWidget(widgetContent) {
         .replaceAll('\\n', '\n')
         .replaceAll('\\/', '/');
 
-    const data = {
-        books: []
-    };
+    const result = new BookListResultDto({ books: [] });
 
     const dom = new JSDOM(html);
 
@@ -26,17 +31,24 @@ function parseWidget(widgetContent) {
         const bookLink = bookNode.getAttribute('href');
         const bookCover = bookNode.querySelector('img').getAttribute('src');
 
-        data.books.push({
+        result.books.push(new BookDto({ 
             title: bookTitle,
             link: bookLink,
             cover: bookCover,
-        });
+        }));
     }
 
-    return data;
+    return result;
 }
 
-async function fetchBooks(userId, count, shelf) {
+/**
+ * Fethes a book list from GoodReads.
+ * @param {String} userId User id. 
+ * @param {Number} count Maximum number of books to retrieve.
+ * @param {BookShelf} shelf Shelf name.
+ * @returns {Promise<BookListResultDto>}
+ */
+export async function fetchBooks(userId, count, shelf) {
     const url = `https://www.goodreads.com/review/grid_widget/${userId}?cover_size=medium&hide_link=true&hide_title=true&num_books=${count}&order=d&shelf=${shelf}&sort=date_added&widget_id=${shelf}`;
     const response = await axios.get(url);
 
@@ -46,5 +58,3 @@ async function fetchBooks(userId, count, shelf) {
 
     return null;
 };
-
-export { fetchBooks };
