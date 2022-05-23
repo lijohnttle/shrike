@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import { Box, styled } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import { ContactLink } from '../../../components';
-import colors from '../../../themes/colors';
+import { colors } from '../../../themes';
 import { SectionContentWrapper } from '../SectionContentWrapper';
 import { SectionWrapper } from '../SectionWrapper';
 
@@ -31,25 +31,6 @@ const projects = [
                 value: 'https://github.com/lijohnttle/habit-tracker',
             },
         ],
-    },
-];
-
-const coreValues = [
-    {
-        title: 'CUSTOMER FOCUS',
-        description: 'Customers define requirements and they are the core of a product. It is important to maintain a close relationship with them, work in partnership and prefer collaboration through personal contact.',
-    },
-    {
-        title: 'INTEGRITY & PROFESSIONALISM',
-        description: 'Integrity is the key component of business. Without integrity and professionalism there is no trust.',
-    },
-    {
-        title: 'QUALITY',
-        description: 'I strive to provide high-quality services and products that meet the expectations and requirements of its customers.',
-    },
-    {
-        title: 'INNOVATION',
-        description: 'I am always on the look-out for new tools, techniques and concepts to use in provided services that would allow to get the best results.',
     },
 ];
 
@@ -97,47 +78,6 @@ const ProjectContent = styled('div')(({ theme }) => ({
     display: 'flex',
     flexFlow: 'column nowrap',
     padding: theme.spacing(3),
-}));
-
-const CoreValuesList = styled('div')(({ theme }) => ({
-    display: 'flex',
-    flexFlow: 'row wrap',
-    justifyContent: 'center',
-
-    [theme.breakpoints.down('sm')]: {
-        flexFlow: 'column nowrap%'
-    },
-
-    '& > div': {
-        width: '50%',
-        marginBottom: theme.spacing(2),
-
-        [theme.breakpoints.down('sm')]: {
-            width: '100%'
-        },
-    },
-
-    '& > div:nth-of-type(even)': {
-        paddingLeft: theme.spacing(0.5),
-
-        [theme.breakpoints.down('sm')]: {
-            paddingLeft: 0,
-        },
-    },
-
-    '& > div:nth-of-type(odd)': {
-        paddingRight: theme.spacing(0.5),
-
-        [theme.breakpoints.down('sm')]: {
-            paddingRight: 0,
-        },
-    },
-
-    '& > div > div': {
-        border: `2px solid ${colors.backgroundComplementary}`,
-        padding: theme.spacing(2),
-        height: '100%',
-    },
 }));
 
 const PortfolioSection = ({ screenHeight, disableBottomGutter, showScrollToNextSection }) => {
@@ -213,27 +153,6 @@ const PortfolioSection = ({ screenHeight, disableBottomGutter, showScrollToNextS
                             );
                         })}
                     </Box>
-                </Block>
-
-                <Block>
-                    <Typography variant="h3" paragraph>
-                        CORE VALUES
-                    </Typography>
-
-                    <CoreValuesList>
-                        {coreValues.map(value => (
-                            <div key={value.title}>
-                                <div>
-                                    <Typography variant="h3" paragraph>
-                                        {value.title}
-                                    </Typography>
-                                    <Typography paragraph>
-                                        {value.description}
-                                    </Typography>
-                                </div>
-                            </div>
-                        ))}
-                    </CoreValuesList>
                 </Block>
             </SectionContentWrapper>
         </SectionWrapper>
