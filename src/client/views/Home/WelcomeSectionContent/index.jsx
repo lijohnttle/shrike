@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Typography, IconButton, Box, Button } from '@mui/material';
-import { Add, KeyboardArrowDown, ArrowForwardIos } from '@mui/icons-material'
+import { KeyboardArrowDown, ArrowForwardIos } from '@mui/icons-material'
 import { ContactLink, Header } from '../../../components';
 import { styled } from '@mui/system';
 import { colors } from '../../../themes';
@@ -25,14 +25,6 @@ const ContentContainer = styled('div')(({ theme }) => ({
     [theme.breakpoints.down('sm')]: {
         paddingRight: theme.spacing(4),
         paddingLeft: theme.spacing(4),
-    },
-
-    '& .contactList': {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: theme.spacing(6),
     },
 }));
 
@@ -90,11 +82,30 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
                     READ MORE
                 </Button>
 
-                <div className="contactList">
+                <Box
+                    display="flex"        
+                    flexDirection="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    marginTop={6}
+                    sx={{
+                        position: {
+                            xs: 'unset',
+                            md: 'absolute',
+                        },
+                        flexDirection: {
+                            xs: "row",
+                            md: "column",
+                        },
+                        right: {
+                            xs: 'unset',
+                            md: '32px',
+                        },
+                    }}>
                     {contacts.filter(c => c.types.some(ct => ct === 'social')).map(contact => (
                         <ContactLink key={contact.vendor} contact={contact} dark fontSize="large" />
                     ))}
-                </div>
+                </Box>
             </ContentContainer>
 
             <NextSectionButtonContainer className="nextSectionButtonContainer">
