@@ -97,6 +97,6 @@ export class BlogPostDto {
          * @type {String}
          * @public
          */
-         this.category = props?.category;
+        this.category = props?.category;
     }
 }

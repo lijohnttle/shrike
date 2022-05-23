@@ -101,7 +101,7 @@ function TileView({
                 withoutUnderline
                 sx={{
                     position: 'relative',
-                    color: colors.text,
+                    color: 'inherit',
                     display: 'flex',
                     flexDirection: 'column',
                     flex: 1,
@@ -204,7 +204,7 @@ function ListView({
                 withoutUnderline
                 sx={{
                     position: 'relative',
-                    color: colors.text,
+                    color: 'inherit',
                     display: 'flex',
                     flexDirection: 'column',
                     flex: 1,

@@ -2,8 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Page } from '../../../components';
 import { WelcomeSection } from '../WelcomeSection';
 import { PortfolioSection } from '../PortfolioSection';
-import { BooksLibrarySection } from '../BooksLibrarySection';
-import { AboutMeSection } from '../AboutMeSection';
 import { useData } from '../../../hooks';
 import { useStyles } from './styles';
 import { BlogSection } from '../BlogSection';
@@ -55,13 +53,9 @@ const HomePage = () => {
                     <WelcomeSection contacts={data.contacts} screenHeight={screenHeight} />
                 </div>
 
-                <BlogSection showScrollToNextSection />
+                <BlogSection disableBottomGutter />
 
-                <AboutMeSection contacts={data.contacts} screenHeight={screenHeight} showScrollToNextSection />
-                
-                <PortfolioSection disableBottomGutter />
-
-                <BooksLibrarySection screenHeight={screenHeight} />
+                <PortfolioSection />
             </div>
         </Page>
     );

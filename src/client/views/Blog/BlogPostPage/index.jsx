@@ -77,7 +77,11 @@ const BlogPostPage = () => {
                     setBlogPost(post);
                 }
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                if (!isCancelled.current) {
+                    console.log(error)
+                }
+            })
             .finally(() => {
                 if (!isCancelled.current) {
                     setIsLoading(false);
