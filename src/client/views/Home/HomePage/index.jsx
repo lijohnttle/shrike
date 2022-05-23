@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Page } from '../../../components';
 import { WelcomeSection } from '../WelcomeSection';
 import { PortfolioSection } from '../PortfolioSection';
-import { BooksLibrarySection } from '../BooksLibrarySection';
 import { AboutMeSection } from '../AboutMeSection';
 import { useData } from '../../../hooks';
 import { useStyles } from './styles';
@@ -60,8 +59,6 @@ const HomePage = () => {
                 <AboutMeSection contacts={data.contacts} screenHeight={screenHeight} showScrollToNextSection />
                 
                 <PortfolioSection disableBottomGutter />
-
-                <BooksLibrarySection screenHeight={screenHeight} />
             </div>
         </Page>
     );

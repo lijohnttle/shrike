@@ -5,6 +5,8 @@ import { Article, ContactLink, ContentBlock, Page } from '../../../components';
 import { useData } from '../../../hooks';
 import colors from '../../../themes/colors';
 import { pagesDescriptors } from '../../../../static';
+import { BookList } from '../../../components/BookList';
+import { BookLibraryButton } from '../../../components/BookLibraryButton';
 
 
 /**
@@ -30,7 +32,7 @@ const Section = (props) => (
         <Container maxWidth="md">
             {props.title ?
                 (
-                    <Typography variant="h2" align="center" gutterBottom>
+                    <Typography variant="h2" align="center" marginBottom={2}>
                         {props.title}
                     </Typography>
                 ) : null}
@@ -81,7 +83,7 @@ export const AboutPage = () => {
                     <span>
                         <AccessTimeOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 1 }} />
                         <span>
-                            MAY 21, 2022
+                            MAY 23, 2022
                         </span>
                     </span>
                 }>
@@ -168,6 +170,20 @@ export const AboutPage = () => {
                                 Learning languages. I speak Russian (native), English (fluent), French (beginner), Zulu (beginner).
                             </SectionListItem>
                         </SectionList>
+                    </Section>
+
+                    <Section title="Book Library">
+                        <Box marginBottom={8}>
+                            <BookList count={7} shelf="currently-reading" />
+                        </Box>
+
+                        <Box marginBottom={8}>
+                            <BookList count={7} shelf="read" />
+                        </Box>
+
+                        <Box display="flex" alignItems="center">
+                            <BookLibraryButton />
+                        </Box>
                     </Section>
 
                     <Section title="Contact Me">
