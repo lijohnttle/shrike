@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Typography, IconButton, Box, Button } from '@mui/material';
-import { KeyboardArrowDown, Add } from '@mui/icons-material'
+import { KeyboardArrowDown } from '@mui/icons-material'
 import { ContactLink, Header } from '../../../components';
 import { styled } from '@mui/system';
 import { colors } from '../../../themes';
@@ -66,7 +66,6 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
                     component={Link}
                     to="/about"
                     color="inherit"
-                    endIcon={<Add />}
                     sx={{
                         color: colors.textComplementary,
                         borderColor: colors.textComplementary,
@@ -76,6 +75,7 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
 
                         '&:hover': {
                             color: colors.text,
+                            borderColor: colors.textComplementary,
                             background: colors.textComplementary,
                         },
                     }}>
