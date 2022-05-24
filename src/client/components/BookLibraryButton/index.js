@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
 import { useIsCancelled } from '../../hooks';
 import { graphqlRequest } from '../../services/api';
@@ -46,30 +46,31 @@ export function BookLibraryButton() {
     }, []);
     
     return (
-        <Button
-            variant="outlined"
-            href={`https://www.goodreads.com/review/list/${goodReadsUserId}?shelf=ALL`}
-            endIcon={<AddIcon />}
-            color="brand"
-            target="_blank"
-            disabled={isLoading}
+        <Box
+            display="flex"
+            flexDirection="column"
             sx={{
-                fontSize: '1.2rem',
-                alignSelf: 'center',
-                marginLeft: {
-                    xs: 0,
-                    sm: 'auto',
+                alignItems: {
+                    xs: 'stretch',
+                    sm: 'center',
                 },
-                marginRight: {
-                    xs: 0,
-                    sm: 'auto',
-                },
-                paddingLeft: 4,
-                paddingRight: 4,
-                paddingTop: 1,
-                paddingBottom: 1,
             }}>
-            SEE MORE
-        </Button>
+            <Button
+                variant="outlined"
+                href={`https://www.goodreads.com/review/list/${goodReadsUserId}?shelf=ALL`}
+                endIcon={<AddIcon />}
+                color="brand"
+                target="_blank"
+                disabled={isLoading}
+                sx={{
+                    fontSize: '1.2rem',
+                    paddingLeft: 4,
+                    paddingRight: 4,
+                    paddingTop: 1,
+                    paddingBottom: 1,
+                }}>
+                SEE MORE
+            </Button>
+        </Box>
     );
 }

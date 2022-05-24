@@ -181,9 +181,7 @@ export const AboutPage = () => {
                             <BookList count={7} shelf="read" />
                         </Box>
 
-                        <Box display="flex" alignItems="center">
-                            <BookLibraryButton />
-                        </Box>
+                        <BookLibraryButton />
                     </Section>
 
                     <Section title="Contact Me">
