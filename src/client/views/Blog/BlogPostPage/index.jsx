@@ -8,6 +8,8 @@ import { BlogPostToolBar } from '../BlogPostToolBar';
 import { fetchBlogPost } from '../../../services/blogService';
 import { BlogPostModel } from '../../../models';
 import { pagesDescriptors } from '../../../../static';
+import { Helmet } from 'react-helmet';
+import { getBlogPostAttachmentUrlPath, getBlogPostUrlPath } from '../../../../utils/urlBuilder';
 
 
 /**
@@ -97,6 +99,17 @@ const BlogPostPage = () => {
 
     return (
         <Page title={blogPost?.title || (isLoading ? 'Loading...' : '')}>
+            {blogPost
+                ? (
+                    <Helmet>
+                        <meta property="og:url" content={`${window.location.origin}${getBlogPostUrlPath(blogPost.slug)}`} />
+                        <meta property="og:type" content="article" />
+                        <meta property="og:title" content={blogPost.title} />
+                        <meta property="og:description" content={blogPost.description} />
+                        <meta property="og:image" content={`${window.location.origin}${getBlogPostAttachmentUrlPath(blogPost.slug, blogPost.descriptionImage)}`} />
+                    </Helmet>
+                ) : null}
+
             <Article
                 pageDescriptor={pagesDescriptors.BLOG_POST}
                 title={(blogPost?.title || '').toUpperCase()}
