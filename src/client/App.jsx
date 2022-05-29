@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
     ReactGA.initialize('UA-206773204-1');
 }
 
-const App = () => {
+export function App() {
     useUserVisitStatistics({ ignorePaths: ['/management'] });
     usePageScroll();
 
@@ -43,6 +43,3 @@ const App = () => {
         </ThemeProvider >
     );
 }
-
-
-export default App;

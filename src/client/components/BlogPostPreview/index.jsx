@@ -287,7 +287,11 @@ export function BlogPostPreview({
     const navigate = useNavigate();
     const userSession = getUserSession();
 
-    const handleClick = useCallback(() => navigate(urlUtils.getBlogPostUrlPath(blogPost.slug)));
+    const handleClick = useCallback(e => {
+        if (!e.defaultPrevented) {
+            navigate(urlUtils.getBlogPostUrlPath(blogPost.slug));
+        }
+    });
 
     return (
         <Box
