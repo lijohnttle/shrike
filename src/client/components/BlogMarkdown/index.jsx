@@ -180,7 +180,7 @@ export const BlogMarkdown = (props) => {
                             style={{
                                 background: colors.backgroundComplementary,
                                 color: colors.textComplementary,
-                                overflowX: 'scroll',
+                                overflowX: 'auto',
                                 paddingLeft: theme.spacing(1),
                                 paddingRight: theme.spacing(1),
                                 paddingTop: theme.spacing(2),
