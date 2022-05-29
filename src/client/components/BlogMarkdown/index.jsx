@@ -172,7 +172,31 @@ export const BlogMarkdown = (props) => {
                                 borderLeft: `8px solid ${colors.grayText}`,
                             }}>
                             {elementProps.children}
-                        </blockquote>)
+                        </blockquote>);
+                },
+                pre: (elementProps) => {
+                    return (
+                        <pre
+                            style={{
+                                background: colors.backgroundComplementary,
+                                color: colors.textComplementary,
+                                overflowX: 'scroll',
+                                paddingLeft: theme.spacing(1),
+                                paddingRight: theme.spacing(1),
+                                paddingTop: theme.spacing(2),
+                                paddingBottom: theme.spacing(2),
+                                fontSize: '0.85em',
+                            }}>
+                            {elementProps.children}
+                        </pre>
+                    );
+                },
+                code: (elementProps) => {
+                    return (
+                        <code>
+                            {elementProps.children}
+                        </code>
+                    );
                 },
             }}
         />
