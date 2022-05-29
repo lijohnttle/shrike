@@ -9,8 +9,8 @@ import { SectionWrapper } from '../SectionWrapper';
 
 const projects = [
     {
-        name: 'Personal Website',
-        description: 'My personal web-site.',
+        name: 'Personal Website & Blog',
+        description: 'My personal website and blog.',
         links: [
             {
                 vendor: 'github',
@@ -32,6 +32,16 @@ const projects = [
             },
         ],
     },
+    {
+        name: 'Image Processing Tools (.NET)',
+        description: 'Libraries consisting of image processing tools and filters.',
+        links: [
+            {
+                vendor: 'github',
+                value: 'https://github.com/lijohnttle/lijohnttle.Media.Photo.Net',
+            }
+        ],
+    }
 ];
 
 const Block = styled('div')(({ theme }) => ({
@@ -129,7 +139,7 @@ const PortfolioSection = ({ screenHeight, disableBottomGutter, showScrollToNextS
                                                 marginBottom={1}>
                                                 <Box marginRight={2}>
                                                     <Typography variant="h5" align="justify">
-                                                        {project.name.toUpperCase()}
+                                                        {project.name}
                                                     </Typography>
                                                 </Box>
                                             </Box>
