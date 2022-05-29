@@ -1,4 +1,4 @@
-import { Link, Theme, Typography, useTheme } from '@mui/material';
+import { Box, Link, Theme, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import RehypeRaw from 'rehype-raw';
@@ -24,6 +24,11 @@ function parseImageProps(query, props, theme) {
             }
             else if (value === 'fit') {
                 props.maxHeight = 'calc(100vh)';
+            }
+        }
+        else if (key === align) {
+            if (value === 'center') {
+                props.alignSelf = 'center';
             }
         }
     }
@@ -102,7 +107,17 @@ export const BlogMarkdown = (props) => {
                         }
 
                         return (
-                            <img src={url} {...otherProps} style={{ maxWidth: '100%', ...customProps }} />
+                            <Box display="flex" flexDirection="column" alignItems="center" marginBottom={3}>
+                                <img src={url} {...otherProps} style={{ maxWidth: '100%', ...customProps }} />
+
+                                {otherProps.alt
+                                    ? (
+                                        <Typography fontWeight="bold" marginTop={1} sx={{ fontSize: '0.8em' }}>
+                                            Picture - {otherProps.alt}
+                                        </Typography>
+                                    ) : null}
+                                
+                            </Box>
                         );
                     }
                 },
