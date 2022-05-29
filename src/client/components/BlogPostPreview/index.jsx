@@ -182,7 +182,7 @@ function ListView({
                     display: 'block',
                     overflow: 'hidden',
                     aspectRatio: '3/2',
-                    marginRight: 2,
+                    marginRight: 4,
                     backgroundColor: colors.selectionBackground,
                     width: '256px',
                 }}>
@@ -295,8 +295,8 @@ export function BlogPostPreview({
             flexDirection="column"
             sx={{
                 flex: '1',
-                background: '#fafafa',
-                border: '1px solid #efefef',
+                background: colors.paperBackground,
+                border: '1px solid #f5f5f5',
                 cursor: 'pointer',
                 padding: {
                     xs: 2,
@@ -304,7 +304,7 @@ export function BlogPostPreview({
                 },
 
                 '&:hover': {
-                    background: '#efefef',
+                    background: '#f5f5f5',
                 },
             }}
             onClick={handleClick}>

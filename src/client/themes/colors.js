@@ -4,7 +4,7 @@ export default {
     text: '#313131',
     textComplementary: '#ffffff',
     selectionBackground: '#3131311a',
-    paperBackground: '#fafafa',
+    paperBackground: '#fdfdfd',
     border: '#ededed',
     active: '#0082ff',
     activeLight: '#81c1ff',
