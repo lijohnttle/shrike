@@ -46,6 +46,9 @@ const FileUpload = (props) => {
                     break;
                 }
             }
+            else {
+                console.error("File is too large");
+            }
         }
         return files;
     };

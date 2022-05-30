@@ -35,6 +35,42 @@ function parseImageProps(query, props, theme) {
 }
 
 /**
+ * @param {String} url 
+ * @param {BlogPostModel} blogPost 
+ */
+function parseUrl(url, blogPost) {
+    let resultUrl = url;
+    let query = '';
+
+    const linkToAttachment = url.indexOf('/') < 0;
+
+    if (linkToAttachment) {
+        let urlParts = url.split('?');
+        let attachmentName = urlParts[0];
+
+        if (blogPost.attachments) {
+            const foundAttachment = blogPost.attachments.find(t => t.name === attachmentName);
+
+            if (foundAttachment) {
+                resultUrl = foundAttachment.getUrl();
+            }
+        }
+        else if (blogPost.slug) {
+            resultUrl = getBlogPostAttachmentUrlPath(blogPost.slug, src);
+        }
+
+        if (urlParts.length > 1) {
+            query = urlParts[1];
+        }
+    }
+
+    return {
+        url: resultUrl,
+        query: query
+    };
+}
+
+/**
  * @param {Object} param0 
  * @param {BlogPostModel} param0.blogPost 
  * @returns 
@@ -74,52 +110,36 @@ export const BlogMarkdown = (props) => {
             children={content}
             rehypePlugins={[RehypeRaw]}
             components={{
-                a: (elementProps) => {
-                    return <Link {...elementProps} />;
+                a: ({ href, ...otherProps }) => {
+                    const parsedUrl = parseUrl(href, props.blogPost);
+
+                    return <Link href={parsedUrl.url} {...otherProps} />;
                 },
                 img: ({ src, ...otherProps }) => {
                     if (src === '##description') {
                         return <RenderDescription blogPost={props.blogPost} />;
                     }
 
-                    const linkToAttachment = src.indexOf('/') < 0;
+                    const parsedUrl = parseUrl(src, props.blogPost);
+                    const customProps = { };
 
-                    if (linkToAttachment) {
-                        let srcParts = src.split('?');
-
-                        let url = srcParts[0];
-
-                        if (props.blogPost.attachments) {
-                            const foundAttachment = props.blogPost.attachments.find(t => t.name === url);
-
-                            if (foundAttachment) {
-                                url = foundAttachment.getUrl();
-                            }
-                        }
-                        else if (props.blogPost.slug) {
-                            url = getBlogPostAttachmentUrlPath(props.blogPostSlug, src);
-                        }
-
-                        const customProps = { };
-
-                        if (srcParts.length > 1) {
-                            parseImageProps(srcParts[1], customProps, theme);
-                        }
-
-                        return (
-                            <Box display="flex" flexDirection="column" alignItems="center" marginBottom={3}>
-                                <img src={url} {...otherProps} style={{ maxWidth: '100%', ...customProps }} />
-
-                                {otherProps.alt
-                                    ? (
-                                        <Typography fontWeight="bold" marginTop={1} sx={{ fontSize: '0.8em' }}>
-                                            Picture - {otherProps.alt}
-                                        </Typography>
-                                    ) : null}
-                                
-                            </Box>
-                        );
+                    if (parsedUrl.query) {
+                        parseImageProps(parsedUrl.query, customProps, theme);
                     }
+
+                    return (
+                        <Box display="flex" flexDirection="column" alignItems="center" marginBottom={3}>
+                            <img src={parsedUrl.url} {...otherProps} style={{ maxWidth: '100%', ...customProps }} />
+
+                            {otherProps.alt
+                                ? (
+                                    <Typography fontWeight="bold" marginTop={1} sx={{ fontSize: '0.8em' }}>
+                                        Picture - {otherProps.alt}
+                                    </Typography>
+                                ) : null}
+                            
+                        </Box>
+                    );
                 },
                 p:  (elementProps) => {
                     // unwrap images

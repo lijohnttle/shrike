@@ -107,6 +107,7 @@ const EditBlogPostForm = (props) => {
                         <FileUpload
                             label="Attachments"
                             multiple
+                            maxFileSizeInBytes={10485760}
                             attachments={props.blogPost.attachments}
                             onChange={attachments => props.onChange('attachments', attachments)} />
                     </FieldContainer>
