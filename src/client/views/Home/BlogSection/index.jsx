@@ -32,45 +32,23 @@ const RecentBlogPosts = ({ blogPosts }) => {
                 LAST UPDATES
             </Typography>
 
-            <Box
-                display="flex"
-                sx={{
-                    flexDirection: {
-                        xs: 'column',
-                        md: 'row',
-                    },
-                }}>
-
-                {/* Left panel */}
+            <Box display="flex" flexDirection="column">
+                {/* Top panel */}
                 <Box
                     display="flex"
+                    flexDirection="column"
                     alignItems="stretach"
                     sx={{
-                        width: {
-                            xs: 'unset',
-                            md: blogPosts.length > 1 ? 'calc(100% * 2 / 3)' : 'unset',
+                        marginBottom: {
+                            xs: blogPosts.length > 1 ? 2 : 0,
                         },
                     }}>
-                    <Box
-                        display="flex"
-                        alignItems="stretach"
-                        sx={{
-                            marginRight: {
-                                xs: 0,
-                                md: blogPosts.length > 1 ? 2 : 0,
-                            },
-                            marginBottom: {
-                                xs: blogPosts.length > 1 ? 2 : 0,
-                                md: 0,
-                            },
-                        }}>
-                        {blogPosts.length > 0
-                            ? <BlogPostPreview blogPost={blogPosts[0]} showDescription />
-                            : null}
-                    </Box>
+                    {blogPosts.length > 0
+                        ? <BlogPostPreview blogPost={blogPosts[0]} showDescription />
+                        : null}
                 </Box>
 
-                {/* Right panel */}
+                {/* Bottom panel */}
                 {blogPosts.length > 1
                     ? (
                         <Box
@@ -80,11 +58,6 @@ const RecentBlogPosts = ({ blogPosts }) => {
                                 flexDirection: {
                                     xs: 'column',
                                     sm: 'row',
-                                    md: 'column',
-                                },
-                                width: {
-                                    xs: 'unset',
-                                    md: 'calc(100% / 3)',
                                 },
                             }}>
                             {blogPosts.slice(1).map((blogPost, index) => (
@@ -95,22 +68,18 @@ const RecentBlogPosts = ({ blogPosts }) => {
                                         marginBottom: {
                                             xs: index === 0 ? 1 : 0,
                                             sm: 0,
-                                            md: index === 0 ? 1 : 0,
                                         },
                                         marginTop: {
                                             xs: index === 1 ? 1 : 0,
                                             sm: 0,
-                                            md: index === 1 ? 1 : 0,
                                         },
                                         marginRight: {
                                             xs: 0,
                                             sm: index === 0 ? 1 : 0,
-                                            md: 0,
                                         },
                                         marginLeft: {
                                             xs: 0,
                                             sm: index === 1 ? 1 : 0,
-                                            md: 0,
                                         },
                                     }}>
                                     <BlogPostPreview blogPost={blogPost} compact />
