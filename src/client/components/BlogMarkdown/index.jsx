@@ -181,6 +181,8 @@ export const BlogMarkdown = (props) => {
                                 background: colors.backgroundComplementary,
                                 color: colors.textComplementary,
                                 overflowX: 'auto',
+                                marginLeft: theme.spacing(-1),
+                                marginRight: theme.spacing(-1),
                                 paddingLeft: theme.spacing(1),
                                 paddingRight: theme.spacing(1),
                                 paddingTop: theme.spacing(2),
