@@ -2,6 +2,7 @@ import { Box, Link, Theme, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import RehypeRaw from 'rehype-raw';
+import RremarkGfm from 'remark-gfm';
 import { getBlogPostAttachmentUrlPath } from '../../../utils/urlBuilder';
 import { BlogPostModel } from '../../models';
 import { colors } from '../../themes';
@@ -108,7 +109,7 @@ export const BlogMarkdown = (props) => {
     return (
         <ReactMarkdown
             children={content}
-            rehypePlugins={[RehypeRaw]}
+            rehypePlugins={[RehypeRaw, RremarkGfm]}
             components={{
                 a: ({ href, ...otherProps }) => {
                     const parsedUrl = parseUrl(href, props.blogPost);
@@ -218,6 +219,28 @@ export const BlogMarkdown = (props) => {
                         <code>
                             {elementProps.children}
                         </code>
+                    );
+                },
+                td: (elementProps) => {
+                    return (
+                        <td style={{
+                            padding: theme.spacing(1),
+                            border: `1px solid gray`,
+                        }}>
+                            {elementProps.children}
+                        </td>
+                    );
+                },
+                th: (elementProps) => {
+                    return (
+                        <th style={{
+                            padding: theme.spacing(1),
+                            background: colors.backgroundComplementary,
+                            color: colors.textComplementary,
+                            border: `1px solid gray`,
+                        }}>
+                            {elementProps.children}
+                        </th>
                     );
                 },
             }}
