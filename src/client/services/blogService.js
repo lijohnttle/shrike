@@ -128,6 +128,15 @@ export async function fetchBlogPost(slug, options) {
                     seriesPreviews {
                         title
                         slug
+                        description
+                        descriptionImage
+                        createdOn
+                        updatedOn
+                        publishedOn
+                        published
+                        visits
+                        category
+                        series
                     }
                 }
                 errorMessage
