@@ -92,6 +92,9 @@ const EditBlogPostPage = ({ isCreating }) => {
             case 'category':
                 setBlogPost(new BlogPostModel({ ...blogPost, category: value }));
                 break;
+            case 'series':
+                setBlogPost(new BlogPostModel({ ...blogPost, series: value }));
+                break;
         }
     };
 

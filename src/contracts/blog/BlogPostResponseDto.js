@@ -1,5 +1,5 @@
-import { ResponseDto } from './ResponseDto';
-import { BlogPostDto } from './BlogPostDto';
+import { ResponseDto } from '../ResponseDto';
+import { BlogPostDto } from '.';
 
 /**
  * Represents a blog post.

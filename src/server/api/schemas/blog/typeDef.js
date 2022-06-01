@@ -1,4 +1,4 @@
-const typeDef = `
+export const typeDef = `
     extend type Query {
         blogPostList(options: BlogPostListOptions): BlogPostListRsponse
         blogPost(slug: String!, userToken: String): BlogPostResult
@@ -26,6 +26,7 @@ const typeDef = `
         published: Boolean
         attachments: [FileAttachmentInput]
         category: String
+        series: String
     }
 
     input ChangeBlogPostInput {
@@ -38,6 +39,7 @@ const typeDef = `
         published: Boolean
         attachments: [FileAttachmentInput]
         category: String
+        series: String
     }
 
     type BlogPost {
@@ -54,6 +56,8 @@ const typeDef = `
         attachments: [FileAttachmentOutput]
         visits: Int
         category: String
+        series: String
+        seriesPreviews: [BlogPostPreview]
     }
 
     type BlogPostPreview {
@@ -68,6 +72,7 @@ const typeDef = `
         published: Boolean!
         visits: Int
         category: String
+        series: String
     }
 
     type BlogPostListResult {
@@ -87,8 +92,3 @@ const typeDef = `
         errorMessage: String
     }
 `;
-
-
-export {
-    typeDef
-};

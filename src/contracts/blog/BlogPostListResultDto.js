@@ -1,4 +1,4 @@
-import { BlogPostDto } from '../BlogPostDto';
+import { BlogPostPreviewDto } from '../blog';
 
 /**
  * Represents a list of blog posts.
@@ -10,7 +10,7 @@ import { BlogPostDto } from '../BlogPostDto';
     constructor(props) {
         /**
          * The list of blog posts.
-         * @type {BlogPostDto[]}
+         * @type {BlogPostPreviewDto[]}
          * @public
          */
         this.blogPosts = props?.blogPosts;

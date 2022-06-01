@@ -53,7 +53,6 @@ const blogPostSchema = new mongoose.Schema({
     visits: Number,
     category: String,
     series: String,
-    seriesNumber: Number,
 });
 
 blogPostSchema.index({ publishedOn: 1 });
@@ -147,12 +146,6 @@ class BlogPostDocument extends mongoose.Document {
          * @public
          */
         this.series = document?.series;
-
-        /**
-         * @type {String}
-         * @public
-         */
-        this.seriesNumber = document?.seriesNumber;
     }
 }
 
