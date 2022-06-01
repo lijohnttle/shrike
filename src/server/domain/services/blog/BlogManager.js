@@ -122,7 +122,7 @@ export class BlogManager {
                         slug: { $ne: blogPostDocument.slug },
                         published: userContext.validateAdminAccess()
                             ? { $in: [true, false] }
-                            : false,
+                            : true,
                     },
                     {
                         _id: 1,
