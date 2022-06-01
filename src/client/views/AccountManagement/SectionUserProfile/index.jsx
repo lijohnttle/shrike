@@ -36,7 +36,7 @@ async function loadUserProfile() {
     return null;
 }
 
-const UserProfileSection = () => {
+export function SectionUserProfile() {
     const [getUserSession] = useUserSession();
     const [isLoading, setIsLoading] = useState(true);
     const [goodReadsUserId, setGoodReadsUserId] = useState('');
@@ -96,9 +96,4 @@ const UserProfileSection = () => {
             </form>
         </div>
     );
-};
-
-
-export {
-    UserProfileSection
 };
