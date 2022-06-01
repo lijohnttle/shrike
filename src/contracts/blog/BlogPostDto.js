@@ -1,4 +1,5 @@
-import { AttachmentDto } from './AttachmentDto';
+import { AttachmentDto } from '../AttachmentDto';
+import { BlogPostPreviewDto } from '.';
 
 /**
  * Represents a blog post.
@@ -34,7 +35,7 @@ export class BlogPostDto {
          * @type {String}
          * @public
          */
-         this.descriptionImage = props?.descriptionImage;
+        this.descriptionImage = props?.descriptionImage;
 
         /**
          * The content of a blog post.
@@ -98,5 +99,19 @@ export class BlogPostDto {
          * @public
          */
         this.category = props?.category;
+
+        /**
+         * Blog post series.
+         * @type {String}
+         * @public
+         */
+        this.series = props?.series;
+
+        /**
+         * Blog post series previews.
+         * @type {BlogPostPreviewDto}
+         * @public
+         */
+        this.seriesPreviews = props?.seriesPreviews;
     }
 }

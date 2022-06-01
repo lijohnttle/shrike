@@ -8,7 +8,7 @@ import { SectionHeader } from '../SectionHeader';
 import { fetchUserSessions, deleteUserSessions, deleteAllUserSessions } from '../../../services/userSessionsApi';
 
 
-const UserSessionsSection = () => {
+export function SectionUserSessions() {
     const [userSessions, setUserSessions] = useState([]);
     const [pageSize, setPageSize] = useState(10);
     const [selectedUserSessionIds, setSelectedUserSessionIds] = useState([]);
@@ -107,6 +107,3 @@ const UserSessionsSection = () => {
         </div>
     );
 }
-
-
-export { UserSessionsSection };

@@ -53,6 +53,7 @@ export async function fetchBlogPostList (options) {
                         published
                         visits
                         category
+                        series
                     }
                     totalCount
                 }
@@ -123,6 +124,20 @@ export async function fetchBlogPost(slug, options) {
                     }
                     visits
                     category
+                    series
+                    seriesPreviews {
+                        title
+                        slug
+                        description
+                        descriptionImage
+                        createdOn
+                        updatedOn
+                        publishedOn
+                        published
+                        visits
+                        category
+                        series
+                    }
                 }
                 errorMessage
             }
@@ -175,6 +190,7 @@ export async function saveBlogPost(blogPost, isCreating, options) {
             contentType: attachment.contentType,
         })),
         category: blogPost.category,
+        series: blogPost.series,
     };
 
     if (!isCreating) {
@@ -222,9 +238,9 @@ export async function saveBlogPost(blogPost, isCreating, options) {
     /**
      * @type {ResponseDto}
      */
-     const message = isCreating ? response.createBlogPost : response.changeBlogPost;
+    const message = isCreating ? response.createBlogPost : response.changeBlogPost;
 
-     if (message) {
+    if (message) {
         if (message.success) {
             return;
         }

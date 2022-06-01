@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Article, ContentBlock, Page } from '../../../components';
-import { UserProfileSection } from '../UserProfileSection';
-import { UserVisitsSection } from '../UserVisitsSection';
+import { SectionUserProfile } from '../SectionUserProfile';
+import { SectionUserVisits } from '../SectionUserVisits';
 import { useStyles } from './styles.js';
 import { SectionsMenu } from '../SectionsMenu';
-import { UserSessionsSection } from '../UserSessionsSection';
+import { SectionUserSessions } from '../SectionUserSessions';
 import { pagesDescriptors } from '../../../../static';
 
 
@@ -12,17 +12,17 @@ const SECTION_LIST = [
     {
         id: 'USER_PROFILE',
         header: 'User Profile',
-        render: () => <UserProfileSection />,
+        render: () => <SectionUserProfile />,
     },
     {
         id: 'USER_VISITS',
         header: 'User Visits',
-        render: () => <UserVisitsSection />,
+        render: () => <SectionUserVisits />,
     },
     {
         id: 'USER_SESSIONS',
         header: 'User Sessions',
-        render: () => <UserSessionsSection />,
+        render: () => <SectionUserSessions />,
     },
 ];
 

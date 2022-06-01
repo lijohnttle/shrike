@@ -3,10 +3,13 @@ import { BlogPostDto, BlogPostListOptionsDto, BlogPostListResultDto } from '../.
 import { Attachment } from '../../../data/models/Attachment';
 import { BlogPost, BlogPostDocument } from '../../../data/models/blog/BlogPost';
 import { UserContext } from '../../entities/authentication/UserContext';
-import { mapBlogPostDocumentToDto, mapBlogPostDtoToDocument } from './mappers';
+import {
+    mapBlogPostDocumentToDto,
+    mapBlogPostDocumentToPreviewDto,
+    mapBlogPostDtoToDocument } from './mappers';
 
 
-class BlogManager {
+export class BlogManager {
     /**
      * Returns the list of blog posts.
      * @param {BlogPostListOptionsDto} options Request options.
@@ -58,7 +61,7 @@ class BlogManager {
         const blogPostDocuments = await requestBuilder.exec();
         const totalCount = await BlogPost.countDocuments(query).exec();
 
-        const blogPosts = blogPostDocuments.map(mapBlogPostDocumentToDto);
+        const blogPosts = blogPostDocuments.map(mapBlogPostDocumentToPreviewDto);
 
         return new BlogPostListResultDto({
             blogPosts: blogPosts,
@@ -95,6 +98,7 @@ class BlogManager {
                     "attachments.contentType": 1,
                     visits: 1,
                     category: 1,
+                    series: 1,
                 }
             )
             .exec();
@@ -107,7 +111,36 @@ class BlogManager {
             userContext.verifyAdminAccess();
         }
 
-        return mapBlogPostDocumentToDto(blogPostDocument);
+        const blogPost = mapBlogPostDocumentToDto(blogPostDocument);
+
+        if (blogPostDocument.series) {
+            /** @type {BlogPostDocument[]} */
+            const seriesDocuments = await BlogPost
+                .find(
+                    {
+                        series: blogPostDocument.series,
+                        slug: { $ne: blogPostDocument.slug },
+                        published: userContext.validateAdminAccess()
+                            ? { $in: [true, false] }
+                            : false,
+                    },
+                    {
+                        _id: 1,
+                        title: 1,
+                        description: 1,
+                        slug: 1,
+                        createdOn: 1,
+                        updatedOn: 1,
+                        publishedOn: 1,
+                        published: 1,
+                    }
+                )
+                .exec();
+            
+            blogPost.seriesPreviews = seriesDocuments.map(mapBlogPostDocumentToPreviewDto);
+        }
+
+        return blogPost;
     }
 
     /**
@@ -205,8 +238,3 @@ class BlogManager {
             .exec();
     }
 }
-
-
-export {
-    BlogManager
-};

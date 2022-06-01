@@ -98,7 +98,21 @@ import { AttachmentModel } from '../AttachmentModel';
          * @type {String}
          * @public
          */
-         this.category = props?.category;
+        this.category = props?.category;
+
+        /**
+         * Blog post series.
+         * @type {String}
+         * @public
+         */
+        this.series = props?.series;
+          
+        /**
+         * Blog post series previews.
+         * @type {BlogPostModel[]}
+         * @public
+         */
+        this.seriesPreviews = props?.seriesPreviews;
     }
 
     /**
@@ -131,6 +145,8 @@ import { AttachmentModel } from '../AttachmentModel';
             })),
             visits: dto.visits,
             category: dto.category,
+            series: dto.series,
+            seriesPreviews: dto.seriesPreviews?.map(BlogPostModel.createFromDto),
         });
     }
 }

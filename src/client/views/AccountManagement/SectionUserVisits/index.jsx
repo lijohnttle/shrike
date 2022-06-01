@@ -10,7 +10,7 @@ import { fetchUserVisits, deleteUserVisits, deleteAllUserVisits } from '../../..
 
 const USER_VISIT_COUNT = 100;
 
-const UserVisitsSection = () => {
+export function SectionUserVisits() {
     const [userVisits, setUserVisits] = useState([]);
     const [pageSize, setPageSize] = useState(10);
     const [selectedUserVisitIds, setSelectedUserVisitIds] = useState([]);
@@ -122,6 +122,3 @@ const UserVisitsSection = () => {
         </div>
     );
 }
-
-
-export { UserVisitsSection };

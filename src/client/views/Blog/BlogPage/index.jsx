@@ -19,7 +19,7 @@ const BlogPostsPlaceholder = () => {
     );
 };
 
-const BlogPage = () => {
+export function BlogPage() {
     /** @type {[BlogPostListModel, Function]} */
     const [blogPostList, setBlogPostList] = useState();
     const [showUnpublished, setShowUnpublished] = useState(false);
@@ -69,9 +69,4 @@ const BlogPage = () => {
             </Article>
         </Page>
     )
-};
-
-
-export {
-    BlogPage
 };
