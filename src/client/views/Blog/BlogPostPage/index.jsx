@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import { AccessTimeOutlined, FolderOutlined, VisibilityOutlined } from '@mui/icons-material';
 import { useIsCancelled, useUserSession } from '../../../hooks';
-import { Article, BlogMarkdown, ContentBlock, Page } from '../../../components';
+import { Article, BlogMarkdown, BlogPostImage, ContentBlock, Page } from '../../../components';
 import { NotFound } from '../../../views/NotFound';
 import { BlogPostToolBar } from '../BlogPostToolBar';
 import { fetchBlogPost } from '../../../services/blogService';
@@ -10,6 +10,8 @@ import { BlogPostModel } from '../../../models';
 import { pagesDescriptors } from '../../../../static';
 import { Helmet } from 'react-helmet';
 import { getBlogPostAttachmentUrlPath, getBlogPostUrlPath } from '../../../../utils/urlBuilder';
+import { Typography } from '@mui/material';
+import { colors } from '../../../themes';
 
 
 /**
@@ -62,7 +64,51 @@ function buildSubTitle(blogPost, session) {
     );
 }
 
-const BlogPostPage = () => {
+
+/**
+ * @param {Object} param0 
+ * @param {BlogPostModel} param0.blogPost 
+ * @returns 
+ */
+function RenderDescriptionImage({ blogPost }) {
+    if (!blogPost.descriptionImage) {
+        return null;
+    }
+
+    return (
+        <BlogPostImage src={blogPost.descriptionImage} blogPost={blogPost} />
+    );
+}
+
+/**
+ * @param {Object} param0 
+ * @param {BlogPostModel} param0.blogPost 
+ * @returns 
+ */
+function RenderDescription({ blogPost }) {
+    if (!blogPost.description) {
+        return null;
+    }
+
+    return (
+        <Typography
+            variant="body1"
+            fontStyle="italic"
+            marginBottom={3}
+            paddingTop={1}
+            paddingBottom={1}
+            paddingLeft={2}
+            paddingRight={2}
+            sx={{
+                background: colors.backgroundComplementary,
+                color: colors.textComplementary,
+            }}>
+            {blogPost.description}
+        </Typography>
+    );
+}
+
+export function BlogPostPage() {
     const isCancelled = useIsCancelled();
     /** @type {[BlogPostModel, Function]} */
     const [blogPost, setBlogPost] = useState();
@@ -118,14 +164,18 @@ const BlogPostPage = () => {
                 {!isLoading ? <BlogPostToolBar slug={blogPost.slug} maxWidth="md" /> : null}
 
                 <ContentBlock compact maxWidth="md">
-                    {!isLoading ? <BlogMarkdown blogPost={blogPost} /> : null}
+                    {!isLoading ? (
+                    <>
+                        <RenderDescriptionImage blogPost={blogPost} />
+
+                        <RenderDescription blogPost={blogPost} />
+
+                        <BlogMarkdown blogPost={blogPost} />
+                    </>
+
+                    ) : null}
                 </ContentBlock>
             </Article>
         </Page>
     );
-};
-
-
-export {
-    BlogPostPage
 };
