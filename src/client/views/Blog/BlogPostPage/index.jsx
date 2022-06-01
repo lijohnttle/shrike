@@ -139,7 +139,7 @@ function RenderSeries({ blogPost }) {
         });
     
     return (
-        <Box>
+        <Box marginTop={6} marginBottom={8}>
             <Typography variant="h4">
                 Series
             </Typography>
