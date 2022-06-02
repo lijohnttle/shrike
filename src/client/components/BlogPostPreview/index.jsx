@@ -1,11 +1,12 @@
 import React from 'react';
 import { Box, Tooltip, Typography } from '@mui/material';
-import { AccessTimeOutlined, FolderOutlined, VisibilityOutlined } from '@mui/icons-material';
+import { AccessTimeOutlined, FolderOutlined, ChevronRight, VisibilityOutlined } from '@mui/icons-material';
 import { InternalLink } from '../';
 import { useUserSession } from '../../hooks';
 import { BlogPostModel, UserSessionModel } from '../../models';
 import * as urlUtils from '../../../utils/urlBuilder';
 import { colors } from '../../themes';
+import { useNavigate } from 'react-router';
 
 
 /**
@@ -49,6 +50,37 @@ function SubTitle({ blogPost, userSession }) {
                 )
                 : null}
         </>
+    );
+}
+
+/**
+ * @param {Object} param0 
+ * @param {BlogPostModel} param0.blogPost 
+ * @param {Boolean} param0.compact
+ * @returns 
+ */
+function RenderReadButton({ blogPost, compact }) {
+    return (
+        <InternalLink
+            to={urlUtils.getBlogPostUrlPath(blogPost.slug)}
+            sx={{
+                display: 'flex',
+                alignItems: 'center',
+                alignSelf: 'stretch',
+                color: colors.grayText,
+                paddingLeft: {
+                    xs: 2,
+                    sm: compact ? 2 : 4,
+                },
+                paddingRight: 2,
+
+                '&:hover': {
+                    background: colors.backgroundComplementary,
+                    color: colors.textComplementary,
+                },
+            }}>
+            {compact ? null : <>READ&nbsp;</>}<ChevronRight />
+        </InternalLink>
     );
 }
 
@@ -192,34 +224,36 @@ function TileView({
 
             <Box flex={1} />
 
-            <Typography
-                variant="body1"
-                paddingTop={2}
-                paddingBottom={2}
+            <Box
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
                 marginTop={2}
-                fontWeight="bold"
                 sx={{
-                    paddingLeft: {
-                        xs: 2,
-                        sm: compact ? 2 : 4,
-                    },
-                    paddingRight: {
-                        xs: 2,
-                        sm: compact ? 2 : 4,
-                    },
                     borderTop: '1px solid #eaeaea'
                 }}>
-                {blogPost.category
-                    ? (
-                        <>
-                            <FolderOutlined sx={{ verticalAlign: 'middle', marginRight: 1 }} />
-                            <span style={{ verticalAlign: 'middle' }}>
-                                {blogPost.category}
-                            </span>
-                        </>
-                    )
-                    : <>&nbsp;</>}
-            </Typography>
+                <Typography
+                    variant="body1"
+                    paddingTop={2}
+                    paddingBottom={2}
+                    paddingLeft={2}
+                    paddingRight={2}
+                    fontWeight="bold">
+                    {blogPost.category
+                        ? (
+                            <>
+                                <FolderOutlined sx={{ verticalAlign: 'middle', marginRight: 1 }} />
+                                <span style={{ verticalAlign: 'middle' }}>
+                                    {blogPost.category}
+                                </span>
+                            </>
+                        )
+                        : <>&nbsp;</>}
+                </Typography>
+
+                <RenderReadButton blogPost={blogPost} compact={compact} />
+            </Box>
         </Box>
     );
 }
@@ -239,6 +273,8 @@ function ListView({
     compact,
     userSession
 }) {
+    const navigate = useNavigate();
+
     return (
         <Box display="flex" flexDirection="column">
             <Typography
@@ -340,31 +376,36 @@ function ListView({
                 </Box>
             </Box>
 
-            <Typography
-                variant="body1"
-                paddingTop={2}
-                paddingBottom={2}
+            <Box
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
                 marginTop={2}
-                fontWeight="bold"
                 sx={{
-                    paddingLeft: 2,
-                    paddingRight: {
-                        xs: 2,
-                        sm: compact ? 2 : 4,
-                    },
                     borderTop: '1px solid #eaeaea'
                 }}>
-                {blogPost.category
-                    ? (
-                        <>
-                            <FolderOutlined sx={{ verticalAlign: 'middle', marginRight: 1 }} />
-                            <span style={{ verticalAlign: 'middle' }}>
-                                {blogPost.category}
-                            </span>
-                        </>
-                    )
-                    : <>&nbsp;</>}
-            </Typography>
+                <Typography
+                    variant="body1"
+                    paddingTop={2}
+                    paddingBottom={2}
+                    paddingLeft={2}
+                    paddingRight={2}
+                    fontWeight="bold">
+                    {blogPost.category
+                        ? (
+                            <>
+                                <FolderOutlined sx={{ verticalAlign: 'middle', marginRight: 1 }} />
+                                <span style={{ verticalAlign: 'middle' }}>
+                                    {blogPost.category}
+                                </span>
+                            </>
+                        )
+                        : <>&nbsp;</>}
+                </Typography>
+
+                <RenderReadButton blogPost={blogPost} compact={compact} />
+            </Box>
         </Box>
     );
 }
