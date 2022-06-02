@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Typography, IconButton, Box, Button } from '@mui/material';
-import { KeyboardArrowDown } from '@mui/icons-material'
-import { ContactLink, Header } from '../../../components';
+import { KeyboardArrowDown, ReadMore } from '@mui/icons-material'
+import { ContactLink, Header, InternalLink } from '../../../components';
 import { styled } from '@mui/system';
 import { colors } from '../../../themes';
 
@@ -61,26 +61,29 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
                     I am a Software Engineer
                 </Typography>
 
-                <Button
-                    variant="outlined"
-                    component={Link}
+                <InternalLink
                     to="/about"
-                    color="inherit"
                     sx={{
+                        display: 'flex',
+                        alignItems: 'center',
                         color: colors.textComplementary,
-                        borderColor: colors.textComplementary,
+                        border: `1px solid ${colors.textComplementary}`,
                         alignSelf: 'center',
                         marginTop: 2,
+                        paddingLeft: 4,
+                        paddingRight: 4,
+                        paddingTop: 1,
+                        paddingBottom: 1,
                         fontSize: 'inherit',
 
                         '&:hover': {
-                            color: colors.text,
-                            borderColor: colors.textComplementary,
-                            background: colors.textComplementary,
+                            color: colors.activeText,
+                            borderColor: colors.active,
+                            background: colors.active,
                         },
                     }}>
-                    READ MORE
-                </Button>
+                    READ MORE <ReadMore sx={{ marginLeft: 1 }} />
+                </InternalLink>
 
                 <Box
                     display="flex"        
@@ -114,7 +117,8 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
                     color="inherit"
                     sx={{
                         '&:hover': {
-                            background: '#59595996',
+                            background: colors.active,
+                            color: colors.activeText,
                         }
                     }}>
                     <KeyboardArrowDown fontSize="large" />

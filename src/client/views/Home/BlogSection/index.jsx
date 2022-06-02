@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Box, Button, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { Add as AddIcon } from '@mui/icons-material';
-import { BlogPostPreview, Loader } from '../../../components';
+import { Box, Typography } from '@mui/material';
+import { ReadMore } from '@mui/icons-material';
+import { BlogPostPreview, InternalLink, Loader } from '../../../components';
 import { SectionContentWrapper } from '../SectionContentWrapper';
 import { SectionWrapper } from '../SectionWrapper';
 import { fetchBlogPostList } from '../../../services/blogService';
@@ -89,13 +88,11 @@ const RecentBlogPosts = ({ blogPosts }) => {
                     ) : null}
             </Box>
 
-            <Button
-                variant="outlined"
-                component={Link}
+            <InternalLink
                 to={pagesDescriptors.BLOG.path}
-                endIcon={<AddIcon />}
-                color="brand"
                 sx={{
+                    display: 'flex',
+                    alignItems: 'center',
                     fontSize: '1.2rem',
                     marginTop: {
                         xs: 2,
@@ -114,9 +111,17 @@ const RecentBlogPosts = ({ blogPosts }) => {
                     paddingRight: 4,
                     paddingTop: 1,
                     paddingBottom: 1,
+                    border: `1px solid ${colors.text}`,
+                    color: colors.text,
+
+                    '&:hover': {
+                        background: colors.active,
+                        color: colors.activeText,
+                        borderColor: colors.activeText,
+                    },
                 }}>
-                SEE MORE
-            </Button>
+                SEE MORE <ReadMore sx={{ marginLeft: 1 }} />
+            </InternalLink>
         </>
     );
 };

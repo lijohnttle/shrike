@@ -10,6 +10,7 @@ import {
     Web } from '@mui/icons-material'
 import { IconButton } from '@mui/material';
 import { buildUrlByVendor } from '../../utils/links';
+import { colors } from '../../themes';
 
 
 /**
@@ -42,7 +43,8 @@ export const ContactLink = ({ contact, dark, fontSize }) => (
     <IconButton
         sx={{
             '&:hover': {
-                background: dark ? '#ffffff33 !important' : '#99999940 !important',
+                background: `${colors.active} !important`,
+                color: `${colors.activeText} !important`,
             }
         }}
         href={buildUrlByVendor(contact.vendor, contact.value)}

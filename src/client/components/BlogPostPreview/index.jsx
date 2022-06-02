@@ -82,8 +82,8 @@ function RenderReadButton({ blogPost, compact, tile }) {
                 },
 
                 '&:hover': {
-                    background: colors.backgroundComplementary,
-                    color: colors.textComplementary,
+                    background: colors.active,
+                    color: colors.activeText,
                 },
             }}>
             {(compact || lessThanSm) ? null : <>READ&nbsp;</>}<ChevronRight />
