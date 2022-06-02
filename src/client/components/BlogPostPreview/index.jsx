@@ -207,7 +207,10 @@ function TileView({
                         variant="body1"
                         textAlign="justify"
                         sx={{
-                            marginTop: 1,
+                            marginTop: {
+                                xs: 1,
+                                sm: compact ? 1 : 2,
+                            },
                             marginLeft: {
                                 xs: 2,
                                 sm: compact ? 2 : 4,
@@ -360,7 +363,7 @@ function ListView({
                                 </Tooltip>
                             )
                             : (
-                                <Typography variant="h3" gutterBottom={showDescription}>
+                                <Typography variant="h3">
                                     {blogPost.title.toUpperCase()}
                                 </Typography>
                             )}
@@ -368,7 +371,15 @@ function ListView({
 
                     {showDescription
                         ? (
-                            <Typography variant="body1" textAlign="justify">
+                            <Typography
+                                variant="body1"
+                                textAlign="justify"
+                                sx={{
+                                    marginTop: {
+                                        xs: 1,
+                                        sm: compact ? 1 : 2,
+                                    },
+                                }}>
                                 {blogPost.description}
                             </Typography>
                         )
