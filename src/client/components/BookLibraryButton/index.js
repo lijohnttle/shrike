@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button } from '@mui/material';
-import { Add as AddIcon } from '@mui/icons-material';
+import { ReadMore } from '@mui/icons-material';
 import { useIsCancelled } from '../../hooks';
 import { graphqlRequest } from '../../services/api';
+import { colors } from '../../themes';
 
 
 export function BookLibraryButton() {
@@ -58,8 +59,7 @@ export function BookLibraryButton() {
             <Button
                 variant="outlined"
                 href={`https://www.goodreads.com/review/list/${goodReadsUserId}?shelf=ALL`}
-                endIcon={<AddIcon />}
-                color="brand"
+                endIcon={<ReadMore />}
                 target="_blank"
                 disabled={isLoading}
                 sx={{
@@ -68,6 +68,14 @@ export function BookLibraryButton() {
                     paddingRight: 4,
                     paddingTop: 1,
                     paddingBottom: 1,
+                    color: colors.text,
+                    borderColor: colors.text,
+
+                    '&:hover': {
+                        color: colors.activeText,
+                        background: colors.active,
+                        borderColor: colors.active,
+                    },
                 }}>
                 SEE MORE
             </Button>
