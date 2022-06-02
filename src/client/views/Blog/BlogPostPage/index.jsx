@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import { AccessTimeOutlined, FolderOutlined, VisibilityOutlined } from '@mui/icons-material';
 import { useIsCancelled, useUserSession } from '../../../hooks';
-import { Article, BlogMarkdown, BlogPostImage, ContentBlock, InternalLink, Page } from '../../../components';
+import { Article, BlogMarkdown, BlogPostImage, ContentBlock, InternalLink, Loader, Page } from '../../../components';
 import { NotFound } from '../../../views/NotFound';
 import { BlogPostToolBar } from '../BlogPostToolBar';
 import { fetchBlogPost } from '../../../services/blogService';
@@ -218,12 +218,19 @@ export function BlogPostPage() {
 
             <Article
                 pageDescriptor={pagesDescriptors.BLOG_POST}
-                title={(blogPost?.title || '').toUpperCase()}
+                title={(blogPost?.title || 'Loading...').toUpperCase()}
                 subTitle={buildSubTitle(blogPost, userSession)}
                 titleMaxWidth="md">
                 {!isLoading ? <BlogPostToolBar slug={blogPost.slug} maxWidth="md" /> : null}
 
                 <ContentBlock compact maxWidth="md">
+                    {isLoading
+                        ? (
+                            <Box paddingTop={8} paddingBottom={8}>
+                                <Loader />
+                            </Box>
+                        ) : null}
+
                     {!isLoading
                         ? (
                             <>
