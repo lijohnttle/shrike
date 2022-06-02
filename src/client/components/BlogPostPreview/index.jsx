@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Tooltip, Typography } from '@mui/material';
+import { Box, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { AccessTimeOutlined, FolderOutlined, ChevronRight, VisibilityOutlined } from '@mui/icons-material';
 import { InternalLink } from '../';
 import { useUserSession } from '../../hooks';
@@ -57,9 +57,13 @@ function SubTitle({ blogPost, userSession }) {
  * @param {Object} param0 
  * @param {BlogPostModel} param0.blogPost 
  * @param {Boolean} param0.compact
+ * @param {Boolean} param0.tile
  * @returns 
  */
-function RenderReadButton({ blogPost, compact }) {
+function RenderReadButton({ blogPost, compact, tile }) {
+    const theme = useTheme();
+    const lessThanSm = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <InternalLink
             to={urlUtils.getBlogPostUrlPath(blogPost.slug)}
@@ -70,16 +74,19 @@ function RenderReadButton({ blogPost, compact }) {
                 color: colors.grayText,
                 paddingLeft: {
                     xs: 2,
-                    sm: compact ? 2 : 4,
+                    sm: compact ? 2 : (tile ? 6 : 4),
                 },
-                paddingRight: 2,
+                paddingRight: {
+                    xs: 2,
+                    sm: (compact || !tile) ? 2 : 4,
+                },
 
                 '&:hover': {
                     background: colors.backgroundComplementary,
                     color: colors.textComplementary,
                 },
             }}>
-            {compact ? null : <>READ&nbsp;</>}<ChevronRight />
+            {(compact || lessThanSm) ? null : <>READ&nbsp;</>}<ChevronRight />
         </InternalLink>
     );
 }
@@ -240,9 +247,14 @@ function TileView({
                     variant="body1"
                     paddingTop={2}
                     paddingBottom={2}
-                    paddingLeft={2}
                     paddingRight={2}
-                    fontWeight="bold">
+                    fontWeight="bold"
+                    sx={{
+                        paddingLeft: {
+                            xs: 2,
+                            sm: compact ? 2 : 4,
+                        }
+                    }}>
                     {blogPost.category
                         ? (
                             <>
@@ -255,7 +267,7 @@ function TileView({
                         : <>&nbsp;</>}
                 </Typography>
 
-                <RenderReadButton blogPost={blogPost} compact={compact} />
+                <RenderReadButton blogPost={blogPost} compact={compact} tile={true} />
             </Box>
         </Box>
     );
