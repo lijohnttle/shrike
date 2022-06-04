@@ -3,7 +3,7 @@ import { ControllerContext } from './ControllerContext';
 import { PageController } from './PageController';
 import { ApiController } from './ApiController';
 import { AssetController } from './AssetController';
-import { GraphQLController } from './GraphQLController2';
+import { GraphQLController } from './GraphQLController';
 import { ContentController } from './ContentController';
 
 
