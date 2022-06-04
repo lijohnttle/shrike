@@ -1,3 +1,4 @@
+export * from './BlogPostCategoryDto';
 export * from './BlogPostDto';
 export * from './BlogPostListOptionsDto';
 export * from './BlogPostListResponseDto';

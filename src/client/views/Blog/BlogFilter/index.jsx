@@ -4,29 +4,7 @@ import { Box, Checkbox, FormControlLabel, Radio, RadioGroup, Typography } from '
 import { Loader } from '../../../components';
 import { BlogFilterCategoryModel, BlogFilterModel } from '../../../models/blog'; 
 import { useUserSession } from '../../../hooks';
-
-
-/**
- * Loads filters.
- * @returns {Promise<BlogFilterModel>}
- */
-function LoadFilters() {
-    return new Promise((resolve, reject) => {
-        resolve(new BlogFilterModel({
-            categories: [
-                {
-                    name: 'All',
-                    all: true,
-                },
-                {
-                    name: 'Books',
-                },
-                {
-                    name: 'IT',
-                }],
-        }));
-    });
-}
+import { getFilterDefinition } from '../../../services/blogService';
 
 
 function RenderGroup({ title, children }) {
@@ -55,7 +33,7 @@ export function BlogFilter() {
 
     useEffect(() => {
         // load filters
-        LoadFilters()
+        getFilterDefinition()
             .then(result => {
                 setFilter(result);
 
@@ -115,7 +93,19 @@ export function BlogFilter() {
             }
             else if (selectedCategoryIndex < 0) {
                 // select if it is not already selected 
-                setCategoriesSelection([...categoriesSelection, selectedCategory]);
+                const newSelectedFilterCategories = [...categoriesSelection, selectedCategory];
+
+                if (filter
+                    .categories
+                    .filter(c => !c.all)
+                    .map(c => c.name)
+                    .every(name => newSelectedFilterCategories.some(c => c.name === name))) {
+                    
+                    setCategoriesSelection([filter.findAllCategory()]);
+                }
+                else {
+                    setCategoriesSelection([...categoriesSelection, selectedCategory]);
+                }
             }
         }
         else {

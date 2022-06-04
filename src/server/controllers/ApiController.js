@@ -2,7 +2,7 @@ import express from 'express';
 import { ControllerContext } from './ControllerContext';
 import { ControllerBase } from './ControllerBase';
 import { fetchBooks } from '../services/goodReadsService.js';
-import { getUserProfileRepository } from '../domain/index.js';
+import { getBlogManager, getUserProfileRepository } from '../domain';
 
 
 export class ApiController extends ControllerBase {
@@ -40,9 +40,11 @@ export class ApiController extends ControllerBase {
             };
         });
 
-        app.get('/api/blog/filter/definitions', (_, res) => {
-            res.json({
+        app.get('/api/blog/filter/definition', async (_, res) => {
+            const blogManager = getBlogManager();
 
+            res.json({
+                categories: await blogManager.getCategories(),
             });
         });
 

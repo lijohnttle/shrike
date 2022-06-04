@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
-import { BlogPostDto, BlogPostListOptionsDto, BlogPostListResultDto } from '../../../../contracts';
+import {
+    BlogPostCategoryDto,
+    BlogPostDto,
+    BlogPostListOptionsDto,
+    BlogPostListResultDto } from '../../../../contracts';
 import { Attachment } from '../../../data/models/Attachment';
 import { BlogPost, BlogPostDocument } from '../../../data/models/blog/BlogPost';
 import { UserContext } from '../../entities/authentication/UserContext';
@@ -10,6 +14,17 @@ import {
 
 
 export class BlogManager {
+    constructor() {
+        /**
+         * @type {BlogPostCategoryDto[]}
+         */
+        this._categoriesCache = null;
+
+        this._resetCaches = () => {
+            this._categoriesCache = null;
+        };
+    }
+
     /**
      * Returns the list of blog posts.
      * @param {BlogPostListOptionsDto} options Request options.
@@ -153,6 +168,8 @@ export class BlogManager {
         userContext.verifyAdminAccess();
 
         await BlogPost.deleteOne({ _id: blogPostId }).exec();
+
+        this._resetCaches();
     }
 
     /**
@@ -173,6 +190,8 @@ export class BlogManager {
         mapBlogPostDtoToDocument(blogPost, existingBlogPost);
 
         await existingBlogPost.save();
+
+        this._resetCaches();
     }
 
     /**
@@ -188,6 +207,8 @@ export class BlogManager {
         mapBlogPostDtoToDocument(blogPost, newBlogPost);
 
         await newBlogPost.save();
+
+        this._resetCaches();
     }
 
     /**
@@ -236,5 +257,41 @@ export class BlogManager {
                 }
             )
             .exec();
+    }
+
+    /**
+     * Returns the list of categories.
+     * @returns {Promise<BlogPostCategoryDto[]>}
+     */
+    async getCategories() {
+        let categories = this._categoriesCache;
+
+        if (!categories) {
+            var categoriesList = await BlogPost
+                .distinct('category')
+                .exec();
+
+            categories = [
+                new BlogPostCategoryDto({
+                    name: 'All',
+                    all: true,
+                }),
+                ...categoriesList
+                    .filter(c => !!c)
+                    .sort()
+                    .map(c => new BlogPostCategoryDto({ name: c }))
+            ];
+
+            if (categoriesList.some(c => !c)) {
+                categories.push(new BlogPostCategoryDto({
+                    name: 'None',
+                    none: true,
+                }));
+            }
+
+            this._categoriesCache = categories;
+        }
+
+        return categories;
     }
 }
