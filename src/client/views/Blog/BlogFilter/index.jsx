@@ -114,8 +114,9 @@ export function BlogFilter() {
                 setCategoriesSelection([]);
             }
             else if (categoriesSelection.some(c => c.all)) {
-                // deselect all others
-                setCategoriesSelection([selectedCategory]);
+                // deselect category 'All' and the current one
+                setCategoriesSelection([...filter.categories
+                    .filter(c => !c.all && c.name !== selectedCategory.name)]);
             }
             else if (selectedCategoryIndex >= 0) {
                 // deselect only the current category
