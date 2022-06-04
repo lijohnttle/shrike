@@ -11,20 +11,19 @@ import { Box } from '@mui/system';
 import { pagesDescriptors } from '../../../../static';
 
 
-const BlogPostsPlaceholder = () => {
+const RenderBlogPostsPlaceholder = () => {
     return (
-        <ContentBlock compact>
+        <Box paddingTop={8}>
             <Typography variant="h3" align="center">
-                There are no posts yet
+                No results
             </Typography>
-        </ContentBlock>
+        </Box>
     );
 };
 
 export function BlogPage() {
     /** @type {[BlogPostListModel, Function]} */
     const [blogPostList, setBlogPostList] = useState();
-    const [showUnpublished, setShowUnpublished] = useState(false);
     /** @type {[BlogFilterModel, Function]} */
     const [filter, setFilter] = useState();
     /** @type {[BlogFilterSelectionModel, Function]} */
@@ -34,6 +33,7 @@ export function BlogPage() {
         return filterSelection
             ? fetchBlogPostList({
                 userToken: getUserSession()?.token,
+                categories: filterSelection.categories.map(c => c.name),
                 unpublished: filterSelection.unpublished,
             })
             : null;
@@ -49,7 +49,7 @@ export function BlogPage() {
 
                     {!filter || !filterSelection || blogPostsAreLoading ? <Loader /> : null}
 
-                    {!blogPostsAreLoading && blogPostList?.blogPosts?.length > 0
+                    {!blogPostsAreLoading
                         ? (
                             <ContentBlock compact>
                                 <Box 
@@ -69,28 +69,26 @@ export function BlogPage() {
                                     </Box>
 
                                     <Box display="flex" flexDirection="column" flex="1">
-                                        {blogPostList.blogPosts.map((post) => (
-                                            <Box
-                                                key={post.slug}
-                                                display="flex"
-                                                alignItems="stretach"
-                                                marginBottom={1}
-                                                width="100%">
-                                                <BlogPostPreview
-                                                    blogPost={post}
-                                                    showDescription
-                                                    displayMode={displayMode} />
-                                            </Box>
-                                        ))}
+                                        {blogPostList?.blogPosts?.length > 0
+                                            ? blogPostList.blogPosts.map((post) => (
+                                                <Box
+                                                    key={post.slug}
+                                                    display="flex"
+                                                    alignItems="stretach"
+                                                    marginBottom={1}
+                                                    width="100%">
+                                                    <BlogPostPreview
+                                                        blogPost={post}
+                                                        showDescription
+                                                        displayMode={displayMode} />
+                                                </Box>
+                                            ))
+                                            : <RenderBlogPostsPlaceholder />}
                                     </Box>
                                 </Box>
                             </ContentBlock>
                         )
                         : null}
-
-                    {!blogPostsAreLoading && blogPostList?.blogPosts?.length === 0
-                        ? <BlogPostsPlaceholder />
-                        : null }
                 </Article>
             </Page>
         </BlogFilterProvider>

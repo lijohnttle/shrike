@@ -19,12 +19,5 @@
          * @public
          */
         this.all = props?.all;
-
-        /**
-         * Determines if the category represents no category.
-         * @type {String}
-         * @public
-         */
-        this.none = props?.none;
     }
 }

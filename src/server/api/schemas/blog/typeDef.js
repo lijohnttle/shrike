@@ -11,8 +11,9 @@ export const typeDef = `
     }
 
     input BlogPostListOptions {
-        unpublished: Boolean
         userToken: String
+        categories: [String]
+        unpublished: Boolean
         skip: Int
         take: Int
     }

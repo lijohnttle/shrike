@@ -121,7 +121,7 @@ export function BlogFilter({ filter, selection, onSelectionChanged }) {
                                 value={category.name}
                                 checked={selectedAllCategories || selection.categories.findIndex(c => c.name === category.name) >= 0}
                                 onChange={handleCategoryFilterChange} />}
-                            label={category.name} />
+                            label={category.displayName()} />
                     </Box>
                 ))}
             </RenderGroup>

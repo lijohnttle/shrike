@@ -3,6 +3,7 @@ import {
     AttachmentModel,
     BlogFilterCategoryModel,
     BlogFilterModel,
+    BlogFilterSelectionModel,
     BlogPostListModel,
     BlogPostModel,
     UserSessionModel } from '../models';

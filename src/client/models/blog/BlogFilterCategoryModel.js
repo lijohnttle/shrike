@@ -20,4 +20,16 @@ export class BlogFilterCategoryModel {
          */
         this.all = props?.all;
     }
+
+    displayName() {
+        if (this.all) {
+            return 'All';
+        }
+
+        if (!this.name) {
+            return 'None';
+        }
+
+        return this.name;
+    }
 }

@@ -42,6 +42,27 @@ export class BlogManager {
             published: !options.unpublished,
         };
 
+        if (options.categories) {
+            // no categories selected - return empty result
+            if (options.categories.length === 0) {
+                return new BlogPostListResultDto({
+                    blogPosts: [],
+                    totalCount: 0,
+                });
+            }
+
+            // category "All" is not selected - filter by categories
+            if (!options.categories.some(c => c.toLowerCase() === 'all')) {
+                query.category = {
+                    $in: options.categories,
+                };
+
+                if (options.categories.some(c => !c)) {
+                    query.category['$in'].push(null);
+                }
+            }
+        }
+
         let requestBuilder = BlogPost
             .find(
                 query,
@@ -283,10 +304,7 @@ export class BlogManager {
             ];
 
             if (categoriesList.some(c => !c)) {
-                categories.push(new BlogPostCategoryDto({
-                    name: 'None',
-                    none: true,
-                }));
+                categories.push(new BlogPostCategoryDto({ name: '' }));
             }
 
             this._categoriesCache = categories;
