@@ -66,8 +66,9 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
-                        color: colors.textComplementary,
-                        border: `1px solid ${colors.textComplementary}`,
+                        color: colors.text,
+                        border: `1px solid ${colors.text}`,
+                        background: colors.background,
                         alignSelf: 'center',
                         marginTop: 2,
                         paddingLeft: 4,
