@@ -1,5 +1,17 @@
-import { AttachmentModel, BlogPostListModel, BlogPostModel, UserSessionModel } from '../models';
-import { BlogPostListOptionsDto, BlogPostListResponseDto, BlogPostResponseDto, ResponseDto } from '../../contracts';
+import axios from 'axios';
+import {
+    AttachmentModel,
+    BlogFilterCategoryModel,
+    BlogFilterModel,
+    BlogFilterSelectionModel,
+    BlogPostListModel,
+    BlogPostModel,
+    UserSessionModel } from '../models';
+import {
+    BlogPostListOptionsDto,
+    BlogPostListResponseDto,
+    BlogPostResponseDto,
+    ResponseDto } from '../../contracts';
 import { graphqlRequest } from './api';
 import { toBase64 } from '../utils/filesystem';
 
@@ -298,3 +310,22 @@ export async function deleteBlogPost(blogPostId, options) {
         throw new Error('Server returned empty result');
     }
 };
+
+/**
+ * Gets the blog filter.
+ * @returns {Promise<BlogFilterModel>}
+ */
+export async function fetchFilterDefinition() {
+    const response = await axios.get('/api/blog/filter/definition');
+
+    if (response.status === 200) {
+        const filter = new BlogFilterModel({
+            categories: response.data.categories.map(c => new BlogFilterCategoryModel(c)),
+        });
+
+        return filter;
+    }
+    else {
+        throw new Error(response.statusText);
+    }
+}

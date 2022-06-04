@@ -14,6 +14,13 @@ export class BlogPostListOptionsDto {
         this.unpublished = props?.unpublished;
 
         /**
+         * Filter by categories.
+         * @type {String[]}
+         * @public
+         */
+        this.categories = props?.categories;
+
+        /**
          * Skips items.
          * @type {Number}
          * @public

@@ -9,7 +9,7 @@ import { BookListResultDto } from '../../contracts/books';
  * @returns {Promise<BookListResultDto>} The list of books.
  */
 export async function fetchBooks(count, shelf) {
-    const url = `/proxy/goodreads/${shelf}?count=${count}`;
+    const url = `/api/books/shelves/${shelf}?count=${count}`;
 
     const resp = await axios.get(url);
     

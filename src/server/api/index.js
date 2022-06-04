@@ -14,7 +14,7 @@ const Query = `
         message: String!
     }
 
-    type EmptyResult {
+    type EmptyResponse {
         success: Boolean!
         errorMessage: String
     }

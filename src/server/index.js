@@ -5,7 +5,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import { registerControllers } from './controllers/index.js';
+import { ControllerContext, registerControllers } from './controllers';
 import { configure as configureDomain } from './domain/index.js';
 import db from './services/db.js';
 
@@ -56,9 +56,7 @@ async function main() {
         limit: '15mb'
     }));
 
-    registerControllers(app, {
-        rootPath: process.cwd()
-    });
+    registerControllers(app, new ControllerContext());
 
     await db.connect();
 
