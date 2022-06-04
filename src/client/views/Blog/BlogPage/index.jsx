@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Article, BlogPostPreview, ContentBlock, Loader, Page } from '../../../components';
 import { BlogToolBar } from '../BlogToolBar';
+import { BlogFilter } from '../BlogFilter';
 import { useDataLoader, useUserSession } from '../../../hooks';
 import { fetchBlogPostList } from '../../../services/blogService';
 import { BlogPostListModel } from '../../../models';
@@ -41,23 +42,35 @@ export function BlogPage() {
                 {!blogPostsAreLoading && blogPostList?.blogPosts?.length > 0
                     ? (
                         <ContentBlock compact>
-                            <Box
+                            <Box 
                                 display="flex"
                                 flexDireaction="row"
                                 flexWrap="wrap">
-                                {blogPostList.blogPosts.map((post) => (
-                                    <Box
-                                        key={post.slug}
-                                        display="flex"
-                                        alignItems="stretach"
-                                        marginBottom={1}
-                                        width="100%">
-                                        <BlogPostPreview
-                                            blogPost={post}
-                                            showDescription
-                                            displayMode={displayMode} />
-                                    </Box>
-                                ))}
+
+                                <Box
+                                    display="flex"
+                                    flexDirection="column"
+                                    width="300px"
+                                    minHeight="300px"
+                                    flexShrink="0">
+                                    <BlogFilter />
+                                </Box>
+
+                                <Box display="flex" flexDirection="column" flex="1">
+                                    {blogPostList.blogPosts.map((post) => (
+                                        <Box
+                                            key={post.slug}
+                                            display="flex"
+                                            alignItems="stretach"
+                                            marginBottom={1}
+                                            width="100%">
+                                            <BlogPostPreview
+                                                blogPost={post}
+                                                showDescription
+                                                displayMode={displayMode} />
+                                        </Box>
+                                    ))}
+                                </Box>
                             </Box>
                         </ContentBlock>
                     )
