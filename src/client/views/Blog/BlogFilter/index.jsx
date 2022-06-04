@@ -8,14 +8,14 @@ import { useUserSession } from '../../../hooks';
 
 function RenderGroup({ title, children }) {
     return (
-        <Box marginBottom={2}>
-            <Typography fontWeight="bold">
+        <Box marginBottom={4}>
+            <Typography fontWeight="bold" marginBottom={2}>
                 {title}
             </Typography>
 
-            <div>
+            <Box marginLeft={1}>
                 {children}
-            </div>
+            </Box>
         </Box>
     );
 }
@@ -113,7 +113,7 @@ export function BlogFilter({ filter, selection, onSelectionChanged }) {
 
     return (
         <div>
-            <RenderGroup title="Categories">
+            <RenderGroup title="CATEGORIES">
                 {filter?.categories?.map((category) => (
                     <Box key={category.name}>
                         <FormControlLabel
@@ -121,14 +121,15 @@ export function BlogFilter({ filter, selection, onSelectionChanged }) {
                                 value={category.name}
                                 checked={selectedAllCategories || selection.categories.findIndex(c => c.name === category.name) >= 0}
                                 onChange={handleCategoryFilterChange} />}
-                            label={category.displayName()} />
+                            label={category.displayName()}
+                            sx={{ width: '100%' }} />
                     </Box>
                 ))}
             </RenderGroup>
 
             {authenticated
                 ? (
-                    <RenderGroup title="Published">
+                    <RenderGroup title="PUBLISHED">
                         <RadioGroup value={selection.unpublished ? 'unpublished' : 'published'} onChange={handlePublishedFilterChange}>
                             <FormControlLabel value="published" control={<Radio />} label="Published" />
                             <FormControlLabel value="unpublished" control={<Radio />} label="Unpublished" />

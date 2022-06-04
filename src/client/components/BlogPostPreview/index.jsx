@@ -6,7 +6,6 @@ import { useUserSession } from '../../hooks';
 import { BlogPostModel, UserSessionModel } from '../../models';
 import * as urlUtils from '../../../utils/urlBuilder';
 import { colors } from '../../themes';
-import { useNavigate } from 'react-router';
 
 
 /**
@@ -214,10 +213,8 @@ function TileView({
                         variant="body1"
                         textAlign="justify"
                         sx={{
-                            marginTop: {
-                                xs: 1,
-                                sm: compact ? 1 : 2,
-                            },
+                            marginTop: 2,
+                            marginBottom: 2,
                             marginLeft: {
                                 xs: 2,
                                 sm: compact ? 2 : 4,
@@ -288,8 +285,6 @@ function ListView({
     compact,
     userSession
 }) {
-    const navigate = useNavigate();
-
     return (
         <Box display="flex" flexDirection="column">
             <Typography
