@@ -146,7 +146,7 @@ export function BlogFilter() {
                         <FormControlLabel
                             control={<Checkbox
                                 value={category.name}
-                                checked={selectedAllCategories || categoriesSelection.findIndex(c => c.name.toLowerCase() === category.name.toLowerCase()) >= 0}
+                                checked={selectedAllCategories || categoriesSelection.findIndex(c => c.name === category.name) >= 0}
                                 onChange={handleCategoryFilterChange} />}
                             label={category.name} />
                     </Box>

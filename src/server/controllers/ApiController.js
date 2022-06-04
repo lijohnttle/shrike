@@ -1,8 +1,8 @@
 import express from 'express';
 import { ControllerContext } from './ControllerContext';
 import { ControllerBase } from './ControllerBase';
-import { fetchBooks } from '../services/goodReadsService.js';
-import { getBlogManager, getUserProfileRepository } from '../domain';
+import { blogApiRouter } from './api/blog';
+import { booksApiRouter } from './api/books';
 
 
 export class ApiController extends ControllerBase {
@@ -19,34 +19,8 @@ export class ApiController extends ControllerBase {
         super.register(app, context);
         super.beginRegister();
 
-        app.get('/api/goodreads/:shelf', async (req, res) => {
-            const shelf = req.params.shelf;
-            const count = req.query.count;
-
-            try {
-                const userProfile = await getUserProfileRepository().find();
-                const userId = userProfile.goodReadsUserId;
-
-                const data = await fetchBooks(
-                    userId,
-                    count,
-                    shelf
-                );
-
-                res.send(data);
-            }
-            catch (exception) {
-                res.send(exception);
-            };
-        });
-
-        app.get('/api/blog/filter/definition', async (_, res) => {
-            const blogManager = getBlogManager();
-
-            res.json({
-                categories: await blogManager.getCategories(),
-            });
-        });
+        app.use('/api/blog', blogApiRouter);
+        app.use('/api/books', booksApiRouter);
 
         super.endRegister();
     }
