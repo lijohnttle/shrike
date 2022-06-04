@@ -1,6 +1,6 @@
 import express from 'express';
 import { ControllerContext } from './ControllerContext';
-import { PageController } from './PageController';
+import { PageController } from './_PageController';
 import { ApiController } from './ApiController';
 import { AssetController } from './AssetController';
 import { GraphQLController } from './GraphQLController';
