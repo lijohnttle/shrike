@@ -6,7 +6,7 @@ import { BlogFilter } from '../BlogFilter';
 import { BlogFilterProvider } from '../BlogFilterProvider';
 import { useDataLoader, useUserSession } from '../../../hooks';
 import { fetchBlogPostList } from '../../../services/blogService';
-import { BlogFilterModel, BlogPostListModel } from '../../../models';
+import { BlogFilterModel, BlogFilterSelectionModel, BlogPostListModel } from '../../../models';
 import { Box } from '@mui/system';
 import { pagesDescriptors } from '../../../../static';
 
@@ -27,6 +27,8 @@ export function BlogPage() {
     const [showUnpublished, setShowUnpublished] = useState(false);
     /** @type {[BlogFilterModel, Function]} */
     const [filter, setFilter] = useState();
+    /** @type {[BlogFilterSelectionModel, Function]} */
+    const [filterSelection, setFilterSelection] = useState();
     const [getUserSession] = useUserSession();
     const blogPostsAreLoading = useDataLoader(() => fetchBlogPostList({
         userToken: getUserSession()?.token,
@@ -36,14 +38,14 @@ export function BlogPage() {
     const displayMode = useMediaQuery(theme.breakpoints.up('md')) ? BlogPostPreview.displayMode.list : BlogPostPreview.displayMode.tiles;
 
     return (
-        <BlogFilterProvider onFilterLoaded={setFilter}>
+        <BlogFilterProvider selection={filterSelection} onFilterLoaded={setFilter} onSelectionChanged={setFilterSelection}>
             <Page title="Blog">
                 <Article pageDescriptor={pagesDescriptors.BLOG}>
                     <BlogToolBar showUnpublished={showUnpublished} onShowUnpublishedChange={setShowUnpublished} />
 
-                    {!filter || blogPostsAreLoading ? <Loader /> : null}
+                    {!filter || !filterSelection || blogPostsAreLoading ? <Loader /> : null}
 
-                    {filter && !blogPostsAreLoading && blogPostList?.blogPosts?.length > 0
+                    {!blogPostsAreLoading && blogPostList?.blogPosts?.length > 0
                         ? (
                             <ContentBlock compact>
                                 <Box 
@@ -56,7 +58,10 @@ export function BlogPage() {
                                         width="300px"
                                         minHeight="300px"
                                         flexShrink="0">
-                                        <BlogFilter filter={filter} />
+                                        <BlogFilter
+                                            filter={filter}
+                                            selection={filterSelection}
+                                            onSelectionChanged={setFilterSelection} />
                                     </Box>
 
                                     <Box display="flex" flexDirection="column" flex="1">

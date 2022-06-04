@@ -10,10 +10,10 @@ import { BlogFilterCategoryModel } from './BlogFilterCategoryModel';
     constructor(props) {
         /**
          * The list of selected categories.
-         * @type {BlogFilterCategoryModel}
+         * @type {BlogFilterCategoryModel[]}
          * @public
          */
-        this.selectedCategories = props?.selectedCategories || [];
+        this.categories = props?.categories || [];
 
         /**
          * Show unpublished blog posts.
