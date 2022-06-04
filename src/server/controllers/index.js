@@ -4,7 +4,7 @@ import { PageController } from './PageController';
 import { ApiController } from './ApiController';
 import { AssetController } from './AssetController';
 import { GraphQLController } from './GraphQLController';
-import { ContentController } from './_ContentController';
+import { ContentController } from './ContentController';
 
 
 const assetController = new AssetController();
