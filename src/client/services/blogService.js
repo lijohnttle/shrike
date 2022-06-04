@@ -314,7 +314,7 @@ export async function deleteBlogPost(blogPostId, options) {
  * Gets the blog filter.
  * @returns {Promise<BlogFilterModel>}
  */
-export async function getFilterDefinition() {
+export async function fetchFilterDefinition() {
     const response = await axios.get('/api/blog/filter/definition');
 
     if (response.status === 200) {

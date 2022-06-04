@@ -4,7 +4,6 @@ import { Box, Checkbox, FormControlLabel, Radio, RadioGroup, Typography } from '
 import { Loader } from '../../../components';
 import { BlogFilterCategoryModel, BlogFilterModel } from '../../../models/blog'; 
 import { useUserSession } from '../../../hooks';
-import { getFilterDefinition } from '../../../services/blogService';
 
 
 function RenderGroup({ title, children }) {
@@ -21,40 +20,40 @@ function RenderGroup({ title, children }) {
     );
 }
 
-export function BlogFilter() {
+/**
+ * Represents a blog filter. 
+ * @param {Object} param0 
+ * @param {BlogFilterModel} param0.filter
+ * @returns 
+ */
+export function BlogFilter({ filter }) {
     const [isLoading, setIsLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
-    /** @type {[BlogFilterModel, Function]} */
-    const [filter, setFilter] = useState();
     /** @type {[BlogFilterCategoryModel[], Function]} */
     const [categoriesSelection, setCategoriesSelection] = useState([]);
     const [publishedSelection, setPublishedSelection] = useState('published');
     const [getUserSession] = useUserSession();
 
     useEffect(() => {
-        // load filters
-        getFilterDefinition()
-            .then(result => {
-                setFilter(result);
+        if (filter) {
+            // initialize categories
+            const categoriesQueryParams = new Set((searchParams.getAll('category') || []).map(c => c.toLocaleLowerCase()));
+            const allCategory = filter.findAllCategory();
+            const shouldSelectAll = categoriesQueryParams.size === 0 || categoriesQueryParams.has(allCategory.name.toLowerCase());
 
-                // initialize categories
-                const categoriesQueryParams = new Set((searchParams.getAll('category') || []).map(c => c.toLocaleLowerCase()));
-                const allCategory = result.findAllCategory();
-                const shouldSelectAll = categoriesQueryParams.size === 0 || categoriesQueryParams.has(allCategory.name.toLowerCase());
+            if (shouldSelectAll) {
+                setCategoriesSelection([allCategory]);
+            }
+            else {
+                setCategoriesSelection([...filter.categories.filter(c => categoriesQueryParams.has(c.name.toLowerCase()))]);
+            }
 
-                if (shouldSelectAll) {
-                    setCategoriesSelection([allCategory]);
-                }
-                else {
-                    setCategoriesSelection([...result.categories.filter(c => categoriesQueryParams.has(c.name.toLowerCase()))]);
-                }
+            // initialize published
+            setPublishedSelection(searchParams.get('unpublished')?.toLowerCase() === 'true' ? 'unpublished' : 'published')
 
-                // initialize published
-                setPublishedSelection(searchParams.get('unpublished')?.toLowerCase() === 'true' ? 'unpublished' : 'published')
-            })
-            .catch(error => console.error(error))
-            .finally(() => setIsLoading(false));
-    }, []);
+            setIsLoading(false);
+        }
+    }, [filter]);
 
     useEffect(() => {
         if (isLoading) {
