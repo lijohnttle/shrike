@@ -30,10 +30,14 @@ export function BlogPage() {
     /** @type {[BlogFilterSelectionModel, Function]} */
     const [filterSelection, setFilterSelection] = useState();
     const [getUserSession] = useUserSession();
-    const blogPostsAreLoading = useDataLoader(() => fetchBlogPostList({
-        userToken: getUserSession()?.token,
-        unpublished: showUnpublished,
-    }), setBlogPostList, [showUnpublished]);
+    const blogPostsAreLoading = useDataLoader(() => {
+        return filterSelection
+            ? fetchBlogPostList({
+                userToken: getUserSession()?.token,
+                unpublished: filterSelection.unpublished,
+            })
+            : null;
+    }, setBlogPostList, [filterSelection]);
     const theme = useTheme();
     const displayMode = useMediaQuery(theme.breakpoints.up('md')) ? BlogPostPreview.displayMode.list : BlogPostPreview.displayMode.tiles;
 
@@ -41,7 +45,7 @@ export function BlogPage() {
         <BlogFilterProvider selection={filterSelection} onFilterLoaded={setFilter} onSelectionChanged={setFilterSelection}>
             <Page title="Blog">
                 <Article pageDescriptor={pagesDescriptors.BLOG}>
-                    <BlogToolBar showUnpublished={showUnpublished} onShowUnpublishedChange={setShowUnpublished} />
+                    <BlogToolBar />
 
                     {!filter || !filterSelection || blogPostsAreLoading ? <Loader /> : null}
 

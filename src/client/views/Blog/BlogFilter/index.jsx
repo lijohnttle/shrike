@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import { Box, Checkbox, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
 import {
-    BlogFilterCategoryModel,
     BlogFilterModel,
     BlogFilterSelectionModel } from '../../../models'; 
 import { useUserSession } from '../../../hooks';
@@ -100,7 +99,7 @@ export function BlogFilter({ filter, selection, onSelectionChanged }) {
         if (selection) {
             onSelectionChanged(new BlogFilterSelectionModel({
                 ...selection,
-                showUnpublished: e.target.value === 'unpublished',
+                unpublished: e.target.value === 'unpublished',
             }));
         }
     });
@@ -130,7 +129,7 @@ export function BlogFilter({ filter, selection, onSelectionChanged }) {
             {authenticated
                 ? (
                     <RenderGroup title="Published">
-                        <RadioGroup value={selection.showUnpublished ? 'unpublished' : 'published'} onChange={handlePublishedFilterChange}>
+                        <RadioGroup value={selection.unpublished ? 'unpublished' : 'published'} onChange={handlePublishedFilterChange}>
                             <FormControlLabel value="published" control={<Radio />} label="Published" />
                             <FormControlLabel value="unpublished" control={<Radio />} label="Unpublished" />
                         </RadioGroup>

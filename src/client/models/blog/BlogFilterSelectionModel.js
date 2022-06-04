@@ -20,6 +20,6 @@ import { BlogFilterCategoryModel } from './BlogFilterCategoryModel';
          * @type {Boolean}
          * @public
          */
-        this.showUnpublished = props?.showUnpublished;
+        this.unpublished = props?.unpublished;
     }
 }

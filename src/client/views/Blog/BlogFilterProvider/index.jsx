@@ -24,7 +24,7 @@ function parseQueryString(selection, filter, searchParams) {
     }
 
     // show unpublished
-    selection.showUnpublished = searchParams.get('unpublished')?.toLowerCase() === 'true';
+    selection.unpublished = searchParams.get('unpublished')?.toLowerCase() === 'true';
 }
 
 /**
@@ -40,7 +40,7 @@ function updateQueryString(selection, searchParams, setSearchParams) {
         selection.categories.forEach(c => searchParams.append('category', c.name.toLowerCase()));
     }
 
-    if (selection.showUnpublished) {
+    if (selection.unpublished) {
         searchParams.append('unpublished', true)
     }
 

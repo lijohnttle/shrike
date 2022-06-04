@@ -16,22 +16,25 @@ export function useDataLoader(loadPromiseSelector, resultCallback, dependencies)
         /** @type {Promise} */
         const promise = loadPromiseSelector();
 
-        promise
-            .then(data => {
-                if (!isCancelled.current) {
-                    resultCallback(data);
-                }
-            })
-            .catch(error => {
-                if (!isCancelled.current) {
-                    console.log(error);
-                }
-            })
-            .finally(() => {
-                if (!isCancelled.current) {
-                    setIsLoading(false);
-                }
-            });
+        if (promise) {
+            promise
+                .then(data => {
+                    if (!isCancelled.current) {
+                        resultCallback(data);
+                    }
+                })
+                .catch(error => {
+                    if (!isCancelled.current) {
+                        console.log(error);
+                    }
+                })
+                .finally(() => {
+                    if (!isCancelled.current) {
+                        setIsLoading(false);
+                    }
+                });
+        }
+        
     }, dependencies || []);
 
     useEffect(() => {
