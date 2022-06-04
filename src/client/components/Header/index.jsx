@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Drawer, IconButton, Container, useMediaQuery, useTheme } from '@mui/material';
-import { Menu as MenuIcon } from '@mui/icons-material';
+import { Drawer, IconButton, Container, useMediaQuery, useTheme, Tooltip } from '@mui/material';
+import {
+    Menu as MenuIcon,
+    MenuBook as MenuBookIcon,
+    Info as InfoIcon,
+    AccountCircle as AccountCircleIcon,
+    Logout as LogoutIcon
+} from '@mui/icons-material';
 import { useUserSession } from '../../hooks';
 import { Box } from '@mui/system';
 import colors from '../../themes/colors';
@@ -10,19 +16,25 @@ import { pagesDescriptors } from '../../../static';
 
 const navigationLinks = [
     {
+        pageDescriptor: pagesDescriptors.ACCOUNT_MANAGEMENT,
+        icon: () => <AccountCircleIcon />,
+        title: 'Account',
+        authenticated: true,
+    },
+    {
         pageDescriptor: pagesDescriptors.BLOG,
+        icon: () => <MenuBookIcon />,
     },
     {
         pageDescriptor: pagesDescriptors.ABOUT,
-    },
-    {
-        pageDescriptor: pagesDescriptors.ACCOUNT_MANAGEMENT,
-        title: 'ACCOUNT',
-        authenticated: true,
+        icon: () => <InfoIcon />,
+        title: 'About',
     },
     {
         pageDescriptor: pagesDescriptors.SIGN_OUT,
+        icon: () => <LogoutIcon />,
         authenticated: true,
+        hideTitle: true,
     },
 ];
 
@@ -128,7 +140,10 @@ function RenderNavigationMenu({ drawer }) {
                     {menuItems.map(item =>
                         <li key={item.pageDescriptor.name}>
                             <InternalLink to={item.pageDescriptor.path}>
-                                {item.title || item.pageDescriptor.title}
+                                {item.icon()}
+                                <Box marginLeft={1}>
+                                    {item.title || item.pageDescriptor.title}
+                                </Box>
                             </InternalLink>
                         </li>)}
                 </ul>
@@ -178,11 +193,24 @@ function RenderNavigationMenu({ drawer }) {
                         textTransform: 'uppercase',
                     }}>
                     {menuItems.filter(item => !item.authenticated || !!userSession).map(item =>
-                        <li key={item.pageDescriptor.name}>
-                            <InternalLink to={item.pageDescriptor.path}>
-                                {item.title || item.pageDescriptor.title}
-                            </InternalLink>
-                        </li>)}
+                        <Tooltip key={item.pageDescriptor.name} title={item.title || item.pageDescriptor.title}>
+                            <li>
+                                <InternalLink to={item.pageDescriptor.path}>
+                                    <Box display="flex" alignItems="center">
+                                        {item.icon()}
+                                        {!item.hideTitle
+                                            ? (
+                                                <Box marginLeft={1}>
+                                                    {item.title || item.pageDescriptor.title}
+                                                </Box>
+                                            )
+                                            : null}
+                                    </Box>
+                                </InternalLink>
+                            </li>
+                        </Tooltip>
+                        
+                        )}
                 </ul>
             </Box>
         );
