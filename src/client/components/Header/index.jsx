@@ -41,7 +41,7 @@ const navigationLinks = [
 /**
  * Displays logo.
  */
-function RenderLogo() {
+function RenderLogo({ transparent }) {
     const theme = useTheme();
 
     return (
@@ -60,6 +60,7 @@ function RenderLogo() {
                 marginBottom: '-1px',
                 fontSize: '2rem',
                 textTransform: 'capitalize',
+                boxShadow: transparent ? 'unset' : '0 0 7px #00000051',
 
                 '&:hover': {
                     textDecoration: 'none',
@@ -69,6 +70,13 @@ function RenderLogo() {
                     fontSize: '1.5rem',
                 },
             }}>
+            <Box
+                sx={{
+                    width: '32px',
+                    height: '32px',
+                    marginRight: 2,
+                    background: 'url("/assets/images/favicon.png")'
+                }}/>
             LIJOHNTTLE
         </InternalLink>
     );
@@ -269,7 +277,8 @@ export const Header = ({ transparent, dark, light }) => {
         <Box
             color={light ? colors.text : colors.textComplementary}
             sx={{
-                background: transparent ? 'transparent' : light  ? colors.background : colors.backgroundComplementary,
+                background: transparent ? 'transparent' : light  ? colors.background : colors.backgroundComplementaryContrast,
+                boxShadow: transparent ? 'unset' : `0 0 7px #00000051`,
             }}>
             <Container maxWidth="lg">
                 <Box
@@ -286,7 +295,7 @@ export const Header = ({ transparent, dark, light }) => {
                         }
                     }}>
 
-                    <RenderLogo />
+                    <RenderLogo transparent={transparent} />
 
                     <div>
                         {showBurgerMenu

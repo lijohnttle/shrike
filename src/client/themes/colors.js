@@ -1,6 +1,7 @@
 export default {
     background: '#ffffff',
     backgroundComplementary: '#313131',
+    backgroundComplementaryContrast: '#191919',
     text: '#313131',
     textComplementary: '#ffffff',
     selectionBackground: '#3131311a',
