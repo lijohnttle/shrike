@@ -1,13 +1,13 @@
 export const typeDef = `
     extend type Query {
         blogPostList(options: BlogPostListOptions): BlogPostListRsponse
-        blogPost(slug: String!, userToken: String): BlogPostResult
+        blogPost(slug: String!, userToken: String): BlogPostResponse
     }
 
     extend type Mutation {
-        createBlogPost(blogPost: CreateBlogPostInput!, userToken: String!): EmptyResult
-        changeBlogPost(blogPost: ChangeBlogPostInput!, userToken: String!): EmptyResult
-        deleteBlogPost(blogPostId: String!, userToken: String!): EmptyResult
+        createBlogPost(blogPost: CreateBlogPostInput!, userToken: String!): EmptyResponse
+        changeBlogPost(blogPost: ChangeBlogPostInput!, userToken: String!): EmptyResponse
+        deleteBlogPost(blogPostId: String!, userToken: String!): EmptyResponse
     }
 
     input BlogPostListOptions {
@@ -86,7 +86,7 @@ export const typeDef = `
         errorMessage: String
     }
 
-    type BlogPostResult {
+    type BlogPostResponse {
         success: Boolean!
         blogPost: BlogPost
         errorMessage: String

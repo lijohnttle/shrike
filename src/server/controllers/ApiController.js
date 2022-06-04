@@ -1,18 +1,25 @@
 import express from 'express';
+import { ControllerContext } from './ControllerContext';
+import { ControllerBase } from './ControllerBase';
 import { fetchBooks } from '../services/goodReadsService.js';
 import { getUserProfileRepository } from '../domain/index.js';
 
-const getName = () => 'Proxy Controller';
 
-const register = (app, appContext) => {
+export class ApiController extends ControllerBase {
+    constructor() {
+        super('API Controller');
+    }
 
-    console.log(`Registering ${getName()}...`);
+    /**
+     * Registers the controller.
+     * @param {express.Express} app 
+     * @param {ControllerContext} context 
+     */
+    register(app, context) {
+        super.register(app, context);
+        super.beginRegister();
 
-    const proxyRouter = express.Router();
-
-    proxyRouter
-        .route('/goodreads/:shelf')
-        .get(async (req, res) => {
+        app.get('/api/goodreads/:shelf', async (req, res) => {
             const shelf = req.params.shelf;
             const count = req.query.count;
 
@@ -33,13 +40,12 @@ const register = (app, appContext) => {
             };
         });
 
-    app.use('/proxy', proxyRouter);
+        app.get('/api/blog/filter/definitions', (_, res) => {
+            res.json({
 
-    console.log('Proxies are available at /proxy');
-    console.log(`Registered ${getName()}`);
-};
+            });
+        });
 
-export default {
-    getName,
-    register
-};
+        super.endRegister();
+    }
+}

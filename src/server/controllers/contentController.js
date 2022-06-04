@@ -1,40 +1,44 @@
 import express from 'express';
+import { ControllerContext } from './ControllerContext';
+import { ControllerBase } from './ControllerBase';
 import { contentUrlList } from '../../static';
 import { getBlogManager } from '../domain';
-import fs from 'fs';
 
-const getName = () => 'Content Controller';
+export class ContentController extends ControllerBase {
+    constructor() {
+        super('Content Controller');
+    }
 
-/**
- * @param {express.Express} app 
- * @param {*} appContext 
- */
-const register = (app, appContext) => {
-    console.log(`Registering ${getName()}...`);
-    
-    console.log('Registering blog post attachments content...');
-    app.get(contentUrlList.BLOG_POST, async (req, res) => {
+    /**
+     * Registers the controller.
+     * @param {express.Express} app 
+     * @param {ControllerContext} context 
+     */
+    register(app, context) {
+        super.register(app, context);
+        super.beginRegister();
 
-        const blogPostSlug = req.params.slug;
-        const attachmentName = req.params.name;
+        console.log('Registering blog post attachments content...');
+        
+        app.get(contentUrlList.BLOG_POST, async (req, res) => {
 
-        if (blogPostSlug || attachmentName) {
-            const blogPostManager = getBlogManager();
+            const blogPostSlug = req.params.slug;
+            const attachmentName = req.params.name;
 
-            const attachment = await blogPostManager.getAttachment(blogPostSlug, attachmentName);
+            if (blogPostSlug || attachmentName) {
+                const blogPostManager = getBlogManager();
 
-            if (attachment) {
-                res.setHeader('content-type', attachment.contentType);
-                res.write(attachment.data, 'binary');
+                const attachment = await blogPostManager.getAttachment(blogPostSlug, attachmentName);
+
+                if (attachment) {
+                    res.setHeader('content-type', attachment.contentType);
+                    res.write(attachment.data, 'binary');
+                }
             }
-        }
 
-        res.end(null, 'binary');
-    });
-    console.log(`Registered ${getName()}`);
-};
+            res.end(null, 'binary');
+        });
 
-export default {
-    getName,
-    register
-};
+        super.endRegister();
+    }
+}
