@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Drawer, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Search } from '@mui/icons-material';
 import { Article, BlogPostPreview, ContentBlock, Loader, Page } from '../../../components';
 import { BlogToolBar } from '../BlogToolBar';
 import { BlogFilter } from '../BlogFilter';
@@ -7,16 +8,18 @@ import { BlogFilterProvider } from '../BlogFilterProvider';
 import { useDataLoader, useUserSession } from '../../../hooks';
 import { fetchBlogPostList } from '../../../services/blogService';
 import { BlogFilterModel, BlogFilterSelectionModel, BlogPostListModel } from '../../../models';
-import { Box, padding } from '@mui/system';
+import { Box } from '@mui/system';
 import { pagesDescriptors } from '../../../../static';
 import { colors } from '../../../themes';
 
 
 const RenderBlogPostsPlaceholder = () => {
     return (
-        <Box paddingTop={8}>
-            <Typography variant="h3" align="center">
-                No results
+        <Box display="flex" flexDirection="column" alignItems="center" paddingTop={8}>
+            <Search sx={{ color: colors.grayText, fontSize: '72px', marginBottom: 2 }} />
+
+            <Typography variant="h3" align="center" sx={{ color: colors.grayText }}>
+                NO RESULTS
             </Typography>
         </Box>
     );
