@@ -41,9 +41,9 @@ export function BlogPage() {
                 <Article pageDescriptor={pagesDescriptors.BLOG}>
                     <BlogToolBar showUnpublished={showUnpublished} onShowUnpublishedChange={setShowUnpublished} />
 
-                    {blogPostsAreLoading ? <Loader /> : null}
+                    {!filter || blogPostsAreLoading ? <Loader /> : null}
 
-                    {!blogPostsAreLoading && blogPostList?.blogPosts?.length > 0
+                    {filter && !blogPostsAreLoading && blogPostList?.blogPosts?.length > 0
                         ? (
                             <ContentBlock compact>
                                 <Box 
