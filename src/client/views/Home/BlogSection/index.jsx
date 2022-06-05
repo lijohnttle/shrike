@@ -93,6 +93,7 @@ const RecentBlogPosts = ({ blogPosts }) => {
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
+                    justifyContent: 'center',
                     fontSize: '1.2rem',
                     marginTop: {
                         xs: 2,
