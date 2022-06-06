@@ -104,6 +104,7 @@ export const AboutPage = () => {
                                 md: 'row',
                             },
                         }}>
+                        
                         <Box
                             sx={{
                                 width: {
@@ -111,6 +112,24 @@ export const AboutPage = () => {
                                     md: '50%',
                                 },
                                 paddingRight: {
+                                    xs: 0,
+                                    md: 2,
+                                },
+                                paddingBottom: {
+                                    xs: 2,
+                                    md: 0,
+                                },
+                            }}>
+                            <img src="/assets/images/me_large.jpg" style={{ width: '100%' }} />
+                        </Box>
+
+                        <Box
+                            sx={{
+                                width: {
+                                    xs: '100%',
+                                    md: '50%',
+                                },
+                                paddingLeft: {
                                     xs: 0,
                                     md: 2,
                                 },
@@ -126,24 +145,6 @@ export const AboutPage = () => {
                             <Typography color="inherit" gutterBottom paragraph textAlign="justify">
                                 Today, I work as a Senior Software Engineer. I mostly use the .NET technology stack + React.js, but I constantly learn something new. Please, check my <Link href={linkedInLink.value}>LinkedIn profile</Link> for more information.
                             </Typography>
-                        </Box>
-                        
-                        <Box
-                            sx={{
-                                width: {
-                                    xs: '100%',
-                                    md: '50%',
-                                },
-                                paddingLeft: {
-                                    xs: 0,
-                                    md: 2,
-                                },
-                                paddingBottom: {
-                                    xs: 2,
-                                    md: 0,
-                                },
-                            }}>
-                            <img src="/assets/images/me_large.jpg" style={{ width: '100%' }} />
                         </Box>
                     </Box>
                 </ContentBlock>
