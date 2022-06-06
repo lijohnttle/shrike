@@ -89,7 +89,7 @@ export const AboutPage = () => {
                     </span>
                 }>
                 <ContentBlock
-                    styles={{
+                    sx={{
                         background: colors.paperBackground,
                         borderTop: `1px solid ${colors.paperBorder}`,
                         borderBottom: `1px solid ${colors.paperBorder}`,
@@ -98,39 +98,54 @@ export const AboutPage = () => {
                     }}>
                     <Box
                         sx={{
-                            width: {
-                                xs: '100%',
-                                sm: '50%',
-                            },
-                            float: {
-                                xs: 'none',
-                                sm: 'right',
-                            },
-                            paddingLeft: {
-                                xs: 0,
-                                sm: 4,
-                            },
-                            paddingBottom: {
-                                xs: 2,
-                                sm: 0,
+                            display: 'flex',
+                            flexDirection: {
+                                xs: 'column',
+                                md: 'row',
                             },
                         }}>
-                        <img src="/assets/images/me_large.jpg" style={{ width: '100%' }} />
+                        <Box
+                            sx={{
+                                width: {
+                                    xs: '100%',
+                                    md: '50%',
+                                },
+                                paddingRight: {
+                                    xs: 0,
+                                    md: 2,
+                                },
+                            }}>
+                            <Typography variant="h2" gutterBottom paragraph>
+                                Hi, I'm Ivan Cherkasov
+                            </Typography>
+
+                            <Typography color="inherit" gutterBottom paragraph textAlign="justify">
+                                I am a Software Engineer. When I was a kid, my parents bought me my first PC, and a few books about its exploitation. One of the books included listings with Visual Basic code, which made me curious about what I could do with my computer myself if I learn it. So I asked my dad to buy books about programming. My first languages were Visual Basic, C++, C#, and eventually, I started focusing on the last one.
+                            </Typography>
+
+                            <Typography color="inherit" gutterBottom paragraph textAlign="justify">
+                                Today, I work as a Senior Software Engineer. I mostly use the .NET technology stack + React.js, but I constantly learn something new. Please, check my <Link href={linkedInLink.value}>LinkedIn profile</Link> for more information.
+                            </Typography>
+                        </Box>
+                        
+                        <Box
+                            sx={{
+                                width: {
+                                    xs: '100%',
+                                    md: '50%',
+                                },
+                                paddingLeft: {
+                                    xs: 0,
+                                    md: 2,
+                                },
+                                paddingBottom: {
+                                    xs: 2,
+                                    md: 0,
+                                },
+                            }}>
+                            <img src="/assets/images/me_large.jpg" style={{ width: '100%' }} />
+                        </Box>
                     </Box>
-
-                    <div>
-                        <Typography variant="h2" gutterBottom paragraph>
-                            Hi, I'm Ivan Cherkasov
-                        </Typography>
-
-                        <Typography color="inherit" gutterBottom paragraph>
-                            I am a Software Engineer. When I was a kid, my parents bought me my first PC, and a few books about its exploitation. One of the books included listings with Visual Basic code, which made me curious about what I could do with my computer myself if I learn it. So I asked my dad to buy books about programming. My first languages were Visual Basic, C++, C#, and eventually, I started focusing on the last one.
-                        </Typography>
-
-                        <Typography color="inherit" gutterBottom paragraph>
-                            Today, I work as a Senior Software Engineer. I mostly use the .NET technology stack + React.js, but I constantly learn something new. Please, check my <Link href={linkedInLink.value}>LinkedIn profile</Link> for more information.
-                        </Typography>
-                    </div>
                 </ContentBlock>
 
                 <Box display="flex" flexDirection="column" marginTop={4}>

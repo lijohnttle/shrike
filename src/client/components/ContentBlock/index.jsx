@@ -8,10 +8,10 @@ import { Box, Breakpoint, SxProps, Theme } from '@mui/system';
  * @param {React.ReactNode} param0.children
  * @param {Boolean} param0.compact
  * @param {Breakpoint} param0.maxWidth
- * @param {SxProps<Theme>} param0.styles
+ * @param {SxProps<Theme>} param0.sx
  * @returns {React.ReactNode} 
  */
-export function ContentBlock({ compact, maxWidth, styles, children }) {
+export function ContentBlock({ compact, maxWidth, sx, children }) {
     return (
         <Box
             overflow="hidden"
@@ -24,7 +24,7 @@ export function ContentBlock({ compact, maxWidth, styles, children }) {
                     xs: 2,
                     sm: compact ? 2 : 4,
                 },
-            }, styles]}>
+            }, sx]}>
             <Container maxWidth={maxWidth || 'lg'}>
                 {children}
             </Container>
