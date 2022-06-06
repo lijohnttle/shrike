@@ -1,8 +1,10 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/index.js';
 import themeColors from './colors.js';
+import themeShadows from './shadows';
 
 
 export const colors = themeColors;
+export const shadows = themeShadows;
 
 export const defaultTheme = responsiveFontSizes(createTheme({
     palette: {

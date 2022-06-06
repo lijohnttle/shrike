@@ -28,7 +28,7 @@ const navigationLinks = [
     {
         pageDescriptor: pagesDescriptors.ABOUT,
         icon: () => <InfoIcon />,
-        title: 'About',
+        title: 'About Me',
     },
     {
         pageDescriptor: pagesDescriptors.SIGN_OUT,

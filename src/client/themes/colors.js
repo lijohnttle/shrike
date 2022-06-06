@@ -6,6 +6,7 @@ export default {
     textComplementary: '#ffffff',
     selectionBackground: '#3131311a',
     paperBackground: '#fdfdfd',
+    paperBorder: '#eaeaea',
     border: '#ededed',
     active: '#ffa500',
     activeLight: '#ffd700',

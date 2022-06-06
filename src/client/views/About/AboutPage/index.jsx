@@ -3,10 +3,10 @@ import { Box, Container, Link, List, ListItem, ListItemIcon, ListItemText, Typog
 import { AccessTimeOutlined, CheckBox } from '@mui/icons-material';
 import { Article, ContactLink, ContentBlock, Page } from '../../../components';
 import { useData } from '../../../hooks';
-import colors from '../../../themes/colors';
 import { pagesDescriptors } from '../../../../static';
 import { BookList } from '../../../components/BookList';
 import { BookLibraryButton } from '../../../components/BookLibraryButton';
+import { colors, shadows } from '../../../themes';
 
 
 /**
@@ -74,6 +74,7 @@ export const AboutPage = () => {
     const data = useData();
 
     const instagramLink = data.contacts.find((contact) => contact.vendor === 'instagram');
+    const linkedInLink = data.contacts.find((contact) => contact.vendor === 'linkedin');
 
     return (
         <Page title="About">
@@ -83,15 +84,17 @@ export const AboutPage = () => {
                     <span>
                         <AccessTimeOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 1 }} />
                         <span>
-                            MAY 23, 2022
+                            JUNE 06, 2022
                         </span>
                     </span>
                 }>
                 <ContentBlock
                     styles={{
-                        background: colors.backgroundComplementary,
-                        color: colors.textComplementary,
+                        background: colors.paperBackground,
+                        borderTop: `1px solid ${colors.paperBorder}`,
+                        borderBottom: `1px solid ${colors.paperBorder}`,
                         marginTop: 4,
+                        boxShadow: shadows.paper,
                     }}>
                     <Box
                         sx={{
@@ -121,15 +124,11 @@ export const AboutPage = () => {
                         </Typography>
 
                         <Typography color="inherit" gutterBottom paragraph>
-                            Since I was a kid, I have been passionate about software development. It started when I saw Visual Basic code listings for the first time in one of the books my dad bought me when I was a kid. My curiosity took over and now here I am.
+                            I am a Software Engineer. When I was a kid, my parents bought me my first PC, and a few books about its exploitation. One of the books included listings with Visual Basic code, which made me curious about what I could do with my computer myself if I learn it. So I asked my dad to buy books about programming. My first languages were Visual Basic, C++, C#, and eventually, I started focusing on the last one.
                         </Typography>
 
                         <Typography color="inherit" gutterBottom paragraph>
-                            The first language that I studied was C++. When I was 13 I started learning C#, and now, for the last <b>{new Date().getFullYear() - 2013}+ years of my professional career</b>, .NET is the main stack of technologies I work with, but I constantly learn new stuff.
-                        </Typography>
-
-                        <Typography color="inherit" gutterBottom paragraph>
-                            I have experience of creating Windows desktop applications, web services and API, front-end. I worked with relational DBMS as well as with object-oriented DBMS. I performed migration of the monolithic on-premise web application to the cloud-based microservices. 
+                            Today, I work as a Senior Software Engineer. I mostly use the .NET technology stack + React.js, but I constantly learn something new. Please, check my <Link href={linkedInLink.value}>LinkedIn profile</Link> for more information.
                         </Typography>
                     </div>
                 </ContentBlock>
@@ -138,7 +137,7 @@ export const AboutPage = () => {
                     <Section title="What I'm Doing Now">
                         <SectionList>
                             <SectionListItem>
-                                Right now I live in <b>Wroclaw, Poland</b>, but I am about to move to <b>Singapore</b>, and then, after a few months, to <b>Australia</b>.
+                                Right now I live in <b>Wroclaw, Poland</b>, but I am about to move somewhere else.
                             </SectionListItem>
                             <SectionListItem>
                                 Working as a <b>Senior Software Engineer</b> in a Swiss multinational bank.

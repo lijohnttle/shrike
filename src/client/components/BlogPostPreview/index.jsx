@@ -5,7 +5,7 @@ import { InternalLink } from '../';
 import { useUserSession } from '../../hooks';
 import { BlogPostModel, UserSessionModel } from '../../models';
 import * as urlUtils from '../../../utils/urlBuilder';
-import { colors } from '../../themes';
+import { colors, shadows } from '../../themes';
 
 
 /**
@@ -455,8 +455,8 @@ export function BlogPostPreview({
             sx={{
                 flex: '1',
                 background: colors.paperBackground,
-                border: '1px solid #eaeaea',
-                boxShadow: `0 0 7px #0000000f`,
+                border: `1px solid ${colors.paperBorder}`,
+                boxShadow: shadows.paper,
             }}>
             {displayMode === DisplayMode.tiles
                 ? <TileView blogPost={blogPost} showDescription={showDescription} compact={compact} userSession={userSession} />
