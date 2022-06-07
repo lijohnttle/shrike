@@ -7,6 +7,7 @@ export default {
     selectionBackground: '#3131311a',
     paperBackground: '#fdfdfd',
     paperBorder: '#eaeaea',
+    paperDarkBackground: '#fafafa',
     border: '#ededed',
     active: '#ffa500',
     activeLight: '#ffd700',

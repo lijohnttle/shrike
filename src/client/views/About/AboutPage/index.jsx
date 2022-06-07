@@ -90,11 +90,8 @@ export const AboutPage = () => {
                 }>
                 <ContentBlock
                     sx={{
-                        background: colors.paperBackground,
-                        borderTop: `1px solid ${colors.paperBorder}`,
-                        borderBottom: `1px solid ${colors.paperBorder}`,
+                        background: colors.paperDarkBackground,
                         marginTop: 4,
-                        boxShadow: shadows.paper,
                     }}>
                     <Box
                         sx={{
