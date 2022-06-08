@@ -28,7 +28,7 @@ const RecentBlogPosts = ({ blogPosts }) => {
                         sm: 4
                     },
                 }}>
-                LAST UPDATES
+                RECENT POSTS
             </Typography>
 
             <Box display="flex" flexDirection="column">
