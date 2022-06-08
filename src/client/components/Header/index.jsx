@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Drawer, IconButton, Container, useMediaQuery, useTheme, Tooltip } from '@mui/material';
 import {
     Menu as MenuIcon,
-    MenuBook as MenuBookIcon,
+    Book as BlogIcon,
     Info as InfoIcon,
     AccountCircle as AccountCircleIcon,
     Logout as LogoutIcon
@@ -23,7 +23,7 @@ const navigationLinks = [
     },
     {
         pageDescriptor: pagesDescriptors.BLOG,
-        icon: () => <MenuBookIcon />,
+        icon: () => <BlogIcon />,
     },
     {
         pageDescriptor: pagesDescriptors.ABOUT,
