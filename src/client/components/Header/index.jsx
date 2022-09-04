@@ -52,18 +52,17 @@ function RenderLogo({ transparent }) {
                 flexFlow: 'row nowrap',
                 justifyContent: 'center',
                 alignItems: 'center',
-                color: colors.text,
-                background: colors.background,
+                color: colors.textComplementary,
+                background: transparent ? 'transparent' : colors.backgroundComplementaryContrast,
                 textDecoration: 'none',
                 paddingLeft: theme.spacing(2),
                 paddingRight: theme.spacing(2),
-                marginBottom: '-1px',
                 fontSize: '2rem',
                 textTransform: 'capitalize',
-                boxShadow: transparent ? 'unset' : '0 0 7px #00000051',
 
                 '&:hover': {
                     textDecoration: 'none',
+                    background: colors.active,
                 },
                 
                 [theme.breakpoints.down('sm')]: {
@@ -75,7 +74,7 @@ function RenderLogo({ transparent }) {
                     width: '32px',
                     height: '32px',
                     marginRight: 2,
-                    background: 'url("/assets/images/favicon.png")'
+                    background: 'url("/assets/images/Logo_32_Light.png")'
                 }}/>
             LIJOHNTTLE
         </InternalLink>

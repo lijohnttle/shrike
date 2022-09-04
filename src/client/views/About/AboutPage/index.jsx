@@ -84,13 +84,12 @@ export const AboutPage = () => {
                     <span>
                         <AccessTimeOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 1 }} />
                         <span>
-                            JUNE 06, 2022
+                            SEPTEMBER 09, 2022
                         </span>
                     </span>
                 }>
-                <ContentBlock
+                <ContentBlock compact
                     sx={{
-                        background: colors.paperDarkBackground,
                         marginTop: 4,
                     }}>
                     <Box
@@ -100,13 +99,15 @@ export const AboutPage = () => {
                                 xs: 'column',
                                 md: 'row',
                             },
+                            alignItems: 'center',
+                            justifyContent: 'space-around',
                         }}>
                         
                         <Box
                             sx={{
                                 width: {
                                     xs: '100%',
-                                    md: '50%',
+                                    md: '30%',
                                 },
                                 paddingRight: {
                                     xs: 0,
@@ -122,21 +123,19 @@ export const AboutPage = () => {
 
                         <Box
                             sx={{
+                                background: colors.paperDarkBackground,
                                 width: {
                                     xs: '100%',
                                     md: '50%',
                                 },
-                                paddingLeft: {
-                                    xs: 0,
-                                    md: 2,
+                                padding: {
+                                    xs: 2,
+                                    md: 4,
                                 },
+                                borderRadius: 2
                             }}>
                             <Typography variant="h2" gutterBottom paragraph>
                                 Hi, I'm Ivan Cherkasov
-                            </Typography>
-
-                            <Typography color="inherit" gutterBottom paragraph textAlign="justify">
-                                I am a Software Engineer. When I was a kid, my parents bought me my first PC, and a few books about its exploitation. One of the books included listings with Visual Basic code, which made me curious about what I could do with my computer myself if I learn it. So I asked my dad to buy books about programming. My first languages were Visual Basic, C++, C#, and eventually, I started focusing on the last one.
                             </Typography>
 
                             <Typography color="inherit" gutterBottom paragraph textAlign="justify">
@@ -150,7 +149,7 @@ export const AboutPage = () => {
                     <Section title="What I'm Doing Now">
                         <SectionList>
                             <SectionListItem>
-                                Right now I live in <b>Wroclaw, Poland</b>, but I am about to move somewhere else.
+                                Right now I live in <b>Wroclaw, Poland</b>, but I am about to move to <b>Singapore</b>.
                             </SectionListItem>
                             <SectionListItem>
                                 Working as a <b>Senior Software Engineer</b> in a Swiss multinational bank.
