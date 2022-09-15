@@ -23,16 +23,6 @@ const projects = [
         ],
     },
     {
-        name: 'Habit Tracker',
-        description: 'A mobile application for tracking habits.',
-        links: [
-            {
-                vendor: 'github',
-                value: 'https://github.com/lijohnttle/habit-tracker',
-            },
-        ],
-    },
-    {
         name: 'Image Processing Tools (.NET)',
         description: 'Libraries consisting of image processing tools and filters.',
         links: [
