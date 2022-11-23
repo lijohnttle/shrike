@@ -149,7 +149,7 @@ export const AboutPage = () => {
                     <Section title="What I'm Doing Now">
                         <SectionList>
                             <SectionListItem>
-                                I am a digital nomad and I am located mostly in Southeast Asia or Australia.
+                                Based in Singapore.
                             </SectionListItem>
                             <SectionListItem>
                                 Working as a <b>Senior Software Engineer</b> in a Swiss multinational bank.
