@@ -84,7 +84,7 @@ export const AboutPage = () => {
                     <span>
                         <AccessTimeOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 1 }} />
                         <span>
-                            NOVEMBER 22, 2022
+                            FEBRUARY 11, 2022
                         </span>
                     </span>
                 }>
@@ -149,10 +149,10 @@ export const AboutPage = () => {
                     <Section title="What I'm Doing Now">
                         <SectionList>
                             <SectionListItem>
-                                Based in Singapore.
+                                I am a digital nomad, right now I live in Southeast Asia.
                             </SectionListItem>
                             <SectionListItem>
-                                Working as a <b>Senior Software Engineer</b> in a Swiss multinational bank.
+                                Working as a <b>Senior Software Engineer</b>.
                             </SectionListItem>
                             <SectionListItem>
                                 Getting ready to get married.
