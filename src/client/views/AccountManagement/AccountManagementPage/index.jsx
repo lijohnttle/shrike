@@ -36,7 +36,7 @@ const SectionsRoot = styled('div')(({ theme }) => ({
 
     display: 'flex',
     flexFlow: 'row wrap',
-    alignItems: 'center',
+    alignItems: 'flex-start',
 }));
 
 const SectionRoot = styled('div')(({ theme }) => ({
