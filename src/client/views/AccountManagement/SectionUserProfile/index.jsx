@@ -3,7 +3,7 @@ import { Button, CircularProgress, TextField } from '@mui/material';
 import { graphqlRequest } from "../../../services/api.js";
 import { useUserSession } from '../../../hooks';
 import { SectionHeader } from '../SectionHeader/index.jsx';
-import { useStyles } from './styles';
+import { styled } from '@mui/system';
 
 
 async function loadUserProfile() {
@@ -36,11 +36,33 @@ async function loadUserProfile() {
     return null;
 }
 
+const Form = styled('form')(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+}));
+
+const FieldContainerStyled = styled('div')(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: theme.spacing(2),
+}));
+
+const CommandContainerStyled = styled('div')(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    justifyContent: 'end',
+
+    [theme.breakpoints.down('sm')]: {
+        flexDirection: 'column',
+        justifyContent: 'start',
+        alignItems: 'stretch',
+    },
+}));
+
 export function SectionUserProfile() {
     const [getUserSession] = useUserSession();
     const [isLoading, setIsLoading] = useState(true);
     const [goodReadsUserId, setGoodReadsUserId] = useState('');
-    const classes = useStyles();
 
     useEffect(() => {
         let isMounted = true;
@@ -82,18 +104,18 @@ export function SectionUserProfile() {
         <div>
             <SectionHeader text="User Profile" />
 
-            <form className={classes.form}>
-                <div className={classes.fieldContainer}>
+            <Form>
+                <FieldContainerStyled>
                     <TextField
                         label="GoodReads User Id"
                         defaultValue={goodReadsUserId}
                         onChange={e => setUsername(e.target.value)} />
-                </div>
+                </FieldContainerStyled>
                 
-                <div className={classes.commandContainer}>
+                <CommandContainerStyled>
                     <Button color="primary" variant="contained" onClick={saveChanges}>Save</Button>
-                </div>
-            </form>
+                </CommandContainerStyled>
+            </Form>
         </div>
     );
 };

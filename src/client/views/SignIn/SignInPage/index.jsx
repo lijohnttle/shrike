@@ -1,18 +1,40 @@
 import React, { useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import { Box, Button, TextField, styled } from '@mui/material';
 import { Page } from '../../../components';
 import { signIn } from '../../../services/securityService';
 import { Navigate } from 'react-router-dom';
 import { useUserSession } from '../../../hooks';
-import { useStyles } from './styles';
 import { pagesDescriptors } from '../../../../static';
 
+
+const FormStyled = styled('form')(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignSelf: 'center',
+    width: '300px',
+    marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(8),
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+
+    [theme.breakpoints.down('sm')]: {
+        alignSelf: 'stretch',
+        width: 'unset',
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+    },
+}));
+
+const FieldContainerStyled = styled('div')(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: theme.spacing(2),
+}));
 
 const SignInPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [getUserSession, setUserSession] = useUserSession();
-    const classes = useStyles();
 
     const submitHandler = async (e) => {
         e?.preventDefault();
@@ -43,29 +65,29 @@ const SignInPage = () => {
 
     return (
         <Page title="Sign In">
-            <div className={classes.topSpace}></div>
+            <Box flexGrow={1} />
 
-            <form className={classes.form} onSubmit={submitHandler}>
-                <div className={classes.fieldContainer}>
+            <FormStyled onSubmit={submitHandler}>
+                <FieldContainerStyled>
                     <TextField
                         required
                         label="Username"
                         defaultValue={username}
                         onChange={e => setUsername(e.target.value)} />
-                </div>
-                <div className={classes.fieldContainer}>
+                </FieldContainerStyled>
+                <FieldContainerStyled>
                     <TextField
                         required
                         type="password"
                         label="Password"
                         defaultValue={password}
                         onChange={e => setPassword(e.target.value)} />
-                </div>
+                </FieldContainerStyled>
 
                 <Button type="submit" color="primary" variant="contained" onClick={submitHandler}>Sign In</Button>
-            </form>
+            </FormStyled>
 
-            <div className={classes.bottomSpace}></div>
+            <Box flexGrow={2} />
         </Page>
     );
 };

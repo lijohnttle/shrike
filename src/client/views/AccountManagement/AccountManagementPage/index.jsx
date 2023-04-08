@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Article, ContentBlock, Page } from '../../../components';
 import { SectionUserProfile } from '../SectionUserProfile';
 import { SectionUserVisits } from '../SectionUserVisits';
-import { useStyles } from './styles.js';
 import { SectionsMenu } from '../SectionsMenu';
 import { SectionUserSessions } from '../SectionUserSessions';
 import { pagesDescriptors } from '../../../../static';
@@ -29,11 +28,11 @@ const SECTION_LIST = [
 
 const SectionsRoot = styled('div')(({ theme }) => ({
     display: 'flex',
-        flexFlow: 'row nowrap',
+    flexFlow: 'row nowrap',
 
-        [theme.breakpoints.down('md')]: {
-            flexFlow: 'column nowrap',
-        },
+    [theme.breakpoints.down('md')]: {
+        flexFlow: 'column nowrap',
+    },
 
     display: 'flex',
     flexFlow: 'row wrap',
@@ -46,7 +45,6 @@ const SectionRoot = styled('div')(({ theme }) => ({
 
 const AccountManagementPage = () => {
     const [selectedSectionId, setSelectedSectionId] = useState(SECTION_LIST[0].id);
-    const classes = useStyles();
 
     return (
         <Page title="Account Management" authenticated>

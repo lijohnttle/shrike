@@ -3,19 +3,35 @@ import { Delete as DeleteIcon, Refresh as RefreshIcon, ClearAll as ClearAllIcon 
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { useUserSession } from '../../../hooks';
-import { useStyles } from './styles';
 import { SectionHeader } from '../SectionHeader';
 import { fetchUserVisits, deleteUserVisits, deleteAllUserVisits } from '../../../services/userVisitsApi';
+import { styled } from '@mui/system';
 
 
 const USER_VISIT_COUNT = 100;
+
+
+const ToolBarStyled = styled('div')(({ theme }) => ({
+    display: 'flex',
+    flexFlow: 'row wrap',
+    marginBottom: theme.spacing(1),
+
+    '& > button': {
+        marginRight: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+    },
+}));
+
+const TableContainerStyled = styled('div')(({ theme }) => ({
+    height: '400px',
+    width: '100%',
+}));
 
 export function SectionUserVisits() {
     const [userVisits, setUserVisits] = useState([]);
     const [pageSize, setPageSize] = useState(10);
     const [selectedUserVisitIds, setSelectedUserVisitIds] = useState([]);
     const [getUserSession] = useUserSession();
-    const classes = useStyles();
 
     useEffect(() => {
         handleRefresh();
@@ -57,13 +73,13 @@ export function SectionUserVisits() {
         <div>
             <SectionHeader text="User Visits" />
 
-            <div className={classes.toolbar}>
+            <ToolBarStyled>
                 <Button startIcon={<DeleteIcon />} onClick={handleDelete}>Delete</Button>
                 <Button startIcon={<ClearAllIcon />} onClick={handleClear}>Clear All</Button>
                 <Button startIcon={<RefreshIcon />} onClick={handleRefresh}>Refresh</Button>
-            </div>
+            </ToolBarStyled>
 
-            <div className={classes.tableContainer}>
+            <TableContainerStyled>
                 <DataGrid
                     columns={
                         [
@@ -118,7 +134,7 @@ export function SectionUserVisits() {
                     pagination
                     onPageSizeChange={(pageSize) => setPageSize(pageSize)}
                     onSelectionModelChange={(selection) => setSelectedUserVisitIds(selection)} />
-            </div>
+            </TableContainerStyled>
         </div>
     );
 }

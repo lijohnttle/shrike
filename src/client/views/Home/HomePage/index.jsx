@@ -3,13 +3,12 @@ import { Page } from '../../../components';
 import { WelcomeSection } from '../WelcomeSection';
 import { PortfolioSection } from '../PortfolioSection';
 import { useData } from '../../../hooks';
-import { useStyles } from './styles';
 import { BlogSection } from '../BlogSection';
+import { Box } from '@mui/system';
 
 
 const HomePage = () => {
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
-    const classes = useStyles();
     const data = useData();
 
     const handleResize = useCallback(() => {
@@ -49,9 +48,9 @@ const HomePage = () => {
     return (
         <Page title="Home" hideHeader>
             <div>
-                <div className={classes.welcomeSectionContainer}>
+                <Box position="relative">
                     <WelcomeSection contacts={data.contacts} screenHeight={screenHeight} />
-                </div>
+                </Box>
 
                 <BlogSection disableBottomGutter />
 

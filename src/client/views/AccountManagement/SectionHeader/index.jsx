@@ -1,17 +1,19 @@
 import { Typography } from '@mui/material';
 import React from 'react';
-import { useStyles } from './styles';
+import { styled } from '@mui/system';
 
+
+const SectionHeaderWrapper = styled('div')(({ theme }) => ({
+    marginBottom: theme.spacing(4)
+}));
 
 const SectionHeader = ({ text }) => {
-    const classes = useStyles();
-
     return (
-        <div className={classes.root}>
+        <SectionHeaderWrapper>
             <Typography variant="h2" gutterBottom>
                 {text}
             </Typography>
-        </div>
+        </SectionHeaderWrapper>
     );
 };
 
