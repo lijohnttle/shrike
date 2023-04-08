@@ -37,17 +37,25 @@ function SubTitle({ blogPost, userSession }) {
                 </span>
             </span>
 
-            {userSession
-                ? (
-                    <span>
-                        <span>{'\u00a0\u00a0•\u00a0\u00a0'}</span>
-                        <VisibilityOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 0.5, fontSize: '1.16em' }} />
-                        <span style={{ textAlign: 'middle' }}>
-                            {blogPost.visits || 0}
-                        </span>
+            {blogPost.category && (
+                <span>
+                    <span>{'\u00a0\u00a0|\u00a0\u00a0'}</span>
+                    <FolderOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 0.5, fontSize: '1.3em' }} />
+                    <span style={{ verticalAlign: 'middle' }}>
+                        {blogPost.category}
                     </span>
-                )
-                : null}
+                </span>
+            )}
+
+            {userSession && (
+                <span>
+                    <span>{'\u00a0\u00a0•\u00a0\u00a0'}</span>
+                    <VisibilityOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 0.5, fontSize: '1.16em' }} />
+                    <span style={{ textAlign: 'middle' }}>
+                        {blogPost.visits || 0}
+                    </span>
+                </span>
+            )}
         </>
     );
 }
@@ -111,45 +119,22 @@ function TileView({
             flexDirection="column"
             flex={1}
             sx={{
-                marginTop: {
-                    xs: 2,
-                    sm: compact ? 2 : 4,
-                },
+                '&:hover': {
+                    '& .hoverTarget': {
+                        background: colors.active,
+                    }
+                }
             }}>
-            <Typography
-                variant="caption"
-                align="justify"
-                marginBottom={1}
-                sx={{
-                    marginLeft: {
-                        xs: 2,
-                        sm: compact ? 2 : 4,
-                    },
-                    marginRight: {
-                        xs: 2,
-                        sm: compact ? 2 : 4,
-                    },
-                }}>
-                <SubTitle blogPost={blogPost} userSession={userSession} />
-            </Typography>
-
             <InternalLink
                 to={urlUtils.getBlogPostUrlPath(blogPost.slug)}
                 sx={{
+                    position: 'relative',
                     display: 'block',
                     overflow: 'hidden',
                     aspectRatio: '3/2',
-                    marginBottom: 2,
                     backgroundColor: colors.selectionBackground,
-                    marginLeft: {
-                        xs: 2,
-                        sm: compact ? 2 : 4,
-                    },
-                    marginRight: {
-                        xs: 2,
-                        sm: compact ? 2 : 4,
-                    },
-                }}>
+                }}
+                >
                 {blogPost.descriptionImage
                     ? (
                         <img
@@ -161,111 +146,82 @@ function TileView({
                                 height: '100%',
                             }} />
                     ) : null}
-            </InternalLink>
-
-            <InternalLink
-                to={urlUtils.getBlogPostUrlPath(blogPost.slug)}
-                withoutUnderline
-                sx={{
-                    position: 'relative',
-                    color: 'inherit',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    marginLeft: {
-                        xs: 2,
-                        sm: compact ? 2 : 4,
-                    },
-                    marginRight: {
-                        xs: 2,
-                        sm: compact ? 2 : 4,
-                    },
-                }}>
-
-                {compact
-                    ? (
-                        <Tooltip title={blogPost.title}>
-                            <Box position="relative">
-                                <Typography variant="h5">
-                                    &nbsp;
-                                </Typography>
-                                <Typography
-                                    variant="h5"
-                                    position="absolute"
-                                    top="0"
-                                    left="0"
-                                    width="100%"
-                                    noWrap>
+                <Box
+                    className="hoverTarget"
+                    sx={{
+                        position: 'absolute',
+                        left: 0,
+                        top: 0,
+                        background: '#000000a8',
+                        color: 'white',
+                        paddingX: 1,
+                        paddingY: 0.5,
+                    }}>
+                    <Typography variant="caption" fontWeight="bold">
+                        <SubTitle blogPost={blogPost} userSession={userSession} />
+                    </Typography>
+                </Box>
+                
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        width: '100%',
+                        left: 0,
+                        bottom: 0,
+                        paddingBottom: 1,
+                        paddingLeft: 2,
+                    }}>
+                    <Box
+                        className="hoverTarget"
+                        sx={{
+                            background: '#000000a8',
+                            color: colors.textComplementary,
+                            padding: 1,
+                        }}
+                        >
+                        {compact
+                            ? (
+                                <Tooltip title={<span style={{ fontSize: '1rem' }}>{blogPost.title}</span>}>
+                                    <Box position="relative">
+                                        <Typography variant="h5">
+                                            &nbsp;
+                                        </Typography>
+                                        <Typography
+                                            variant="h5"
+                                            position="absolute"
+                                            top="0"
+                                            left="0"
+                                            width="100%"
+                                            noWrap>
+                                            {blogPost.title.toUpperCase()}
+                                        </Typography>
+                                    </Box>
+                                </Tooltip>
+                            )
+                            : (
+                                <Typography variant="h3">
                                     {blogPost.title.toUpperCase()}
                                 </Typography>
-                            </Box>
-                        </Tooltip>
-                    )
-                    : (
-                        <Typography variant="h3">
-                            {blogPost.title.toUpperCase()}
-                        </Typography>
-                    )}
+                            )}
+                    </Box>
+                </Box>
             </InternalLink>
 
-            {showDescription
-                ? (
+            {showDescription && (
+                <InternalLink to={urlUtils.getBlogPostUrlPath(blogPost.slug)}>
                     <Typography
                         variant="body1"
                         textAlign="justify"
                         sx={{
-                            marginTop: 2,
-                            marginBottom: 2,
-                            marginLeft: {
-                                xs: 2,
-                                sm: compact ? 2 : 4,
-                            },
-                            marginRight: {
-                                xs: 2,
-                                sm: compact ? 2 : 4,
-                            },
+                            background: 'black',
+                            color: colors.textComplementary,
+                            paddingY: 2,
+                            paddingX: 1,
                         }}>
                         {blogPost.description}
                     </Typography>
-                )
-                : null}
-
-            <Box flex={1} />
-
-            <Box
-                display="flex"
-                flexDirection="row"
-                justifyContent="space-between"
-                alignItems="center"
-                marginTop={2}
-                sx={{
-                    borderTop: '1px solid #eaeaea'
-                }}>
-                <Typography
-                    variant="body1"
-                    paddingTop={2}
-                    paddingBottom={2}
-                    paddingRight={2}
-                    fontWeight="bold"
-                    sx={{
-                        paddingLeft: {
-                            xs: 2,
-                            sm: compact ? 2 : 4,
-                        }
-                    }}>
-                    {blogPost.category
-                        ? (
-                            <>
-                                <FolderOutlined sx={{ verticalAlign: 'middle', marginRight: 1 }} />
-                                <span style={{ verticalAlign: 'middle' }}>
-                                    {blogPost.category}
-                                </span>
-                            </>
-                        )
-                        : <>&nbsp;</>}
-                </Typography>
-
-                <RenderReadButton blogPost={blogPost} compact={compact} tile={true} />
-            </Box>
+                </InternalLink>
+            )}
         </Box>
     );
 }
@@ -454,9 +410,6 @@ export function BlogPostPreview({
             flexDirection="column"
             sx={{
                 flex: '1',
-                background: colors.paperBackground,
-                border: `1px solid ${colors.paperBorder}`,
-                boxShadow: shadows.paper,
             }}>
             {displayMode === DisplayMode.tiles
                 ? <TileView blogPost={blogPost} showDescription={showDescription} compact={compact} userSession={userSession} />

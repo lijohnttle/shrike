@@ -10,7 +10,7 @@
     "build-dev": "webpack --config build/client/webpack.config.js --mode development",
     "build-prod": "webpack --config build/client/webpack.config.js --mode production",
     "build": "npm run build-dev",
-    "start": "node --experimental-specifier-resolution=node ./src/server/index.js",
+    "start": "node --loader commonjs-extension-resolution-loader ./src/server/index.js",
     "restart": "npm run build && npm start",
     "test": "jest --testEnvironment=node --runInBand ./src/tests --config ./src/tests/jest.config.js"
   },
@@ -39,6 +39,7 @@
     "axios": "^0.26.1",
     "babel-plugin-transform-commonjs-es2015-modules": "^4.0.1",
     "body-parser": "^1.20.0",
+    "commonjs-extension-resolution-loader": "^0.1.0",
     "core-js": "^3.22.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
