@@ -14,8 +14,27 @@ It has been developed using JS, Node.JS, React.
 
 ### Unit Tests
 
+Prerequisites:
+- MongoDB
+
 Run command:
 
 ```
 npm run test
+```
+
+### Build UI
+
+Run command:
+
+```
+npm run build
+```
+
+### Start Server
+
+Run command:
+
+```
+npm run start
 ```
