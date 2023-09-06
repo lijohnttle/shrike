@@ -9,3 +9,13 @@ http://www.lijohnttle.com/
 ## Tools and technologies
 
 It has been developed using JS, Node.JS, React.
+
+## Commands
+
+### Unit Tests
+
+Run command:
+
+```
+npm run test
+```
