@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Article, ContentBlock, Page } from '../../../components';
 import { SectionUserProfile } from '../SectionUserProfile';
 import { SectionUserVisits } from '../SectionUserVisits';
-import { useStyles } from './styles.js';
 import { SectionsMenu } from '../SectionsMenu';
 import { SectionUserSessions } from '../SectionUserSessions';
 import { pagesDescriptors } from '../../../../static';
+import { styled } from '@mui/system';
 
 
 const SECTION_LIST = [
@@ -26,24 +26,40 @@ const SECTION_LIST = [
     },
 ];
 
+const SectionsRoot = styled('div')(({ theme }) => ({
+    display: 'flex',
+    flexFlow: 'row nowrap',
+
+    [theme.breakpoints.down('md')]: {
+        flexFlow: 'column nowrap',
+    },
+
+    display: 'flex',
+    flexFlow: 'row wrap',
+    alignItems: 'flex-start',
+}));
+
+const SectionRoot = styled('div')(({ theme }) => ({
+    flexGrow: 1
+}));
+
 const AccountManagementPage = () => {
     const [selectedSectionId, setSelectedSectionId] = useState(SECTION_LIST[0].id);
-    const classes = useStyles();
 
     return (
         <Page title="Account Management" authenticated>
             <Article pageDescriptor={pagesDescriptors.ACCOUNT_MANAGEMENT}>
                 <ContentBlock>
-                    <div className={classes.sectionsRoot}>
+                    <SectionsRoot>
                         <SectionsMenu
                             options={SECTION_LIST}
                             selection={selectedSectionId}
                             selectionChanged={setSelectedSectionId} />
 
-                        <div className={classes.sectionRoot}>
+                        <SectionRoot>
                             {SECTION_LIST.find((section) => section.id === selectedSectionId)?.render()}
-                        </div>
-                    </div>
+                        </SectionRoot>
+                    </SectionsRoot>
                 </ContentBlock>
             </Article>
         </Page>
