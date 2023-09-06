@@ -1,25 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Typography, IconButton } from '@mui/material';
-import { KeyboardArrowDown } from '@mui/icons-material'
-import { ContactLink, Header } from '../../../components';
+import { Link } from 'react-router-dom';
+import { Typography, IconButton, Box, Button } from '@mui/material';
+import { KeyboardArrowDown, ReadMore } from '@mui/icons-material'
+import { ContactLink, Header, InternalLink } from '../../../components';
 import { styled } from '@mui/system';
+import { colors } from '../../../themes';
 
-
-const Root = styled('div')(({ theme }) => ({
-    display: 'flex',
-    background: '#000000af',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexGrow: 1,
-    color: theme.palette.primary.contrastText,
-}));
-
-const HeaderContainer = styled('div')(() => ({
-    flex: '1 1 auto',
-    alignSelf: 'stretch',
-}));
 
 const ContentContainer = styled('div')(({ theme }) => ({
     paddingTop: theme.spacing(8),
@@ -39,14 +26,6 @@ const ContentContainer = styled('div')(({ theme }) => ({
         paddingRight: theme.spacing(4),
         paddingLeft: theme.spacing(4),
     },
-
-    '& .contactList': {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: theme.spacing(6),
-    },
 }));
 
 const NextSectionButtonContainer = styled('div')(({ theme }) => ({
@@ -59,10 +38,17 @@ const NextSectionButtonContainer = styled('div')(({ theme }) => ({
 
 const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
     return (
-        <Root>
-            <HeaderContainer>
+        <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="space-between"
+            alignItems="center"
+            flexGrow={1}
+            color={colors.textComplementary}
+            sx={{ background: '#000000af' }}>
+            <Box flex="1 1 auto" alignSelf="stretch">
                 <Header transparent dark />
-            </HeaderContainer>
+            </Box>
 
             <ContentContainer>
                 <Typography paragraph variant="h1" align="center">
@@ -75,11 +61,55 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
                     I am a Software Engineer
                 </Typography>
 
-                <div className="contactList">
+                <InternalLink
+                    to="/about"
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        color: colors.text,
+                        border: `1px solid ${colors.text}`,
+                        background: colors.background,
+                        alignSelf: 'center',
+                        marginTop: 2,
+                        paddingLeft: 4,
+                        paddingRight: 4,
+                        paddingTop: 1,
+                        paddingBottom: 1,
+                        fontSize: 'inherit',
+
+                        '&:hover': {
+                            color: colors.activeText,
+                            borderColor: colors.active,
+                            background: colors.active,
+                        },
+                    }}>
+                    READ MORE <ReadMore sx={{ marginLeft: 1 }} />
+                </InternalLink>
+
+                <Box
+                    display="flex"        
+                    flexDirection="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    marginTop={6}
+                    sx={{
+                        position: {
+                            xs: 'unset',
+                            md: 'absolute',
+                        },
+                        flexDirection: {
+                            xs: "row",
+                            md: "column",
+                        },
+                        right: {
+                            xs: 'unset',
+                            md: '32px',
+                        },
+                    }}>
                     {contacts.filter(c => c.types.some(ct => ct === 'social')).map(contact => (
                         <ContactLink key={contact.vendor} contact={contact} dark fontSize="large" />
                     ))}
-                </div>
+                </Box>
             </ContentContainer>
 
             <NextSectionButtonContainer className="nextSectionButtonContainer">
@@ -88,13 +118,14 @@ const WelcomeSectionContent = ({ contacts, gotoNextSection }) => {
                     color="inherit"
                     sx={{
                         '&:hover': {
-                            background: '#59595996',
+                            background: colors.active,
+                            color: colors.activeText,
                         }
                     }}>
                     <KeyboardArrowDown fontSize="large" />
                 </IconButton>
             </NextSectionButtonContainer>
-        </Root>
+        </Box>
     );
 };
 

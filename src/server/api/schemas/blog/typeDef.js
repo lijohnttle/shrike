@@ -1,18 +1,19 @@
-const typeDef = `
+export const typeDef = `
     extend type Query {
         blogPostList(options: BlogPostListOptions): BlogPostListRsponse
-        blogPost(slug: String!, userToken: String): BlogPostResult
+        blogPost(slug: String!, userToken: String): BlogPostResponse
     }
 
     extend type Mutation {
-        createBlogPost(blogPost: CreateBlogPostInput!, userToken: String!): EmptyResult
-        changeBlogPost(blogPost: ChangeBlogPostInput!, userToken: String!): EmptyResult
-        deleteBlogPost(blogPostId: String!, userToken: String!): EmptyResult
+        createBlogPost(blogPost: CreateBlogPostInput!, userToken: String!): EmptyResponse
+        changeBlogPost(blogPost: ChangeBlogPostInput!, userToken: String!): EmptyResponse
+        deleteBlogPost(blogPostId: String!, userToken: String!): EmptyResponse
     }
 
     input BlogPostListOptions {
-        unpublished: Boolean
         userToken: String
+        categories: [String]
+        unpublished: Boolean
         skip: Int
         take: Int
     }
@@ -26,6 +27,7 @@ const typeDef = `
         published: Boolean
         attachments: [FileAttachmentInput]
         category: String
+        series: String
     }
 
     input ChangeBlogPostInput {
@@ -38,6 +40,7 @@ const typeDef = `
         published: Boolean
         attachments: [FileAttachmentInput]
         category: String
+        series: String
     }
 
     type BlogPost {
@@ -54,6 +57,8 @@ const typeDef = `
         attachments: [FileAttachmentOutput]
         visits: Int
         category: String
+        series: String
+        seriesPreviews: [BlogPostPreview]
     }
 
     type BlogPostPreview {
@@ -68,6 +73,7 @@ const typeDef = `
         published: Boolean!
         visits: Int
         category: String
+        series: String
     }
 
     type BlogPostListResult {
@@ -81,14 +87,9 @@ const typeDef = `
         errorMessage: String
     }
 
-    type BlogPostResult {
+    type BlogPostResponse {
         success: Boolean!
         blogPost: BlogPost
         errorMessage: String
     }
 `;
-
-
-export {
-    typeDef
-};

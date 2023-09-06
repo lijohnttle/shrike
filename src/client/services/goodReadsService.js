@@ -1,16 +1,22 @@
 import axios from 'axios';
+import { BookListResultDto } from '../../contracts/books';
 
-async function loadBooks(count, shelf) {
-    const url = `/proxy/goodreads/${shelf}?count=${count}`;
+
+/**
+ * Retrieves books on a shelf. 
+ * @param {Number} count The maximum number of books to fetch.
+ * @param {String} shelf The name of a shelf.
+ * @returns {Promise<BookListResultDto>} The list of books.
+ */
+export async function fetchBooks(count, shelf) {
+    const url = `/api/books/shelves/${shelf}?count=${count}`;
 
     const resp = await axios.get(url);
     
     if (resp.status == 200) {
-        return resp.data.books;
+        return new BookListResultDto(resp.data);
     }
     else {
         throw resp.statusText;
     }
 };
-
-export { loadBooks };

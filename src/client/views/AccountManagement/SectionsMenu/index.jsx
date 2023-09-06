@@ -1,10 +1,21 @@
 import React from 'react';
-import { FormControl, InputLabel, MenuItem, MenuList, Select, TextField, useMediaQuery } from '@mui/material';
-import { useStyles } from './styles.js';
+import { FormControl, MenuItem, MenuList, Select, useMediaQuery } from '@mui/material';
+import { styled } from '@mui/system';
 
+
+const SectionsMenuWrapper = styled('div')(({ theme }) => ({
+    display: 'flex',
+    flexFlow: 'column nowrap',
+    marginRight: theme.spacing(4),
+    minWidth: '200px',
+
+    [theme.breakpoints.down('md')]: {
+        marginRight: 'unset',
+        marginBottom: theme.spacing(4),
+    },
+}));
 
 const SectionsMenu = ({ options, selection, selectionChanged }) => {
-    const classes = useStyles();
     const smallScreenMatches = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
     const handleNavigation = (id) => {
@@ -12,7 +23,7 @@ const SectionsMenu = ({ options, selection, selectionChanged }) => {
     };
 
     return (
-        <div className={classes.root}>
+        <SectionsMenuWrapper>
             {smallScreenMatches ? (
                 <FormControl variant="standard">
                     <Select
@@ -37,7 +48,7 @@ const SectionsMenu = ({ options, selection, selectionChanged }) => {
                     ))}
                 </MenuList>
             ) : null}
-        </div>
+        </SectionsMenuWrapper>
     );
 };
 

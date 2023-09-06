@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Box, Button, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { Add as AddIcon } from '@mui/icons-material';
-import { BlogPostPreview, Loader } from '../../../components';
+import { Box, Typography } from '@mui/material';
+import { ReadMore } from '@mui/icons-material';
+import { BlogPostPreview, InternalLink, Loader } from '../../../components';
 import { SectionContentWrapper } from '../SectionContentWrapper';
 import { SectionWrapper } from '../SectionWrapper';
 import { fetchBlogPostList } from '../../../services/blogService';
@@ -29,48 +28,26 @@ const RecentBlogPosts = ({ blogPosts }) => {
                         sm: 4
                     },
                 }}>
-                LAST UPDATES
+                RECENT POSTS
             </Typography>
 
-            <Box
-                display="flex"
-                sx={{
-                    flexDirection: {
-                        xs: 'column',
-                        md: 'row',
-                    },
-                }}>
-
-                {/* Left panel */}
+            <Box display="flex" flexDirection="column">
+                {/* Top panel */}
                 <Box
                     display="flex"
+                    flexDirection="column"
                     alignItems="stretach"
                     sx={{
-                        width: {
-                            xs: 'unset',
-                            md: blogPosts.length > 1 ? 'calc(100% * 2 / 3)' : 'unset',
+                        marginBottom: {
+                            xs: blogPosts.length > 1 ? 2 : 0,
                         },
                     }}>
-                    <Box
-                        display="flex"
-                        alignItems="stretach"
-                        sx={{
-                            marginRight: {
-                                xs: 0,
-                                md: blogPosts.length > 1 ? 2 : 0,
-                            },
-                            marginBottom: {
-                                xs: blogPosts.length > 1 ? 2 : 0,
-                                md: 0,
-                            },
-                        }}>
-                        {blogPosts.length > 0
-                            ? <BlogPostPreview blogPost={blogPosts[0]} showDescription />
-                            : null}
-                    </Box>
+                    {blogPosts.length > 0
+                        ? <BlogPostPreview blogPost={blogPosts[0]} showDescription />
+                        : null}
                 </Box>
 
-                {/* Right panel */}
+                {/* Bottom panel */}
                 {blogPosts.length > 1
                     ? (
                         <Box
@@ -79,37 +56,29 @@ const RecentBlogPosts = ({ blogPosts }) => {
                                 flexDirection: {
                                     xs: 'column',
                                     sm: 'row',
-                                    md: 'column',
-                                },
-                                width: {
-                                    xs: 'unset',
-                                    md: 'calc(100% * 1 / 3)',
                                 },
                             }}>
                             {blogPosts.slice(1).map((blogPost, index) => (
                                 <Box
                                     key={blogPost.slug}
-                                    flex="1"
+                                    display="flex"
+                                    flex={1}
                                     sx={{
                                         marginBottom: {
                                             xs: index === 0 ? 1 : 0,
                                             sm: 0,
-                                            md: index === 0 ? 1 : 0,
                                         },
                                         marginTop: {
                                             xs: index === 1 ? 1 : 0,
                                             sm: 0,
-                                            md: index === 1 ? 1 : 0,
                                         },
                                         marginRight: {
                                             xs: 0,
                                             sm: index === 0 ? 1 : 0,
-                                            md: 0,
                                         },
                                         marginLeft: {
                                             xs: 0,
                                             sm: index === 1 ? 1 : 0,
-                                            md: 0,
                                         },
                                     }}>
                                     <BlogPostPreview blogPost={blogPost} compact />
@@ -119,13 +88,12 @@ const RecentBlogPosts = ({ blogPosts }) => {
                     ) : null}
             </Box>
 
-            <Button
-                variant="outlined"
-                component={Link}
+            <InternalLink
                 to={pagesDescriptors.BLOG.path}
-                endIcon={<AddIcon />}
-                color="brand"
                 sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     fontSize: '1.2rem',
                     marginTop: {
                         xs: 2,
@@ -144,9 +112,17 @@ const RecentBlogPosts = ({ blogPosts }) => {
                     paddingRight: 4,
                     paddingTop: 1,
                     paddingBottom: 1,
+                    border: `1px solid ${colors.text}`,
+                    color: colors.text,
+
+                    '&:hover': {
+                        background: colors.active,
+                        color: colors.activeText,
+                        borderColor: colors.activeText,
+                    },
                 }}>
-                SEE MORE
-            </Button>
+                SEE MORE <ReadMore sx={{ marginLeft: 1 }} />
+            </InternalLink>
         </>
     );
 };

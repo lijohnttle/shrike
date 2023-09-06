@@ -1,12 +1,30 @@
 import mongoose from 'mongoose';
-import { BlogPostDto, BlogPostListOptionsDto, BlogPostListResultDto } from '../../../../contracts';
+import {
+    BlogPostCategoryDto,
+    BlogPostDto,
+    BlogPostListOptionsDto,
+    BlogPostListResultDto } from '../../../../contracts';
 import { Attachment } from '../../../data/models/Attachment';
 import { BlogPost, BlogPostDocument } from '../../../data/models/blog/BlogPost';
 import { UserContext } from '../../entities/authentication/UserContext';
-import { mapBlogPostDocumentToDto, mapBlogPostDtoToDocument } from './mappers';
+import {
+    mapBlogPostDocumentToDto,
+    mapBlogPostDocumentToPreviewDto,
+    mapBlogPostDtoToDocument } from './mappers';
 
 
 export class BlogManager {
+    constructor() {
+        /**
+         * @type {BlogPostCategoryDto[]}
+         */
+        this._categoriesCache = null;
+
+        this._resetCaches = () => {
+            this._categoriesCache = null;
+        };
+    }
+
     /**
      * Returns the list of blog posts.
      * @param {BlogPostListOptionsDto} options Request options.
@@ -23,6 +41,27 @@ export class BlogManager {
         const query = {
             published: !options.unpublished,
         };
+
+        if (options.categories) {
+            // no categories selected - return empty result
+            if (options.categories.length === 0) {
+                return new BlogPostListResultDto({
+                    blogPosts: [],
+                    totalCount: 0,
+                });
+            }
+
+            // category "All" is not selected - filter by categories
+            if (!options.categories.some(c => c.toLowerCase() === 'all')) {
+                query.category = {
+                    $in: options.categories,
+                };
+
+                if (options.categories.some(c => !c)) {
+                    query.category['$in'].push(null);
+                }
+            }
+        }
 
         let requestBuilder = BlogPost
             .find(
@@ -58,7 +97,7 @@ export class BlogManager {
         const blogPostDocuments = await requestBuilder.exec();
         const totalCount = await BlogPost.countDocuments(query).exec();
 
-        const blogPosts = blogPostDocuments.map(mapBlogPostDocumentToDto);
+        const blogPosts = blogPostDocuments.map(mapBlogPostDocumentToPreviewDto);
 
         return new BlogPostListResultDto({
             blogPosts: blogPosts,
@@ -95,6 +134,7 @@ export class BlogManager {
                     "attachments.contentType": 1,
                     visits: 1,
                     category: 1,
+                    series: 1,
                 }
             )
             .exec();
@@ -107,7 +147,36 @@ export class BlogManager {
             userContext.verifyAdminAccess();
         }
 
-        return mapBlogPostDocumentToDto(blogPostDocument);
+        const blogPost = mapBlogPostDocumentToDto(blogPostDocument);
+
+        if (blogPostDocument.series) {
+            /** @type {BlogPostDocument[]} */
+            const seriesDocuments = await BlogPost
+                .find(
+                    {
+                        series: blogPostDocument.series,
+                        slug: { $ne: blogPostDocument.slug },
+                        published: userContext.validateAdminAccess()
+                            ? { $in: [true, false] }
+                            : true,
+                    },
+                    {
+                        _id: 1,
+                        title: 1,
+                        description: 1,
+                        slug: 1,
+                        createdOn: 1,
+                        updatedOn: 1,
+                        publishedOn: 1,
+                        published: 1,
+                    }
+                )
+                .exec();
+            
+            blogPost.seriesPreviews = seriesDocuments.map(mapBlogPostDocumentToPreviewDto);
+        }
+
+        return blogPost;
     }
 
     /**
@@ -120,6 +189,8 @@ export class BlogManager {
         userContext.verifyAdminAccess();
 
         await BlogPost.deleteOne({ _id: blogPostId }).exec();
+
+        this._resetCaches();
     }
 
     /**
@@ -140,6 +211,8 @@ export class BlogManager {
         mapBlogPostDtoToDocument(blogPost, existingBlogPost);
 
         await existingBlogPost.save();
+
+        this._resetCaches();
     }
 
     /**
@@ -155,6 +228,8 @@ export class BlogManager {
         mapBlogPostDtoToDocument(blogPost, newBlogPost);
 
         await newBlogPost.save();
+
+        this._resetCaches();
     }
 
     /**
@@ -203,5 +278,38 @@ export class BlogManager {
                 }
             )
             .exec();
+    }
+
+    /**
+     * Returns the list of categories.
+     * @returns {Promise<BlogPostCategoryDto[]>}
+     */
+    async getCategories() {
+        let categories = this._categoriesCache;
+
+        if (!categories) {
+            var categoriesList = await BlogPost
+                .distinct('category')
+                .exec();
+
+            categories = [
+                new BlogPostCategoryDto({
+                    name: 'All',
+                    all: true,
+                }),
+                ...categoriesList
+                    .filter(c => !!c)
+                    .sort()
+                    .map(c => new BlogPostCategoryDto({ name: c }))
+            ];
+
+            if (categoriesList.some(c => !c)) {
+                categories.push(new BlogPostCategoryDto({ name: '' }));
+            }
+
+            this._categoriesCache = categories;
+        }
+
+        return categories;
     }
 }

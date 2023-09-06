@@ -1,5 +1,7 @@
 export * from './Article';
 export * from './BlogMarkdown';
+export * from './BlogPostContent';
+export * from './BlogPostImage';
 export * from './BlogPostPreview';
 export * from './BreadCrumbs';
 export * from './ContactLink';

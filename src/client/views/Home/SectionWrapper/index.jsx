@@ -28,8 +28,7 @@ const SectionWrapper = ({
             flexDirection="column"
             justifyContent="stretch"
             minHeight={`${screenHeight}px`}
-            sx={styles}
-            screenHeight={screenHeight}>
+            sx={styles}>
             <Box display="flex" flexDirection="column" justifyContent="stretch" flex="1">
                 {children}
             </Box>

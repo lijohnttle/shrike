@@ -1,4 +1,5 @@
 import { AttachmentDto, BlogPostDto } from '../../../../contracts';
+import { BlogPostPreviewDto } from '../../../../contracts/blog';
 import { getBlogPostAttachmentUrlPath } from '../../../../utils/urlBuilder';
 import { BlogPostDocument } from '../../../data/models/blog/BlogPost';
 
@@ -16,6 +17,7 @@ export function mapBlogPostDtoToDocument(source, dest) {
     dest.published = source.published;
     dest.updatedOn = new Date();
     dest.category = source.category;
+    dest.series = source.series; 
 
     if (dest.published) {
         if (!dest.publishedOn) {
@@ -78,5 +80,28 @@ export function mapBlogPostDocumentToDto(source) {
         })),
         visits: source.visits,
         category: source.category,
+        series: source.series,
+    });
+};
+
+/**
+ * Converts data model of a blog post into DTO. 
+ * @param {BlogPostDocument} source 
+ * @returns {BlogPostPreviewDto}
+ */
+export function mapBlogPostDocumentToPreviewDto(source) {
+    return new BlogPostPreviewDto({
+        id: source._id,
+        title: source.title,
+        slug: source.slug,
+        description: source.description,
+        descriptionImage: source.descriptionImage,
+        createdOn: source.createdOn.toUTCString(),
+        updatedOn: source.updatedOn.toUTCString(),
+        publishedOn: source.publishedOn ? source.publishedOn.toUTCString() : null,
+        published: !!source.published,
+        visits: source.visits,
+        category: source.category,
+        series: source.series,
     });
 };

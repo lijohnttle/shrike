@@ -8,9 +8,9 @@ export default {
             types: ["social", "business"]
         },
         {
-            vendor: "facebook",
-            displayName: "Facebook",
-            value: "https://www.facebook.com/lijohnttle",
+            vendor: "twitter",
+            displayName: "Twitter",
+            value: "https://twitter.com/lijohnttle",
             types: ["social"]
         },
         {
@@ -18,6 +18,12 @@ export default {
             displayName: "LinkedIn",
             value: "https://www.linkedin.com/in/lijohnttle",
             types: ["social", "business"]
+        },
+        {
+            vendor: "facebook",
+            displayName: "Facebook",
+            value: "https://www.facebook.com/lijohnttle",
+            types: ["social"]
         },
         {
             vendor: "instagram",

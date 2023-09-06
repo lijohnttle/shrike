@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Checkbox, FormControlLabel } from '@mui/material';
-import { Article, BlogMarkdown, ContentBlock } from '../../../components';
+import { Article, BlogPostContent, ContentBlock } from '../../../components';
 import { EditMode } from '../EditBlogPostForm';
 import { BlogPostModel } from '../../../models';
 import { Box, styled } from '@mui/system';
@@ -30,7 +30,7 @@ const EditBlogPostPreview = (props) => {
             title={props.blogPost.title.toUpperCase()}
             titleMaxWidth="md">
             <ContentBlock maxWidth="md">
-                <BlogMarkdown blogPost={props.blogPost} />
+                <BlogPostContent blogPost={props.blogPost} />
 
                 <form style={{ display: 'flex', flexDirection: 'column' }}>
                     <Box display="flex" flexDirection="row" justifyContent="flex-end">

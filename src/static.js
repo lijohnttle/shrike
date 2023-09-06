@@ -18,6 +18,12 @@ const pagesDescriptors = {
         path: '/management/signin',
         parent: 'HOME',
     }),
+    SIGN_OUT: new PageDescriptorModel({
+        name: 'SIGN_OUT',
+        title: 'Sign Out',
+        path: '/management/signout',
+        parent: 'HOME',
+    }),
     ACCOUNT_MANAGEMENT: new PageDescriptorModel({
         name: 'ACCOUNT_MANAGEMENT',
         title: 'Account Management',

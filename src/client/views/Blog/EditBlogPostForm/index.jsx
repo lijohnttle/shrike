@@ -78,6 +78,13 @@ const EditBlogPostForm = (props) => {
                     </FieldContainer>
                     <FieldContainer>
                         <TextField
+                            label="Series"
+                            name="series"
+                            defaultValue={props.blogPost.series}
+                            onChange={e => props.onChange(e.target.name, e.target.value)} />
+                    </FieldContainer>
+                    <FieldContainer>
+                        <TextField
                             required
                             label="Description"
                             multiline
@@ -107,6 +114,7 @@ const EditBlogPostForm = (props) => {
                         <FileUpload
                             label="Attachments"
                             multiple
+                            maxFileSizeInBytes={10485760}
                             attachments={props.blogPost.attachments}
                             onChange={attachments => props.onChange('attachments', attachments)} />
                     </FieldContainer>

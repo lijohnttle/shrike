@@ -36,14 +36,6 @@ const SectionContentWrapper = ({
                         xs: disableBottomGutter ? 0 : 4,
                         sm: disableBottomGutter ? 0 : 8,
                     },
-                    paddingLeft: {
-                        xs: 1,
-                        sm: 0,
-                    },
-                    paddingRight: {
-                        xs: 1,
-                        sm: 0,
-                    },
                 }, contentRootStyles]}>
                 <Box flex="1 1 auto" />
 

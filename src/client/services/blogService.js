@@ -1,5 +1,17 @@
-import { AttachmentModel, BlogPostListModel, BlogPostModel, UserSessionModel } from '../models';
-import { BlogPostListOptionsDto, BlogPostListResponseDto, BlogPostResponseDto, ResponseDto } from '../../contracts';
+import axios from 'axios';
+import {
+    AttachmentModel,
+    BlogFilterCategoryModel,
+    BlogFilterModel,
+    BlogFilterSelectionModel,
+    BlogPostListModel,
+    BlogPostModel,
+    UserSessionModel } from '../models';
+import {
+    BlogPostListOptionsDto,
+    BlogPostListResponseDto,
+    BlogPostResponseDto,
+    ResponseDto } from '../../contracts';
 import { graphqlRequest } from './api';
 import { toBase64 } from '../utils/filesystem';
 
@@ -53,6 +65,7 @@ export async function fetchBlogPostList (options) {
                         published
                         visits
                         category
+                        series
                     }
                     totalCount
                 }
@@ -123,6 +136,20 @@ export async function fetchBlogPost(slug, options) {
                     }
                     visits
                     category
+                    series
+                    seriesPreviews {
+                        title
+                        slug
+                        description
+                        descriptionImage
+                        createdOn
+                        updatedOn
+                        publishedOn
+                        published
+                        visits
+                        category
+                        series
+                    }
                 }
                 errorMessage
             }
@@ -175,6 +202,7 @@ export async function saveBlogPost(blogPost, isCreating, options) {
             contentType: attachment.contentType,
         })),
         category: blogPost.category,
+        series: blogPost.series,
     };
 
     if (!isCreating) {
@@ -222,9 +250,9 @@ export async function saveBlogPost(blogPost, isCreating, options) {
     /**
      * @type {ResponseDto}
      */
-     const message = isCreating ? response.createBlogPost : response.changeBlogPost;
+    const message = isCreating ? response.createBlogPost : response.changeBlogPost;
 
-     if (message) {
+    if (message) {
         if (message.success) {
             return;
         }
@@ -282,3 +310,22 @@ export async function deleteBlogPost(blogPostId, options) {
         throw new Error('Server returned empty result');
     }
 };
+
+/**
+ * Gets the blog filter.
+ * @returns {Promise<BlogFilterModel>}
+ */
+export async function fetchFilterDefinition() {
+    const response = await axios.get('/api/blog/filter/definition');
+
+    if (response.status === 200) {
+        const filter = new BlogFilterModel({
+            categories: response.data.categories.map(c => new BlogFilterCategoryModel(c)),
+        });
+
+        return filter;
+    }
+    else {
+        throw new Error(response.statusText);
+    }
+}

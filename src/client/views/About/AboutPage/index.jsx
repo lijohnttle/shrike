@@ -3,8 +3,10 @@ import { Box, Container, Link, List, ListItem, ListItemIcon, ListItemText, Typog
 import { AccessTimeOutlined, CheckBox } from '@mui/icons-material';
 import { Article, ContactLink, ContentBlock, Page } from '../../../components';
 import { useData } from '../../../hooks';
-import colors from '../../../themes/colors';
 import { pagesDescriptors } from '../../../../static';
+import { BookList } from '../../../components/BookList';
+import { BookLibraryButton } from '../../../components/BookLibraryButton';
+import { colors, shadows } from '../../../themes';
 
 
 /**
@@ -30,7 +32,7 @@ const Section = (props) => (
         <Container maxWidth="md">
             {props.title ?
                 (
-                    <Typography variant="h2" align="center" gutterBottom>
+                    <Typography variant="h2" align="center" marginBottom={2}>
                         {props.title}
                     </Typography>
                 ) : null}
@@ -72,6 +74,7 @@ export const AboutPage = () => {
     const data = useData();
 
     const instagramLink = data.contacts.find((contact) => contact.vendor === 'instagram');
+    const linkedInLink = data.contacts.find((contact) => contact.vendor === 'linkedin');
 
     return (
         <Page title="About">
@@ -81,65 +84,75 @@ export const AboutPage = () => {
                     <span>
                         <AccessTimeOutlined sx={{ verticalAlign: 'text-bottom', marginRight: 1 }} />
                         <span>
-                            MARCH 20, 2022
+                            JULY 03, 2023
                         </span>
                     </span>
                 }>
-                <ContentBlock
-                    styles={{
-                        background: colors.backgroundComplementary,
-                        color: colors.textComplementary,
+                <ContentBlock compact
+                    sx={{
                         marginTop: 4,
                     }}>
                     <Box
                         sx={{
-                            width: {
-                                xs: '100%',
-                                sm: '50%',
+                            display: 'flex',
+                            flexDirection: {
+                                xs: 'column',
+                                md: 'row',
                             },
-                            float: {
-                                xs: 'none',
-                                sm: 'right',
-                            },
-                            paddingLeft: {
-                                xs: 0,
-                                sm: 4,
-                            },
-                            paddingBottom: {
-                                xs: 2,
-                                sm: 0,
-                            },
+                            alignItems: 'center',
+                            justifyContent: 'space-around',
                         }}>
-                        <img src="/assets/images/me_large.jpg" style={{ width: '100%' }} />
+                        
+                        <Box
+                            sx={{
+                                width: {
+                                    xs: '100%',
+                                    md: '30%',
+                                },
+                                paddingRight: {
+                                    xs: 0,
+                                    md: 2,
+                                },
+                                paddingBottom: {
+                                    xs: 2,
+                                    md: 0,
+                                },
+                            }}>
+                            <img src="/assets/images/me_large.jpg" style={{ width: '100%' }} />
+                        </Box>
+
+                        <Box
+                            sx={{
+                                background: colors.paperDarkBackground,
+                                width: {
+                                    xs: '100%',
+                                    md: '50%',
+                                },
+                                padding: {
+                                    xs: 2,
+                                    md: 4,
+                                },
+                                borderRadius: 2
+                            }}>
+                            <Typography variant="h2" gutterBottom paragraph>
+                                Hi, I'm Ivan Cherkasov
+                            </Typography>
+
+                            <Typography color="inherit" gutterBottom paragraph textAlign="justify">
+                                Today, I work as a Senior Software Engineer. I mostly use the .NET technology stack + React.js, but I constantly learn something new. Please, check my <Link href={linkedInLink.value}>LinkedIn profile</Link> for more information.
+                            </Typography>
+                        </Box>
                     </Box>
-
-                    <div>
-                        <Typography variant="h2" gutterBottom paragraph>
-                            Hi, I'm Ivan Cherkasov
-                        </Typography>
-
-                        <Typography gutterBottom paragraph>
-                            Since I was a kid, I have been passionate about software development. It started when I saw Visual Basic code listings for the first time in one of the books my dad bought me when I was a kid. My curiosity took over and now here I am.
-                        </Typography>
-
-                        <Typography gutterBottom paragraph>
-                            The first language that I studied was C++. When I was 13 I started learning C#, and now, for the last <b>{new Date().getFullYear() - 2013}+ years of my professional career</b>, .NET is the main stack of technologies I work with, but I constantly learn new stuff.
-                        </Typography>
-
-                        <Typography gutterBottom paragraph>
-                            I have experience of creating Windows desktop applications, web services and API, front-end. I worked with relational DBMS as well as with object-oriented DBMS. I performed migration of the monolithic on-premise web application to the cloud-based microservices. 
-                        </Typography>
-                    </div>
                 </ContentBlock>
 
                 <Box display="flex" flexDirection="column" marginTop={4}>
                     <Section title="What I'm Doing Now">
                         <SectionList>
                             <SectionListItem>
-                                Right now I live in <b>Wroclaw, Poland</b>, but I am about to move to <b>Toronto, Canada.</b>
+                                I am based in Australia.
                             </SectionListItem>
                             <SectionListItem>
-                                Working as a <b>Senior Software Engineer</b> in a Swiss multinational bank.
+                                Working as a <b>Senior Software Engineer</b>.
                             </SectionListItem>
                             <SectionListItem>
                                 Getting ready to get married.
@@ -168,6 +181,18 @@ export const AboutPage = () => {
                                 Learning languages. I speak Russian (native), English (fluent), French (beginner), Zulu (beginner).
                             </SectionListItem>
                         </SectionList>
+                    </Section>
+
+                    <Section title="Book Library">
+                        <Box marginBottom={8}>
+                            <BookList count={7} shelf="currently-reading" />
+                        </Box>
+
+                        <Box marginBottom={8}>
+                            <BookList count={7} shelf="read" />
+                        </Box>
+
+                        <BookLibraryButton />
                     </Section>
 
                     <Section title="Contact Me">
