@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import { ControllerContext, registerControllers } from './controllers';
 import { configure as configureDomain } from './domain/index.js';
-import db from './services/db.js';
+import db from '../database/databaseConnector.js';
 
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
 

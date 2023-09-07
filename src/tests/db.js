@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import db from '../server/services/db.js';
+import db from '../database/databaseConnector.js';
 
 
 /** @type {mongoose.Connection} */
@@ -9,7 +9,7 @@ let connection;
  * @returns {Promise<mongoose.Connection>}
  */
 const connect = async () => {
-    connection = await db.connect();
+    connection = await db.connect(true);
     return connection;
 };
 

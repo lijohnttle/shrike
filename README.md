@@ -14,9 +14,6 @@ It has been developed using JS, Node.JS, React.
 
 ### Unit Tests
 
-Prerequisites:
-- MongoDB
-
 Run command:
 
 ```
