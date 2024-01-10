@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Page } from '../../../components';
 import { WelcomeSection } from '../WelcomeSection';
-import { PortfolioSection } from '../PortfolioSection';
 import { useData } from '../../../hooks';
 import { BlogSection } from '../BlogSection';
 import { Box } from '@mui/system';
@@ -46,15 +45,13 @@ const HomePage = () => {
     }, [handleOrientationChange]);
 
     return (
-        <Page title="Home" hideHeader>
+        <Page title="Home">
             <div>
-                <Box position="relative">
+                {/* <Box position="relative">
                     <WelcomeSection contacts={data.contacts} screenHeight={screenHeight} />
-                </Box>
+                </Box> */}
 
                 <BlogSection disableBottomGutter />
-
-                <PortfolioSection />
             </div>
         </Page>
     );
