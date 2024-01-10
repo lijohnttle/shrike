@@ -1,3 +1,4 @@
+import { UserProfileDto } from '../../../../contracts/users/UserProfileDto';
 import { getUserAuthenticator, getUserProfileRepository } from '../../../domain';
 
 
@@ -8,9 +9,7 @@ const queryResolvers = {
 
             return {
                 success: true,
-                userProfile: {
-                    goodReadsUserId: userProfile.goodReadsUserId
-                }
+                userProfile: new UserProfileDto(userProfile)
             };
         }
         catch (error) {
