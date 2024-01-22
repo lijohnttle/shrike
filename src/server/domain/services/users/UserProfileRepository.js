@@ -1,3 +1,4 @@
+import { UserProfileDto } from '../../../../contracts/users/UserProfileDto.js';
 import { UserProfile } from '../../../data/models/users/UserProfile.js';
 import { UserContext } from '../../entities/authentication/UserContext.js';
 
@@ -5,16 +6,23 @@ import { UserContext } from '../../entities/authentication/UserContext.js';
 class UserProfileRepository {
     /**
      * Loads the user profile details.
-     * @returns {Promise<UserProfile>} User profile.
+     * @returns {Promise<UserProfileDto>} User profile.
      */
     async find() {
-        return await UserProfile.findOne().exec() || new UserProfile({ goodReadsUserId: '82436176' });
+        var result = await UserProfile.findOne().exec();
+
+        if (!result) {
+            result = new new UserProfile();
+            await UserProfile.create(result);
+        }
+
+        return result;
     }
 
     /**
      * Saves user profile changes.
-     * @param {UserProfile} changes User profile.
-     * @returns {Promise<UserProfile>} User profile.
+     * @param {UserProfileDto} changes User profile.
+     * @returns {Promise<UserProfileDto>} User profile.
      */
     async save(changes) {
         if (!changes) {
@@ -23,13 +31,12 @@ class UserProfileRepository {
     
         // Update or insert user profile
         const query = { };
-        const update = { $set: changes };
         const options = { upsert: true };
-    
-        const updateResult = await UserProfile.updateOne(query, update, options).exec();
+
+        const updateResult = await UserProfile.updateOne(query, changes, options).exec();
     
         if (updateResult.modifiedCount > 0 || updateResult.upsertedCount > 0) {
-            return await this.find().exec();
+            return await this.find();
         }
 
         return null;
@@ -47,7 +54,7 @@ class UserProfileCachedRepository {
 
     /**
      * Loads the user profile details.
-     * @returns {Promise<UserProfile>} User profile.
+     * @returns {Promise<UserProfileDto>} User profile.
      */
     async find() {
         let userProfile = this._userProfileCached;
@@ -63,7 +70,7 @@ class UserProfileCachedRepository {
 
     /**
      * Saves user profile changes.
-     * @param {UserProfile} changes User profile.
+     * @param {UserProfileDto} changes User profile.
      * @param {UserContext} userContext User context.
      * @returns {Promise<UserProfile>} User profile.
      */

@@ -4,6 +4,7 @@ export * from './BlogPostContent';
 export * from './BlogPostImage';
 export * from './BlogPostPreview';
 export * from './BreadCrumbs';
+export * from './CommonMarkdown';
 export * from './ContactLink';
 export * from './ContentBlock';
 export * from './CookieConsent';

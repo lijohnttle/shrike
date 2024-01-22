@@ -85,7 +85,6 @@ const EditBlogPostForm = (props) => {
                     </FieldContainer>
                     <FieldContainer>
                         <TextField
-                            required
                             label="Description"
                             multiline
                             maxRows={4}

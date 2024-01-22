@@ -4,10 +4,7 @@ import { CheckBox } from '@mui/icons-material';
 import ReactMarkdown from 'react-markdown';
 import RehypeRaw from 'rehype-raw';
 import RremarkGfm from 'remark-gfm';
-import { BlogPostModel } from '../../models';
 import { colors } from '../../themes';
-import { parseBlogPostUrl } from '../../utils/url';
-import { BlogPostImage } from '../BlogPostImage';
 
 
 /**
@@ -25,16 +22,13 @@ const CustomListItem = (props) => (
     </ListItem>
 );
 
-
 /**
  * 
  * @param {Object} param0
- * @param {BlogPostModel} param0.blogPost
+ * @param {Object} param0.content
  */
-export const BlogMarkdown = ({ blogPost }) => {
+export const CommonMarkdown = ({ content }) => {
     const theme = useTheme();
-
-    let content = blogPost.content;
 
     return (
         <ReactMarkdown
@@ -42,12 +36,7 @@ export const BlogMarkdown = ({ blogPost }) => {
             rehypePlugins={[RehypeRaw, RremarkGfm]}
             components={{
                 a: ({ href, ...otherProps }) => {
-                    const parsedUrl = parseBlogPostUrl(href, blogPost);
-
-                    return <Link href={parsedUrl.url} {...otherProps} />;
-                },
-                img: ({ src, alt }) => {
-                    return <BlogPostImage src={src} alt={alt} blogPost={blogPost} />;
+                    return <Link href={href} {...otherProps} />;
                 },
                 p:  (elementProps) => {
                     // unwrap images

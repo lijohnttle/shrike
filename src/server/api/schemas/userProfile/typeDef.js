@@ -14,7 +14,7 @@ const typeDef = `
     }
 
     type UserProfile {
-        goodReadsUserId: String!
+        goodReadsUserId: String
     }
 
     input UserProfileInput {
