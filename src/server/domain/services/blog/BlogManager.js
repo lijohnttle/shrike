@@ -13,6 +13,8 @@ import {
     mapBlogPostDtoToDocument } from './mappers';
 
 
+const excludeCategories = ['Personal'];    
+
 export class BlogManager {
     constructor() {
         /**
@@ -60,6 +62,11 @@ export class BlogManager {
                 if (options.categories.some(c => !c)) {
                     query.category['$in'].push(null);
                 }
+            }
+            else {
+                query.category = {
+                    $nin: excludeCategories,
+                };
             }
         }
 
@@ -299,6 +306,7 @@ export class BlogManager {
                 }),
                 ...categoriesList
                     .filter(c => !!c)
+                    .filter(c => !excludeCategories.some(ec => ec.toLocaleLowerCase() === c.toLocaleLowerCase()))
                     .sort()
                     .map(c => new BlogPostCategoryDto({ name: c }))
             ];
