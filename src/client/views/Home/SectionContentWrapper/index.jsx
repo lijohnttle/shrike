@@ -5,8 +5,8 @@ import { Loader } from '../../../components';
 
 
 const renderTitle = (title) => (
-    <Box paddingBottom={6}>
-        <Typography variant="h1" fontWeight="bold" align="center">
+    <Box paddingBottom={4}>
+        <Typography variant="h1" fontWeight="bold">
             {title?.toUpperCase()}
         </Typography>
     </Box>

@@ -207,7 +207,7 @@ function TileView({
                 </Box>
             </InternalLink>
 
-            {showDescription && (
+            {showDescription && blogPost.description && (
                 <InternalLink to={urlUtils.getBlogPostUrlPath(blogPost.slug)}>
                     <Typography
                         variant="body1"
@@ -332,21 +332,19 @@ function ListView({
                             )}
                     </InternalLink>
 
-                    {showDescription
-                        ? (
-                            <Typography
-                                variant="body1"
-                                textAlign="justify"
-                                sx={{
-                                    marginTop: {
-                                        xs: 1,
-                                        sm: compact ? 1 : 2,
-                                    },
-                                }}>
-                                {blogPost.description}
-                            </Typography>
-                        )
-                        : null}
+                    {showDescription && blogPost.description && (
+                        <Typography
+                            variant="body1"
+                            textAlign="justify"
+                            sx={{
+                                marginTop: {
+                                    xs: 1,
+                                    sm: compact ? 1 : 2,
+                                },
+                            }}>
+                            {blogPost.description}
+                        </Typography>
+                    )}
                 </Box>
             </Box>
 

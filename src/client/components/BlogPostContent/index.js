@@ -1,9 +1,10 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { BlogPostModel } from '../../models';
-import { BlogMarkdown, BlogPostImage, InternalLink } from '../.';
+import { BlogMarkdown, BlogPostImage, ContactLink, InternalLink } from '../.';
 import { colors } from '../../themes';
 import { getBlogPostUrlPath } from '../../../utils/urlBuilder';
+import { useData } from '../../hooks';
 
 
 /**
@@ -32,12 +33,12 @@ function RenderDescription({ blogPost }) {
     return (
         <Typography
             variant="body1"
-            fontStyle="italic"
             marginBottom={3}
             paddingTop={1}
             paddingBottom={1}
             paddingLeft={2}
             paddingRight={2}
+            fontSize='0.9rem'
             sx={{
                 background: colors.backgroundComplementary,
                 color: colors.textComplementary,
@@ -106,6 +107,25 @@ function RenderSeries({ blogPost }) {
     );
 }
 
+function RenderContacts({ contacts }) {
+    return (
+        <Box
+            marginTop={6}
+            paddingTop={4}
+            borderTop={1}
+            borderColor={colors.border}>
+            <Typography align="center" fontSize='0.9rem' gutterBottom paragraph>
+                Want to get in touch with me? Feel free to contact me via e-mail or any other social media:
+            </Typography>
+
+            <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
+                {contacts.filter(c => c.types.some(ct => ct === 'social')).map(
+                    contact => <ContactLink key={contact.vendor} contact={contact} fontSize="medium" />)}
+            </Box>
+        </Box>
+    );
+}
+
 /**
  * Represents ba blog post.
  * @param {Object} param0 
@@ -113,6 +133,8 @@ function RenderSeries({ blogPost }) {
  * @returns 
  */
 export function BlogPostContent({ blogPost }) {
+    const data = useData();
+
     return (
         <div>
             <RenderDescriptionImage blogPost={blogPost} />
@@ -120,6 +142,8 @@ export function BlogPostContent({ blogPost }) {
             <RenderSeries blogPost={blogPost} />
 
             <BlogMarkdown blogPost={blogPost} />
+
+            <RenderContacts contacts={data.contacts} />
         </div>
     );
 }

@@ -202,7 +202,7 @@ export class BlogManager {
         userContext.verifyAdminAccess();
 
         /** @type {BlogPostDocument} */
-        const existingBlogPost = await BlogPost.findOne({ _id: mongoose.Types.ObjectId(blogPost.id) }).exec();
+        const existingBlogPost = await BlogPost.findOne({ _id: new mongoose.Types.ObjectId(blogPost.id) }).exec();
 
         if (!existingBlogPost) {
             throw new Error('Not found');

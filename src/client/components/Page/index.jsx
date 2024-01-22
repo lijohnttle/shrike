@@ -28,7 +28,7 @@ const Page = ({ title, hideHeader, hideFooter, authenticated, children }) => {
             display="flex"
             flexDirection="column"
             minHeight="100vh">
-            {hideHeader !== true ? <Header dark /> : null}
+            {hideHeader !== true ? <Header light /> : null}
 
             <Box 
                 display="flex"

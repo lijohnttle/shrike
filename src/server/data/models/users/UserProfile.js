@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 
 const userProfileSchema = new mongoose.Schema({
-    goodReadsUserId: String
+    goodReadsUserId: String,
 });
 
 const UserProfile = mongoose.model('UserProfile', userProfileSchema);
