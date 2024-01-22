@@ -63,11 +63,15 @@ export class BlogManager {
                     query.category['$in'].push(null);
                 }
             }
-            else {
-                query.category = {
-                    $nin: excludeCategories,
-                };
-            }
+        }
+
+        if (!query.category) {
+            query.category = {
+                $nin: excludeCategories,
+            };
+        }
+        else {
+            query.category['$nin'] = excludeCategories;
         }
 
         let requestBuilder = BlogPost
