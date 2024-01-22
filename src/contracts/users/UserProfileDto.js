@@ -12,26 +12,5 @@ export class UserProfileDto {
          * @public
          */
         this.goodReadsUserId = props?.goodReadsUserId;
-
-        /**
-         * The header of a greetings message.
-         * @type {String}
-         * @public
-         */
-        this.greetingsHeader = props?.greetingsHeader;
-
-        /**
-         * The text of a greetings message.
-         * @type {String}
-         * @public
-         */
-        this.greetingsText = props?.greetingsText;
-
-        /**
-         * The text of a user profile summary.
-         * @type {String}
-         * @public
-         */
-        this.summary = props?.summary;
     }
 }

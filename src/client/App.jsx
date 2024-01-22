@@ -31,7 +31,6 @@ export function App() {
             <CookieConsent />
 
             <Routes>
-                <Route path={pagesDescriptors.ABOUT.path} element={<AboutPage />} />
                 <Route path={pagesDescriptors.SIGN_IN.path} element={<SignInPage />} />
                 <Route path={pagesDescriptors.SIGN_OUT.path} element={<SignOutPage />} />
                 <Route path={pagesDescriptors.ACCOUNT_MANAGEMENT.path} element={<AccountManagementPage />} />

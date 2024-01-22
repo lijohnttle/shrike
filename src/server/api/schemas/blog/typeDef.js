@@ -21,7 +21,7 @@ export const typeDef = `
     input CreateBlogPostInput {
         title: String!
         slug: String!
-        description: String!
+        description: String
         descriptionImage: String
         content: String!
         published: Boolean
@@ -34,7 +34,7 @@ export const typeDef = `
         id: String!
         title: String!
         slug: String!
-        description: String!
+        description: String
         descriptionImage: String
         content: String!
         published: Boolean
@@ -47,7 +47,7 @@ export const typeDef = `
         id: String!
         title: String!
         content: String!
-        description: String!
+        description: String
         descriptionImage: String
         slug: String!
         createdOn: String!
@@ -64,7 +64,7 @@ export const typeDef = `
     type BlogPostPreview {
         id: String!
         title: String!
-        description: String!
+        description: String
         descriptionImage: String
         slug: String!
         createdOn: String!

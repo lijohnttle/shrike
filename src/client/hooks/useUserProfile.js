@@ -12,9 +12,6 @@ async function fetchUserProfile() {
                     success
                     userProfile {
                         goodReadsUserId
-                        greetingsHeader
-                        greetingsText
-                        summary
                     }
                     errorMessage
                 }

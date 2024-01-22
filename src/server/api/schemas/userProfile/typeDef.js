@@ -15,16 +15,10 @@ const typeDef = `
 
     type UserProfile {
         goodReadsUserId: String
-        greetingsHeader: String
-        greetingsText: String
-        summary: String
     }
 
     input UserProfileInput {
         goodReadsUserId: String
-        greetingsHeader: String
-        greetingsText: String
-        summary: String
     }
 `;
 

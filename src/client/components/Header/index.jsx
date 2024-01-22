@@ -277,7 +277,6 @@ export const Header = ({ transparent, dark, light }) => {
             color={light ? colors.text : colors.textComplementary}
             sx={{
                 background: transparent ? 'transparent' : light  ? colors.background : colors.backgroundComplementaryContrast,
-                boxShadow: transparent ? 'unset' : `0 0 7px #00000051`,
             }}>
             <Container maxWidth="lg">
                 <Box
